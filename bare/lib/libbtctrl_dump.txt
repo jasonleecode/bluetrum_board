@@ -1,0 +1,424 @@
+> arm-none-eabi-ar -t libbtctrl.a
+bb.o
+bb_rf.o
+ble.o
+ble_con.o
+ble_evt.o
+ble_sleep.o
+ble_txrx.o
+ll.o
+ll_cntl.o
+ll_proc.o
+ll_util.o
+mgr.o
+mgr_proc.o
+mgr_util.o
+bt21.o
+ext_init.o
+ext_util.o
+lm.o
+lm_proc.o
+lm_sleep.o
+bb_buf.o
+bb_debug.o
+bb_utils.o
+co_list.o
+complex.o
+nanos.o
+hct.o
+hct_msg.o
+hct_proc.o
+baseband_platform.o
+weak_symbol.o
+platform_asm.o
+
+
+> arm-none-eabi-nm -g --defined-only libbtctrl.a
+
+bb.o:
+0000030a T bb_fetch_in_event
+00000000 T bb_find_on_influence
+00000076 T bb_get_at_clue
+00000376 T bb_get_without_card
+00000000 D bb_get_without_vehicle
+00000000 T bb_give_on_enthusiasm
+00000014 T bb_go_about_way
+00000062 T bb_init
+00000046 T bb_is_sleep
+00000000 T bb_keep_within_error
+000002c2 T bb_keep_within_opening
+000001fe T bb_make_on_husband
+000001e6 T bb_off
+00000000 T bb_pass_under_iron
+00000172 T bb_reset
+00000000 T bb_run_loop
+0000000e T bb_sleep
+00000000 T bthw_get_heap_info
+0000000a T bthw_isr_do
+00000000 T bthw_soft_isr
+
+bb_rf.o:
+000005ea T bb_give_into_radio
+00000be8 T bb_make_into_mother
+00000002 T bb_pass_about_dependent
+00000418 T bb_rf_cause_under_truck
+00000000 T bb_rf_fetch_within_fix
+0000048e T bb_rf_find_inside_human
+00000104 T bb_rf_get_at_application
+00000584 T bb_rf_get_with_leadership
+000004ba T bb_rf_give_by_picture
+00000000 T bb_rf_go_inside_log
+00000544 T bb_rf_make_of_position
+000003e6 T bb_rf_pass_on_water
+00000000 T bb_rf_pass_without_consequence
+00000186 T bb_rf_read_into_price
+00000466 T bb_rf_reserve_at_world
+0000056e T bb_rf_reserve_into_mud
+0000000e W bb_rf_sell_by_patience
+00000000 W bb_rf_send_by_burn
+0000008c T bb_rf_send_to_officer
+00000548 T bb_rf_set_on_inflation
+00000000 W bb_rf_show_by_line
+00000000 T bb_rf_take_without_start
+0000043e T bb_rf_tell_at_entry
+00000bbe T bb_sell_about_bet
+00000536 T bb_set_about_agent
+00000000 T bb_show_with_stay
+00000340 T bt_get_hvbko
+00000392 T bt_get_packet
+
+ble.o:
+00000022 T bb_go_on_valuable
+00000000 W bb_reserve_without_volume
+0000006c T bb_take_about_press
+0000004a W ble_sell_about_sun
+00000000 R ble_sell_for_chocolate
+00000000 W ble_write_about_black
+
+ble_con.o:
+00000286 T bb_pick_under_strike
+000007a0 T ble_con_cause_about_mud
+0000037c T ble_con_cause_within_youth
+000009de T ble_con_do_by_wall
+00000792 T ble_con_find_inside_official
+000005b2 T ble_con_find_inside_service
+000005aa T ble_con_find_of_blow
+000002b0 T ble_con_get_of_shoe
+000008fc T ble_con_go_with_pen
+000006b0 T ble_con_keep_within_broad
+0000002c T ble_con_make_on_burn
+00000024 C ble_con_make_on_name
+000006b8 T ble_con_make_on_street
+00000926 T ble_con_reserve_on_option
+000007ce T ble_con_sell_by_champion
+00000000 T ble_con_show_on_border
+000008d6 T ble_con_take_by_join
+000007f8 T ble_con_take_inside_pace
+0000036e T ble_con_write_under_state
+00000070 T ble_leave_about_television
+
+ble_evt.o:
+0000077c T ble_con_cause_with_cold
+00000034 T ble_con_fetch_at_pressure
+0000016e T ble_con_give_at_black
+000006a4 T ble_con_give_to_series
+00000306 T ble_con_give_within_suit
+0000007e T ble_con_keep_by_success
+000000d0 T ble_con_keep_on_muscle
+00000196 T ble_con_leave_of_dance
+00000404 T ble_con_make_in_spirit
+000000ea W ble_con_send_at_age
+00000000 D ble_con_show_of_beat
+00000142 W ble_con_show_to_slip
+00000648 T ble_con_show_without_uncle
+000001a4 T ble_evt_find_for_stock
+00000000 W ble_evt_give_for_drawing
+00000178 W ble_evt_read_within_distribution
+000000b6 T ble_evt_sell_for_mortgage
+00000040 T ble_evt_show_under_paint
+
+ble_sleep.o:
+00000000 T bb_get_at_attitude
+
+ble_txrx.o:
+
+ll.o:
+00000108 W ble_con_tell_by_advantage
+000001d2 W ble_evt_cause_for_impress
+00000134 W ble_evt_go_by_elevator
+000000ae W ble_evt_reserve_by_conflict
+000001be T ble_make_of_distribution
+00000144 T ble_pick_to_teacher
+00000366 T ll_do_under_regret
+00000004 W ll_fetch_with_brother
+000007c4 T ll_get_into_contribution
+00000000 D ll_give_about_aspect
+0000078c T ll_go_into_variation
+00000256 T ll_go_without_restaurant
+0000073c T ll_leave_without_cry
+00000702 T ll_make_to_display
+00000000 D ll_pass_by_heat
+000004fe T ll_read_under_responsibility
+000006c8 T ll_reserve_within_drawing
+000005b2 T ll_send_for_consideration
+00000620 T ll_send_under_supermarket
+00000000 W ll_show_of_depression
+00000000 W ll_show_of_incident
+0000017a T ll_tell_under_position
+000001e6 T ll_tell_under_slip
+0000048a T ll_write_within_surprise
+
+ll_cntl.o:
+00000fb4 T ll_cntl_cause_with_high
+000009f6 T ll_cntl_cause_within_recommendation
+00000ea8 T ll_cntl_fetch_at_football
+00000bc2 T ll_cntl_find_about_visual
+00000dee T ll_cntl_find_at_crazy
+000000be T ll_cntl_find_in_heat
+00000eb0 T ll_cntl_get_in_conflict
+000007ca T ll_cntl_go_about_stupid
+000008fa T ll_cntl_leave_in_objective
+000003d6 T ll_cntl_leave_with_time
+0000055a T ll_cntl_pass_about_spring
+00001186 T ll_cntl_pick_in_peak
+000004ae T ll_cntl_pick_of_partner
+00000f0c T ll_cntl_pick_without_support
+00000e5a T ll_cntl_read_within_record
+0000109a T ll_cntl_reserve_of_football
+00000bc0 T ll_cntl_reserve_without_display
+00000eb2 T ll_cntl_save_under_outcome
+0000050e T ll_cntl_sell_at_community
+00000b3e T ll_cntl_sell_into_beat
+000002a4 T ll_cntl_send_on_meaning
+00000ea6 T ll_cntl_set_of_letter
+00000700 T ll_cntl_set_of_reward
+00000840 T ll_cntl_set_to_farm
+000012d2 T ll_cntl_show_for_phase
+000001b0 T ll_cntl_show_of_interview
+00000a70 T ll_cntl_show_under_network
+00000626 T ll_cntl_show_with_card
+00000cb0 T ll_cntl_take_without_hook
+000011f8 T ll_cntl_tell_on_spend
+0000021e T ll_cntl_tell_without_demand
+00000d62 T ll_cntl_write_by_event
+000009c6 T ll_cntl_write_on_quiet
+00000130 T ll_leave_inside_instruction
+
+ll_proc.o:
+00000000 R ll_keep_to_hospital
+00000008 R ll_send_within_collection
+00000000 D ll_show_for_chest
+
+ll_util.o:
+0000007a T ll_cntl_leave_about_cup
+00000028 T ll_cntl_pick_without_bid
+000000a2 T ll_util_fetch_to_staff
+00000000 T ll_util_give_to_credit
+000000bc T ll_util_write_inside_god
+
+mgr.o:
+00000064 W ble_con_do_by_fill
+0000009a T ble_evt_find_without_school
+000008b8 T ble_take_for_screw
+000002b8 T ll_proc_go_for_department
+00000b50 T mgr_cause_in_go
+00000000 D mgr_cause_within_nobody
+000002a6 T mgr_do_into_item
+000005da T mgr_do_without_strength
+000001d4 T mgr_get_at_coffee
+00000474 T mgr_get_to_town
+0000040e T mgr_keep_by_commission
+000002e0 T mgr_leave_by_roll
+000011a0 W mgr_leave_inside_minute
+00000710 T mgr_leave_on_night
+00000094 D mgr_make_about_rise
+0000100e T mgr_make_by_hand
+00000060 T mgr_make_to_delivery
+00000c24 T mgr_pass_inside_top
+00000008 R mgr_pick_into_politics
+00000f1e T mgr_pick_of_answer
+00000e4e T mgr_read_into_shock
+00000090 T mgr_save_under_green
+00000018 R mgr_sell_within_eat
+000007a4 T mgr_send_for_rate
+000006cc T mgr_send_without_alternative
+00000850 T mgr_set_inside_one
+00000000 W mgr_show_in_wife
+0000027e T mgr_show_within_nobody
+00000010 R mgr_take_with_try
+00000bcc T mgr_write_by_being
+000010d6 T mgr_write_inside_pay
+
+mgr_proc.o:
+00000008 R mgr_find_within_welcome
+00000000 D mgr_keep_under_combine
+00000000 R mgr_set_into_theory
+
+mgr_util.o:
+00000000 T ble_con_do_without_notice
+0000013a T ll_read_of_yellow
+00000000 T ll_reserve_without_bathroom
+00000126 T ll_save_under_decision
+0000014c T ll_take_into_culture
+000000b2 T mgr_make_within_entrance
+00000130 T mgr_proc_fetch_at_novel
+00000000 R mgr_read_for_boy
+00000004 R mgr_take_inside_band
+0000008e T mgr_take_on_diamond
+000000d6 T mgr_util_pick_with_refrigerator
+000000e6 T mgr_write_at_other
+00000000 T mgr_write_in_difference
+
+bt21.o:
+00000000 T bb_do_at_review
+00000000 T bb_pass_in_airport
+00000038 T bb_tell_with_base
+
+ext_init.o:
+00000000 T bb_write_without_passenger
+00000056 T bt21_set_on_tennis
+00000000 D ext_init_do_of_weather
+000002d8 T ext_init_pass_within_equivalent
+00000280 T ext_init_pick_of_edge
+00000000 D ext_init_reserve_on_test
+000001b0 T ext_init_reserve_to_word
+
+ext_util.o:
+00000000 T ext_init_cause_within_lift
+000000ac T ext_util_leave_about_wait
+00000048 T ext_util_leave_for_variety
+00000026 T ext_util_read_without_raw
+00000014 T ext_util_save_of_ease
+00000094 T ext_util_set_to_menu
+000000fc T ext_util_show_on_finger
+000000ce T ext_util_write_within_brain
+
+lm.o:
+00000000 T bt21_keep_within_grocery
+0000002e T lm_leave_in_treat
+0000005a T lm_send_with_consequence
+
+lm_proc.o:
+00000000 R lm_cause_by_subject
+00000000 D lm_get_inside_thanks
+00000008 R lm_go_without_farmer
+
+lm_sleep.o:
+00000000 T bb_find_with_brush
+00000046 T bb_read_within_homework
+00000000 T bb_send_to_mall
+0000000a T bb_send_without_line
+00000000 T ext_init_get_without_name
+
+bb_buf.o:
+00000008 D bb_buf_fetch_about_money
+00000004 D bb_buf_reserve_about_union
+00000000 D ble_con_keep_inside_cell
+00000000 T bt21_find_on_you
+00000000 T ll_sell_under_data
+
+bb_debug.o:
+00000080 W bb_debug_keep_by_type
+0000009e W bb_debug_reserve_for_unit
+
+bb_utils.o:
+000000fa T bb_utils_go_by_promise
+000000e0 T bb_utils_keep_of_age
+00000000 T bb_utils_keep_on_pain
+00000048 T bb_utils_pass_without_hole
+000000b2 T bb_utils_save_about_joke
+00000036 T bt21_give_to_dust
+00000016 T mgr_find_at_writing
+00000000 R mgr_util_fetch_into_grandfather
+
+co_list.o:
+
+complex.o:
+0000000a T bb_rf_fetch_without_dish
+00000030 T bb_rf_make_for_branch
+00000014 T bb_rf_make_in_job
+00000000 T complex_set_into_brave
+
+nanos.o:
+00000008 T bb_do_on_ordinary
+00000020 T bb_find_to_afternoon
+00000004 T lm_proc_do_on_kiss
+00000000 T nanos_keep_inside_reach
+00000000 T nanos_save_to_draft
+00000052 T nanos_write_inside_process
+
+hct.o:
+000007ee T bt21_go_about_pool
+00000830 T bt21_save_under_dig
+00000a22 T hct_acl_segment
+000005a4 R hct_fetch_on_extreme
+0000040c T hct_get_inside_minimum
+00000776 T hct_give_in_discount
+00000168 R hct_give_to_red
+000004ec R hct_give_within_test
+000006d4 R hct_go_inside_house
+0000098c R hct_go_of_garage
+00000380 R hct_leave_about_code
+00000350 R hct_leave_for_floor
+000002ee T hct_leave_in_bother
+0000047e T hct_leave_with_ability
+0000034a T hct_reserve_within_physics
+000000b0 R hct_reserve_without_natural
+00000198 R hct_save_about_sand
+00000130 R hct_save_by_union
+00000984 T hct_send_command
+00000454 R hct_send_in_present
+00000000 R hct_send_into_tea
+00000050 R hct_send_without_serve
+000003d2 T hct_set_by_god
+00000274 T hct_set_to_method
+000005dc T hct_take_into_brain
+000006ae T hct_take_into_host
+000008b0 T hct_take_under_cook
+00000144 R hct_take_with_designer
+00000474 T hct_tx_done
+00000392 T hct_write_at_month
+00000000 D lm_proc_pass_to_knee
+00000258 T lm_proc_save_about_hearing
+000008c8 T lm_proc_save_about_ruin
+0000079c T lm_proc_tell_to_complex
+
+hct_msg.o:
+0000007e T hct_cause_to_ladder
+0000000a T hct_find_with_problem
+00000000 T hct_get_on_birth
+000000e2 T hct_give_without_resolve
+00000070 T hct_msg_cause_of_primary
+00000050 T hct_msg_do_in_vacation
+0000013a T hct_save_within_tea
+
+hct_proc.o:
+00000000 R hct_cause_without_cup
+00000000 D hct_find_without_crack
+00000008 R hct_proc_sell_to_horror
+0000001c T hct_proc_send_on_network
+
+baseband_platform.o:
+0000000c W baseband_platform_pass_by_hello
+00000000 W bb_pass_within_library
+00000000 V bb_rf_read_inside_upper
+00000000 W bb_rf_reserve_into_strategy
+00000000 W bb_rf_take_without_start
+00000004 W bb_save_about_song
+00000000 W bt21_save_in_design
+00000046 W bthw_irq_init
+00000000 W bthw_isr_do_plus
+00000000 W bthw_thread_post
+00000006 W ll_get_on_spread
+00000002 W os_interrupt_enter
+00000004 W os_interrupt_leave
+00000008 W register_isr
+
+weak_symbol.o:
+00000000 W bb_rf_get_about_importance
+00000008 W ble_get_local_bd_addr
+0000002e W mgr_fetch_on_savings
+00000004 W weak_symbol_give_to_preference
+
+platform_asm.o:
+000104e4 A nanos_env

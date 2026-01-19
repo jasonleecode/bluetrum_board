@@ -75,8 +75,9 @@ $(BUILD)/%.o: %.S
 # ======================
 # Link
 # ======================
-$(BUILD)/$(TARGET).elf: $(OBJS)
+$(BUILD)/$(TARGET).elf: $(OBJS) $(HAL_LIB) linker.ld
 	$(LD) $(OBJS) \
+	    $(CFLAGS) \
 	    $(HAL_LIB) \
 	    $(LDFLAGS) \
 	    -o $@
@@ -97,6 +98,7 @@ hex: $(BUILD)/$(TARGET).elf
 clean:
 	rm -rf $(BUILD)
 
+.PHONY: all bin hex clean
 # ======================
 # Dependencies
 # ======================
