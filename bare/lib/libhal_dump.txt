@@ -1,0 +1,255 @@
+# 查看 libhal.a 库中包含了哪些对象文件（模块），了解库的组成结构，为后续查看具体符号或封装驱动做准备。
+> arm-none-eabi-ar -t libhal.a
+audio.o
+sdadc.o
+driver_spi.o
+cache.o
+s_cache.o
+fmrx.o
+fmrx_ang.o
+spiflash.o
+ab32vg1_hal_adc.o
+debug.o
+delay.o
+platform.o
+rom_fun.o
+save-restore.o
+huart.o
+usb_comm.o
+usb_detect.o
+usb_device_audio.o
+usb_device_enum.o
+usb_device_ep.o
+usb_device_hid.o
+usb_device_run_loop.o
+usb_device_table.o
+
+# 列出 libhal.a 里所有对外可用的函数和全局变量，并且只显示库里真正定义过的符号，不显示局部符号或未实现的引用。
+> arm-none-eabi-nm -g --defined-only libhal.a
+
+audio.o:
+000002be T aux_analog_channel_close
+000000b6 T aux_analog_channel_select
+00000000 R mic_anl_table
+0000050c T sdadc_analog_mic_exit
+000003ba T sdadc_analog_mic_start
+00000000 T set_aux_analog_gain
+00000056 T set_mic_analog_gain
+
+sdadc.o:
+00000000 W sdadc_dma_notice
+000003be T sdadc_exit
+0000021a T sdadc_get_channel
+00000238 T sdadc_get_dma_samples
+0000022e T sdadc_get_gain
+00000224 T sdadc_get_sample_rate
+00000002 W sdadc_isr
+00000000 T sdadc_set_channel
+0000020e T sdadc_set_dma_samples
+000001de T sdadc_set_gain
+00000012 T sdadc_set_sample_rate
+00000242 T sdadc_start
+
+driver_spi.o:
+00000014 R blue_spi1
+
+cache.o:
+00000000 D _cache_cb
+0000002c C cache_cb
+00000000 T load_bank
+00000154 T load_cache_execute
+0000017c T lock_cache
+00000000 T os_cache_init
+0000004e T os_cache_setfunc
+00000112 T search_bank
+00000000 T set_correct_line
+
+s_cache.o:
+00000000 T isr_cache
+0000009c T load_bank_fix
+00000062 T load_cache
+
+fmrx.o:
+00000000 T fmrx_dac_sync
+000000f8 T fmrx_digital_start
+000000e0 T fmrx_digital_stop
+00000130 T fmrx_dma_to_aubuf
+0000011e T fmrx_get_audio_data
+000000ba T fmrx_power_off
+0000002c T fmrx_power_on
+
+fmrx_ang.o:
+00000100 T fmrx_analog_init
+00000000 T fmrx_set_pll
+00000424 T fmrx_set_rf_cap
+
+spiflash.o:
+0000035e T os_spiflash_erase
+000002da T os_spiflash_program
+00000292 T os_spiflash_read
+00000004 C spi_dummy_byte
+00000114 T spiflash_read
+
+ab32vg1_hal_adc.o:
+00000000 T hal_adc_enable
+0000001a T hal_adc_poll_for_conversion
+00000014 T hal_adc_start
+
+debug.o:
+00000000 R debug_dump_err_str_1
+00000004 T debug_dump_info
+00000026 T debug_set
+00000004 C dump_err
+00000004 C dump_info
+00000000 W os_get_interrupt_nest
+00000000 T set_dump
+00000094 T sys_error_hook
+
+delay.o:
+00000000 T delay_us
+
+platform.o:
+00000000 T bitset_cnt
+00000006 T dummy_dump
+00000006 T dummy_func
+
+rom_fun.o:
+0008400c A my_print_r
+00084004 A my_printf
+
+save-restore.o:
+00000122 T __riscv_restore_0
+0000011e T __riscv_restore_1
+000000fa T __riscv_restore_10
+000000f6 T __riscv_restore_11
+000000f2 T __riscv_restore_12
+0000011a T __riscv_restore_2
+00000116 T __riscv_restore_3
+00000112 T __riscv_restore_4
+0000010e T __riscv_restore_5
+0000010a T __riscv_restore_6
+00000106 T __riscv_restore_7
+00000102 T __riscv_restore_8
+000000fe T __riscv_restore_9
+000000ec T __riscv_save_0
+000000e4 T __riscv_save_1
+0000003c T __riscv_save_10
+00000020 T __riscv_save_11
+00000000 T __riscv_save_12
+000000da T __riscv_save_2
+000000ce T __riscv_save_3
+000000c0 T __riscv_save_4
+000000b0 T __riscv_save_5
+0000009e T __riscv_save_6
+0000008a T __riscv_save_7
+00000072 T __riscv_save_8
+00000058 T __riscv_save_9
+00000128 T _gp
+
+huart.o:
+00000000 T huart_exit
+00000000 T huart_get_rxcnt
+00000000 T huart_getchar
+0000000a T huart_if_rx_ovflow
+00000000 T huart_init_do
+00000000 T huart_putchar
+00000000 T huart_rxfifo_clear
+00000000 T huart_setbaudrate
+00000000 T huart_tx
+00000000 T huart_tx_done
+
+usb_comm.o:
+00000000 D ep0_buf
+00000000 R epsize_tbl
+00000000 T usb_disable
+00000024 W usb_init
+00000000 T usb_interrupt_disable
+00000000 W usb_isr
+
+usb_detect.o:
+00000002 C usbchk_cb
+0000001c T usbchk_connect
+00000000 T usbchk_only_device
+00000000 T usbchk_only_host
+00000000 W usbchk_switch_init_state
+00000000 T usbchk_switch_otg_device
+00000000 T usbchk_switch_otg_host
+
+usb_device_audio.o:
+00000000 W ex_spk_vol
+00000000 T uda_get_spk_mute
+0000000e T uda_get_spk_volume
+00000090 T uda_init
+0000008e T uda_run_loop_execute
+0000004e T uda_set_spk_mute
+00000058 T uda_set_spk_volume
+0000000a W ude_get_sys_vol_level
+00000006 W ude_get_sys_volume
+00000000 B ude_mic_fadain
+00000002 W ude_mic_start
+00000004 W ude_mic_stop
+00000000 W ude_micdnr_process
+00000000 W ude_set_sys_volume
+0000007e T usb_isoc_reset
+
+usb_device_enum.o:
+000000ba T get_setup
+00000186 W ude_control_flow
+00000304 T ude_init
+000002a4 T ude_run_loop_execute
+0000000a C usb_device_qualifier
+00000294 T usbd_ep_clear_stall
+0000011a W usbd_ep_reset
+00000282 T usbd_ep_set_stall
+00000272 T usbd_ep0_send_status
+000000ee T usbd_ep0_set_address
+000000a4 T usbd_ep0_transmit
+
+usb_device_ep.o:
+00000024 C eps
+0000010c T usb_ep_clear
+000003b2 T usb_ep_do_transfer
+000000a8 T usb_ep_halt
+00000018 T usb_ep_init
+0000030a T usb_ep_reset
+00000392 T usb_ep_start_transfer
+00000164 T usb_ep_transfer
+00000000 T usb_set_cur_ep
+
+usb_device_hid.o:
+00000000 T ude_hid_setvalid
+00000000 T ude_tmr_isr
+000000ac T udh_init
+00000084 T usb_int_ep_reset
+00000016 T usbd_ep3_transmit
+
+usb_device_run_loop.o:
+00000000 D ep3_buf
+00000018 C epcb2_rx
+00000018 C epcb3_tx
+00000010 C uda_0
+00000028 C ude_0
+00000008 C udh_0
+00000000 W usb_dev_isr
+000000c2 T usb_device_enter
+00000000 T usb_device_exit
+00000000 T usb_device_hid_send
+0000001a T usb_device_init
+
+usb_device_table.o:
+0000013c R desc_config_audio
+000000fc R desc_config_audio_mic
+000000dc R desc_config_audio_mic_double
+0000011c R desc_config_audio_speaker
+00000168 R desc_config_general
+00000024 R desc_config_hid
+00000074 R desc_config_mic_stream
+00000040 R desc_config_mic_stream_double
+000000a8 R desc_config_speaker_stream
+00000150 R desc_config_storage
+00000000 R desc_hid_report
+00000050 V desc_usb_device
+0000004c V str_language_id
+0000003c V str_manufacturer
+00000020 V str_product
+00000000 V str_serial_number

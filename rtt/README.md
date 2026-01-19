@@ -40,47 +40,7 @@ void example_isr(void)
 }
 ```
 
-## 开发板介绍
 
-ab32vg1-prougen 是 中科蓝讯(Bluetrum) 推出的一款基于 RISC-V 内核的开发板，最高主频为 120Mhz，该开发板芯片为 AB32VG1。
-
-开发板外观如下图所示：
-
-![board](figures/board.png)
-
-该开发板常用 **板载资源** 如下：
-
-- MCU：AB32VG1，主频 120MHz，可超频至 192MHz，8Mbit FLASH ，192KB RAM。
-- 常用外设
-  - LED: RGB灯
-  - 按键: 3 个, USER(s2,s3) and RESET(s1)
-- 常用接口：USB 转串口、SD 卡接口
-
-## 外设支持
-
-本 BSP 目前对外设的支持情况如下：
-
-| **板载外设** | **支持情况** | **备注**                                  |
-| :----------- | :----------: | :---------------------------------------- |
-| USB 转串口   |     支持     |                                           |
-| SD卡         |     支持     |                                           |
-| IRDA         |     支持     |                                           |
-| 音频接口     |     支持     | 支持音频输出                              |
-| **片上外设** | **支持情况** | **备注**                                  |
-| GPIO         |     支持     | PA PB PE PF                               |
-| UART         |     支持     | UART0/1/2                                 |
-| SDIO         |     支持     |                                           |
-| ADC          |     支持     | 10bit SRADC  16bit SDADC                  |
-| SPI          |   即将支持   |                                           |
-| I2C          |     支持     | 软件 I2C                                  |
-| RTC          |     支持     |                                           |
-| WDT          |     支持     |                                           |
-| FLASH        |     支持     | 对接 FAL                                  |
-| TIMER        |     支持     |                                           |
-| PWM          |     支持     | LPWM 的 G1 G2 G3 之间是互斥的，只能三选一 |
-| FM receive   |     支持     |                                           |
-| USB Device   |   暂不支持   |                                           |
-| USB Host     |   暂不支持   |                                           |
 
 ## 使用说明
 
