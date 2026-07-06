@@ -1,5 +1,6 @@
 #include "drv_fm.h"
-#include <stdio.h>
+
+int main(void);
 
 int main(void)
 {
@@ -9,18 +10,15 @@ int main(void)
     };
 
     if (!drv_fm_init(&cfg)) {
-        printf("FM init failed\n");
+        // FM init failed, could use LED or other indicator
         return -1;
     }
 
     drv_fm_start();
+    drv_fm_route_to_audio_buffer(true);
 
-    int16_t audio_buf[512];
     while (1) {
-        uint32_t samples = drv_fm_get_audio(audio_buf, 512);
-        if (samples > 0) {
-            /* 这里可以送到 DAC / USB Audio */
-        }
+        drv_fm_sync_dac(512);
     }
 
     drv_fm_stop();

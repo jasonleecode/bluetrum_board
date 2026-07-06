@@ -14,7 +14,8 @@ bool drv_usb_init(drv_usb_mode_t mode);
 /* USB Audio 控制 */
 void drv_usb_audio_set_volume(uint8_t vol);
 void drv_usb_audio_mute(bool enable);
-void drv_usb_audio_send(int16_t *buf, uint32_t len);
+bool drv_usb_audio_enable_fm_dma(bool enable);
+bool drv_usb_audio_send(int16_t *buf, uint32_t len);
 
 /* USB HID 控制 */
 void drv_usb_hid_send(uint8_t *buf, uint32_t len);

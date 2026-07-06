@@ -7,7 +7,7 @@ extern void uda_run_loop_execute(void);
 extern void uda_set_spk_volume(uint8_t vol);
 extern void uda_set_spk_mute(uint8_t en);
 extern void usb_isoc_reset(void);
-extern void fmrx_dma_to_aubuf(void *buf, uint32_t len);
+extern void fmrx_dma_to_aubuf(uint32_t enable);
 
 void drv_usb_audio_init(void)
 {
@@ -19,14 +19,20 @@ void drv_usb_audio_set_volume(uint8_t vol)
     uda_set_spk_volume(vol);
 }
 
-void drv_usb_audio_mute(uint8_t enable)
+void drv_usb_audio_mute(bool enable)
 {
     uda_set_spk_mute(enable ? 1 : 0);
 }
 
-/* 输出数据到 USB（简单封装） */
-void drv_usb_audio_send(int16_t *buf, uint32_t len)
+bool drv_usb_audio_enable_fm_dma(bool enable)
 {
-    /* 假设底层 HAL 已有 DMA */
-    fmrx_dma_to_aubuf(buf, len);
+    fmrx_dma_to_aubuf(enable ? 1u : 0u);
+    return true;
+}
+
+bool drv_usb_audio_send(int16_t *buf, uint32_t len)
+{
+    (void)buf;
+    (void)len;
+    return false;
 }

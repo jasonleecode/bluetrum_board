@@ -25,6 +25,7 @@ extern void ude_run_loop_execute(void);
 extern void usb_ep_init(uint8_t ep, uint8_t type, uint16_t size);
 extern void usb_ep_halt(uint8_t ep);
 extern void usb_ep_do_transfer(uint8_t ep, void *buf, uint32_t len);
+extern void usbchk_connect(void);
 
 /* 内部状态 */
 static drv_usb_mode_t usb_mode;
@@ -61,26 +62,6 @@ void drv_usb_run_loop(void)
         ude_run_loop_execute();
         uda_run_loop_execute();
     }
-}
-
-/* ---------------- USB Audio 控制 ---------------- */
-void drv_usb_audio_set_volume(uint8_t vol)
-{
-    uda_set_spk_volume(vol);
-}
-
-void drv_usb_audio_mute(bool enable)
-{
-    uda_set_spk_mute(enable ? 1 : 0);
-}
-
-void drv_usb_audio_send(int16_t *buf, uint32_t len)
-{
-    if(!buf || len == 0) return;
-
-    /* 通过 HAL DMA / Isochronous 发送 */
-    usb_isoc_reset(); /* 确保同步 */
-    usb_ep_do_transfer(1, buf, len); /* EP1 假设为 Audio OUT */
 }
 
 /* ---------------- USB HID 控制 ---------------- */

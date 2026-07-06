@@ -8,9 +8,9 @@ extern void fmrx_power_on(void);
 extern void fmrx_power_off(void);
 extern void fmrx_digital_start(void);
 extern void fmrx_digital_stop(void);
-extern void fmrx_dac_sync(void);
-extern uint32_t fmrx_dma_to_aubuf(void *buf, uint32_t len);
-extern uint32_t fmrx_get_audio_data(int16_t *buf, uint32_t len);
+extern void fmrx_dac_sync(uint32_t samples_or_words);
+extern void fmrx_dma_to_aubuf(uint32_t enable);
+extern void fmrx_get_audio_data(void *buf, uint32_t len);
 
 /* 内部状态 */
 static bool fm_initialized = false;
@@ -19,17 +19,14 @@ bool drv_fm_init(const drv_fm_cfg_t *cfg)
 {
     if (!cfg) return false;
 
-    /* 初始化模拟前端 */
-    fmrx_analog_init();
+    /* fmrx_power_on 内部会初始化模拟前端。 */
+    fmrx_power_on();
 
     /* 设置频率 PLL */
     fmrx_set_pll(cfg->frequency_khz);
 
     /* 校准射频电容 */
     fmrx_set_rf_cap(cfg->rf_cap);
-
-    /* 打开功放 / FM 模块 */
-    fmrx_power_on();
 
     fm_initialized = true;
     return true;
@@ -60,17 +57,31 @@ void drv_fm_power_off(void)
     fm_initialized = false;
 }
 
-uint32_t drv_fm_get_audio(int16_t *buf, uint32_t max_samples)
+bool drv_fm_capture_to_buffer(int16_t *buf, uint32_t samples)
 {
-    if (!fm_initialized || !buf) return 0;
+    if (!fm_initialized || !buf || samples == 0) return false;
 
-    /* 从 DMA buffer 读取音频数据 */
-    return fmrx_get_audio_data(buf, max_samples);
+    fmrx_get_audio_data(buf, samples);
+    return true;
 }
 
-void drv_fm_sync_dac(void)
+bool drv_fm_route_to_audio_buffer(bool enable)
+{
+    if (!fm_initialized) return false;
+
+    fmrx_dma_to_aubuf(enable ? 1u : 0u);
+    return true;
+}
+
+uint32_t drv_fm_get_audio(int16_t *buf, uint32_t max_samples)
+{
+    (void)drv_fm_capture_to_buffer(buf, max_samples);
+    return 0;
+}
+
+void drv_fm_sync_dac(uint32_t samples_or_words)
 {
     if (!fm_initialized) return;
 
-    fmrx_dac_sync();
+    fmrx_dac_sync(samples_or_words);
 }
