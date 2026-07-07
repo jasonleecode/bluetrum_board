@@ -39,6 +39,8 @@ DEPENDS = [""]
 #---------------------------------------------------------------------------------
 CWD              = GetCurrentDir()
 SOURCES          = Glob("./source/*.c")
+SOURCES         += Glob("./source/*.S")
+VENDOR_LIBPATH   = os.path.abspath(os.path.join(CWD, '../../../../../bare/lib'))
 
 LOCAL_CPPPATH    = []
 LOCAL_CFLAGS     = ""
@@ -55,8 +57,8 @@ ASFLAGS          = ""
 CPPDEFINES       = []
 LOCAL_CPPDEFINES = []
 
-LIBS             = []
-LIBPATH          = []
+LIBS             = ['hal']
+LIBPATH          = [VENDOR_LIBPATH]
 
 LINKFLAGS        = ""
 

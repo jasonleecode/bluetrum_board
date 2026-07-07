@@ -9,7 +9,6 @@
  */
 
 #include <rthw.h>
-#include <stdarg.h>
 #include "board.h"
 
 int rt_hw_usart_init(void);
@@ -18,19 +17,6 @@ void my_print_r(const void *buf, uint16_t cnt);
 void timer0_cfg(uint32_t ticks);
 void rt_soft_isr(int vector, void *param);
 
-#ifdef RT_USING_CONSOLE
-void my_printf(const char *format, ...)
-{
-    va_list args;
-    rt_size_t length;
-    static char log_buf[RT_CONSOLEBUF_SIZE];
-
-    va_start(args, format);
-    length = rt_vsnprintf(log_buf, sizeof(log_buf), format, args);
-    rt_hw_console_output(log_buf);
-    va_end(args);
-}
-#endif
 void cpu_irq_comm(void);
 void set_cpu_irq_comm(void (*irq_hook)(void));
 void load_cache();

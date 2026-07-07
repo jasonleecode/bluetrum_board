@@ -9,6 +9,8 @@ __ble_ram_size = 10k;
 
 __base = 0x10000000;
 
+ENTRY(_start)
+
 __bram_vma = 0x11000;
 __heap_vma = __bram_vma + __ble_ram_size;
 __data_vma = __heap_vma + __heap_ram_size;
