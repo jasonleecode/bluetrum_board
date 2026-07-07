@@ -24,6 +24,7 @@ XMAKER_BLOCK_SIZE = 512
 XFIL_KEY = 0x4C494658
 XAPP_KEY = 0x50504158
 LVMG_KEY = 0x474D564C
+SEG_KEY_XOR = 0x6B676573
 
 
 def align_up(value: int, alignment: int) -> int:
@@ -49,6 +50,13 @@ def put_u16le(buf: bytearray, offset: int, value: int) -> None:
 
 def put_u32le(buf: bytearray, offset: int, value: int) -> None:
     struct.pack_into("<I", buf, offset, value & 0xFFFFFFFF)
+
+
+def put_tag(buf: bytearray, offset: int, tag: str, highbit: bool = True) -> None:
+    raw = highbit_tag_bytes(tag) if highbit else tag.encode("ascii")
+    if len(raw) != 4:
+        raise ValueError(f"tag must encode to 4 bytes: {tag!r}")
+    buf[offset : offset + 4] = raw
 
 
 def duplicate_u16(value: int) -> int:
@@ -291,6 +299,135 @@ def inspect_experimental_body(
     return lines
 
 
+def find_tag(data: bytes, tag: str, start: int = 0) -> int:
+    raw = highbit_tag_bytes(tag)
+    pos = data.find(raw, start)
+    if pos < 0:
+        raise ValueError(f"tag {tag!r} not found")
+    return pos
+
+
+def build_experimental_dcf(header: bytes, app: bytes, xor_table: list[int]) -> bytes:
+    """Build an experimental DCF wrapper for the normal header+app path."""
+
+    body = bytearray(build_experimental_body(header, app, xor_table, encrypt=True))
+    body_len = len(body)
+    xcod_record = FIRST_BODY_SIZE
+    xcod_overhead = read_u32le(body, xcod_record + 0x04)
+    xcod_payload_size = read_u32le(body, xcod_record + 0x08)
+    app_payload_offset = xcod_record + xcod_overhead
+    app_payload_end = app_payload_offset + xcod_payload_size
+
+    dev_len = 0x0C if read_u32le(header, 0x58) > 0 else 0x08
+    key_record_len = 0x10 if header[0x5C] != 0 or read_u16le(header, 0x64) != 0 else 0
+    app_segment_extra = 0x08
+    wrapper_len = 0x48 + dev_len + key_record_len + app_segment_extra
+
+    dcf = bytearray(wrapper_len)
+    put_tag(dcf, 0x00, "DCF\0", highbit=False)
+    put_u32le(dcf, 0x04, body_len + wrapper_len - 0x08)
+
+    put_tag(dcf, 0x08, "XEAD")
+    put_u32le(dcf, 0x0C, wrapper_len - 0x18)
+
+    put_tag(dcf, 0x10, "INFO")
+    put_u32le(dcf, 0x14, 0x08)
+    put_u32le(dcf, 0x18, read_u32le(body, 0x04))
+    put_u32le(dcf, 0x1C, read_u32le(body, 0x08))
+
+    pos = 0x20
+    put_tag(dcf, pos, "DEV\0")
+    put_u32le(dcf, pos + 0x04, dev_len)
+    put_u16le(dcf, pos + 0x08, read_u16le(header, 0x52))
+    dcf[pos + 0x0C : pos + 0x10] = header[0x54:0x58]
+    if dev_len > 0x08:
+        put_u32le(dcf, pos + 0x10, read_u32le(header, 0x58))
+    pos = 0x28 + dev_len
+
+    if key_record_len:
+        put_tag(dcf, pos, "KEY\0")
+        put_u32le(dcf, pos + 0x04, 0x08)
+        dcf[pos + 0x08] = header[0x5C]
+        put_u16le(dcf, pos + 0x0A, read_u16le(header, 0x64))
+        put_u32le(dcf, pos + 0x0C, read_u32le(header, 0x60) ^ SEG_KEY_XOR)
+        pos += key_record_len
+
+    put_tag(dcf, pos, "SEG\0")
+    put_u32le(dcf, pos + 0x04, 0x0C)
+    put_u32le(dcf, pos + 0x08, 0x01)
+    put_u32le(dcf, pos + 0x0C, app_payload_offset)
+    put_u32le(dcf, pos + 0x10, app_payload_end)
+    pos += 0x14
+
+    crc_pos = pos
+    put_tag(dcf, crc_pos, "CRC\0")
+    put_u32le(dcf, crc_pos + 0x04, 0x04)
+    body_crc = xmaker_crc16(bytes(body))
+    put_u16le(dcf, crc_pos + 0x08, body_crc)
+    wrapper_crc = xmaker_crc16(bytes(dcf[: crc_pos + 0x0A]))
+    put_u16le(dcf, crc_pos + 0x0A, wrapper_crc)
+    pos += 0x0C
+
+    put_tag(dcf, pos, "DATA")
+    put_u32le(dcf, pos + 0x04, body_len)
+    pos += 0x08
+    if pos != wrapper_len:
+        raise ValueError(f"wrapper length mismatch: computed={wrapper_len} written={pos}")
+
+    if header[0x5C] != 0:
+        xor_stream_inplace(body, 0, body_len, read_u32le(header, 0x60), xor_table)
+
+    return bytes(dcf + body)
+
+
+def inspect_experimental_dcf(data: bytes, header: bytes, xor_table: list[int]) -> list[str]:
+    lines: list[str] = []
+    if len(data) < 0x20:
+        raise ValueError("DCF is too small")
+    if data[:4] != b"DCF\0":
+        raise ValueError("DCF magic not found")
+
+    declared_size = read_u32le(data, 0x04)
+    lines.append(f"size={len(data)} declared_payload={declared_size} ok={declared_size == len(data) - 8}")
+    lines.append(f"xead_tag={decode_highbit_tag(data[0x08:0x0C])} xead_len={read_u32le(data, 0x0C)}")
+    lines.append(f"info_tag={decode_highbit_tag(data[0x10:0x14])} info_len={read_u32le(data, 0x14)}")
+    lines.append(f"dev_tag={decode_highbit_tag(data[0x20:0x24])} dev_len={read_u32le(data, 0x24)}")
+
+    crc_pos = find_tag(data, "CRC\0", 0x20)
+    data_pos = find_tag(data, "DATA", crc_pos + 0x0C)
+    body_len = read_u32le(data, data_pos + 0x04)
+    body_offset = data_pos + 0x08
+    body = bytearray(data[body_offset : body_offset + body_len])
+    if len(body) != body_len:
+        lines.append(f"body_range=0x{body_offset:x}..0x{body_offset + body_len:x} ok=False")
+        return lines
+
+    if header[0x5C] != 0:
+        xor_stream_inplace(body, 0, body_len, read_u32le(header, 0x60), xor_table)
+
+    stored_body_crc = read_u16le(data, crc_pos + 0x08)
+    computed_body_crc = xmaker_crc16(bytes(body))
+    stored_wrapper_crc = read_u16le(data, crc_pos + 0x0A)
+    computed_wrapper_crc = xmaker_crc16(data[: crc_pos + 0x0A])
+
+    lines.append(f"crc_record_offset=0x{crc_pos:x}")
+    lines.append(f"data_record_offset=0x{data_pos:x}")
+    lines.append(f"body_offset=0x{body_offset:x} body_len={body_len}")
+    lines.append(
+        "body_crc="
+        f"stored=0x{stored_body_crc:04x} computed=0x{computed_body_crc:04x} "
+        f"ok={stored_body_crc == computed_body_crc}"
+    )
+    lines.append(
+        "wrapper_crc="
+        f"stored=0x{stored_wrapper_crc:04x} computed=0x{computed_wrapper_crc:04x} "
+        f"ok={stored_wrapper_crc == computed_wrapper_crc}"
+    )
+    lines.append(f"final_body_xor={header[0x5C] != 0}")
+
+    return lines
+
+
 def cmd_xm(args: argparse.Namespace) -> None:
     text = decode_xm(read_file(args.path))
     print(text)
@@ -353,6 +490,27 @@ def cmd_inspect_body(args: argparse.Namespace) -> None:
         print(line)
 
 
+def cmd_make_dcf(args: argparse.Namespace) -> None:
+    exe = read_file(args.exe)
+    xor_table = extract_xor32_table(exe)
+    header = read_file(args.header)
+    app = read_file(args.app)
+    dcf = build_experimental_dcf(header, app, xor_table)
+    args.output.write_bytes(dcf)
+    print(f"wrote={args.output}")
+    for line in inspect_experimental_dcf(dcf, header, xor_table):
+        print(line)
+
+
+def cmd_inspect_dcf(args: argparse.Namespace) -> None:
+    exe = read_file(args.exe)
+    xor_table = extract_xor32_table(exe)
+    data = read_file(args.path)
+    header = read_file(args.header)
+    for line in inspect_experimental_dcf(data, header, xor_table):
+        print(line)
+
+
 def cmd_tags(_args: argparse.Namespace) -> None:
     tags = [
         bytes.fromhex("44434600"),
@@ -364,6 +522,10 @@ def cmd_tags(_args: argparse.Namespace) -> None:
         bytes.fromhex("d8d2c5d3"),
         bytes.fromhex("d8c3cfc4"),
         bytes.fromhex("cbc5d900"),
+        bytes.fromhex("c9cec6cf"),
+        bytes.fromhex("c4c5d600"),
+        bytes.fromhex("d3c5c700"),
+        bytes.fromhex("c3d2c300"),
         bytes.fromhex("c4c1d4c1"),
         bytes.fromhex("c4d4c100"),
     ]
@@ -415,6 +577,22 @@ def build_parser() -> argparse.ArgumentParser:
     inspect_body.add_argument("--encrypted", action="store_true", help="decrypt app blocks before checking CRCs")
     inspect_body.add_argument("--exe", type=Path, default=Path("tools/windows/riscv32-elf-xmaker.exe"))
     inspect_body.set_defaults(func=cmd_inspect_body)
+
+    make_dcf = sub.add_parser(
+        "make-dcf",
+        help="build an experimental DCF for make(header, app); requires vendor comparison before flashing",
+    )
+    make_dcf.add_argument("header", type=Path)
+    make_dcf.add_argument("app", type=Path)
+    make_dcf.add_argument("output", type=Path)
+    make_dcf.add_argument("--exe", type=Path, default=Path("tools/windows/riscv32-elf-xmaker.exe"))
+    make_dcf.set_defaults(func=cmd_make_dcf)
+
+    inspect_dcf = sub.add_parser("inspect-dcf", help="inspect an experimental xmaker DCF")
+    inspect_dcf.add_argument("path", type=Path)
+    inspect_dcf.add_argument("--header", type=Path, default=Path("tools/header.bin"))
+    inspect_dcf.add_argument("--exe", type=Path, default=Path("tools/windows/riscv32-elf-xmaker.exe"))
+    inspect_dcf.set_defaults(func=cmd_inspect_dcf)
 
     tags = sub.add_parser("tags", help="print known xmaker tags")
     tags.set_defaults(func=cmd_tags)

@@ -13,6 +13,8 @@ static uint8_t ep2_isoc_storage[192] __attribute__((aligned(4)));
 
 void *ep2_isoc = ep2_isoc_storage;
 
+extern void drv_bt_hci_rx_dispatch(uint8_t *buf, int len) __attribute__((weak));
+
 static void busy_delay(uint32_t loops)
 {
     while (loops--) {
@@ -94,7 +96,7 @@ void interrupt_handler_c(void)
 
 uint32_t hal_get_ticks(void)
 {
-    return tick_count;
+    return tick_count++;
 }
 
 uint32_t get_sysclk_nhz(void)
@@ -179,10 +181,20 @@ void bt_get_local_bd_addr(uint8_t *addr)
     }
 }
 
+void drv_vendor_set_bt_addr(const uint8_t *addr)
+{
+    if (addr) {
+        for (uint32_t i = 0; i < sizeof(bt_addr); i++) {
+            bt_addr[i] = addr[i];
+        }
+    }
+}
+
 void hci_host_recv_packet(uint8_t *buf, int len)
 {
-    (void)buf;
-    (void)len;
+    if (drv_bt_hci_rx_dispatch) {
+        drv_bt_hci_rx_dispatch(buf, len);
+    }
 }
 
 void nanos_event_set_trigger(void)

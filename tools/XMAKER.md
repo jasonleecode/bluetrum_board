@@ -183,6 +183,11 @@ python3 tools/xmaker_re.py inspect-body /tmp/main.xbody
 # xmaker's internal body before the outer DCF wrapper is emitted.
 python3 tools/xmaker_re.py make-body tools/header.bin bare/build/main.bin /tmp/main.xbody.enc --encrypt
 python3 tools/xmaker_re.py inspect-body /tmp/main.xbody.enc --encrypted
+
+# Build and inspect the current experimental DCF wrapper. This must be compared
+# against a vendor-generated DCF before any flash attempt.
+python3 tools/xmaker_re.py make-dcf tools/header.bin bare/build/main.bin /tmp/main.experimental.dcf
+python3 tools/xmaker_re.py inspect-dcf /tmp/main.experimental.dcf --header tools/header.bin
 ```
 
 Current verified results on macOS:
@@ -233,6 +238,21 @@ The encrypted body path now reproduces these recovered passes:
 - body header/header-block rolling XOR passes using `LVMG`
 - app payload rolling XOR passes using `XAPP` and each block CRC
 
+Current experimental `make-dcf` result for `bare/build/main.bin`:
+
+```text
+size=10860 declared_payload=10852 ok=True
+xead_tag=XEAD xead_len=84
+info_tag=INFO info_len=8
+dev_tag=DEV dev_len=12
+crc_record_offset=0x58
+data_record_offset=0x64
+body_offset=0x6c body_len=10752
+body_crc=stored=0x28b4 computed=0x28b4 ok=True
+wrapper_crc=stored=0xd696 computed=0xd696 ok=True
+final_body_xor=True
+```
+
 ## Outer DCF Wrapper Findings
 
 The final `DCF\0` file is emitted after the internal body has been prepared.
@@ -244,18 +264,28 @@ For the normal `header.bin + app.bin` path, the wrapper starts with:
 | `0x04` | total size field, derived from internal body size plus wrapper length |
 | `0x08` | high-bit `XEAD` record |
 | `0x10` | high-bit `INFO` record |
-| later | high-bit `DEV`, `SEG`, and optional config/resource records |
+| `0x20` | high-bit `DEV` record |
+| later | high-bit `KEY`, `SEG`, `CRC`, and `DATA` records |
 
-The wrapper length is computed from the internal body size rounded to 1024-byte
-pages plus optional app/resource/config records. This section is not yet emitted
-by `xmaker_re.py` because several fields are still tied to xmaker's parsed
-header/config context and need byte-for-byte validation against a vendor output.
+For the current `tools/header.bin` sample, xmaker's header fields enable the
+`KEY` record and a final whole-body XOR pass keyed from header offset `0x60`.
+The experimental DCF path now emits:
+
+- `DCF\0` top-level header
+- `XEAD`, `INFO`, `DEV`, `KEY`, `SEG`, `CRC`, and `DATA` records
+- wrapper CRC over the DCF header through the body CRC field
+- body CRC over the internal body before the final whole-body XOR pass
+- encrypted body payload after the `DATA` record
+
+This is still marked experimental because it has not been compared byte-for-byte
+against a `.dcf` produced by the Windows xmaker. Optional config/resource paths
+such as `XRES` are still documented but not implemented.
 
 ## Next Reverse-Engineering Tasks
 
-1. Continue translating the `make()` disassembly into a Mac-side implementation:
-   outer `DCF\0` header records and any remaining optional `XRES`/config paths.
-2. Add a parser/checker for generated `.dcf` buffers so the Mac implementation
-   can validate its own record layout before hardware testing.
-3. Reimplement only the confirmed `make()` and `save()` subset for Linux/macOS.
-4. Validate the generated `.dcf` by flashing with the serial protocol/tool path.
+1. Get a Windows xmaker-generated `final_bin.dcf` and do a byte-level diff
+   against the Mac-generated `make-dcf` output.
+2. Fill in optional `XRES`/config paths if a target flow needs them.
+3. Reimplement the `save()` script command wrapper for Linux/macOS.
+4. Validate the generated `.dcf` with the serial protocol/tool path only after
+   byte-level comparison is understood.

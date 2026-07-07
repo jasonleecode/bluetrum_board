@@ -14,7 +14,7 @@ vendor protection mechanisms.
   - 23 object files.
   - RISC-V ELF32 relocatable objects.
   - ELF flags: RVC, soft-float ABI.
-  - 179 exported global/weak data or code symbols.
+  - 181 exported global/weak data or code symbols.
   - Contains peripheral-facing code: audio ADC, FM RX, SPI flash, UART, USB
     device/audio/HID, cache, debug, delay, ROM printf aliases, and RISC-V
     save/restore helpers.
@@ -23,7 +23,7 @@ vendor protection mechanisms.
   - 32 object files.
   - RISC-V ELF32 relocatable objects.
   - ELF flags: RVC, soft-float ABI.
-  - 323 exported global/weak data or code symbols.
+  - 324 exported global/weak data or code symbols.
   - Contains baseband, BLE link-layer/control, HCI transport, manager, RF,
     and platform hook code.
   - Many symbol names are obfuscated or machine-renamed. Treat this library as
@@ -39,6 +39,8 @@ Generated files live under `generated/`:
 - `libbtctrl.readelf-h.txt`
 - `libhal.objdump-dr.txt`
 - `libbtctrl.objdump-dr.txt`
+- `symbols.json`
+- `library-summary.md`
 
 They were generated with the Homebrew RISC-V toolchain:
 
@@ -49,10 +51,19 @@ They were generated with the Homebrew RISC-V toolchain:
 /opt/homebrew/opt/riscv64-elf-binutils/bin/riscv64-elf-readelf -h bare/lib/libbtctrl.a
 /opt/homebrew/opt/riscv64-elf-binutils/bin/riscv64-elf-objdump -dr bare/lib/libhal.a
 /opt/homebrew/opt/riscv64-elf-binutils/bin/riscv64-elf-objdump -dr bare/lib/libbtctrl.a
+python3 docs/lib-analysis/analyze_libs.py
 ```
 
 The macOS/Xcode `objdump` can identify these files as `elf32-littleriscv`,
 but it cannot disassemble them. Use `riscv64-elf-objdump`.
+
+`analyze_libs.py` builds a combined symbol index for `libhal.a` and
+`libbtctrl.a`, filters out object-to-object references inside those libraries,
+and writes a focused list of library-external ABI hooks. The current generated
+summary shows 23 external symbols: 20 platform/glue hooks plus `memcpy`,
+`memset`, and `memcmp`. The existing `vendor_shim.c` covers all of them except
+`ude_hid_send`, which is only needed if `libhal.a:usb_device_run_loop.o` is
+pulled into a link.
 
 ## ABI Notes
 
@@ -219,11 +230,44 @@ endpoint work area.
 
 Existing bare wrappers cover part of `libhal.a`:
 
+- `bare/drivers/src/drv_audio.c` provides a small route/volume front end for
+  the current USB Audio and FM-to-buffer paths.
 - `bare/drivers/src/drv_adc.c` wraps the `sdadc_*` family.
+- `bare/drivers/src/drv_bluetooth.c` wraps the first-pass `libbtctrl.a` HCI and
+  baseband entry points: `bb_init`, `bb_run_loop`, `bthw_irq_init`,
+  `bthw_isr_do`, `hct_send_command`, and `hct_acl_segment`.
 - `bare/drivers/src/drv_fm.c` wraps the `fmrx_*` family.
+- `bare/drivers/src/drv_i2c.c` implements a board-hook based software I2C bus.
+- `bare/drivers/src/drv_sdcard.c` implements an SPI-mode SD card block access
+  layer using CMD0/CMD8/ACMD41/CMD58/CMD17/CMD24.
+- `bare/drivers/src/drv_spi.c` wraps the exported `blue_spi1` driver object
+  from `libhal.a`.
 - `bare/drivers/src/drv_spiflash.c` wraps `os_spiflash_*`.
 - `bare/drivers/src/drv_uart.c` wraps `huart_*`.
 - `bare/drivers/src/drv_usb.c` and `drv_usb_audio.c` wrap USB/audio symbols.
+
+The SPI wrapper must call through the exported `blue_spi1` function table; the
+underlying functions such as `blue_spi_send` are local symbols inside
+`driver_spi.o` and cannot be referenced directly.
+
+I2C and SD card support are intentionally not modeled as `libhal.a` wrappers:
+the two vendor archives currently expose no global I2C or SD/MMC API. The SD
+driver uses SPI mode, and both SD and I2C require board-level pin or chip-select
+hooks before hardware testing.
+
+The Bluetooth wrapper is HCI-transport level only. It can initialize and run the
+controller side and send HCI command/ACL packets, while received controller
+packets are dispatched through `hci_host_recv_packet` in `vendor_shim.c`. GAP,
+GATT, advertising, pairing, and profiles still need a host stack such as NimBLE
+or a minimal host implementation above this layer.
+
+`usb_device_hid_send` has one unresolved lower-level dependency:
+`ude_hid_send`. In `usb_device_run_loop.o`, the wrapper checks fields in
+`udh_0`, calls `ude_hid_send` once with the original `a0` argument, then calls
+it again with `a0 = 0`. This suggests a one-argument HID send/flush helper,
+not a direct `(buf, len)` endpoint-transfer API. Current ELF smoke builds do
+not pull this path, but enabling the full USB device run loop should first add
+a minimal `ude_hid_send` shim or identify the vendor implementation.
 
 The FM and ADC wrappers were reconciled against disassembly for the first
 usable pass:
@@ -354,8 +398,13 @@ same bare-metal entry contract.
    enumerates but does not stream, continue disassembling `uda_init`,
    `usb_ep_transfer`, and the endpoint descriptor tables.
 
-4. Add one minimal smoke target each for UART TX and SPI flash read.
+4. Add a minimal `ude_hid_send` shim or wrapper alias before enabling any path
+   that pulls `libhal.a:usb_device_run_loop.o`.
 
-5. Only after HAL is stable, begin `libbtctrl.a`:
-   identify the platform hooks, classify the HCI/baseband entry points, and
-   create a minimal init/run-loop harness.
+5. Add bare smoke apps for UART TX/RX, SPI loopback, I2C probe, SD block read,
+   and Bluetooth HCI reset/read-local-version.
+
+6. Wire board-specific I2C SCL/SDA and SD card CS hooks for the target board.
+
+7. Only after the HCI reset smoke test works, add a host stack layer for
+   Bluetooth advertising/GATT behavior.

@@ -8,6 +8,7 @@ extern void uda_set_spk_volume(uint8_t vol);
 extern void uda_set_spk_mute(uint8_t en);
 extern void usb_isoc_reset(void);
 extern void fmrx_dma_to_aubuf(uint32_t enable);
+extern void usb_ep_do_transfer(uint8_t ep, void *buf, uint32_t len);
 
 void drv_usb_audio_init(void)
 {
@@ -32,7 +33,10 @@ bool drv_usb_audio_enable_fm_dma(bool enable)
 
 bool drv_usb_audio_send(int16_t *buf, uint32_t len)
 {
-    (void)buf;
-    (void)len;
-    return false;
+    if (!buf || len == 0) {
+        return false;
+    }
+
+    usb_ep_do_transfer(2, buf, len * sizeof(*buf));
+    return true;
 }
