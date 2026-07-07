@@ -1,0 +1,4 @@
+# RT-Thread build objects
+rtt/**/*.o
+rtt/bsp/.sconsign.dblite
+bare/build/
