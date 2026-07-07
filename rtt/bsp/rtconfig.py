@@ -10,14 +10,14 @@ CROSS_TOOL  ='gcc'
 if os.getenv('RTT_ROOT'):
     RTT_ROOT = os.getenv('RTT_ROOT')
 else:
-    RTT_ROOT = r'../../..'
+    RTT_ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
 
 if os.getenv('RTT_CC'):
     CROSS_TOOL = os.getenv('RTT_CC')
 
 if  CROSS_TOOL == 'gcc':
     PLATFORM    = 'gcc'
-    EXEC_PATH   = r'D:/program_files/programming/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/RISC-V/RISC-V-GCC/10.1.0/bin'
+    EXEC_PATH   = os.getenv('RISCV_TOOLCHAIN_PATH', r'/opt/homebrew/bin')
 else:
     print('Please make sure your toolchains is GNU GCC!')
     exit(0)
@@ -29,7 +29,7 @@ BUILD = 'release'
 
 if PLATFORM == 'gcc':
     # toolchains
-    PREFIX  = 'riscv64-unknown-elf-'
+    PREFIX  = os.getenv('RTT_CC_PREFIX', 'riscv64-elf-')
     CC      = PREFIX + 'gcc'
     CXX     = PREFIX + 'g++'
     AS      = PREFIX + 'gcc'

@@ -103,7 +103,7 @@ static rt_base_t ab32_pin_get(const char *name)
     return pin;
 }
 
-static void ab32_pin_write(rt_device_t dev, rt_base_t pin, rt_base_t value)
+static void ab32_pin_write(rt_device_t dev, rt_base_t pin, rt_uint8_t value)
 {
     rt_uint8_t port = PIN_PORT(pin);
     rt_uint8_t gpio_pin  = pin - port_table[port].total_pin;
@@ -196,7 +196,7 @@ static rt_uint32_t get_edge_select_bit(rt_uint8_t circuit)
     }
 }
 
-void __attribute__((section(".irq.gpio"))) ab32_pin_irq_handler(void *args)
+void __attribute__((section(".irq.gpio"))) ab32_pin_irq_handler(int vector, void *args)
 {
     rt_interrupt_enter();
     rt_uint32_t pending = WKUPEDG;
@@ -229,8 +229,8 @@ static void ab32_pin_irq_thread(void *parameter)
     }
 }
 
-static rt_err_t ab32_pin_attach_irq(struct rt_device *device, rt_int32_t pin,
-                                    rt_uint32_t mode, void (*hdr)(void *args), void *args)
+static rt_err_t ab32_pin_attach_irq(struct rt_device *device, rt_base_t pin,
+                                    rt_uint8_t mode, void (*hdr)(void *args), void *args)
 {
     rt_uint8_t port, hw_pin;
     rt_int32_t circuit;
@@ -294,7 +294,7 @@ static rt_err_t ab32_pin_dettach_irq(struct rt_device *device, rt_int32_t pin)
 }
 
 static rt_err_t ab32_pin_irq_enable(struct rt_device *device, rt_base_t pin,
-                                    rt_uint32_t enabled)
+                                    rt_uint8_t enabled)
 {
     rt_uint8_t port, hw_pin;
     rt_int32_t circuit;
@@ -330,7 +330,7 @@ static rt_err_t ab32_pin_irq_enable(struct rt_device *device, rt_base_t pin,
 
         /* install interrupt handler */
         rt_hw_interrupt_install(IRQ_GPIO_IRQ, ab32_pin_irq_handler, RT_NULL, "gpio_isr");
-        rt_hw_irq_enable(IRQ_GPIO_IRQ);
+        rt_hw_interrupt_enable(IRQ_GPIO_IRQ);
     }
     else
     {

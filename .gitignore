@@ -1,4 +1,10 @@
 # RT-Thread build objects
 rtt/**/*.o
 rtt/bsp/.sconsign.dblite
+rtt/bsp/__pycache__/
+rtt/bsp/cconfig.h
+rtt/bsp/rtthread.bin
+rtt/bsp/rtthread.elf
+rtt/bsp/rtthread.map
+tools/windows/D*/
 bare/build/
