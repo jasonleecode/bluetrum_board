@@ -1,0 +1,26 @@
+{
+  "kind": "scripted MMIO/card model plus isolated RV32 compile/link",
+  "scenarios": 34,
+  "assertions": 1217,
+  "rv32_link": "all six APIs, vendor_shim memory helpers only; no vendor archives",
+  "limits": [
+    "No SD card or silicon execution",
+    "Not an archive differential test: no SD card object in libhal.a",
+    "Artificial link layout, not a bootable firmware",
+    "DMA completion, CRC bits, card responses supplied by test model",
+    "Real timer, DMA memory placement, power and pins require board validation"
+  ],
+  "sha256": {
+    "bare/drivers/src/drv_sdcard.c": "0404111faf064c7c2dd4dd80deceea99fd43dcfd7180168d36a6fe63a9ae63ff",
+    "bare/drivers/inc/drv_sdcard.h": "290028ea40ef144820d292befa5d6c643f45b460e8f19204c61e331919d07644",
+    "docs/lib-analysis/tests/sdcard_test.c": "380df8cbab0df2501ceb957db12d4109187c4ac4de05ca439a8aa1765438ede0",
+    "docs/lib-analysis/test_sdcard.py": "af3bb7f1ca21c21873ff1f803ee453094cdde102cf4f626b6a22d8203f22eb5d",
+    "rtt/bsp/libraries/hal_drivers/drv_sdio.c": "fe1e271e68d6deae368a924075be9c6a1d279438cabe86d5ceb0a83e34d0e779",
+    "rtt/bsp/libraries/hal_drivers/drv_sdio.h": "4757a35e0069fe7077a08fb24d0edb913480d85c4c3cedb374609fceddb0b7e9",
+    "rtt/bsp/libraries/hal_libraries/ab32vg1_hal/source/ab32vg1_hal_sd.c": "e1bd81ee80ee3c8590166ab52857a4b340c9ff10740c897ce6ae5a6f969c5dfc",
+    "rtt/components/drivers/sdio/dev_sd.c": "168bb397ef5854edaade2f6e29c4ab89f0d95756b9b6416b85a5cfd6220bf16b",
+    "rtt/bsp/board/ab32vg1_hal_msp.c": "50bccd5f2ab7e8ba03f6622ad1e5e2b872f345403541971b8e12f7f5578cf72f",
+    "docs/ab32vg1_doc/AB32VG1_Register.pdf": "4f7700d499f6b38ffd19e9eb5f23638692ca5e24305d8f245dbd0c8ff22d81fc",
+    "docs/ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf": "290b6352506af8d7f1c5f565d2cf0927d935c9f30faa1fa352ae88bcf9b14ee7"
+  }
+}

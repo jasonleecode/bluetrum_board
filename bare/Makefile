@@ -52,7 +52,15 @@ else ifneq ($(USB_BACKEND),vendor)
 $(error USB_BACKEND must be vendor or recovered)
 endif
 
-# 3. 目标定义 (根据 app 目录下的文件名，定义三个独立的目标)
+# Analog input and SDADC recovery; native DAC output uses public BSP code.
+AUDIO_BACKEND ?= vendor
+ifeq ($(AUDIO_BACKEND),recovered)
+BUILD_DIR := $(BUILD_DIR)/recovered-audio
+else ifneq ($(AUDIO_BACKEND),vendor)
+$(error AUDIO_BACKEND must be vendor or recovered)
+endif
+
+# 3. 目标定义 (根据 app 目录下的文件名，定义独立的目标)
 # 这里的逻辑是：取出 app/*.c 的文件名，去掉后缀，作为最终生成文件的名字
 APP_SRCS := $(wildcard $(APP_DIR)/*.c)
 TARGETS  := $(patsubst $(APP_DIR)/%.c, %, $(APP_SRCS))
@@ -100,6 +108,10 @@ endif
 ifeq ($(USB_BACKEND),vendor)
 DRV_SRCS := $(filter-out $(DRV_DIR)/src/usb_comm_recovered.c $(DRV_DIR)/src/usb_ep_recovered.c $(DRV_DIR)/src/usb_enum_recovered.c $(DRV_DIR)/src/usb_class_recovered.c,$(DRV_SRCS))
 endif
+ifeq ($(AUDIO_BACKEND),vendor)
+DRV_SRCS := $(filter-out $(DRV_DIR)/src/audio_recovered.c $(DRV_DIR)/src/sdadc_recovered.c,$(DRV_SRCS))
+endif
+
 # 启动文件
 ASM_SRCS := startup.S
 

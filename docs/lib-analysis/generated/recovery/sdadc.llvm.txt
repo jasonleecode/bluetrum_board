@@ -1,5 +1,5 @@
 
-/home/lixiang/Documents/opensource/bluetrum_board/docs/lib-analysis/generated/recovery/sdadc.o:	file format ELF32-riscv
+libhal.a:sdadc.o:	file format ELF32-riscv
 
 
 Disassembly of section .text:

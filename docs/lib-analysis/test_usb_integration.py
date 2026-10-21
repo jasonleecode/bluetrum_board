@@ -68,7 +68,7 @@ def main():
             # a uint32 DMA address, even in this host-only mock test.
             command = ['cc', '-std=c11', '-no-pie', '-fno-builtin', '-Wall', '-Wextra', '-Werror',
                        '-I', INC, ROOT / 'docs/lib-analysis/tests/usb_wrapper_test.c',
-                       SRC / 'drv_usb.c', SRC / 'drv_usb_audio.c', SRC / 'drv_audio.c',
+                       SRC / 'drv_usb.c', SRC / 'drv_usb_audio.c', SRC / 'drv_audio.c', SRC / 'dac_output.c',
                        '-o', tmp / 'wrapper']
             if actual_shim:
                 command += ['-DUSE_VENDOR_SHIM', SRC / 'vendor_shim.c']

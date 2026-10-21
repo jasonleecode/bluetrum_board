@@ -29,11 +29,24 @@ initialization defaults to failure. The supplied HID report is one byte of
 consumer controls, not general bidirectional USB communication. Host and USB
 audio sending remain unsupported.
 
+[Audio recovery](AUDIO_RECOVERY.md) now replaces `audio.o` and `sdadc.o`
+(18 exported functions, 3490 differential cases), fixes ADC channel and DMA
+address handling, and adds a native 48-kHz stereo DAC driver from the public
+BSP. The optional `AUDIO_BACKEND=recovered` passes selection and isolated-link
+checks; ADC DMA format/events and analog playback still need hardware validation.
+
+[SD recovery](SD_RECOVERY.md) implements native SD0 one-bit 512-byte block
+read/write from the local register manual and public controller source. It
+replaces the previous SPI-card wrapper; this is a new hardware driver, not an
+archive-member reconstruction. It supports SDSC/SDHC/SDXC initialization and
+capacity/error handling, with explicit board clock, timer and DMA requirements.
+
 The [2026-10-21 recovery assessment](RECOVERY_ASSESSMENT.md) adds byte-verified
-archive inventories and a compilable reconstruction of `sdadc.o`. It also finds
-two remaining ADC wrapper defects: channel zero is rejected by the vendor, and
-`sdadc_start` consumes a DMA address argument. The historical smoke-build and
-wrapper notes below do not establish working ADC capture on hardware.
+archive inventories and the initial analysis specimen for `sdadc.o`. The later
+audio work above fixes the two identified ADC wrapper defects: channel zero is
+rejected by the vendor, and `sdadc_start` consumes a DMA address argument. The
+historical smoke-build and wrapper notes below do not establish working ADC
+capture on hardware.
 
 The scope here is interoperability and debugging: identify symbols, ABI,
 required platform hooks, probable function prototypes, and usable wrapper

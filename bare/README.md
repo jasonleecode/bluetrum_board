@@ -99,6 +99,34 @@ Host 模式目前返回 false；USB 音频初始化和发送也返回 false。�
 
 1066 项原库差分测试、封装测试和独立链接检查已通过，尚未验证实机 DMA、枚举或 Linux 通信。接口布局、描述符限制与后续接入步骤见 [USB 恢复记录](../docs/lib-analysis/USB_RECOVERY.md)。
 
+## SD 卡块读写
+
+`drv_sdcard` 已改为片上 **SD0 原生一位总线**，使用板载卡槽 G2：PB0=CMD、PB1=CLK、PB2=DAT0，不再走原来的 SPI 卡协议。支持 SDSC、SDHC/SDXC 的初始化、容量查询及 512 字节单块读写，当前不含文件系统。
+
+配置接口已改变：原 `spi_baudrate/set_cs` 替换为真实 SD 源时钟、微秒计时/延时回调及专用 512 字节 DMA 缓冲和总线地址。DMA 缓冲需 32 字节对齐、缓存一致，地址满足控制器的 21 位窗口；不能直接截断 `bare/link.ld` 的 `0x20000000` 指针。原配置调用者必须迁移。
+
+`drv_sdcard_get_info()` 返回块数、寻址方式、实际时钟和写保护状态；`drv_sdcard_last_error()` 区分参数、CRC、超时、卡状态等错误。读数据只在校验成功后复制给调用者；写操作等待卡退出忙态并确认 ready/TRAN。传输失败后需重新初始化，失败写入也可能已经改变卡内容。
+
+控制器模型与 RV32 编译检查已通过，真实卡尚未验证。接线、只读调用示例、错误处理及限制见 [SD 恢复记录](../docs/lib-analysis/SD_RECOVERY.md)。
+
+## 本地音频输入与输出
+
+模拟输入和 SDADC 的 18 个函数可选择恢复后端：
+
+```sh
+make AUDIO_BACKEND=recovered
+```
+
+输出在 `build/recovered-audio/`，可与其他后端组合。该选项替换 `audio.o` 和 `sdadc.o`；本地 DAC 输出代码来自公开 BSP，两个后端均可使用。
+
+`drv_audio_init()` 现在初始化本地 **48 kHz、双声道、16 bit DAC**，不再尝试初始化 USB 音频。需实现 `dac_output_platform_prepare()`，提供真实 26 MHz 参考时钟前提、延时、已知 RAM 内的 DMA 映射和资源独占；默认返回失败。初始化成功保持静音，显式设置音量并解除静音后播放。
+
+使用 `drv_audio_write_frames(samples, frames)` 提交 PCM，每帧两个 `int16_t`。返回实际入队帧数，FIFO 满时可返回零，调用者只重试未接受的尾部；入队不等于已播放。`drv_audio_stop()` 中止队列。旧 bool 型 `drv_audio_write()` 保留为 USB-only 接口，当前返回失败，避免丢失部分写入的长度信息。示例见 `app/audio_play.c`。
+
+采集侧 `drv_adc_init()` 将 MIC 映射到原库单 bank 编码，gain 改为 16 位。通过 `drv_adc_set_dma_samples()` 配置非零原始计数，再使用 `drv_adc_start_dma(buffer, capacity_bytes)` 明确传入缓冲。板级必须实现 ADC 平台钩子、验证 DMA 计数单位/容量/地址，并接入 `drv_adc_isr()`；默认不启动。旧无缓冲 `drv_adc_start()` 返回失败，`app/mic_read.c` 已迁移为显式缓冲的事件探测示例。
+
+目前未确认采集 PCM 布局或半/满缓冲事件，AUX 胶水、I2S 控制器和 USB 音频也尚未实现。本地 DAC、FM、SDADC 共享音频时钟/资源，当前不要并发启用。差分、平台依据和集成方法见 [音频恢复记录](../docs/lib-analysis/AUDIO_RECOVERY.md)。
+
 ## 生成下载文件
 
 裸机程序编译完成后，`build/*.bin` 不能直接交给串口烧录工具烧写。它只是用户程序输入文件，需要先将用户程序 `bin` 和固定的 `header.bin` 合成为最终的 `.dcf` 下载文件。Linux 可使用本仓库恢复的打包工具（从仓库根目录执行）：

@@ -1,0 +1,2768 @@
+{
+  "unicorn_version": "2.1.4",
+  "original_object_sha256": "3b9fd834517795cb9d733af7cd5f06066c4699a615d94996adcb41fe9e99e8f0",
+  "recovered_source_sha256": "dd010661d42800b46b20c6cf5ac8f8d5eb2b1716276fadc4a1cbaa9eca276832",
+  "model": "Synthetic MMIO and analog/delay/notice hooks; restore ABI shim; original vs recovered ordered accesses, calls, getters, returns and callee-save registers. No DMA extent/units, samples, PLL timing or real IRQ verification.",
+  "cases": [
+    {
+      "name": "channel lifecycle 00",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "channel lifecycle 01",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 02",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 03",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 04",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 05",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 06",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 07",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 08",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 09",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 0a",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 0b",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 0c",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 0d",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 0e",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 0f",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 10",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 11",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 12",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 13",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 14",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 15",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 16",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 17",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 18",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 19",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 1a",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 1b",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 1c",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 1d",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 1e",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 1f",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 20",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 21",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 22",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 23",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 24",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 25",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 26",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 27",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 28",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 29",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 2a",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 2b",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 2c",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 2d",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 2e",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 2f",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 30",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 31",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 32",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 33",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 34",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 35",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 36",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 37",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 38",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 39",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 3a",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 3b",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 3c",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 3d",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 3e",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 3f",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 40",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 41",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 42",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 43",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 44",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 45",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 46",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 47",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 48",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 49",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 4a",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 4b",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 4c",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 4d",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 4e",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 4f",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 50",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 51",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 52",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 53",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 54",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 55",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 56",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 57",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 58",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 59",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 5a",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 5b",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 5c",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 5d",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 5e",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 5f",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 60",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 61",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 62",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 63",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 64",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 65",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 66",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 67",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 68",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 69",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 6a",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 6b",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 6c",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 6d",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 6e",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 6f",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 70",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 71",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 72",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 73",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 74",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 75",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 76",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 77",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 78",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 79",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 7a",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 7b",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 7c",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 7d",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 7e",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 7f",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 80",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 81",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 82",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 83",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 84",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 85",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 86",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 87",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 88",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 89",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 8a",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 8b",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 8c",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 8d",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 8e",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 8f",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 90",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle 91",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 92",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 93",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 94",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 95",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 96",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 97",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 98",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 99",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 9a",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 9b",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 9c",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 9d",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 9e",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle 9f",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle a0",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle a1",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle a2",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle a3",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle a4",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle a5",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle a6",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle a7",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle a8",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle a9",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle aa",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle ab",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle ac",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle ad",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle ae",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle af",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle b0",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle b1",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle b2",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle b3",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle b4",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle b5",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle b6",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle b7",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle b8",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle b9",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle ba",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle bb",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle bc",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle bd",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle be",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle bf",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle c0",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle c1",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle c2",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle c3",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle c4",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle c5",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle c6",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle c7",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle c8",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle c9",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle ca",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle cb",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle cc",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle cd",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle ce",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle cf",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle d0",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle d1",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle d2",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle d3",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle d4",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle d5",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle d6",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle d7",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle d8",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle d9",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle da",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle db",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle dc",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle dd",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle de",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle df",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle e0",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle e1",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle e2",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle e3",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle e4",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle e5",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle e6",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle e7",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle e8",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle e9",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle ea",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle eb",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle ec",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle ed",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle ee",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle ef",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle f0",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "channel lifecycle f1",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle f2",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle f3",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle f4",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle f5",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle f6",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle f7",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle f8",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle f9",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle fa",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle fb",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle fc",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle fd",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle fe",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "channel lifecycle ff",
+      "result": "pass",
+      "trace_events": 29
+    },
+    {
+      "name": "rate 48000 channel 0 seed 0",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 48000 channel 0 seed 1",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 48000 channel 0 seed 2",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 48000 channel 0 seed 3",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 48000 channel c seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 48000 channel c seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 48000 channel c seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 48000 channel c seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 48000 channel c0 seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 48000 channel c0 seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 48000 channel c0 seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 48000 channel c0 seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 48000 channel cc seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 48000 channel cc seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 48000 channel cc seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 48000 channel cc seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 44100 channel 0 seed 0",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 44100 channel 0 seed 1",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 44100 channel 0 seed 2",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 44100 channel 0 seed 3",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 44100 channel c seed 0",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 44100 channel c seed 1",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 44100 channel c seed 2",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 44100 channel c seed 3",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 44100 channel c0 seed 0",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 44100 channel c0 seed 1",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 44100 channel c0 seed 2",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 44100 channel c0 seed 3",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 44100 channel cc seed 0",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 44100 channel cc seed 1",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 44100 channel cc seed 2",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 44100 channel cc seed 3",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 38000 channel 0 seed 0",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 38000 channel 0 seed 1",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 38000 channel 0 seed 2",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 38000 channel 0 seed 3",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 38000 channel c seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 38000 channel c seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 38000 channel c seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 38000 channel c seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 38000 channel c0 seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 38000 channel c0 seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 38000 channel c0 seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 38000 channel c0 seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 38000 channel cc seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 38000 channel cc seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 38000 channel cc seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 38000 channel cc seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 32000 channel 0 seed 0",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 32000 channel 0 seed 1",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 32000 channel 0 seed 2",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 32000 channel 0 seed 3",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 32000 channel c seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 32000 channel c seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 32000 channel c seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 32000 channel c seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 32000 channel c0 seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 32000 channel c0 seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 32000 channel c0 seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 32000 channel c0 seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 32000 channel cc seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 32000 channel cc seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 32000 channel cc seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 32000 channel cc seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 24000 channel 0 seed 0",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 24000 channel 0 seed 1",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 24000 channel 0 seed 2",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 24000 channel 0 seed 3",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 24000 channel c seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 24000 channel c seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 24000 channel c seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 24000 channel c seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 24000 channel c0 seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 24000 channel c0 seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 24000 channel c0 seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 24000 channel c0 seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 24000 channel cc seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 24000 channel cc seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 24000 channel cc seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 24000 channel cc seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 22050 channel 0 seed 0",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 22050 channel 0 seed 1",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 22050 channel 0 seed 2",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 22050 channel 0 seed 3",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 22050 channel c seed 0",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 22050 channel c seed 1",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 22050 channel c seed 2",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 22050 channel c seed 3",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 22050 channel c0 seed 0",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 22050 channel c0 seed 1",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 22050 channel c0 seed 2",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 22050 channel c0 seed 3",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 22050 channel cc seed 0",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 22050 channel cc seed 1",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 22050 channel cc seed 2",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 22050 channel cc seed 3",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 16000 channel 0 seed 0",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 16000 channel 0 seed 1",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 16000 channel 0 seed 2",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 16000 channel 0 seed 3",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 16000 channel c seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 16000 channel c seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 16000 channel c seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 16000 channel c seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 16000 channel c0 seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 16000 channel c0 seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 16000 channel c0 seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 16000 channel c0 seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 16000 channel cc seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 16000 channel cc seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 16000 channel cc seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 16000 channel cc seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 12000 channel 0 seed 0",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 12000 channel 0 seed 1",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 12000 channel 0 seed 2",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 12000 channel 0 seed 3",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 12000 channel c seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 12000 channel c seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 12000 channel c seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 12000 channel c seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 12000 channel c0 seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 12000 channel c0 seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 12000 channel c0 seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 12000 channel c0 seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 12000 channel cc seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 12000 channel cc seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 12000 channel cc seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 12000 channel cc seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 11025 channel 0 seed 0",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 11025 channel 0 seed 1",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 11025 channel 0 seed 2",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 11025 channel 0 seed 3",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 11025 channel c seed 0",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 11025 channel c seed 1",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 11025 channel c seed 2",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 11025 channel c seed 3",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 11025 channel c0 seed 0",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 11025 channel c0 seed 1",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 11025 channel c0 seed 2",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 11025 channel c0 seed 3",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 11025 channel cc seed 0",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 11025 channel cc seed 1",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 11025 channel cc seed 2",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 11025 channel cc seed 3",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 8000 channel 0 seed 0",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 8000 channel 0 seed 1",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 8000 channel 0 seed 2",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 8000 channel 0 seed 3",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "rate 8000 channel c seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 8000 channel c seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 8000 channel c seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 8000 channel c seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 8000 channel c0 seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 8000 channel c0 seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 8000 channel c0 seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 8000 channel c0 seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 8000 channel cc seed 0",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 8000 channel cc seed 1",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 8000 channel cc seed 2",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "rate 8000 channel cc seed 3",
+      "result": "pass",
+      "trace_events": 19
+    },
+    {
+      "name": "rate 38400 channel 0 seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 38400 channel 0 seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 38400 channel 0 seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 38400 channel 0 seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 38400 channel c seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 38400 channel c seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 38400 channel c seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 38400 channel c seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 38400 channel c0 seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 38400 channel c0 seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 38400 channel c0 seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 38400 channel c0 seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 38400 channel cc seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 38400 channel cc seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 38400 channel cc seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 38400 channel cc seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel 0 seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel 0 seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel 0 seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel 0 seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel c seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel c seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel c seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel c seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel c0 seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel c0 seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel c0 seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel c0 seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel cc seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel cc seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel cc seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 0 channel cc seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel 0 seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel 0 seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel 0 seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel 0 seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel c seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel c seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel c seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel c seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel c0 seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel c0 seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel c0 seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel c0 seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel cc seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel cc seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel cc seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 1 channel cc seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel 0 seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel 0 seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel 0 seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel 0 seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel c seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel c seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel c seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel c seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel c0 seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel c0 seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel c0 seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel c0 seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel cc seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel cc seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel cc seed 2",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "rate 4294967295 channel cc seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "gain 0 count 0",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 0 count 1",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 0 count 2",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 0 count 255",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 0 count 256",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 0 count 65535",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 1 count 0",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 1 count 1",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 1 count 2",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 1 count 255",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 1 count 256",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 1 count 65535",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 31 count 0",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 31 count 1",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 31 count 2",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 31 count 255",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 31 count 256",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 31 count 65535",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 32 count 0",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 32 count 1",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 32 count 2",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 32 count 255",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 32 count 256",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 32 count 65535",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 255 count 0",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 255 count 1",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 255 count 2",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 255 count 255",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 255 count 256",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 255 count 65535",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 256 count 0",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 256 count 1",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 256 count 2",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 256 count 255",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 256 count 256",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 256 count 65535",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 8191 count 0",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 8191 count 1",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 8191 count 2",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 8191 count 255",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 8191 count 256",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 8191 count 65535",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 65535 count 0",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 65535 count 1",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 65535 count 2",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 65535 count 255",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 65535 count 256",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "gain 65535 count 65535",
+      "result": "pass",
+      "trace_events": 30
+    },
+    {
+      "name": "isr status 0",
+      "result": "pass",
+      "trace_events": 8
+    },
+    {
+      "name": "isr status 1",
+      "result": "pass",
+      "trace_events": 10
+    },
+    {
+      "name": "isr status 2",
+      "result": "pass",
+      "trace_events": 9
+    },
+    {
+      "name": "isr status 3",
+      "result": "pass",
+      "trace_events": 11
+    },
+    {
+      "name": "isr status 4",
+      "result": "pass",
+      "trace_events": 10
+    },
+    {
+      "name": "isr status 5",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "isr status 6",
+      "result": "pass",
+      "trace_events": 11
+    },
+    {
+      "name": "isr status 7",
+      "result": "pass",
+      "trace_events": 13
+    },
+    {
+      "name": "isr status 8",
+      "result": "pass",
+      "trace_events": 9
+    },
+    {
+      "name": "isr status 9",
+      "result": "pass",
+      "trace_events": 11
+    },
+    {
+      "name": "isr status a",
+      "result": "pass",
+      "trace_events": 10
+    },
+    {
+      "name": "isr status b",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "isr status c",
+      "result": "pass",
+      "trace_events": 11
+    },
+    {
+      "name": "isr status d",
+      "result": "pass",
+      "trace_events": 13
+    },
+    {
+      "name": "isr status e",
+      "result": "pass",
+      "trace_events": 12
+    },
+    {
+      "name": "isr status f",
+      "result": "pass",
+      "trace_events": 14
+    },
+    {
+      "name": "no config 0",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "no config 1",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "no config 2",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "no config 3",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "no config 4",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "no config 5",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "no config 6",
+      "result": "pass",
+      "trace_events": 0
+    },
+    {
+      "name": "no config 7",
+      "result": "pass",
+      "trace_events": 0
+    }
+  ]
+}

@@ -4,6 +4,10 @@
 #define SAMPLE_RATE 16000
 #define BUF_SIZE 256
 
+/* Capacity is explicit, but the platform DMA hook must still validate the
+ * vendor count units and sample layout. This is an event probe, not PCM capture. */
+static uint32_t adc_dma_storage[BUF_SIZE] __attribute__((aligned(32)));
+
 static volatile uint32_t adc_dma_notice_count;
 static volatile uint32_t adc_last_event;
 
@@ -46,10 +50,16 @@ int main(void)
         .sample_rate = SAMPLE_RATE,
         .gain = 8
     };
-    drv_adc_init(&cfg);
-    drv_adc_set_dma_samples(BUF_SIZE);
+    if (!drv_adc_init(&cfg)) return -1;
+    if (!drv_adc_set_dma_samples(BUF_SIZE)) {
+        drv_adc_stop();
+        return -1;
+    }
     drv_adc_set_dma_notice_callback(adc_dma_notice);
-    drv_adc_start();
+    if (!drv_adc_start_dma(adc_dma_storage, sizeof(adc_dma_storage))) {
+        drv_adc_stop();
+        return -1;
+    }
 
     uint32_t last_count = 0;
     while(1)
