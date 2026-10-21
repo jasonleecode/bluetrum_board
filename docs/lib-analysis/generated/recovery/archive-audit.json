@@ -1,0 +1,4725 @@
+{
+  "libraries": {
+    "libhal": {
+      "path": "bare/lib/libhal.a",
+      "sha256": "279704702e97eb1c12839f10465d902825e8d5f398707952ef3b9b96b6ac59d5",
+      "members": [
+        {
+          "member": "audio.o",
+          "sha256": "8e12e040b012841baac4d9c3b0ae7e5d6df799d76ac31b8679c968774cfa8725",
+          "file_bytes": 4240,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 1438,
+          "relocations": 70,
+          "defined_functions": [
+            {
+              "name": "set_aux_analog_gain",
+              "value": 0,
+              "size": 86,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "set_mic_analog_gain",
+              "value": 86,
+              "size": 96,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "aux_analog_channel_select",
+              "value": 182,
+              "size": 520,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "aux_analog_channel_close",
+              "value": 702,
+              "size": 252,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "sdadc_analog_mic_start",
+              "value": 954,
+              "size": 338,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "sdadc_analog_mic_exit",
+              "value": 1292,
+              "size": 146,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 7
+        },
+        {
+          "member": "sdadc.o",
+          "sha256": "3b9fd834517795cb9d733af7cd5f06066c4699a615d94996adcb41fe9e99e8f0",
+          "file_bytes": 6320,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 1348,
+          "relocations": 176,
+          "defined_functions": [
+            {
+              "name": "sdadc_set_channel",
+              "value": 0,
+              "size": 18,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "sdadc_set_sample_rate",
+              "value": 18,
+              "size": 460,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "sdadc_set_gain",
+              "value": 478,
+              "size": 48,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "sdadc_set_dma_samples",
+              "value": 526,
+              "size": 12,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "sdadc_get_channel",
+              "value": 538,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "sdadc_get_sample_rate",
+              "value": 548,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "sdadc_get_gain",
+              "value": 558,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "sdadc_get_dma_samples",
+              "value": 568,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "sdadc_start",
+              "value": 578,
+              "size": 380,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "sdadc_exit",
+              "value": 958,
+              "size": 290,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "sdadc_dma_notice",
+              "value": 0,
+              "size": 2,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "sdadc_isr",
+              "value": 2,
+              "size": 98,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            }
+          ],
+          "global_definitions": 12
+        },
+        {
+          "member": "driver_spi.o",
+          "sha256": "84e5ce25a4368d749c0efd9f08f19ba5ca9f44698d477ed59dbedefffd2564bd",
+          "file_bytes": 5128,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 914,
+          "relocations": 151,
+          "defined_functions": [
+            {
+              "name": "blue_get_version",
+              "value": 0,
+              "size": 10,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "blue_spi_deinit",
+              "value": 10,
+              "size": 18,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "blue_spi_power_control",
+              "value": 28,
+              "size": 4,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "blue_spi_send",
+              "value": 0,
+              "size": 38,
+              "bind": 0,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "blue_spi_recv",
+              "value": 38,
+              "size": 38,
+              "bind": 0,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "spi_io_mapping",
+              "value": 32,
+              "size": 112,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "blue_spi_control",
+              "value": 144,
+              "size": 410,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "spi_irq_handle",
+              "value": 76,
+              "size": 78,
+              "bind": 0,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "blue_spi_recv_byte",
+              "value": 154,
+              "size": 90,
+              "bind": 0,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "blue_spi_send_byte",
+              "value": 244,
+              "size": 84,
+              "bind": 0,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "blue_spi_init",
+              "value": 554,
+              "size": 32,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 1
+        },
+        {
+          "member": "cache.o",
+          "sha256": "e9f1da6eac988155d7838a32514a39d34fdc1da3f31eacedc3b61ed05babe0d8",
+          "file_bytes": 4408,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 888,
+          "relocations": 104,
+          "defined_functions": [
+            {
+              "name": "load_bank",
+              "value": 0,
+              "size": 274,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "search_bank",
+              "value": 274,
+              "size": 66,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "load_cache_execute",
+              "value": 340,
+              "size": 40,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "lock_cache",
+              "value": 380,
+              "size": 302,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "set_correct_line",
+              "value": 0,
+              "size": 92,
+              "bind": 1,
+              "type": 2,
+              "section_index": 6
+            },
+            {
+              "name": "os_cache_init",
+              "value": 0,
+              "size": 78,
+              "bind": 1,
+              "type": 2,
+              "section_index": 8
+            },
+            {
+              "name": "os_cache_setfunc",
+              "value": 78,
+              "size": 36,
+              "bind": 1,
+              "type": 2,
+              "section_index": 8
+            }
+          ],
+          "global_definitions": 9
+        },
+        {
+          "member": "s_cache.o",
+          "sha256": "dd26a3d674170b8797f8d3c1dfa7cc4a5713fd8ccd8843a18d1f67f5ec0487d7",
+          "file_bytes": 1552,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 262,
+          "relocations": 15,
+          "defined_functions": [],
+          "global_definitions": 3
+        },
+        {
+          "member": "fmrx.o",
+          "sha256": "f4ecad3933db2792ad6327f45d446d47d4e0aadb2a3d66f82423fcdf4a55430c",
+          "file_bytes": 1456,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 328,
+          "relocations": 10,
+          "defined_functions": [
+            {
+              "name": "fmrx_dac_sync",
+              "value": 0,
+              "size": 44,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "fmrx_power_on",
+              "value": 44,
+              "size": 142,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "fmrx_power_off",
+              "value": 186,
+              "size": 38,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "fmrx_digital_stop",
+              "value": 224,
+              "size": 24,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "fmrx_digital_start",
+              "value": 248,
+              "size": 38,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "fmrx_get_audio_data",
+              "value": 286,
+              "size": 18,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "fmrx_dma_to_aubuf",
+              "value": 304,
+              "size": 24,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 7
+        },
+        {
+          "member": "fmrx_ang.o",
+          "sha256": "add90fc5972abf4ac16c38fdef7e1980e890b5d9c775a66f11d8c1dc1fc73709",
+          "file_bytes": 2252,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 1082,
+          "relocations": 22,
+          "defined_functions": [
+            {
+              "name": "fmrx_set_pll",
+              "value": 0,
+              "size": 256,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "fmrx_analog_init",
+              "value": 256,
+              "size": 804,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "fmrx_set_rf_cap",
+              "value": 1060,
+              "size": 22,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 3
+        },
+        {
+          "member": "spiflash.o",
+          "sha256": "d8874f006bb42d9d3d92d891bb7a09be46be8b13541dc69e5c5a126fa73fa135",
+          "file_bytes": 3704,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 950,
+          "relocations": 97,
+          "defined_functions": [
+            {
+              "name": "spi_delay",
+              "value": 0,
+              "size": 16,
+              "bind": 0,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "spi_getbyte",
+              "value": 16,
+              "size": 42,
+              "bind": 0,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "spi_sendbyte",
+              "value": 58,
+              "size": 28,
+              "bind": 0,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "spiflash_write_enable",
+              "value": 86,
+              "size": 50,
+              "bind": 0,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "spiflash_waitbusy",
+              "value": 136,
+              "size": 80,
+              "bind": 0,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "spiflash_sendaddr",
+              "value": 216,
+              "size": 60,
+              "bind": 0,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "spiflash_read",
+              "value": 276,
+              "size": 382,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "os_spiflash_read",
+              "value": 658,
+              "size": 72,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "os_spiflash_program",
+              "value": 730,
+              "size": 132,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "os_spiflash_erase",
+              "value": 862,
+              "size": 88,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            }
+          ],
+          "global_definitions": 5
+        },
+        {
+          "member": "ab32vg1_hal_adc.o",
+          "sha256": "bbffd55b5642a74729d24a994aa01442689b2abcb3cca5a03078a6760d660fac",
+          "file_bytes": 1116,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 82,
+          "relocations": 11,
+          "defined_functions": [
+            {
+              "name": "hal_adc_enable",
+              "value": 0,
+              "size": 20,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hal_adc_start",
+              "value": 20,
+              "size": 6,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hal_adc_poll_for_conversion",
+              "value": 26,
+              "size": 56,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 3
+        },
+        {
+          "member": "debug.o",
+          "sha256": "48653fee98851cb8ea1a94c556fc61754ddecc4665382b886dc4e42d9013ccc0",
+          "file_bytes": 2484,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 288,
+          "relocations": 65,
+          "defined_functions": [
+            {
+              "name": "os_get_interrupt_nest",
+              "value": 0,
+              "size": 4,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "debug_dump_info",
+              "value": 4,
+              "size": 144,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "set_dump",
+              "value": 0,
+              "size": 38,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "debug_set",
+              "value": 38,
+              "size": 34,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "sys_error_hook",
+              "value": 148,
+              "size": 68,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            }
+          ],
+          "global_definitions": 8
+        },
+        {
+          "member": "delay.o",
+          "sha256": "5f260de6c8b573d24bc9c111185f263c20ba3c3c2e8ccdc064e1f749507036e1",
+          "file_bytes": 776,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 16,
+          "relocations": 2,
+          "defined_functions": [
+            {
+              "name": "delay_us",
+              "value": 0,
+              "size": 16,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            }
+          ],
+          "global_definitions": 1
+        },
+        {
+          "member": "platform.o",
+          "sha256": "8d6305fa84e38c2807bb9e6a3cd9f1089440f4d8e31f4b656c745ea29c727fd9",
+          "file_bytes": 596,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 8,
+          "relocations": 0,
+          "defined_functions": [],
+          "global_definitions": 3
+        },
+        {
+          "member": "rom_fun.o",
+          "sha256": "4e5cee09ceb0857610236da42dc72fa1da9c578d95282f45c8c24a77a87387fe",
+          "file_bytes": 1740,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 504,
+          "relocations": 20,
+          "defined_functions": [],
+          "global_definitions": 2
+        },
+        {
+          "member": "save-restore.o",
+          "sha256": "016fae9706ed36528482a3d697c116ed966cd011c930253362ef05f01208c998",
+          "file_bytes": 1672,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 296,
+          "relocations": 0,
+          "defined_functions": [],
+          "global_definitions": 27
+        },
+        {
+          "member": "huart.o",
+          "sha256": "27af1ea63abdd2c4617ac528ed730af1029b4efde5439467f969a7447641bc49",
+          "file_bytes": 3804,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 720,
+          "relocations": 48,
+          "defined_functions": [
+            {
+              "name": "huart_init_do",
+              "value": 0,
+              "size": 350,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "huart_exit",
+              "value": 0,
+              "size": 20,
+              "bind": 1,
+              "type": 2,
+              "section_index": 6
+            },
+            {
+              "name": "huart_setbaudrate",
+              "value": 0,
+              "size": 58,
+              "bind": 1,
+              "type": 2,
+              "section_index": 7
+            },
+            {
+              "name": "huart_putchar",
+              "value": 0,
+              "size": 18,
+              "bind": 1,
+              "type": 2,
+              "section_index": 9
+            },
+            {
+              "name": "huart_tx_done",
+              "value": 0,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 11
+            },
+            {
+              "name": "huart_tx",
+              "value": 0,
+              "size": 198,
+              "bind": 1,
+              "type": 2,
+              "section_index": 13
+            },
+            {
+              "name": "huart_get_rxcnt",
+              "value": 0,
+              "size": 6,
+              "bind": 1,
+              "type": 2,
+              "section_index": 15
+            },
+            {
+              "name": "huart_rxfifo_clear",
+              "value": 0,
+              "size": 12,
+              "bind": 1,
+              "type": 2,
+              "section_index": 16
+            },
+            {
+              "name": "huart_getchar",
+              "value": 0,
+              "size": 28,
+              "bind": 1,
+              "type": 2,
+              "section_index": 17
+            },
+            {
+              "name": "huart_if_rx_ovflow",
+              "value": 10,
+              "size": 20,
+              "bind": 1,
+              "type": 2,
+              "section_index": 11
+            }
+          ],
+          "global_definitions": 10
+        },
+        {
+          "member": "usb_comm.o",
+          "sha256": "cad0b6e0616e1351cd5c6846fb787ef26bdfb5ca5032973cf3e7a4ed844098da",
+          "file_bytes": 1792,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 228,
+          "relocations": 17,
+          "defined_functions": [
+            {
+              "name": "usb_disable",
+              "value": 0,
+              "size": 36,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "usb_init",
+              "value": 36,
+              "size": 142,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "usb_interrupt_disable",
+              "value": 0,
+              "size": 32,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "usb_isr",
+              "value": 0,
+              "size": 18,
+              "bind": 2,
+              "type": 2,
+              "section_index": 6
+            }
+          ],
+          "global_definitions": 6
+        },
+        {
+          "member": "usb_detect.o",
+          "sha256": "5d06e1bf617bffa1afe21943ad35237c135cdc3c9b326b2974f808e14816f218",
+          "file_bytes": 2164,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 188,
+          "relocations": 43,
+          "defined_functions": [
+            {
+              "name": "usbchk_switch_otg_device",
+              "value": 0,
+              "size": 28,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "usbchk_switch_otg_host",
+              "value": 0,
+              "size": 28,
+              "bind": 1,
+              "type": 2,
+              "section_index": 7
+            },
+            {
+              "name": "usbchk_only_host",
+              "value": 0,
+              "size": 26,
+              "bind": 1,
+              "type": 2,
+              "section_index": 9
+            },
+            {
+              "name": "usbchk_only_device",
+              "value": 0,
+              "size": 28,
+              "bind": 1,
+              "type": 2,
+              "section_index": 11
+            },
+            {
+              "name": "usbchk_switch_init_state",
+              "value": 0,
+              "size": 8,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "usbchk_connect",
+              "value": 28,
+              "size": 70,
+              "bind": 1,
+              "type": 2,
+              "section_index": 11
+            }
+          ],
+          "global_definitions": 7
+        },
+        {
+          "member": "usb_device_audio.o",
+          "sha256": "1ba23ef7283c6a0e213cc2570b28cddb9d256d15a9868383b70f394ba7d31b19",
+          "file_bytes": 2808,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 316,
+          "relocations": 55,
+          "defined_functions": [
+            {
+              "name": "ude_set_sys_volume",
+              "value": 0,
+              "size": 2,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ude_mic_start",
+              "value": 2,
+              "size": 2,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ude_mic_stop",
+              "value": 4,
+              "size": 2,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ude_micdnr_process",
+              "value": 0,
+              "size": 2,
+              "bind": 2,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "ude_get_sys_volume",
+              "value": 6,
+              "size": 4,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ude_get_sys_vol_level",
+              "value": 10,
+              "size": 4,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "uda_get_spk_mute",
+              "value": 0,
+              "size": 14,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "uda_get_spk_volume",
+              "value": 14,
+              "size": 64,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "uda_set_spk_mute",
+              "value": 78,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "uda_set_spk_volume",
+              "value": 88,
+              "size": 38,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "usb_isoc_reset",
+              "value": 126,
+              "size": 16,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "uda_run_loop_execute",
+              "value": 142,
+              "size": 2,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "ex_spk_vol",
+              "value": 0,
+              "size": 8,
+              "bind": 2,
+              "type": 2,
+              "section_index": 7
+            },
+            {
+              "name": "uda_init",
+              "value": 144,
+              "size": 148,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            }
+          ],
+          "global_definitions": 15
+        },
+        {
+          "member": "usb_device_enum.o",
+          "sha256": "42c581ee6ff514e09248d2a42f7eee116a393827ef5a640acd57f34dbbbe9320",
+          "file_bytes": 4584,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 842,
+          "relocations": 138,
+          "defined_functions": [
+            {
+              "name": "usb_interrupt_init",
+              "value": 0,
+              "size": 48,
+              "bind": 0,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "do_transfering.constprop.3",
+              "value": 48,
+              "size": 116,
+              "bind": 0,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "usbd_ep0_transmit",
+              "value": 164,
+              "size": 22,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "get_setup",
+              "value": 186,
+              "size": 52,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "usbd_ep0_set_address",
+              "value": 238,
+              "size": 44,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "usbd_ep_reset",
+              "value": 282,
+              "size": 108,
+              "bind": 2,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "ude_control_flow",
+              "value": 390,
+              "size": 236,
+              "bind": 2,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "usbd_ep0_send_status",
+              "value": 626,
+              "size": 16,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "usbd_ep_set_stall",
+              "value": 642,
+              "size": 18,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "usbd_ep_clear_stall",
+              "value": 660,
+              "size": 16,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "ude_run_loop_execute",
+              "value": 676,
+              "size": 96,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "ude_init",
+              "value": 772,
+              "size": 70,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            }
+          ],
+          "global_definitions": 11
+        },
+        {
+          "member": "usb_device_ep.o",
+          "sha256": "664688a55bb4df78e4248f55b9d5710b4f2870339eb7dba1ca5fd8ce2f13f928",
+          "file_bytes": 4416,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 1002,
+          "relocations": 113,
+          "defined_functions": [
+            {
+              "name": "usb_set_cur_ep",
+              "value": 0,
+              "size": 24,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "usb_ep_init",
+              "value": 24,
+              "size": 144,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "usb_ep_halt",
+              "value": 168,
+              "size": 100,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "usb_ep_clear",
+              "value": 268,
+              "size": 88,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "usb_ep_transfer",
+              "value": 356,
+              "size": 422,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "usb_ep_reset",
+              "value": 778,
+              "size": 136,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "usb_ep_start_transfer",
+              "value": 914,
+              "size": 32,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "usb_ep_do_transfer",
+              "value": 946,
+              "size": 56,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            }
+          ],
+          "global_definitions": 9
+        },
+        {
+          "member": "usb_device_hid.o",
+          "sha256": "b4afb15253d35b3a7e835eab9a001d5216d6336669d98dda99b01c4ce9da90b1",
+          "file_bytes": 2540,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 308,
+          "relocations": 65,
+          "defined_functions": [
+            {
+              "name": "ude_tmr_isr",
+              "value": 0,
+              "size": 34,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "ude_hid_setvalid",
+              "value": 0,
+              "size": 22,
+              "bind": 1,
+              "type": 2,
+              "section_index": 6
+            },
+            {
+              "name": "usbd_ep3_transmit",
+              "value": 22,
+              "size": 110,
+              "bind": 1,
+              "type": 2,
+              "section_index": 6
+            },
+            {
+              "name": "usb_int_ep_reset",
+              "value": 132,
+              "size": 40,
+              "bind": 1,
+              "type": 2,
+              "section_index": 6
+            },
+            {
+              "name": "udh_init",
+              "value": 172,
+              "size": 102,
+              "bind": 1,
+              "type": 2,
+              "section_index": 6
+            }
+          ],
+          "global_definitions": 5
+        },
+        {
+          "member": "usb_device_run_loop.o",
+          "sha256": "cee4cc03f792336f36a366dd9b950dc017a5b245793ead3bbc1193a4163dabef",
+          "file_bytes": 3064,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 400,
+          "relocations": 81,
+          "defined_functions": [
+            {
+              "name": "usb_device_exit",
+              "value": 0,
+              "size": 26,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "usb_device_init",
+              "value": 26,
+              "size": 168,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "usb_device_enter",
+              "value": 194,
+              "size": 116,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "usb_device_hid_send",
+              "value": 0,
+              "size": 74,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "usb_dev_isr",
+              "value": 0,
+              "size": 16,
+              "bind": 2,
+              "type": 2,
+              "section_index": 7
+            }
+          ],
+          "global_definitions": 11
+        },
+        {
+          "member": "usb_device_table.o",
+          "sha256": "3b8f6cca186b5a38f1ed060797e8545eb4ca63e3c4da83a340df2c4e2a68c084",
+          "file_bytes": 1760,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 0,
+          "relocations": 0,
+          "defined_functions": [],
+          "global_definitions": 16
+        }
+      ],
+      "cached_listing_verification": {
+        "listing_sha256": "d14259bee897889d2163b4cbbbf652bc91870df55091deea6a7af7227346717e",
+        "instruction_rows_checked": 3737,
+        "executable_bytes_covered": 12064,
+        "executable_bytes_total": 12408,
+        "uncovered_executable_bytes": 344,
+        "meaning": "Listed encoded bytes match archive; mnemonics/relocations not validated here."
+      }
+    },
+    "libbtctrl": {
+      "path": "bare/lib/libbtctrl.a",
+      "sha256": "60cda98155de21b3feda330d494d38a79d61db6f279f750dc1b12e1c45c4ac9b",
+      "members": [
+        {
+          "member": "bb.o",
+          "sha256": "57247131de81983d795f81887cb4db88e624950cfc9d24f4f178cf4c19c35e25",
+          "file_bytes": 15788,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 2938,
+          "relocations": 189,
+          "defined_functions": [
+            {
+              "name": "bthw_get_heap_info",
+              "value": 0,
+              "size": 20,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_go_about_way",
+              "value": 20,
+              "size": 78,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_keep_within_error",
+              "value": 0,
+              "size": 76,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "bthw_soft_isr",
+              "value": 0,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 7
+            },
+            {
+              "name": "bthw_isr_do",
+              "value": 10,
+              "size": 44,
+              "bind": 1,
+              "type": 2,
+              "section_index": 7
+            },
+            {
+              "name": "bb_make_on_husband",
+              "value": 510,
+              "size": 4,
+              "bind": 1,
+              "type": 2,
+              "section_index": 9
+            },
+            {
+              "name": "bb_init",
+              "value": 98,
+              "size": 272,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_reset",
+              "value": 370,
+              "size": 116,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_off",
+              "value": 486,
+              "size": 146,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_run_loop",
+              "value": 0,
+              "size": 24,
+              "bind": 1,
+              "type": 2,
+              "section_index": 11
+            },
+            {
+              "name": "bb_find_on_influence",
+              "value": 0,
+              "size": 2,
+              "bind": 1,
+              "type": 2,
+              "section_index": 13
+            },
+            {
+              "name": "bb_pass_under_iron",
+              "value": 0,
+              "size": 14,
+              "bind": 1,
+              "type": 2,
+              "section_index": 14
+            },
+            {
+              "name": "bb_sleep",
+              "value": 14,
+              "size": 692,
+              "bind": 1,
+              "type": 2,
+              "section_index": 14
+            },
+            {
+              "name": "bb_keep_within_opening",
+              "value": 706,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 14
+            },
+            {
+              "name": "bb_fetch_in_event",
+              "value": 778,
+              "size": 46,
+              "bind": 1,
+              "type": 2,
+              "section_index": 14
+            },
+            {
+              "name": "bb_give_on_enthusiasm",
+              "value": 0,
+              "size": 70,
+              "bind": 1,
+              "type": 2,
+              "section_index": 16
+            },
+            {
+              "name": "bb_get_without_card",
+              "value": 886,
+              "size": 50,
+              "bind": 1,
+              "type": 2,
+              "section_index": 14
+            },
+            {
+              "name": "bb_is_sleep",
+              "value": 70,
+              "size": 48,
+              "bind": 1,
+              "type": 2,
+              "section_index": 16
+            },
+            {
+              "name": "bb_get_at_clue",
+              "value": 118,
+              "size": 48,
+              "bind": 1,
+              "type": 2,
+              "section_index": 16
+            }
+          ],
+          "global_definitions": 20
+        },
+        {
+          "member": "bb_rf.o",
+          "sha256": "1bd766f5605fb795b917c0fa8bb7ae35e8866d6cfdf4b31623a99614ebbb1137",
+          "file_bytes": 13844,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 5406,
+          "relocations": 280,
+          "defined_functions": [
+            {
+              "name": "bb_rf_get_into_temporary",
+              "value": 0,
+              "size": 18,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_give_at_moment",
+              "value": 0,
+              "size": 14,
+              "bind": 0,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "bb_rf_show_on_cash",
+              "value": 0,
+              "size": 582,
+              "bind": 0,
+              "type": 2,
+              "section_index": 7
+            },
+            {
+              "name": "bb_rf_keep_about_uncle",
+              "value": 582,
+              "size": 334,
+              "bind": 0,
+              "type": 2,
+              "section_index": 7
+            },
+            {
+              "name": "bb_rf_tell_on_ease",
+              "value": 18,
+              "size": 204,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_show_in_worker",
+              "value": 222,
+              "size": 554,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_send_for_confidence",
+              "value": 916,
+              "size": 362,
+              "bind": 0,
+              "type": 2,
+              "section_index": 7
+            },
+            {
+              "name": "bb_rf_pick_to_test",
+              "value": 1278,
+              "size": 56,
+              "bind": 0,
+              "type": 2,
+              "section_index": 7
+            },
+            {
+              "name": "bb_rf_keep_about_professor",
+              "value": 776,
+              "size": 56,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_send_by_burn",
+              "value": 0,
+              "size": 2,
+              "bind": 2,
+              "type": 2,
+              "section_index": 9
+            },
+            {
+              "name": "bt_get_hvbko",
+              "value": 832,
+              "size": 82,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bt_get_packet",
+              "value": 914,
+              "size": 84,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_pass_on_water",
+              "value": 998,
+              "size": 50,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_cause_under_truck",
+              "value": 1048,
+              "size": 38,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_tell_at_entry",
+              "value": 1086,
+              "size": 40,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_fetch_within_fix",
+              "value": 0,
+              "size": 48,
+              "bind": 1,
+              "type": 2,
+              "section_index": 10
+            },
+            {
+              "name": "bb_rf_reserve_at_world",
+              "value": 1126,
+              "size": 40,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_find_inside_human",
+              "value": 1166,
+              "size": 44,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_give_by_picture",
+              "value": 1210,
+              "size": 138,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_make_of_position",
+              "value": 1348,
+              "size": 4,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_go_inside_log",
+              "value": 0,
+              "size": 2,
+              "bind": 1,
+              "type": 2,
+              "section_index": 12
+            },
+            {
+              "name": "bb_rf_set_on_inflation",
+              "value": 1352,
+              "size": 38,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_set_about_agent",
+              "value": 1334,
+              "size": 12,
+              "bind": 1,
+              "type": 2,
+              "section_index": 7
+            },
+            {
+              "name": "bb_rf_pass_without_consequence",
+              "value": 0,
+              "size": 140,
+              "bind": 1,
+              "type": 2,
+              "section_index": 14
+            },
+            {
+              "name": "bb_rf_send_to_officer",
+              "value": 140,
+              "size": 120,
+              "bind": 1,
+              "type": 2,
+              "section_index": 14
+            },
+            {
+              "name": "bb_rf_show_by_line",
+              "value": 0,
+              "size": 14,
+              "bind": 2,
+              "type": 2,
+              "section_index": 16
+            },
+            {
+              "name": "bb_rf_sell_by_patience",
+              "value": 14,
+              "size": 14,
+              "bind": 2,
+              "type": 2,
+              "section_index": 16
+            },
+            {
+              "name": "bb_rf_get_at_application",
+              "value": 260,
+              "size": 130,
+              "bind": 1,
+              "type": 2,
+              "section_index": 14
+            },
+            {
+              "name": "bb_rf_read_into_price",
+              "value": 390,
+              "size": 68,
+              "bind": 1,
+              "type": 2,
+              "section_index": 14
+            },
+            {
+              "name": "bb_rf_reserve_into_mud",
+              "value": 1390,
+              "size": 22,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_get_with_leadership",
+              "value": 1412,
+              "size": 102,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_take_without_start",
+              "value": 0,
+              "size": 34,
+              "bind": 1,
+              "type": 2,
+              "section_index": 18
+            },
+            {
+              "name": "bb_give_into_radio",
+              "value": 1514,
+              "size": 1492,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_sell_about_bet",
+              "value": 3006,
+              "size": 42,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_show_with_stay",
+              "value": 0,
+              "size": 88,
+              "bind": 1,
+              "type": 2,
+              "section_index": 20
+            },
+            {
+              "name": "bb_pass_about_dependent",
+              "value": 2,
+              "size": 228,
+              "bind": 1,
+              "type": 2,
+              "section_index": 12
+            },
+            {
+              "name": "bb_make_into_mother",
+              "value": 3048,
+              "size": 110,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 28
+        },
+        {
+          "member": "ble.o",
+          "sha256": "0c3ffd4024613802a59051e1834a2b5c9975edd609d0f7dfd17eeadf81bd8401",
+          "file_bytes": 2516,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 290,
+          "relocations": 51,
+          "defined_functions": [
+            {
+              "name": "ble_write_about_black",
+              "value": 0,
+              "size": 34,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_go_on_valuable",
+              "value": 34,
+              "size": 40,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_sell_about_sun",
+              "value": 74,
+              "size": 34,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_take_about_press",
+              "value": 108,
+              "size": 72,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_reserve_without_volume",
+              "value": 0,
+              "size": 110,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            }
+          ],
+          "global_definitions": 6
+        },
+        {
+          "member": "ble_con.o",
+          "sha256": "7554fb960d688a25766fb60b724631e2302300bdf25789ce3725739b2a3b1eae",
+          "file_bytes": 8240,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 2698,
+          "relocations": 174,
+          "defined_functions": [
+            {
+              "name": "ble_con_show_on_border",
+              "value": 0,
+              "size": 44,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_make_on_burn",
+              "value": 44,
+              "size": 68,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_leave_about_television",
+              "value": 112,
+              "size": 534,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_pick_under_strike",
+              "value": 646,
+              "size": 42,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_get_of_shoe",
+              "value": 688,
+              "size": 190,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_write_under_state",
+              "value": 878,
+              "size": 14,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_cause_within_youth",
+              "value": 892,
+              "size": 558,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_find_of_blow",
+              "value": 1450,
+              "size": 8,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_find_inside_service",
+              "value": 1458,
+              "size": 254,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_keep_within_broad",
+              "value": 1712,
+              "size": 8,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_make_on_street",
+              "value": 1720,
+              "size": 218,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_find_inside_official",
+              "value": 1938,
+              "size": 14,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_cause_about_mud",
+              "value": 1952,
+              "size": 46,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_sell_by_champion",
+              "value": 1998,
+              "size": 42,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_take_inside_pace",
+              "value": 2040,
+              "size": 222,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_take_by_join",
+              "value": 2262,
+              "size": 38,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_go_with_pen",
+              "value": 2300,
+              "size": 42,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_reserve_on_option",
+              "value": 2342,
+              "size": 184,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_do_by_wall",
+              "value": 2526,
+              "size": 172,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 20
+        },
+        {
+          "member": "ble_evt.o",
+          "sha256": "4e91629f3a41c49a9d81aef38a2667002186873eb4ad76934d8a2ade6baffb21",
+          "file_bytes": 8584,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 2526,
+          "relocations": 210,
+          "defined_functions": [
+            {
+              "name": "ble_evt_cause_for_soil",
+              "value": 0,
+              "size": 52,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_evt_give_without_worth",
+              "value": 1054,
+              "size": 84,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_evt_pass_within_time",
+              "value": 1138,
+              "size": 470,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_evt_give_for_drawing",
+              "value": 0,
+              "size": 64,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "ble_evt_show_under_paint",
+              "value": 64,
+              "size": 62,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "ble_con_keep_by_success",
+              "value": 126,
+              "size": 108,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "ble_con_send_at_age",
+              "value": 234,
+              "size": 88,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "ble_con_show_to_slip",
+              "value": 322,
+              "size": 54,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "ble_con_fetch_at_pressure",
+              "value": 52,
+              "size": 130,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_evt_sell_for_mortgage",
+              "value": 182,
+              "size": 26,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_keep_on_muscle",
+              "value": 208,
+              "size": 158,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_give_at_black",
+              "value": 366,
+              "size": 40,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_leave_of_dance",
+              "value": 406,
+              "size": 368,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_give_within_suit",
+              "value": 774,
+              "size": 254,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_make_in_spirit",
+              "value": 1028,
+              "size": 26,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_evt_read_within_distribution",
+              "value": 376,
+              "size": 44,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "ble_con_show_without_uncle",
+              "value": 1608,
+              "size": 92,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_give_to_series",
+              "value": 1700,
+              "size": 216,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_cause_with_cold",
+              "value": 1916,
+              "size": 114,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_evt_find_for_stock",
+              "value": 420,
+              "size": 76,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            }
+          ],
+          "global_definitions": 18
+        },
+        {
+          "member": "ble_sleep.o",
+          "sha256": "d23ae105da70ecb83a16a751a1e607ee2396e5ffd3014d4135fcd880ca34ef74",
+          "file_bytes": 1272,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 104,
+          "relocations": 17,
+          "defined_functions": [
+            {
+              "name": "bb_get_at_attitude",
+              "value": 0,
+              "size": 104,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            }
+          ],
+          "global_definitions": 1
+        },
+        {
+          "member": "ble_txrx.o",
+          "sha256": "b374f1edcb4c10e1079fb13f6324453f8f405aa64cee1ed85f49a954035883c6",
+          "file_bytes": 556,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 0,
+          "relocations": 0,
+          "defined_functions": [],
+          "global_definitions": 0
+        },
+        {
+          "member": "ll.o",
+          "sha256": "af91da1e659ff27f9cf95d21c9b698092d733c88a0da5a2beb871d3ab68af1b0",
+          "file_bytes": 10000,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 2784,
+          "relocations": 280,
+          "defined_functions": [
+            {
+              "name": "ll_show_of_depression",
+              "value": 0,
+              "size": 4,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_fetch_with_brother",
+              "value": 4,
+              "size": 320,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_pick_to_teacher",
+              "value": 324,
+              "size": 54,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_tell_under_position",
+              "value": 378,
+              "size": 68,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_make_of_distribution",
+              "value": 446,
+              "size": 40,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_tell_under_slip",
+              "value": 486,
+              "size": 112,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_go_without_restaurant",
+              "value": 598,
+              "size": 272,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_do_under_regret",
+              "value": 870,
+              "size": 292,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_show_of_incident",
+              "value": 0,
+              "size": 174,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "ll_write_within_surprise",
+              "value": 1162,
+              "size": 116,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_read_under_responsibility",
+              "value": 1278,
+              "size": 180,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_send_for_consideration",
+              "value": 1458,
+              "size": 110,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_send_under_supermarket",
+              "value": 1568,
+              "size": 168,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_reserve_within_drawing",
+              "value": 1736,
+              "size": 58,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_make_to_display",
+              "value": 1794,
+              "size": 58,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_leave_without_cry",
+              "value": 1852,
+              "size": 80,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_evt_reserve_by_conflict",
+              "value": 174,
+              "size": 90,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "ble_con_tell_by_advantage",
+              "value": 264,
+              "size": 44,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "ble_evt_go_by_elevator",
+              "value": 308,
+              "size": 158,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "ble_evt_cause_for_impress",
+              "value": 466,
+              "size": 170,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "ll_go_into_variation",
+              "value": 1932,
+              "size": 56,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_get_into_contribution",
+              "value": 1988,
+              "size": 160,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 24
+        },
+        {
+          "member": "ll_cntl.o",
+          "sha256": "78161c4d227c5b3bebcf61141607765d2e3e278a206b9a365b1825c699a24fe1",
+          "file_bytes": 15292,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 5052,
+          "relocations": 490,
+          "defined_functions": [
+            {
+              "name": "ll_cntl_make_into_boat",
+              "value": 0,
+              "size": 170,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_write_in_king",
+              "value": 170,
+              "size": 20,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_find_in_heat",
+              "value": 190,
+              "size": 114,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_leave_inside_instruction",
+              "value": 304,
+              "size": 128,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_show_of_interview",
+              "value": 432,
+              "size": 110,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_tell_without_demand",
+              "value": 542,
+              "size": 134,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_send_on_meaning",
+              "value": 676,
+              "size": 306,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_leave_with_time",
+              "value": 982,
+              "size": 216,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_pick_of_partner",
+              "value": 1198,
+              "size": 96,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_sell_at_community",
+              "value": 1294,
+              "size": 76,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_pass_about_spring",
+              "value": 1370,
+              "size": 204,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_show_with_card",
+              "value": 1574,
+              "size": 218,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_set_of_reward",
+              "value": 1792,
+              "size": 202,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_go_about_stupid",
+              "value": 1994,
+              "size": 118,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_set_to_farm",
+              "value": 2112,
+              "size": 186,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_leave_in_objective",
+              "value": 2298,
+              "size": 204,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_write_on_quiet",
+              "value": 2502,
+              "size": 48,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_cause_within_recommendation",
+              "value": 2550,
+              "size": 122,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_show_under_network",
+              "value": 2672,
+              "size": 206,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_sell_into_beat",
+              "value": 2878,
+              "size": 130,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_reserve_without_display",
+              "value": 3008,
+              "size": 2,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_find_about_visual",
+              "value": 3010,
+              "size": 238,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_take_without_hook",
+              "value": 3248,
+              "size": 178,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_write_by_event",
+              "value": 3426,
+              "size": 140,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_find_at_crazy",
+              "value": 3566,
+              "size": 108,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_read_within_record",
+              "value": 3674,
+              "size": 76,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_set_of_letter",
+              "value": 3750,
+              "size": 2,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_fetch_at_football",
+              "value": 3752,
+              "size": 8,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_get_in_conflict",
+              "value": 3760,
+              "size": 2,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_save_under_outcome",
+              "value": 3762,
+              "size": 90,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_pick_without_support",
+              "value": 3852,
+              "size": 168,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_cause_with_high",
+              "value": 4020,
+              "size": 230,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_reserve_of_football",
+              "value": 4250,
+              "size": 236,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_pick_in_peak",
+              "value": 4486,
+              "size": 114,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_tell_on_spend",
+              "value": 4600,
+              "size": 218,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_show_for_phase",
+              "value": 4818,
+              "size": 234,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 34
+        },
+        {
+          "member": "ll_proc.o",
+          "sha256": "8baa395b43f0430566a6241ab1bfb24654effa33b9fd4ebe78f2004b8cbed7af",
+          "file_bytes": 23884,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 5904,
+          "relocations": 765,
+          "defined_functions": [
+            {
+              "name": "ll_proc_show_into_sing",
+              "value": 0,
+              "size": 158,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_give_for_satisfaction",
+              "value": 158,
+              "size": 234,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_reserve_of_property",
+              "value": 392,
+              "size": 92,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_send_in_fuel",
+              "value": 484,
+              "size": 108,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_go_on_event",
+              "value": 592,
+              "size": 454,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_keep_under_diamond",
+              "value": 1046,
+              "size": 162,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_pick_within_link",
+              "value": 1208,
+              "size": 138,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_do_at_brave",
+              "value": 1346,
+              "size": 142,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_show_without_audience",
+              "value": 1488,
+              "size": 138,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_write_about_apartment",
+              "value": 1626,
+              "size": 112,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_find_under_truth",
+              "value": 1738,
+              "size": 90,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_make_at_blame",
+              "value": 1828,
+              "size": 220,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_fetch_within_celebration",
+              "value": 2048,
+              "size": 98,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_fetch_within_conflict",
+              "value": 2146,
+              "size": 112,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_reserve_in_painting",
+              "value": 2258,
+              "size": 128,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_show_of_present",
+              "value": 2386,
+              "size": 90,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_cause_inside_hate",
+              "value": 2476,
+              "size": 102,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_pass_in_change",
+              "value": 2578,
+              "size": 98,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_tell_on_method",
+              "value": 2676,
+              "size": 220,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_get_about_friendship",
+              "value": 2896,
+              "size": 62,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_make_inside_impression",
+              "value": 2958,
+              "size": 134,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_pick_on_parent",
+              "value": 3092,
+              "size": 134,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_pass_at_string",
+              "value": 3226,
+              "size": 78,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_reserve_in_promise",
+              "value": 3304,
+              "size": 72,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_set_for_honey",
+              "value": 3376,
+              "size": 254,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_leave_inside_motor",
+              "value": 3630,
+              "size": 240,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_go_with_parking",
+              "value": 3870,
+              "size": 200,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_make_on_sale",
+              "value": 4070,
+              "size": 184,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_sell_by_give",
+              "value": 4254,
+              "size": 268,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_cause_for_job",
+              "value": 4522,
+              "size": 106,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_reserve_for_roll",
+              "value": 4628,
+              "size": 380,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_pick_about_earth",
+              "value": 5008,
+              "size": 208,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_reserve_without_conflict",
+              "value": 5216,
+              "size": 186,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_pick_for_good",
+              "value": 5402,
+              "size": 150,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_cause_under_value",
+              "value": 5552,
+              "size": 152,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_give_under_hole",
+              "value": 5704,
+              "size": 200,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 3
+        },
+        {
+          "member": "ll_util.o",
+          "sha256": "bddbab801290390d1645c25e127188efdbb3ff20a5a99d92857c8ce49a18d635",
+          "file_bytes": 1556,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 208,
+          "relocations": 27,
+          "defined_functions": [
+            {
+              "name": "ll_util_give_to_credit",
+              "value": 0,
+              "size": 40,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_pick_without_bid",
+              "value": 40,
+              "size": 82,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_cntl_leave_about_cup",
+              "value": 122,
+              "size": 40,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_util_fetch_to_staff",
+              "value": 162,
+              "size": 26,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_util_write_inside_god",
+              "value": 188,
+              "size": 20,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 5
+        },
+        {
+          "member": "mgr.o",
+          "sha256": "bafac8d790778d89c352ead9843840779b2979abcc8348f5639323bff3571f87",
+          "file_bytes": 19508,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 5068,
+          "relocations": 600,
+          "defined_functions": [
+            {
+              "name": "mgr_go_for_frame",
+              "value": 0,
+              "size": 48,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_make_about_pick",
+              "value": 48,
+              "size": 48,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_make_to_delivery",
+              "value": 96,
+              "size": 48,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_save_under_green",
+              "value": 144,
+              "size": 324,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_get_at_coffee",
+              "value": 468,
+              "size": 170,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_show_within_nobody",
+              "value": 638,
+              "size": 40,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_do_into_item",
+              "value": 678,
+              "size": 18,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_go_for_department",
+              "value": 696,
+              "size": 40,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_leave_by_roll",
+              "value": 736,
+              "size": 302,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_keep_by_commission",
+              "value": 1038,
+              "size": 102,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_get_to_town",
+              "value": 1140,
+              "size": 358,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_do_without_strength",
+              "value": 1498,
+              "size": 242,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_show_in_wife",
+              "value": 0,
+              "size": 100,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "ble_con_do_by_fill",
+              "value": 100,
+              "size": 54,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "mgr_send_without_alternative",
+              "value": 1740,
+              "size": 68,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_leave_on_night",
+              "value": 1808,
+              "size": 148,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_send_for_rate",
+              "value": 1956,
+              "size": 172,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_set_inside_one",
+              "value": 2128,
+              "size": 104,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_take_for_screw",
+              "value": 2232,
+              "size": 664,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_write_inside_pay",
+              "value": 4310,
+              "size": 202,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_cause_in_go",
+              "value": 2896,
+              "size": 124,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_write_by_being",
+              "value": 3020,
+              "size": 88,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_pass_inside_top",
+              "value": 3108,
+              "size": 554,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_read_into_shock",
+              "value": 3662,
+              "size": 208,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_pick_of_answer",
+              "value": 3870,
+              "size": 240,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_make_by_hand",
+              "value": 4110,
+              "size": 200,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_evt_find_without_school",
+              "value": 154,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "mgr_leave_inside_minute",
+              "value": 4512,
+              "size": 392,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 31
+        },
+        {
+          "member": "mgr_proc.o",
+          "sha256": "bfa0eefcf8a1803c90f8c368a67c6da5f2d0323841b11a6f9ab293b7d1a1d220",
+          "file_bytes": 12220,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 2600,
+          "relocations": 382,
+          "defined_functions": [
+            {
+              "name": "mgr_proc_pick_inside_two",
+              "value": 0,
+              "size": 64,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_get_for_escape",
+              "value": 64,
+              "size": 112,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_save_by_holiday",
+              "value": 176,
+              "size": 14,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_reserve_with_stomach",
+              "value": 190,
+              "size": 72,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_cause_about_round",
+              "value": 262,
+              "size": 72,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_go_on_event",
+              "value": 334,
+              "size": 426,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_make_in_dependent",
+              "value": 760,
+              "size": 36,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_show_on_limit",
+              "value": 796,
+              "size": 56,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_send_by_reply",
+              "value": 852,
+              "size": 56,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_read_without_habit",
+              "value": 908,
+              "size": 60,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_leave_within_feedback",
+              "value": 968,
+              "size": 158,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_send_on_muscle",
+              "value": 1126,
+              "size": 84,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_leave_to_result",
+              "value": 1210,
+              "size": 114,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_go_without_purple",
+              "value": 1324,
+              "size": 76,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_give_for_clothes",
+              "value": 1400,
+              "size": 76,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_fetch_into_dream",
+              "value": 1476,
+              "size": 114,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_give_by_serve",
+              "value": 1590,
+              "size": 100,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_fetch_into_influence",
+              "value": 1690,
+              "size": 68,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_show_under_diamond",
+              "value": 1758,
+              "size": 76,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_set_inside_cash",
+              "value": 1834,
+              "size": 150,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_proc_keep_under_diamond",
+              "value": 1984,
+              "size": 154,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_pick_within_side",
+              "value": 2138,
+              "size": 100,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_send_into_hearing",
+              "value": 2238,
+              "size": 54,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_make_of_cat",
+              "value": 2238,
+              "size": 54,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_make_on_standard",
+              "value": 2292,
+              "size": 98,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_find_on_truth",
+              "value": 2390,
+              "size": 98,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_tell_within_string",
+              "value": 2488,
+              "size": 112,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 3
+        },
+        {
+          "member": "mgr_util.o",
+          "sha256": "ef331fb4667a9b795428630ae09cf408e2072bd3303488d41693ed82d175fa8c",
+          "file_bytes": 3812,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 470,
+          "relocations": 91,
+          "defined_functions": [
+            {
+              "name": "mgr_write_in_difference",
+              "value": 0,
+              "size": 142,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_take_on_diamond",
+              "value": 142,
+              "size": 36,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_con_do_without_notice",
+              "value": 0,
+              "size": 90,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "mgr_make_within_entrance",
+              "value": 178,
+              "size": 36,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_util_pick_with_refrigerator",
+              "value": 214,
+              "size": 16,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_write_at_other",
+              "value": 230,
+              "size": 64,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_save_under_decision",
+              "value": 294,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_proc_fetch_at_novel",
+              "value": 304,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_reserve_without_bathroom",
+              "value": 0,
+              "size": 30,
+              "bind": 1,
+              "type": 2,
+              "section_index": 7
+            },
+            {
+              "name": "ll_read_of_yellow",
+              "value": 314,
+              "size": 18,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ll_take_into_culture",
+              "value": 332,
+              "size": 18,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 13
+        },
+        {
+          "member": "bt21.o",
+          "sha256": "f96c66085e8c5611510a50f7ecd00888bb4b347354a9f4d92d2b4f5c1fe725b2",
+          "file_bytes": 2232,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 236,
+          "relocations": 42,
+          "defined_functions": [
+            {
+              "name": "bb_do_at_review",
+              "value": 0,
+              "size": 56,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_tell_with_base",
+              "value": 56,
+              "size": 78,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_pass_in_airport",
+              "value": 0,
+              "size": 102,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            }
+          ],
+          "global_definitions": 3
+        },
+        {
+          "member": "ext_init.o",
+          "sha256": "cd188bca5652a4add7699b38096543421f15e41c4c00d265415c3edc1d4609b0",
+          "file_bytes": 3720,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 792,
+          "relocations": 79,
+          "defined_functions": [
+            {
+              "name": "bb_write_without_passenger",
+              "value": 0,
+              "size": 86,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bt21_set_on_tennis",
+              "value": 86,
+              "size": 346,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ext_init_reserve_to_word",
+              "value": 432,
+              "size": 208,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ext_init_pick_of_edge",
+              "value": 640,
+              "size": 88,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ext_init_pass_within_equivalent",
+              "value": 728,
+              "size": 64,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 7
+        },
+        {
+          "member": "ext_util.o",
+          "sha256": "815a94c7a071f33245efbbd30cd745736e6b62078211f33954d357ced473b0f0",
+          "file_bytes": 2276,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 280,
+          "relocations": 66,
+          "defined_functions": [
+            {
+              "name": "ext_init_cause_within_lift",
+              "value": 0,
+              "size": 20,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ext_util_save_of_ease",
+              "value": 20,
+              "size": 18,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ext_util_read_without_raw",
+              "value": 38,
+              "size": 34,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ext_util_leave_for_variety",
+              "value": 72,
+              "size": 76,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ext_util_set_to_menu",
+              "value": 148,
+              "size": 24,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ext_util_leave_about_wait",
+              "value": 172,
+              "size": 34,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ext_util_write_within_brain",
+              "value": 206,
+              "size": 46,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ext_util_show_on_finger",
+              "value": 252,
+              "size": 28,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 8
+        },
+        {
+          "member": "lm.o",
+          "sha256": "a8d47e5b57540e647c2a648c9781c2491618acef5a70de47880233974513fec6",
+          "file_bytes": 1512,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 134,
+          "relocations": 19,
+          "defined_functions": [
+            {
+              "name": "bt21_keep_within_grocery",
+              "value": 0,
+              "size": 46,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_leave_in_treat",
+              "value": 46,
+              "size": 44,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_send_with_consequence",
+              "value": 90,
+              "size": 44,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 3
+        },
+        {
+          "member": "lm_proc.o",
+          "sha256": "c27f1f7a61f16a81f6475f2ba462e6641cb6b3919e1dfb12cb97735c26d9baec",
+          "file_bytes": 4636,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 742,
+          "relocations": 111,
+          "defined_functions": [
+            {
+              "name": "lm_proc_save_without_neck",
+              "value": 0,
+              "size": 92,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_proc_reserve_to_boy",
+              "value": 92,
+              "size": 52,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_proc_sell_at_space",
+              "value": 144,
+              "size": 84,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_proc_sell_by_coffee",
+              "value": 228,
+              "size": 34,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_proc_cause_under_cell",
+              "value": 262,
+              "size": 34,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_proc_take_within_bonus",
+              "value": 296,
+              "size": 52,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_proc_go_of_chain",
+              "value": 348,
+              "size": 68,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_proc_tell_in_film",
+              "value": 416,
+              "size": 64,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_proc_sell_of_gas",
+              "value": 480,
+              "size": 84,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_proc_go_about_presentation",
+              "value": 564,
+              "size": 44,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_proc_show_in_cause",
+              "value": 608,
+              "size": 64,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_proc_send_without_aside",
+              "value": 672,
+              "size": 70,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 3
+        },
+        {
+          "member": "lm_sleep.o",
+          "sha256": "abfac9722a1036140590b5a33faacaf2d1ae3ed287196d581ec0a6443ca34592",
+          "file_bytes": 1104,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 136,
+          "relocations": 1,
+          "defined_functions": [
+            {
+              "name": "ext_init_get_without_name",
+              "value": 0,
+              "size": 28,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_send_to_mall",
+              "value": 0,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "bb_send_without_line",
+              "value": 10,
+              "size": 26,
+              "bind": 1,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "bb_find_with_brush",
+              "value": 0,
+              "size": 70,
+              "bind": 1,
+              "type": 2,
+              "section_index": 6
+            },
+            {
+              "name": "bb_read_within_homework",
+              "value": 70,
+              "size": 2,
+              "bind": 1,
+              "type": 2,
+              "section_index": 6
+            }
+          ],
+          "global_definitions": 5
+        },
+        {
+          "member": "bb_buf.o",
+          "sha256": "3c5cc564472b46e6ce0be4cea3b07458543d9bbe3e2d882fce53e0164f259761",
+          "file_bytes": 1712,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 272,
+          "relocations": 19,
+          "defined_functions": [
+            {
+              "name": "bt21_find_on_you",
+              "value": 0,
+              "size": 236,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "ll_sell_under_data",
+              "value": 0,
+              "size": 36,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 5
+        },
+        {
+          "member": "bb_debug.o",
+          "sha256": "aeb4698087af85a025f04fea8770b3c33d3b745d5dbc846772c7a29a534dbeb5",
+          "file_bytes": 1920,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 180,
+          "relocations": 28,
+          "defined_functions": [
+            {
+              "name": "bb_debug_give_within_lie",
+              "value": 0,
+              "size": 128,
+              "bind": 0,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "bb_debug_keep_by_type",
+              "value": 128,
+              "size": 30,
+              "bind": 2,
+              "type": 2,
+              "section_index": 4
+            },
+            {
+              "name": "bb_debug_reserve_for_unit",
+              "value": 158,
+              "size": 22,
+              "bind": 2,
+              "type": 2,
+              "section_index": 4
+            }
+          ],
+          "global_definitions": 2
+        },
+        {
+          "member": "bb_utils.o",
+          "sha256": "cbe20c8f76597083b386feada7e5b32c4ad04d631df1245803ac8ceeb737d7e2",
+          "file_bytes": 2652,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 354,
+          "relocations": 53,
+          "defined_functions": [
+            {
+              "name": "bb_utils_keep_on_pain",
+              "value": 0,
+              "size": 22,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_find_at_writing",
+              "value": 22,
+              "size": 32,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bt21_give_to_dust",
+              "value": 54,
+              "size": 18,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_utils_pass_without_hole",
+              "value": 72,
+              "size": 106,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_utils_save_about_joke",
+              "value": 178,
+              "size": 46,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_utils_keep_of_age",
+              "value": 224,
+              "size": 26,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_utils_go_by_promise",
+              "value": 250,
+              "size": 104,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 8
+        },
+        {
+          "member": "co_list.o",
+          "sha256": "3113fdf54bada7d221356c77b812374bd46dc6a22afb2dc051e570f26601ebff",
+          "file_bytes": 552,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 0,
+          "relocations": 0,
+          "defined_functions": [],
+          "global_definitions": 0
+        },
+        {
+          "member": "complex.o",
+          "sha256": "3e37a084620d40c95d7efeab4d13e5c106be58c291c7a5ac200ed500c50b0dc5",
+          "file_bytes": 1052,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 156,
+          "relocations": 5,
+          "defined_functions": [
+            {
+              "name": "complex_set_into_brave",
+              "value": 0,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_fetch_without_dish",
+              "value": 10,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_make_in_job",
+              "value": 20,
+              "size": 28,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_rf_make_for_branch",
+              "value": 48,
+              "size": 108,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 4
+        },
+        {
+          "member": "nanos.o",
+          "sha256": "e8105a1f1899da0f61ca4122e7e8b006b97245f9ebd00f16af6775732bb28e46",
+          "file_bytes": 1800,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 194,
+          "relocations": 32,
+          "defined_functions": [
+            {
+              "name": "nanos_save_to_draft",
+              "value": 0,
+              "size": 32,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "bb_find_to_afternoon",
+              "value": 32,
+              "size": 50,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "nanos_write_inside_process",
+              "value": 82,
+              "size": 48,
+              "bind": 1,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "nanos_keep_inside_reach",
+              "value": 0,
+              "size": 4,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_proc_do_on_kiss",
+              "value": 4,
+              "size": 4,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_do_on_ordinary",
+              "value": 8,
+              "size": 56,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 6
+        },
+        {
+          "member": "hct.o",
+          "sha256": "f9f398f884f9e6527cf5ab44a9f40bb46101ac16ae39e15eda160cb998db206f",
+          "file_bytes": 19184,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 2770,
+          "relocations": 631,
+          "defined_functions": [
+            {
+              "name": "hct_make_at_sell",
+              "value": 0,
+              "size": 84,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_take_of_metal",
+              "value": 84,
+              "size": 352,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_pass_within_head",
+              "value": 436,
+              "size": 164,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_proc_save_about_hearing",
+              "value": 600,
+              "size": 28,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_set_to_method",
+              "value": 628,
+              "size": 122,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_leave_in_bother",
+              "value": 750,
+              "size": 92,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_reserve_within_physics",
+              "value": 842,
+              "size": 72,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_write_at_month",
+              "value": 914,
+              "size": 64,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_set_by_god",
+              "value": 978,
+              "size": 58,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_get_inside_minimum",
+              "value": 1036,
+              "size": 104,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_tx_done",
+              "value": 1140,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_leave_with_ability",
+              "value": 1150,
+              "size": 350,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_take_into_brain",
+              "value": 1500,
+              "size": 210,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_take_into_host",
+              "value": 1710,
+              "size": 200,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_give_in_discount",
+              "value": 1910,
+              "size": 38,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_proc_tell_to_complex",
+              "value": 1948,
+              "size": 82,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bt21_go_about_pool",
+              "value": 2030,
+              "size": 66,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bt21_save_under_dig",
+              "value": 2096,
+              "size": 128,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_take_under_cook",
+              "value": 2224,
+              "size": 24,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "lm_proc_save_about_ruin",
+              "value": 2248,
+              "size": 188,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_send_command",
+              "value": 2436,
+              "size": 158,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_acl_segment",
+              "value": 2594,
+              "size": 176,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 34
+        },
+        {
+          "member": "hct_msg.o",
+          "sha256": "5623f932c53ada38917ab4679c42629b8faa3ca16c2ea81aca52891f97e67b07",
+          "file_bytes": 1776,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 342,
+          "relocations": 22,
+          "defined_functions": [
+            {
+              "name": "hct_get_on_birth",
+              "value": 0,
+              "size": 10,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_find_with_problem",
+              "value": 10,
+              "size": 70,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_msg_do_in_vacation",
+              "value": 80,
+              "size": 32,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_msg_cause_of_primary",
+              "value": 112,
+              "size": 14,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_cause_to_ladder",
+              "value": 126,
+              "size": 100,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_give_without_resolve",
+              "value": 226,
+              "size": 88,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_save_within_tea",
+              "value": 314,
+              "size": 28,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 7
+        },
+        {
+          "member": "hct_proc.o",
+          "sha256": "d3d6a7baec02b1c8c03dbfd4c12c60686c93f14db8e16361aa0931bd78b72ea8",
+          "file_bytes": 3400,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 388,
+          "relocations": 80,
+          "defined_functions": [
+            {
+              "name": "hct_proc_cause_under_statement",
+              "value": 0,
+              "size": 28,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_proc_tell_for_efficiency",
+              "value": 160,
+              "size": 228,
+              "bind": 0,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "hct_proc_send_on_network",
+              "value": 28,
+              "size": 132,
+              "bind": 1,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 4
+        },
+        {
+          "member": "baseband_platform.o",
+          "sha256": "739f64a176598a6a3ee87b234f36976308e4c1a6cbd535930d7f213f7bd26358",
+          "file_bytes": 2716,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 326,
+          "relocations": 41,
+          "defined_functions": [
+            {
+              "name": "baseband_platform_get_of_officer",
+              "value": 2,
+              "size": 50,
+              "bind": 0,
+              "type": 2,
+              "section_index": 10
+            },
+            {
+              "name": "bb_rf_take_without_start",
+              "value": 0,
+              "size": 2,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "bthw_isr_do_plus",
+              "value": 0,
+              "size": 36,
+              "bind": 2,
+              "type": 2,
+              "section_index": 6
+            },
+            {
+              "name": "bb_rf_reserve_into_strategy",
+              "value": 0,
+              "size": 4,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_save_about_song",
+              "value": 4,
+              "size": 2,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bb_pass_within_library",
+              "value": 0,
+              "size": 4,
+              "bind": 2,
+              "type": 2,
+              "section_index": 8
+            },
+            {
+              "name": "ll_get_on_spread",
+              "value": 6,
+              "size": 2,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bt21_save_in_design",
+              "value": 0,
+              "size": 2,
+              "bind": 2,
+              "type": 2,
+              "section_index": 9
+            },
+            {
+              "name": "register_isr",
+              "value": 8,
+              "size": 4,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bthw_thread_post",
+              "value": 0,
+              "size": 2,
+              "bind": 2,
+              "type": 2,
+              "section_index": 10
+            },
+            {
+              "name": "os_interrupt_enter",
+              "value": 2,
+              "size": 2,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "os_interrupt_leave",
+              "value": 4,
+              "size": 2,
+              "bind": 2,
+              "type": 2,
+              "section_index": 5
+            },
+            {
+              "name": "baseband_platform_pass_by_hello",
+              "value": 12,
+              "size": 58,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "bthw_irq_init",
+              "value": 70,
+              "size": 156,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 14
+        },
+        {
+          "member": "weak_symbol.o",
+          "sha256": "0dd31e9298ed42c188df8029f5557eaea93d1535f4df366afe2e425fa8148f11",
+          "file_bytes": 992,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 50,
+          "relocations": 6,
+          "defined_functions": [
+            {
+              "name": "bb_rf_get_about_importance",
+              "value": 0,
+              "size": 4,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "weak_symbol_give_to_preference",
+              "value": 4,
+              "size": 4,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "ble_get_local_bd_addr",
+              "value": 8,
+              "size": 38,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            },
+            {
+              "name": "mgr_fetch_on_savings",
+              "value": 46,
+              "size": 4,
+              "bind": 2,
+              "type": 2,
+              "section_index": 1
+            }
+          ],
+          "global_definitions": 4
+        },
+        {
+          "member": "platform_asm.o",
+          "sha256": "bd516ed0e7f39aef6f5b7c4798f44acfbafbbbdcca9a9585f1f0d12c36dbf078",
+          "file_bytes": 468,
+          "elf_flags": 1,
+          "debug_sections": [],
+          "code_bytes": 0,
+          "relocations": 0,
+          "defined_functions": [],
+          "global_definitions": 1
+        }
+      ],
+      "cached_listing_verification": {
+        "listing_sha256": "302be5ff6a3209eadafe1f780112d3879084932e9220e5e2fd38044b3eee3bdc",
+        "instruction_rows_checked": 13597,
+        "executable_bytes_covered": 42866,
+        "executable_bytes_total": 43400,
+        "uncovered_executable_bytes": 534,
+        "meaning": "Listed encoded bytes match archive; mnemonics/relocations not validated here."
+      }
+    }
+  },
+  "fresh_disassembler": {
+    "commands": [
+      [
+        "/usr/bin/llvm-objdump-10",
+        "-dr",
+        "--mattr=+m,+a,+c",
+        "/home/lixiang/Documents/opensource/bluetrum_board/docs/lib-analysis/generated/recovery/sdadc.o"
+      ],
+      [
+        "/usr/bin/llvm-objdump-10",
+        "-dr",
+        "--mattr=+m,+a,+c",
+        "/home/lixiang/Documents/opensource/bluetrum_board/docs/lib-analysis/generated/recovery/driver_spi.o"
+      ]
+    ],
+    "version": "LLVM (http://llvm.org/):"
+  }
+}

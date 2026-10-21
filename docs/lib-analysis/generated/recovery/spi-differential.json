@@ -1,0 +1,213 @@
+{
+  "unicorn_version": "2.1.4",
+  "original_object_sha256": "84e5ce25a4368d749c0efd9f08f19ba5ca9f44698d477ed59dbedefffd2564bd",
+  "recovered_source_sha256": "08a6fca60cd00c250757d50e6fcdf7d781f3928818abd13d1ab6e7893de07887",
+  "integration_smoke": "Wrapper + recovered driver linked with platform stubs; no libhal.a member extracted.",
+  "model": "Synthetic MMIO, platform hooks and __riscv_restore_0/3 ABI; no silicon/bus timing or custom-opcode verification.",
+  "cases": [
+    {
+      "name": "disabled DMA",
+      "api_actions": 3,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "role 1 mapping 1",
+      "api_actions": 18,
+      "trace_events": 70,
+      "result": "pass"
+    },
+    {
+      "name": "role 1 mapping 2",
+      "api_actions": 18,
+      "trace_events": 70,
+      "result": "pass"
+    },
+    {
+      "name": "role 1 mapping 3",
+      "api_actions": 18,
+      "trace_events": 70,
+      "result": "pass"
+    },
+    {
+      "name": "role 1 mapping 4",
+      "api_actions": 18,
+      "trace_events": 70,
+      "result": "pass"
+    },
+    {
+      "name": "role 1 mapping 5",
+      "api_actions": 18,
+      "trace_events": 70,
+      "result": "pass"
+    },
+    {
+      "name": "role 2 mapping 1",
+      "api_actions": 18,
+      "trace_events": 71,
+      "result": "pass"
+    },
+    {
+      "name": "role 2 mapping 2",
+      "api_actions": 18,
+      "trace_events": 71,
+      "result": "pass"
+    },
+    {
+      "name": "role 2 mapping 3",
+      "api_actions": 18,
+      "trace_events": 71,
+      "result": "pass"
+    },
+    {
+      "name": "role 2 mapping 4",
+      "api_actions": 18,
+      "trace_events": 71,
+      "result": "pass"
+    },
+    {
+      "name": "role 2 mapping 5",
+      "api_actions": 18,
+      "trace_events": 71,
+      "result": "pass"
+    },
+    {
+      "name": "role 3 mapping 1",
+      "api_actions": 18,
+      "trace_events": 63,
+      "result": "pass"
+    },
+    {
+      "name": "role 3 mapping 2",
+      "api_actions": 18,
+      "trace_events": 63,
+      "result": "pass"
+    },
+    {
+      "name": "role 3 mapping 3",
+      "api_actions": 18,
+      "trace_events": 63,
+      "result": "pass"
+    },
+    {
+      "name": "role 3 mapping 4",
+      "api_actions": 18,
+      "trace_events": 63,
+      "result": "pass"
+    },
+    {
+      "name": "role 3 mapping 5",
+      "api_actions": 18,
+      "trace_events": 63,
+      "result": "pass"
+    },
+    {
+      "name": "invalid mapping 0",
+      "api_actions": 4,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "invalid mapping 6",
+      "api_actions": 4,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "invalid mapping 4294967295",
+      "api_actions": 4,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "control edge 0",
+      "api_actions": 2,
+      "trace_events": 1,
+      "result": "pass"
+    },
+    {
+      "name": "control edge 4",
+      "api_actions": 2,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "control edge 31",
+      "api_actions": 2,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "control edge 34",
+      "api_actions": 2,
+      "trace_events": 1,
+      "result": "pass"
+    },
+    {
+      "name": "control edge 257",
+      "api_actions": 2,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control edge 288",
+      "api_actions": 2,
+      "trace_events": 1,
+      "result": "pass"
+    },
+    {
+      "name": "mode transitions",
+      "api_actions": 9,
+      "trace_events": 52,
+      "result": "pass"
+    },
+    {
+      "name": "divider 0",
+      "api_actions": 3,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "divider 1",
+      "api_actions": 3,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "divider 48000000",
+      "api_actions": 3,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "divider 96000000",
+      "api_actions": 3,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "timeout",
+      "api_actions": 3,
+      "trace_events": 21,
+      "result": "pass"
+    },
+    {
+      "name": "tick wrap quirk",
+      "api_actions": 2,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "zero/negative timeout completes",
+      "api_actions": 3,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "DMA zero count and no callback",
+      "api_actions": 8,
+      "trace_events": 43,
+      "result": "pass"
+    }
+  ]
+}

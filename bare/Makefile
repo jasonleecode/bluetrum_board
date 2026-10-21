@@ -17,6 +17,15 @@ APP_DIR   := app
 DRV_DIR   := drivers
 LIB_DIR   := lib
 
+# Recovered hardware SPI1 implementation; keep vendor default until board tests.
+# A separate output directory prevents stale objects when switching backends.
+SPI_BACKEND ?= vendor
+ifeq ($(SPI_BACKEND),recovered)
+BUILD_DIR := build/recovered-spi
+else ifneq ($(SPI_BACKEND),vendor)
+$(error SPI_BACKEND must be vendor or recovered)
+endif
+
 # 3. 目标定义 (根据 app 目录下的文件名，定义三个独立的目标)
 # 这里的逻辑是：取出 app/*.c 的文件名，去掉后缀，作为最终生成文件的名字
 APP_SRCS := $(wildcard $(APP_DIR)/*.c)
@@ -53,6 +62,9 @@ LDFLAGS  := $(ARCH_FLAGS) $(OPT_FLAGS) \
 # 5. 源文件收集
 # 共享的驱动源文件
 DRV_SRCS := $(wildcard $(DRV_DIR)/src/*.c)
+ifeq ($(SPI_BACKEND),vendor)
+DRV_SRCS := $(filter-out $(DRV_DIR)/src/driver_spi_recovered.c,$(DRV_SRCS))
+endif
 # 启动文件
 ASM_SRCS := startup.S
 

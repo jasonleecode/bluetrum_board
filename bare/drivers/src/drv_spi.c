@@ -1,30 +1,7 @@
 #include "drv_spi.h"
+#include "blue_spi.h"
 
-#define BLUE_SPI_MODE_MASTER 1u
-#define BLUE_SPI_SET_MAPPING 0x20u
-#define BLUE_SPI_ENABLE 0x21u
 #define DRV_SPI_DEFAULT_MAPPING 4u
-
-typedef void (*blue_spi_signal_event_t)(uint32_t event);
-
-typedef struct {
-    uint16_t api;
-    uint16_t drv;
-} blue_driver_version_t;
-
-struct blue_drv_spi {
-    blue_driver_version_t *(*get_version)(void);
-    int32_t (*init)(blue_spi_signal_event_t cb_event);
-    int32_t (*deinit)(void);
-    int32_t (*power)(uint32_t state);
-    int32_t (*send)(const void *data, uint32_t num);
-    int32_t (*recv)(void *data, uint32_t num);
-    int32_t (*send_byte)(uint8_t data, int32_t timeout);
-    int32_t (*recv_byte)(int32_t timeout);
-    int32_t (*control)(uint32_t control, uint32_t arg);
-};
-
-extern const struct blue_drv_spi blue_spi1;
 
 static drv_spi_event_cb_t spi_event_cb;
 static bool spi_initialized;

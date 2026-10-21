@@ -3,6 +3,17 @@
 This directory records the reverse-engineering notes for the vendor static
 libraries used by the bare-metal AB32VG1 project.
 
+For the current hardware-only priority, see
+[SPI/I2C recovery](SPI_I2C_RECOVERY.md): hardware SPI1 source, an opt-in build
+backend and differential RISC-V tests; hardware I2C remains unlocated in the
+examined artifacts and has not been replaced with software emulation.
+
+The [2026-10-21 recovery assessment](RECOVERY_ASSESSMENT.md) adds byte-verified
+archive inventories and a compilable reconstruction of `sdadc.o`. It also finds
+two remaining ADC wrapper defects: channel zero is rejected by the vendor, and
+`sdadc_start` consumes a DMA address argument. The historical smoke-build and
+wrapper notes below do not establish working ADC capture on hardware.
+
 The scope here is interoperability and debugging: identify symbols, ABI,
 required platform hooks, probable function prototypes, and usable wrapper
 interfaces. Do not use this work to bypass licensing, encryption, DRM, or other
