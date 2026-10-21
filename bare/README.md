@@ -37,7 +37,19 @@ make clean
 
 ## 生成下载文件
 
-裸机程序编译完成后，`build/*.bin` 不能直接交给串口烧录工具烧写。它只是用户程序输入文件，需要先使用厂家提供的 `riscv32-elf-xmaker` 工具，将用户程序 `bin` 和固定的 `header.bin` 合成为最终的 `.dcf` 下载文件。
+裸机程序编译完成后，`build/*.bin` 不能直接交给串口烧录工具烧写。它只是用户程序输入文件，需要先将用户程序 `bin` 和固定的 `header.bin` 合成为最终的 `.dcf` 下载文件。Linux 可使用本仓库恢复的打包工具（从仓库根目录执行）：
+
+```sh
+tools/linux/convert tools/header.bin bare/build/main.bin /tmp/main.dcf
+python3 tools/linux/bluetrum_cli.py inspect /tmp/main.dcf
+```
+
+默认打包路径已通过原版机器码输出对照。Linux 串口下载命令也已实现，但尚未上板验证；使用范围和接线适配选项见 [Linux 工具说明](../tools/linux/README.md)：
+
+```sh
+tools/linux/downloader flash /tmp/main.dcf --dry-run
+tools/linux/downloader flash /tmp/main.dcf --port /dev/ttyUSB0
+```
 
 仓库顶层 `tools/final_bin.xm` 的逻辑是将 `header.bin` 和 `user.bin` 合成为 `final_bin.dcf`。使用时可以先把裸机目标 `.bin` 准备成 `user.bin`，再执行：
 

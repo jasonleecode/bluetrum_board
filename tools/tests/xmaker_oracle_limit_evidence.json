@@ -1,0 +1,34 @@
+{
+  "method": "Unicorn x86 execution of original PE instructions; not a Windows process run",
+  "vendor_exe_sha256": "12ea6b09dd9036485c3a5f7e6762d4ff49a37b711d2f2bbfeff1f9193e908822",
+  "header_sha256": "08211dd825b8df025cf297a27269d4fd3cd6aadbc39c667d44c81ed7ceb6747c",
+  "entry_va": "0x40ea66",
+  "exit_va": "0x4104ac",
+  "settings_source": "zero defaults from constructor 0x4082f8..0x408327",
+  "input_buffers": "file bytes in zero-initialized 64 KiB chunks; app logical size rounded to 512",
+  "hooks": {
+    "0x411cf4": "operator new",
+    "0x411d2e": "operator new[]",
+    "0x421880": "memset",
+    "0x41d651": "printf (discard output)",
+    "0x41ff15": "throw (raises; never called in passing cases)"
+  },
+  "limitations": [
+    "XM parser and Windows file I/O not executed",
+    "default script settings only; no XRES/XCFG/KEY options",
+    "no serial or hardware verification"
+  ],
+  "tables_equal": {
+    "crc16_entries": 256,
+    "xor32_entries": 256
+  },
+  "cases": [
+    {
+      "app_size": 16703488,
+      "app_sha256": "48069fa7b678b0f316877ae48c222477fbf333a0eeebc633885cc8f4f2c6b2d3",
+      "dcf_size": 16777304,
+      "dcf_sha256": "fc2339d7b1d1e1cf4d4940334239572d0c5e94bbe20ce00ab724bf02fae8facb",
+      "equal": true
+    }
+  ]
+}

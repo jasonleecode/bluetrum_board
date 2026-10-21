@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Mac-side helpers for studying Bluetrum xmaker files.
+"""Portable Bluetrum xmaker primitives and restricted DCF packer.
 
-This is not yet a full replacement for riscv32-elf-xmaker.exe. It provides the
-verified primitives currently recovered from the Windows binary: XM decoding,
-PE table extraction, xmaker CRC16, the rolling XOR stream transform, and an
-experimental inner-body builder/checker.
+The default header+application path is compared with the original Windows x86
+packing code; additional vendor script configuration/resource commands are not
+implemented. PE table extraction and inner-body inspection remain research aids.
 """
 
 from __future__ import annotations
@@ -25,6 +24,25 @@ XFIL_KEY = 0x4C494658
 XAPP_KEY = 0x50504158
 LVMG_KEY = 0x474D564C
 SEG_KEY_XOR = 0x6B676573
+SUPPORTED_HEADER_SHA256 = "08211dd825b8df025cf297a27269d4fd3cd6aadbc39c667d44c81ed7ceb6747c"
+MAX_DCF_BODY_SIZE = 16 * 1024 * 1024
+# Largest 512-byte payload allowing header + XCOD metadata within the original
+# downloader's body limit (MethodDef 1441, IL 0x0984..0x098f).
+MAX_APP_SIZE = 16_703_488
+
+
+def make_xor32_table() -> list[int]:
+    """Recreate the vendor's linear XOR table without requiring its EXE."""
+    basis = (0x01460000, 0x028C0000, 0x05180000, 0x0A300000,
+             0x14600000, 0x28C00000, 0x51800000, 0xA3000000)
+    result = []
+    for index in range(256):
+        value = 0
+        for bit, vector in enumerate(basis):
+            if index & (1 << bit):
+                value ^= vector
+        result.append(value)
+    return result
 
 
 def align_up(value: int, alignment: int) -> int:
@@ -201,10 +219,15 @@ def build_experimental_body(header: bytes, app: bytes, xor_table: list[int], enc
         start = block_index * XMAKER_BLOCK_SIZE
         block = app[start : start + XMAKER_BLOCK_SIZE]
         if len(block) < XMAKER_BLOCK_SIZE:
-            block = block + bytes([0xFF]) * (XMAKER_BLOCK_SIZE - len(block))
+            block = block + bytes(XMAKER_BLOCK_SIZE - len(block))
         block_crc = xmaker_crc16(block, seed=block_index + 1)
         put_u16le(body, record_offset + 0x10 + block_index * 2, block_crc)
         body[payload_offset + start : payload_offset + start + XMAKER_BLOCK_SIZE] = block
+
+    # 0x40191c: unused CRC-table words chain a CRC over the preceding record
+    # bytes, seeded with the absolute body offset of the new word.
+    for offset in range(record_offset + 16 + block_count * 2, payload_offset, 2):
+        put_u16le(body, offset, xmaker_crc16(bytes(body[record_offset:offset]), seed=offset))
 
     if encrypt:
         app_payload_crc = xmaker_crc16(bytes(body[payload_offset : payload_offset + payload_size]))
@@ -224,12 +247,19 @@ def build_experimental_body(header: bytes, app: bytes, xor_table: list[int], enc
         put_u16le(body, 0x3E, top_region_crc)
         xor_stream_inplace(body, 0, 0x40, LVMG_KEY, xor_table)
 
-        body_key_base = duplicate_u16(app_info_crc) ^ LVMG_KEY
+        # Default script settings, initialized by 0x4082f8..0x408327.
+        # These settings are NOT read from the encrypted header input.
+        put_tag(body, 0xC0, "DOWN")
+        body[0xC4:0xD9] = bytes(0x15)
+        body[0xE4:0xE6] = bytes(2)
+        body[0xFF] = (-sum(body[0xC0:0xFF])) & 0xFF
+
+        body_key_base = duplicate_u16(main_region_crc) ^ LVMG_KEY
         for offset in range(0x400, 0x1000, XMAKER_BLOCK_SIZE):
             block_key = ((offset >> 9) - 1) ^ body_key_base
             xor_stream_inplace(body, offset, XMAKER_BLOCK_SIZE, block_key, xor_table)
 
-        app_key_base = duplicate_u16(app_info_crc) ^ XAPP_KEY
+        app_key_base = duplicate_u16(main_region_crc) ^ XAPP_KEY
         for block_index in range(block_count):
             block_crc = read_u16le(body, record_offset + 0x10 + block_index * 2)
             block_key = block_crc ^ app_key_base
@@ -274,7 +304,13 @@ def inspect_experimental_body(
         return lines
 
     app_info_crc = read_u16le(data, 0x80) if encrypted and len(data) >= 0x82 else 0
-    app_key_base = duplicate_u16(app_info_crc) ^ XAPP_KEY
+    main_region_crc = 0
+    if encrypted:
+        if xor_table is None:
+            raise ValueError("encrypted inspection requires the xmaker XOR table")
+        top_header, _ = xmaker_xor_stream(data[:0x40], LVMG_KEY, xor_table)
+        main_region_crc = read_u16le(top_header, 0x1C)
+    app_key_base = duplicate_u16(main_region_crc) ^ XAPP_KEY
     mismatches: list[str] = []
     for block_index in range(block_count):
         stored = read_u16le(data, record_offset + 0x10 + block_index * 2)
@@ -307,8 +343,29 @@ def find_tag(data: bytes, tag: str, start: int = 0) -> int:
     return pos
 
 
-def build_experimental_dcf(header: bytes, app: bytes, xor_table: list[int]) -> bytes:
-    """Build an experimental DCF wrapper for the normal header+app path."""
+def validate_header(header: bytes) -> None:
+    """Accept only the SDK header covered by the original-code comparisons."""
+    if len(header) != HEADER_SIZE:
+        raise ValueError(f"header size must be {HEADER_SIZE} bytes")
+    if hashlib.sha256(header).hexdigest() != SUPPORTED_HEADER_SHA256:
+        raise ValueError("unsupported header: only the bundled AB32 header.bin is verified; "
+                         "custom headers and XRES/XCFG configurations are not supported")
+
+
+def build_dcf(header: bytes, app: bytes, xor_table: list[int] | None = None) -> bytes:
+    """Pack the SDK header and a raw app using default XM script settings.
+
+    Compared byte-for-byte with the Windows EXE's packing instructions under
+    Unicorn. Optional XM configuration/resource/key commands are unsupported.
+    """
+    validate_header(header)
+    if not app:
+        raise ValueError("application must not be empty")
+    if len(app) > MAX_APP_SIZE:
+        raise ValueError(f"application exceeds {MAX_APP_SIZE} bytes; "
+                         "the downloader limits the complete DCF body to 16 MiB")
+    if xor_table is None:
+        xor_table = make_xor32_table()
 
     body = bytearray(build_experimental_body(header, app, xor_table, encrypt=True))
     body_len = len(body)
@@ -318,8 +375,8 @@ def build_experimental_dcf(header: bytes, app: bytes, xor_table: list[int]) -> b
     app_payload_offset = xcod_record + xcod_overhead
     app_payload_end = app_payload_offset + xcod_payload_size
 
-    dev_len = 0x0C if read_u32le(header, 0x58) > 0 else 0x08
-    key_record_len = 0x10 if header[0x5C] != 0 or read_u16le(header, 0x64) != 0 else 0
+    dev_len = 0x08
+    key_record_len = 0
     app_segment_extra = 0x08
     wrapper_len = 0x48 + dev_len + key_record_len + app_segment_extra
 
@@ -332,25 +389,13 @@ def build_experimental_dcf(header: bytes, app: bytes, xor_table: list[int]) -> b
 
     put_tag(dcf, 0x10, "INFO")
     put_u32le(dcf, 0x14, 0x08)
-    put_u32le(dcf, 0x18, read_u32le(body, 0x04))
-    put_u32le(dcf, 0x1C, read_u32le(body, 0x08))
+    imported_header, _ = xmaker_xor_stream(header, XFIL_KEY, xor_table)
+    dcf[0x18:0x20] = imported_header[4:12]
 
     pos = 0x20
     put_tag(dcf, pos, "DEV\0")
     put_u32le(dcf, pos + 0x04, dev_len)
-    put_u16le(dcf, pos + 0x08, read_u16le(header, 0x52))
-    dcf[pos + 0x0C : pos + 0x10] = header[0x54:0x58]
-    if dev_len > 0x08:
-        put_u32le(dcf, pos + 0x10, read_u32le(header, 0x58))
     pos = 0x28 + dev_len
-
-    if key_record_len:
-        put_tag(dcf, pos, "KEY\0")
-        put_u32le(dcf, pos + 0x04, 0x08)
-        dcf[pos + 0x08] = header[0x5C]
-        put_u16le(dcf, pos + 0x0A, read_u16le(header, 0x64))
-        put_u32le(dcf, pos + 0x0C, read_u32le(header, 0x60) ^ SEG_KEY_XOR)
-        pos += key_record_len
 
     put_tag(dcf, pos, "SEG\0")
     put_u32le(dcf, pos + 0x04, 0x0C)
@@ -374,10 +419,12 @@ def build_experimental_dcf(header: bytes, app: bytes, xor_table: list[int]) -> b
     if pos != wrapper_len:
         raise ValueError(f"wrapper length mismatch: computed={wrapper_len} written={pos}")
 
-    if header[0x5C] != 0:
-        xor_stream_inplace(body, 0, body_len, read_u32le(header, 0x60), xor_table)
-
     return bytes(dcf + body)
+
+
+def build_experimental_dcf(header: bytes, app: bytes, xor_table: list[int] | None = None) -> bytes:
+    """Backward-compatible name for the verified, restricted build_dcf API."""
+    return build_dcf(header, app, xor_table)
 
 
 def inspect_experimental_dcf(data: bytes, header: bytes, xor_table: list[int]) -> list[str]:
@@ -402,9 +449,6 @@ def inspect_experimental_dcf(data: bytes, header: bytes, xor_table: list[int]) -
         lines.append(f"body_range=0x{body_offset:x}..0x{body_offset + body_len:x} ok=False")
         return lines
 
-    if header[0x5C] != 0:
-        xor_stream_inplace(body, 0, body_len, read_u32le(header, 0x60), xor_table)
-
     stored_body_crc = read_u16le(data, crc_pos + 0x08)
     computed_body_crc = xmaker_crc16(bytes(body))
     stored_wrapper_crc = read_u16le(data, crc_pos + 0x0A)
@@ -423,7 +467,7 @@ def inspect_experimental_dcf(data: bytes, header: bytes, xor_table: list[int]) -
         f"stored=0x{stored_wrapper_crc:04x} computed=0x{computed_wrapper_crc:04x} "
         f"ok={stored_wrapper_crc == computed_wrapper_crc}"
     )
-    lines.append(f"final_body_xor={header[0x5C] != 0}")
+    lines.append("final_body_xor=False (default script configuration)")
 
     return lines
 

@@ -1,0 +1,5 @@
+#!/usr/bin/env python3
+import sys
+from bluetrum_cli import main
+
+raise SystemExit(main(["make", *sys.argv[1:]]))

@@ -3,6 +3,8 @@
 
 对芯片的hack的工作是在bare目录下进行的，对配套工具的hack工作主要是在tools目录下进行的。
 
+Linux 下的 DCF 打包和串口下载命令见 [tools/linux/README.md](tools/linux/README.md)。打包结果已通过原版机器码对照；串口烧录已恢复并通过离线协议测试，尚待上板验证。
+
 
 
 

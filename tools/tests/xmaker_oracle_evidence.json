@@ -1,0 +1,167 @@
+{
+  "method": "Unicorn x86 execution of original PE instructions; not a Windows process run",
+  "vendor_exe_sha256": "12ea6b09dd9036485c3a5f7e6762d4ff49a37b711d2f2bbfeff1f9193e908822",
+  "header_sha256": "08211dd825b8df025cf297a27269d4fd3cd6aadbc39c667d44c81ed7ceb6747c",
+  "entry_va": "0x40ea66",
+  "exit_va": "0x4104ac",
+  "settings_source": "zero defaults from constructor 0x4082f8..0x408327",
+  "input_buffers": "file bytes in zero-initialized 64 KiB chunks; app logical size rounded to 512",
+  "hooks": {
+    "0x411cf4": "operator new",
+    "0x411d2e": "operator new[]",
+    "0x421880": "memset",
+    "0x41d651": "printf (discard output)",
+    "0x41ff15": "throw (raises; never called in passing cases)"
+  },
+  "limitations": [
+    "XM parser and Windows file I/O not executed",
+    "default script settings only; no XRES/XCFG/KEY options",
+    "no serial or hardware verification"
+  ],
+  "tables_equal": {
+    "crc16_entries": 256,
+    "xor32_entries": 256
+  },
+  "cases": [
+    {
+      "app_size": 1,
+      "app_sha256": "1f18d650d205d71d934c3646ff5fac1c096ba52eba4cf758b865364f4167d3cd",
+      "dcf_size": 9304,
+      "dcf_sha256": "e94e6197791e2cbf0733c2e963b35e4e1ff8879b517de35b2ef8a96d9dfc5ec7",
+      "equal": true
+    },
+    {
+      "app_size": 2,
+      "app_sha256": "0ab7658d665961594aebf086220d922b3087a74aabac88aa1d9f1975b79df57c",
+      "dcf_size": 9304,
+      "dcf_sha256": "4726222813c598ee9217991b9b269c6e05b8e6fe0ca0ea927e4c91c327443963",
+      "equal": true
+    },
+    {
+      "app_size": 511,
+      "app_sha256": "80b336ecb4432d42a15ff3d044bb85798eee980d66dcec7306b5900e72730d1c",
+      "dcf_size": 9304,
+      "dcf_sha256": "290eeae20e7a8d96668ea2822968b6a2567e6672ef2619e38f1f77eae053d308",
+      "equal": true
+    },
+    {
+      "app_size": 512,
+      "app_sha256": "1dc38cf082f85ac77d38940a844b6ac3dbe37e4657170c0d1ccb40d720f508ec",
+      "dcf_size": 9304,
+      "dcf_sha256": "6426a4ec62b8f57564d2669d7d613e43efacde8db35dd107e318a5f83756d049",
+      "equal": true
+    },
+    {
+      "app_size": 513,
+      "app_sha256": "dbb7ac9d9b9b19f99fe3295f5441b54b21f22c725317c209c3f40f7e0bfe9e35",
+      "dcf_size": 9816,
+      "dcf_sha256": "0aaee194866f6df5d1afc0bf341da4e3883e7111112b266a53e2d920c54b5fef",
+      "equal": true
+    },
+    {
+      "app_size": 1023,
+      "app_sha256": "143f48c465f58bdce66ba1b1ec7759bc47cd223fd8338754f1e095573c56058f",
+      "dcf_size": 9816,
+      "dcf_sha256": "1e2443a4de801cc570da78768121ca33ef42d19c6901c187b2fec3c34f7483f6",
+      "equal": true
+    },
+    {
+      "app_size": 1024,
+      "app_sha256": "f04a99df9903b45bd3a404789d78098bb143256438ecbfa2ff2b1021104aff24",
+      "dcf_size": 9816,
+      "dcf_sha256": "ffccef0ace4ce3ed379688880d2ac0e892848a472bd56d2c43b6a30c544dfcd1",
+      "equal": true
+    },
+    {
+      "app_size": 2048,
+      "app_sha256": "bb9f533402ce0b6b1cf262dc91f740305b36b2de1a6e186e1c4c6497528813cf",
+      "dcf_size": 10840,
+      "dcf_sha256": "9844d56c8b8465ebb05c5091fa52f7f53f09943568dd94de896d266797d00a2e",
+      "equal": true
+    },
+    {
+      "app_size": 4095,
+      "app_sha256": "56e8b1cd9c2a5a93a5f5fbe6c8754e1eacc7c3083ff6ee2d4135ffedcb7f402e",
+      "dcf_size": 12888,
+      "dcf_sha256": "13bfd52cda30dfde1555acdec3567a2949a2262beb26f8bec8f7b64b36b2f988",
+      "equal": true
+    },
+    {
+      "app_size": 4096,
+      "app_sha256": "0b4a90b6ac9cfdc30bfa282d1e36f85648440400693fa3e30c1c9324d5ce59d2",
+      "dcf_size": 12888,
+      "dcf_sha256": "c3b1214e6e4e4080cbf5b9847f3099e5211142a578833fe32fe02919525d6930",
+      "equal": true
+    },
+    {
+      "app_size": 4097,
+      "app_sha256": "05d74834513659b0c9a833ab06b02815013344bc09867c24e7bb1e64eeb06d66",
+      "dcf_size": 13400,
+      "dcf_sha256": "e4b8574848a2259ebba85dfe5ceabee38754616cf51b92e11e01a3bf12a45bb5",
+      "equal": true
+    },
+    {
+      "app_size": 65535,
+      "app_sha256": "17efbf2143167d5e6072dcf256218375e1a7c075848d6f3a84213ace54611e59",
+      "dcf_size": 74328,
+      "dcf_sha256": "71e5a8bc431e5c71f103eb4ccefb6d803cc8c515abf84ec73219d3e6ef778bcb",
+      "equal": true
+    },
+    {
+      "app_size": 65536,
+      "app_sha256": "0f4dde92c6602fb7b67827bec416e5be93ff85fe99024b1828c52fe4fea5470c",
+      "dcf_size": 74328,
+      "dcf_sha256": "04138428cecdcc181095357702ecda617d692a7ab80b44b26d1ba1522ea16142",
+      "equal": true
+    },
+    {
+      "app_size": 65537,
+      "app_sha256": "7f00fc14b71418f6a75771a2def2e38defa733d48cb9e67a0eb335d6bbb2e26e",
+      "dcf_size": 74840,
+      "dcf_sha256": "b825a9c4515fe295aee3701a08090e90aa177cef2deff3b792358fcb77fb2211",
+      "equal": true
+    },
+    {
+      "app_size": 126975,
+      "app_sha256": "d5138aabe0a2558a12561a9785a27c5cdc7c87f500597d47bc67134e6ad23bda",
+      "dcf_size": 135768,
+      "dcf_sha256": "d555f51b78fe78c5f6c504914f2f5bbb81ef21048cabe3189226572dd0ac5196",
+      "equal": true
+    },
+    {
+      "app_size": 126976,
+      "app_sha256": "9425407b5677704658522eb2f2bee104e34f08254b02a92f03fea0a1b54f4932",
+      "dcf_size": 135768,
+      "dcf_sha256": "305344c0b120761e7f62f4c448c76e5865d96547b140682628a65baa126f65ed",
+      "equal": true
+    },
+    {
+      "app_size": 126977,
+      "app_sha256": "731f5a27b87dc5f4d915795e2edc6c3e49e746f20f13ecc3dd57494fc626b613",
+      "dcf_size": 136792,
+      "dcf_sha256": "68277c4400670c717e5c3f89ad922b0d120cf3f4cefcc17cfb4bfacfea0fdce7",
+      "equal": true
+    },
+    {
+      "app_size": 131072,
+      "app_sha256": "6bcee54cbd19a1f4bec7413efb5c066571ac65fe6998e69e0b4632c7da48298a",
+      "dcf_size": 140376,
+      "dcf_sha256": "6126600d4ad2015a3574925cd89c8c3b04598378e181ea8408e959462d267993",
+      "equal": true
+    },
+    {
+      "app_size": 262145,
+      "app_sha256": "111c7343f00fa45f83af04985b80cc5e5e7120a6b24a909cbba3b8d03dea6bf8",
+      "dcf_size": 272472,
+      "dcf_sha256": "53e1f1851708fc9d0cea6e923ff9fba525186c78bf10d1a222003477d70b9f21",
+      "equal": true
+    },
+    {
+      "app_size": 1048576,
+      "app_sha256": "72ad0acbd23dc13f52b24421dcaeaa97b23102e15587edf0529d8fd62457db47",
+      "dcf_size": 1061464,
+      "dcf_sha256": "c531085e62e0e891d65624d6787fc6d08d4f4f5f701dfff3779c2a40343f81fc",
+      "equal": true
+    }
+  ]
+}
