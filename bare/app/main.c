@@ -1,5 +1,9 @@
 #include "drv_fm.h"
 
+/* FM control-flow skeleton: platform clock and DAC/audio-buffer setup still
+ * need board validation. 512 below is a placeholder, not a measured FIFO size.
+ * See docs/lib-analysis/FM_RECOVERY.md before using this as a radio example.
+ */
 int main(void);
 
 int main(void)

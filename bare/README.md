@@ -35,6 +35,36 @@ build/main.bin
 make clean
 ```
 
+## FM 驱动恢复
+
+FM 默认使用厂家库，也可选择已恢复的 10 个底层函数（在 `bare/` 下执行）：
+
+```sh
+make FM_BACKEND=recovered
+# 同时使用恢复的硬件 SPI1
+make SPI_BACKEND=recovered FM_BACKEND=recovered
+```
+
+对应输出目录分别是 `build/recovered-fm/` 和 `build/recovered-spi/recovered-fm/`。恢复代码仍依赖平台延时，完整工程仍使用其他 SDK 接口。现有验证覆盖原库差分和独立链接，尚未证明完整固件能在板上启动、收音。
+
+封装中的频率单位仍为 kHz，内部已修正为两参数 PLL 调用及 10 kHz 单位：
+
+```c
+#include "drv_fm.h"
+
+/* 平台时钟及 DAC/audio buffer 必须另行正确初始化。 */
+drv_fm_cfg_t cfg = {.frequency_khz = 101100, .rf_cap = 0x10};
+if (drv_fm_init(&cfg)) {
+    drv_fm_start();
+    drv_fm_route_to_audio_buffer(true);
+    /* 可通过 drv_fm_tune(87500) 手动切换到 87.5 MHz。 */
+}
+```
+
+支持的参数范围是 76–108 MHz，步进 10 kHz；`rf_cap` 仅允许 0–31，其最佳值仍需板级验证。原库的 PLL 等待无超时，时钟或射频未就绪时初始化、调谐可能不返回。
+
+`app/main.c` 和 `app/usb_fm.c` 仍是调用流程骨架，DAC/缓冲区初始化及实际 FM→USB 音频链路尚未验证。DMA 接口只启动传输，计数单位、样本格式和完成条件仍待确认。收音需插入 CTIA 标准 3.5 mm 耳机线作为天线；搜台/RSSI 尚未恢复。证据、测试命令和限制见 [FM 恢复记录](../docs/lib-analysis/FM_RECOVERY.md)。
+
 ## 生成下载文件
 
 裸机程序编译完成后，`build/*.bin` 不能直接交给串口烧录工具烧写。它只是用户程序输入文件，需要先将用户程序 `bin` 和固定的 `header.bin` 合成为最终的 `.dcf` 下载文件。Linux 可使用本仓库恢复的打包工具（从仓库根目录执行）：

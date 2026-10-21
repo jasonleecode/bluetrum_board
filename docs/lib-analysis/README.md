@@ -8,6 +8,11 @@ For the current hardware-only priority, see
 backend and differential RISC-V tests; hardware I2C remains unlocated in the
 examined artifacts and has not been replaced with software emulation.
 
+[FM recovery](FM_RECOVERY.md) adds all 10 exports from `fmrx.o` and
+`fmrx_ang.o`, fixes the two-argument PLL ABI and 10-kHz frequency units, and
+provides an opt-in backend with 332 original-machine-code differential cases.
+Search/RSSI, the complete audio path and hardware reception remain unverified.
+
 The [2026-10-21 recovery assessment](RECOVERY_ASSESSMENT.md) adds byte-verified
 archive inventories and a compilable reconstruction of `sdadc.o`. It also finds
 two remaining ADC wrapper defects: channel zero is rejected by the vendor, and

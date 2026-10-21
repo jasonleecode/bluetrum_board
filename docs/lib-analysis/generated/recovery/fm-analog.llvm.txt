@@ -1,0 +1,354 @@
+
+fmrx_ang.o:	file format ELF32-riscv
+
+
+Disassembly of section .text:
+
+00000000 fmrx_set_pll:
+       0: 89 67                        	lui	a5, 2
+       2: 93 87 67 48                  	addi	a5, a5, 1158
+       6: 63 e4 b7 0e                  	bltu	a5, a1, 232
+			00000006:  R_RISCV_BRANCH	.L2
+       a: 83 27 c0 41                  	lw	a5, 1052(zero)
+       e: 93 e7 07 08                  	ori	a5, a5, 128
+
+00000012 .L9:
+      12: 23 2e f0 40                  	sw	a5, 1052(zero)
+      16: b7 07 09 00                  	lui	a5, 144
+      1a: 93 87 d7 ac                  	addi	a5, a5, -1331
+      1e: 23 22 f0 42                  	sw	a5, 1060(zero)
+      22: a9 47                        	addi	a5, zero, 10
+      24: b3 85 f5 02                  	mul	a1, a1, a5
+      28: 93 07 40 0e                  	addi	a5, zero, 228
+      2c: 05 67                        	lui	a4, 1
+      2e: 99 66                        	lui	a3, 6
+      30: 93 86 06 59                  	addi	a3, a3, 1424
+      34: b3 07 f5 02                  	mul	a5, a0, a5
+      38: be 95                        	add	a1, a1, a5
+      3a: 93 07 07 b3                  	addi	a5, a4, -1232
+      3e: b3 87 f5 02                  	mul	a5, a1, a5
+      42: 13 07 57 a1                  	addi	a4, a4, -1515
+      46: b3 d7 d7 02                  	divu	a5, a5, a3
+      4a: b3 85 e5 02                  	mul	a1, a1, a4
+      4e: be 95                        	add	a1, a1, a5
+      50: 23 24 b0 42                  	sw	a1, 1064(zero)
+      54: 05 e5                        	bnez	a0, 40
+			00000054:  R_RISCV_RVC_BRANCH	.L4
+      56: 83 27 80 42                  	lw	a5, 1064(zero)
+      5a: 37 07 00 01                  	lui	a4, 4096
+      5e: 7d 17                        	addi	a4, a4, -1
+      60: f9 8f                        	and	a5, a5, a4
+      62: 37 07 c0 ff                  	lui	a4, 1047552
+      66: ba 97                        	add	a5, a5, a4
+      68: 37 07 80 00                  	lui	a4, 2048
+      6c: 63 76 f7 08                  	bgeu	a4, a5, 140
+			0000006c:  R_RISCV_BRANCH	.L5
+      70: 83 27 00 42                  	lw	a5, 1056(zero)
+      74: 93 e7 07 01                  	ori	a5, a5, 16
+
+00000078 .L10:
+      78: 23 20 f0 42                  	sw	a5, 1056(zero)
+
+0000007c .L4:
+      7c: 85 47                        	addi	a5, zero, 1
+      7e: 23 26 f0 42                  	sw	a5, 1068(zero)
+      82: 83 27 c0 42                  	lw	a5, 1068(zero)
+      86: 41 67                        	lui	a4, 16
+      88: 93 e7 c7 02                  	ori	a5, a5, 44
+      8c: 23 26 f0 42                  	sw	a5, 1068(zero)
+      90: 83 27 00 42                  	lw	a5, 1056(zero)
+      94: 93 e7 27 00                  	ori	a5, a5, 2
+      98: 23 20 f0 42                  	sw	a5, 1056(zero)
+      9c: 83 27 00 42                  	lw	a5, 1056(zero)
+      a0: 93 e7 17 10                  	ori	a5, a5, 257
+      a4: 23 20 f0 42                  	sw	a5, 1056(zero)
+      a8: 83 27 00 42                  	lw	a5, 1056(zero)
+      ac: 93 e7 47 20                  	ori	a5, a5, 516
+      b0: 23 20 f0 42                  	sw	a5, 1056(zero)
+      b4: 83 27 80 41                  	lw	a5, 1048(zero)
+      b8: d9 8f                        	or	a5, a5, a4
+      ba: 23 2c f0 40                  	sw	a5, 1048(zero)
+      be: 83 27 c0 41                  	lw	a5, 1052(zero)
+      c2: 93 e7 07 04                  	ori	a5, a5, 64
+      c6: 23 2e f0 40                  	sw	a5, 1052(zero)
+      ca: 83 27 c0 41                  	lw	a5, 1052(zero)
+      ce: 93 e7 17 00                  	ori	a5, a5, 1
+      d2: 23 2e f0 40                  	sw	a5, 1052(zero)
+
+000000d6 .L6:
+      d6: 83 27 c0 42                  	lw	a5, 1068(zero)
+      da: 93 f7 07 08                  	andi	a5, a5, 128
+      de: e5 df                        	beqz	a5, -8
+			000000de:  R_RISCV_RVC_BRANCH	.L6
+      e0: 83 27 c0 42                  	lw	a5, 1068(zero)
+      e4: 93 e7 07 20                  	ori	a5, a5, 512
+      e8: 23 26 f0 42                  	sw	a5, 1068(zero)
+      ec: 82 80                        	ret
+
+000000ee .L2:
+      ee: 83 27 c0 41                  	lw	a5, 1052(zero)
+      f2: 93 f7 f7 f7                  	andi	a5, a5, -129
+      f6: 31 bf                        	j	-228
+			000000f6:  R_RISCV_RVC_JUMP	.L9
+
+000000f8 .L5:
+      f8: 83 27 00 42                  	lw	a5, 1056(zero)
+      fc: bd 9b                        	andi	a5, a5, -17
+      fe: ad bf                        	j	-134
+			000000fe:  R_RISCV_RVC_JUMP	.L10
+
+00000100 fmrx_analog_init:
+     100: 17 03 00 00                  	auipc	t1, 0
+			00000100:  R_RISCV_CALL	__riscv_save_3
+			00000100:  R_RISCV_RELAX	*ABS*
+     104: e7 02 03 00                  	jalr	t0, t1
+     108: 83 27 00 41                  	lw	a5, 1040(zero)
+     10c: 37 07 80 00                  	lui	a4, 2048
+     110: 37 09 c0 ff                  	lui	s2, 1047552
+     114: 93 e7 37 00                  	ori	a5, a5, 3
+     118: 23 28 f0 40                  	sw	a5, 1040(zero)
+     11c: 83 27 80 41                  	lw	a5, 1048(zero)
+     120: 7d 19                        	addi	s2, s2, -1
+     122: f1 74                        	lui	s1, 1048572
+     124: d9 8f                        	or	a5, a5, a4
+     126: 23 2c f0 40                  	sw	a5, 1048(zero)
+     12a: 83 27 80 41                  	lw	a5, 1048(zero)
+     12e: 37 07 e0 ff                  	lui	a4, 1048064
+     132: 7d 17                        	addi	a4, a4, -1
+     134: b3 f7 27 01                  	and	a5, a5, s2
+     138: 23 2c f0 40                  	sw	a5, 1048(zero)
+     13c: 83 27 80 41                  	lw	a5, 1048(zero)
+     140: 05 45                        	addi	a0, zero, 1
+     142: 05 64                        	lui	s0, 1
+     144: f9 8f                        	and	a5, a5, a4
+     146: 23 2c f0 40                  	sw	a5, 1048(zero)
+     14a: 83 27 80 41                  	lw	a5, 1048(zero)
+     14e: 37 07 10 00                  	lui	a4, 256
+     152: 13 04 04 80                  	addi	s0, s0, -2048
+     156: d9 8f                        	or	a5, a5, a4
+     158: 23 2c f0 40                  	sw	a5, 1048(zero)
+     15c: 83 27 80 41                  	lw	a5, 1048(zero)
+     160: 61 77                        	lui	a4, 1048568
+     162: 7d 17                        	addi	a4, a4, -1
+     164: f9 8f                        	and	a5, a5, a4
+     166: 23 2c f0 40                  	sw	a5, 1048(zero)
+     16a: 83 27 80 41                  	lw	a5, 1048(zero)
+     16e: 13 87 f4 ff                  	addi	a4, s1, -1
+     172: 93 84 f4 3f                  	addi	s1, s1, 1023
+     176: f9 8f                        	and	a5, a5, a4
+     178: 23 2c f0 40                  	sw	a5, 1048(zero)
+     17c: 83 27 80 41                  	lw	a5, 1048(zero)
+     180: 93 e7 07 01                  	ori	a5, a5, 16
+     184: 23 2c f0 40                  	sw	a5, 1048(zero)
+     188: 17 03 00 00                  	auipc	t1, 0
+			00000188:  R_RISCV_CALL	hal_mdelay
+			00000188:  R_RISCV_RELAX	*ABS*
+     18c: e7 00 03 00                  	jalr	t1
+     190: 83 27 c0 41                  	lw	a5, 1052(zero)
+     194: 05 45                        	addi	a0, zero, 1
+     196: c1 8f                        	or	a5, a5, s0
+     198: 23 2e f0 40                  	sw	a5, 1052(zero)
+     19c: 83 27 c0 41                  	lw	a5, 1052(zero)
+     1a0: 93 e7 07 40                  	ori	a5, a5, 1024
+     1a4: 23 2e f0 40                  	sw	a5, 1052(zero)
+     1a8: 83 27 c0 41                  	lw	a5, 1052(zero)
+     1ac: 93 e7 07 20                  	ori	a5, a5, 512
+     1b0: 23 2e f0 40                  	sw	a5, 1052(zero)
+     1b4: 83 27 c0 41                  	lw	a5, 1052(zero)
+     1b8: 93 e7 07 10                  	ori	a5, a5, 256
+     1bc: 23 2e f0 40                  	sw	a5, 1052(zero)
+     1c0: 83 27 c0 41                  	lw	a5, 1052(zero)
+     1c4: 93 e7 07 08                  	ori	a5, a5, 128
+     1c8: 23 2e f0 40                  	sw	a5, 1052(zero)
+     1cc: 83 27 c0 41                  	lw	a5, 1052(zero)
+     1d0: 93 e7 27 00                  	ori	a5, a5, 2
+     1d4: 23 2e f0 40                  	sw	a5, 1052(zero)
+     1d8: 17 03 00 00                  	auipc	t1, 0
+			000001d8:  R_RISCV_CALL	hal_mdelay
+			000001d8:  R_RISCV_RELAX	*ABS*
+     1dc: e7 00 03 00                  	jalr	t1
+     1e0: 83 27 c0 41                  	lw	a5, 1052(zero)
+     1e4: 37 17 fc ff                  	lui	a4, 1048513
+     1e8: 7d 17                        	addi	a4, a4, -1
+     1ea: 93 f7 f7 fd                  	andi	a5, a5, -33
+     1ee: 23 2e f0 40                  	sw	a5, 1052(zero)
+     1f2: 83 27 c0 41                  	lw	a5, 1052(zero)
+     1f6: 05 45                        	addi	a0, zero, 1
+     1f8: f9 8f                        	and	a5, a5, a4
+     1fa: 23 2e f0 40                  	sw	a5, 1052(zero)
+     1fe: 83 27 c0 41                  	lw	a5, 1052(zero)
+     202: 37 37 02 00                  	lui	a4, 35
+     206: d9 8f                        	or	a5, a5, a4
+     208: 23 2e f0 40                  	sw	a5, 1052(zero)
+     20c: 83 27 c0 41                  	lw	a5, 1052(zero)
+     210: 37 07 34 00                  	lui	a4, 832
+     214: d9 8f                        	or	a5, a5, a4
+     216: 23 2e f0 40                  	sw	a5, 1052(zero)
+     21a: 83 27 c0 41                  	lw	a5, 1052(zero)
+     21e: 37 07 00 01                  	lui	a4, 4096
+     222: 33 f9 27 01                  	and	s2, a5, s2
+     226: 23 2e 20 41                  	sw	s2, 1052(zero)
+     22a: 83 27 c0 41                  	lw	a5, 1052(zero)
+     22e: 09 69                        	lui	s2, 2
+     230: 93 05 e9 22                  	addi	a1, s2, 558
+     234: d9 8f                        	or	a5, a5, a4
+     236: 23 2e f0 40                  	sw	a5, 1052(zero)
+     23a: 83 27 c0 41                  	lw	a5, 1052(zero)
+     23e: 37 07 f8 ff                  	lui	a4, 1048448
+     242: 7d 17                        	addi	a4, a4, -1
+     244: ed 9b                        	andi	a5, a5, -5
+     246: 23 2e f0 40                  	sw	a5, 1052(zero)
+     24a: 83 27 c0 41                  	lw	a5, 1052(zero)
+     24e: dd 9b                        	andi	a5, a5, -9
+     250: 23 2e f0 40                  	sw	a5, 1052(zero)
+     254: 83 27 c0 41                  	lw	a5, 1052(zero)
+     258: bd 9b                        	andi	a5, a5, -17
+     25a: 23 2e f0 40                  	sw	a5, 1052(zero)
+     25e: 83 27 40 41                  	lw	a5, 1044(zero)
+     262: f9 8f                        	and	a5, a5, a4
+     264: 23 2a f0 40                  	sw	a5, 1044(zero)
+     268: 83 27 40 41                  	lw	a5, 1044(zero)
+     26c: 37 07 f0 ff                  	lui	a4, 1048320
+     270: 7d 17                        	addi	a4, a4, -1
+     272: f9 8f                        	and	a5, a5, a4
+     274: 23 2a f0 40                  	sw	a5, 1044(zero)
+     278: 83 27 40 41                  	lw	a5, 1044(zero)
+     27c: 37 07 fc ff                  	lui	a4, 1048512
+     280: 7d 17                        	addi	a4, a4, -1
+     282: f9 8f                        	and	a5, a5, a4
+     284: 23 2a f0 40                  	sw	a5, 1044(zero)
+     288: 83 27 40 41                  	lw	a5, 1044(zero)
+     28c: 01 77                        	lui	a4, 1048544
+     28e: 7d 17                        	addi	a4, a4, -1
+     290: f9 8f                        	and	a5, a5, a4
+     292: 23 2a f0 40                  	sw	a5, 1044(zero)
+     296: 17 03 00 00                  	auipc	t1, 0
+			00000296:  R_RISCV_CALL	fmrx_set_pll
+			00000296:  R_RISCV_RELAX	*ABS*
+     29a: e7 00 03 00                  	jalr	t1
+     29e: 83 27 40 41                  	lw	a5, 1044(zero)
+     2a2: 37 07 40 fc                  	lui	a4, 1033216
+     2a6: 7d 17                        	addi	a4, a4, -1
+     2a8: 81 9b                        	andi	a5, a5, -32
+     2aa: 23 2a f0 40                  	sw	a5, 1044(zero)
+     2ae: 83 27 40 41                  	lw	a5, 1044(zero)
+     2b2: 05 45                        	addi	a0, zero, 1
+     2b4: 23 2a f0 40                  	sw	a5, 1044(zero)
+     2b8: 83 27 40 41                  	lw	a5, 1044(zero)
+     2bc: 93 e7 07 60                  	ori	a5, a5, 1536
+     2c0: 23 2a f0 40                  	sw	a5, 1044(zero)
+     2c4: 83 27 00 41                  	lw	a5, 1040(zero)
+     2c8: 93 e7 07 02                  	ori	a5, a5, 32
+     2cc: 23 28 f0 40                  	sw	a5, 1040(zero)
+     2d0: 83 27 00 41                  	lw	a5, 1040(zero)
+     2d4: 93 e7 07 04                  	ori	a5, a5, 64
+     2d8: 23 28 f0 40                  	sw	a5, 1040(zero)
+     2dc: 83 27 00 41                  	lw	a5, 1040(zero)
+     2e0: 93 e7 07 38                  	ori	a5, a5, 896
+     2e4: 23 28 f0 40                  	sw	a5, 1040(zero)
+     2e8: 83 27 00 41                  	lw	a5, 1040(zero)
+     2ec: f9 8f                        	and	a5, a5, a4
+     2ee: 23 28 f0 40                  	sw	a5, 1040(zero)
+     2f2: 83 27 00 41                  	lw	a5, 1040(zero)
+     2f6: 37 07 00 02                  	lui	a4, 8192
+     2fa: d9 8f                        	or	a5, a5, a4
+     2fc: 23 28 f0 40                  	sw	a5, 1040(zero)
+     300: 83 27 00 41                  	lw	a5, 1040(zero)
+     304: 37 07 c4 ff                  	lui	a4, 1047616
+     308: 7d 17                        	addi	a4, a4, -1
+     30a: f9 8f                        	and	a5, a5, a4
+     30c: 23 28 f0 40                  	sw	a5, 1040(zero)
+     310: 83 27 00 41                  	lw	a5, 1040(zero)
+     314: 37 07 38 00                  	lui	a4, 896
+     318: d9 8f                        	or	a5, a5, a4
+     31a: 23 28 f0 40                  	sw	a5, 1040(zero)
+     31e: 83 27 00 41                  	lw	a5, 1040(zero)
+     322: 13 07 09 c0                  	addi	a4, s2, -1024
+     326: fd 8c                        	and	s1, s1, a5
+     328: 23 28 90 40                  	sw	s1, 1040(zero)
+     32c: 83 27 00 41                  	lw	a5, 1040(zero)
+     330: d9 8f                        	or	a5, a5, a4
+     332: 23 28 f0 40                  	sw	a5, 1040(zero)
+     336: 83 27 00 41                  	lw	a5, 1040(zero)
+     33a: 37 47 fc ff                  	lui	a4, 1048516
+     33e: 7d 17                        	addi	a4, a4, -1
+     340: f9 8f                        	and	a5, a5, a4
+     342: 23 28 f0 40                  	sw	a5, 1040(zero)
+     346: 83 27 00 41                  	lw	a5, 1040(zero)
+     34a: 31 67                        	lui	a4, 12
+     34c: d9 8f                        	or	a5, a5, a4
+     34e: 23 28 f0 40                  	sw	a5, 1040(zero)
+     352: 83 27 00 41                  	lw	a5, 1040(zero)
+     356: 37 07 00 20                  	lui	a4, 131072
+     35a: d9 8f                        	or	a5, a5, a4
+     35c: 23 28 f0 40                  	sw	a5, 1040(zero)
+     360: 83 27 00 41                  	lw	a5, 1040(zero)
+     364: 37 07 00 e8                  	lui	a4, 950272
+     368: 7d 17                        	addi	a4, a4, -1
+     36a: f9 8f                        	and	a5, a5, a4
+     36c: 23 28 f0 40                  	sw	a5, 1040(zero)
+     370: 83 27 40 41                  	lw	a5, 1044(zero)
+     374: 93 e7 07 04                  	ori	a5, a5, 64
+     378: 23 2a f0 40                  	sw	a5, 1044(zero)
+     37c: 83 27 40 41                  	lw	a5, 1044(zero)
+     380: 93 f7 f7 fd                  	andi	a5, a5, -33
+     384: 23 2a f0 40                  	sw	a5, 1044(zero)
+     388: 83 27 00 41                  	lw	a5, 1040(zero)
+     38c: 93 e7 47 00                  	ori	a5, a5, 4
+     390: 23 28 f0 40                  	sw	a5, 1040(zero)
+     394: 17 03 00 00                  	auipc	t1, 0
+			00000394:  R_RISCV_CALL	hal_mdelay
+			00000394:  R_RISCV_RELAX	*ABS*
+     398: e7 00 03 00                  	jalr	t1
+     39c: 83 27 00 41                  	lw	a5, 1040(zero)
+     3a0: 7d 77                        	lui	a4, 1048575
+     3a2: 7d 17                        	addi	a4, a4, -1
+     3a4: 93 e7 87 00                  	ori	a5, a5, 8
+     3a8: 23 28 f0 40                  	sw	a5, 1040(zero)
+     3ac: 83 27 80 41                  	lw	a5, 1048(zero)
+     3b0: 29 45                        	addi	a0, zero, 10
+     3b2: b3 e7 27 01                  	or	a5, a5, s2
+     3b6: 23 2c f0 40                  	sw	a5, 1048(zero)
+     3ba: 83 27 80 41                  	lw	a5, 1048(zero)
+     3be: f9 8f                        	and	a5, a5, a4
+     3c0: 23 2c f0 40                  	sw	a5, 1048(zero)
+     3c4: 83 27 80 41                  	lw	a5, 1048(zero)
+     3c8: 93 e7 47 00                  	ori	a5, a5, 4
+     3cc: 23 2c f0 40                  	sw	a5, 1048(zero)
+     3d0: 83 27 80 41                  	lw	a5, 1048(zero)
+     3d4: 5d 8c                        	or	s0, s0, a5
+     3d6: 23 2c 80 40                  	sw	s0, 1048(zero)
+     3da: 83 27 80 41                  	lw	a5, 1048(zero)
+     3de: 93 f7 f7 bf                  	andi	a5, a5, -1025
+     3e2: 23 2c f0 40                  	sw	a5, 1048(zero)
+     3e6: 83 27 80 41                  	lw	a5, 1048(zero)
+     3ea: 93 e7 07 01                  	ori	a5, a5, 16
+     3ee: 23 2c f0 40                  	sw	a5, 1048(zero)
+     3f2: 17 03 00 00                  	auipc	t1, 0
+			000003f2:  R_RISCV_CALL	hal_mdelay
+			000003f2:  R_RISCV_RELAX	*ABS*
+     3f6: e7 00 03 00                  	jalr	t1
+     3fa: 83 27 80 41                  	lw	a5, 1048(zero)
+     3fe: 29 45                        	addi	a0, zero, 10
+     400: 93 e7 17 00                  	ori	a5, a5, 1
+     404: 23 2c f0 40                  	sw	a5, 1048(zero)
+     408: 17 03 00 00                  	auipc	t1, 0
+			00000408:  R_RISCV_CALL	hal_mdelay
+			00000408:  R_RISCV_RELAX	*ABS*
+     40c: e7 00 03 00                  	jalr	t1
+     410: 83 27 80 41                  	lw	a5, 1048(zero)
+     414: 93 e7 27 00                  	ori	a5, a5, 2
+     418: 23 2c f0 40                  	sw	a5, 1048(zero)
+     41c: 17 03 00 00                  	auipc	t1, 0
+			0000041c:  R_RISCV_CALL	__riscv_restore_3
+			0000041c:  R_RISCV_RELAX	*ABS*
+     420: 67 00 03 00                  	jr	t1
+
+00000424 fmrx_set_rf_cap:
+     424: 83 27 40 41                  	lw	a5, 1044(zero)
+     428: 81 9b                        	andi	a5, a5, -32
+     42a: 23 2a f0 40                  	sw	a5, 1044(zero)
+     42e: 83 27 40 41                  	lw	a5, 1044(zero)
+     432: 5d 8d                        	or	a0, a0, a5
+     434: 23 2a a0 40                  	sw	a0, 1044(zero)
+     438: 82 80                        	ret

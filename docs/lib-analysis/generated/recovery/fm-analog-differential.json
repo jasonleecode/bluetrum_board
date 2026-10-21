@@ -1,0 +1,2165 @@
+{
+  "unicorn_version": "2.1.4",
+  "original_object_sha256": "add90fc5972abf4ac16c38fdef7e1980e890b5d9c775a66f11d8c1dc1fc73709",
+  "recovered_source_sha256": "5d68e9fc917ede3666876e98d027f212a1378a38d0ee6f2d7158f4b56cd20782",
+  "model": "Synthetic analog MMIO with configurable PLL-lock status, hal_mdelay recording, __riscv_restore_3 ABI shim; no RF, hardware timing or custom-opcode validation.",
+  "abi": {
+    "fmrx_set_pll": [
+      "uint32_t offset_selector",
+      "uint32_t frequency_10khz"
+    ],
+    "fmrx_analog_init": [],
+    "fmrx_set_rf_cap": [
+      "uint32_t cap"
+    ]
+  },
+  "evidence": {
+    "init_pll_call": {
+      "object_offset": "0x296",
+      "a0": 1,
+      "a1": 8750
+    },
+    "frequency_threshold": 9350,
+    "pll_formula": "x = u32(frequency * 10 + selector * 228); u32(x * 2581 + u32(x * 2864) / 26000)",
+    "rf_cap": "0x414 &= ~31; 0x414 |= cap (no input mask)",
+    "timeout": "Original and recovered code both wait indefinitely for 0x42c bit 7."
+  },
+  "cases": [
+    {
+      "name": "analog init pattern 0 lock 2",
+      "api_actions": 1,
+      "trace_events": 137,
+      "result": "pass",
+      "trace": [
+        [
+          "read",
+          1040,
+          0
+        ],
+        [
+          "write",
+          1040,
+          3
+        ],
+        [
+          "read",
+          1048,
+          0
+        ],
+        [
+          "write",
+          1048,
+          8388608
+        ],
+        [
+          "read",
+          1048,
+          8388608
+        ],
+        [
+          "write",
+          1048,
+          8388608
+        ],
+        [
+          "read",
+          1048,
+          8388608
+        ],
+        [
+          "write",
+          1048,
+          8388608
+        ],
+        [
+          "read",
+          1048,
+          8388608
+        ],
+        [
+          "write",
+          1048,
+          9437184
+        ],
+        [
+          "read",
+          1048,
+          9437184
+        ],
+        [
+          "write",
+          1048,
+          9437184
+        ],
+        [
+          "read",
+          1048,
+          9437184
+        ],
+        [
+          "write",
+          1048,
+          9437184
+        ],
+        [
+          "read",
+          1048,
+          9437184
+        ],
+        [
+          "write",
+          1048,
+          9437200
+        ],
+        [
+          "hal_mdelay",
+          1
+        ],
+        [
+          "read",
+          1052,
+          0
+        ],
+        [
+          "write",
+          1052,
+          2048
+        ],
+        [
+          "read",
+          1052,
+          2048
+        ],
+        [
+          "write",
+          1052,
+          3072
+        ],
+        [
+          "read",
+          1052,
+          3072
+        ],
+        [
+          "write",
+          1052,
+          3584
+        ],
+        [
+          "read",
+          1052,
+          3584
+        ],
+        [
+          "write",
+          1052,
+          3840
+        ],
+        [
+          "read",
+          1052,
+          3840
+        ],
+        [
+          "write",
+          1052,
+          3968
+        ],
+        [
+          "read",
+          1052,
+          3968
+        ],
+        [
+          "write",
+          1052,
+          3970
+        ],
+        [
+          "hal_mdelay",
+          1
+        ],
+        [
+          "read",
+          1052,
+          3970
+        ],
+        [
+          "write",
+          1052,
+          3970
+        ],
+        [
+          "read",
+          1052,
+          3970
+        ],
+        [
+          "write",
+          1052,
+          3970
+        ],
+        [
+          "read",
+          1052,
+          3970
+        ],
+        [
+          "write",
+          1052,
+          147330
+        ],
+        [
+          "read",
+          1052,
+          147330
+        ],
+        [
+          "write",
+          1052,
+          3555202
+        ],
+        [
+          "read",
+          1052,
+          3555202
+        ],
+        [
+          "write",
+          1052,
+          3555202
+        ],
+        [
+          "read",
+          1052,
+          3555202
+        ],
+        [
+          "write",
+          1052,
+          20332418
+        ],
+        [
+          "read",
+          1052,
+          20332418
+        ],
+        [
+          "write",
+          1052,
+          20332418
+        ],
+        [
+          "read",
+          1052,
+          20332418
+        ],
+        [
+          "write",
+          1052,
+          20332418
+        ],
+        [
+          "read",
+          1052,
+          20332418
+        ],
+        [
+          "write",
+          1052,
+          20332418
+        ],
+        [
+          "read",
+          1044,
+          0
+        ],
+        [
+          "write",
+          1044,
+          0
+        ],
+        [
+          "read",
+          1044,
+          0
+        ],
+        [
+          "write",
+          1044,
+          0
+        ],
+        [
+          "read",
+          1044,
+          0
+        ],
+        [
+          "write",
+          1044,
+          0
+        ],
+        [
+          "read",
+          1044,
+          0
+        ],
+        [
+          "write",
+          1044,
+          0
+        ],
+        [
+          "read",
+          1052,
+          20332418
+        ],
+        [
+          "write",
+          1052,
+          20332418
+        ],
+        [
+          "write",
+          1060,
+          588493
+        ],
+        [
+          "write",
+          1064,
+          226435631
+        ],
+        [
+          "write",
+          1068,
+          1
+        ],
+        [
+          "read",
+          1068,
+          1
+        ],
+        [
+          "write",
+          1068,
+          45
+        ],
+        [
+          "read",
+          1056,
+          0
+        ],
+        [
+          "write",
+          1056,
+          2
+        ],
+        [
+          "read",
+          1056,
+          2
+        ],
+        [
+          "write",
+          1056,
+          259
+        ],
+        [
+          "read",
+          1056,
+          259
+        ],
+        [
+          "write",
+          1056,
+          775
+        ],
+        [
+          "read",
+          1048,
+          9437200
+        ],
+        [
+          "write",
+          1048,
+          9502736
+        ],
+        [
+          "read",
+          1052,
+          20332418
+        ],
+        [
+          "write",
+          1052,
+          20332482
+        ],
+        [
+          "read",
+          1052,
+          20332482
+        ],
+        [
+          "write",
+          1052,
+          20332483
+        ],
+        [
+          "read",
+          1068,
+          173
+        ],
+        [
+          "read",
+          1068,
+          173
+        ],
+        [
+          "write",
+          1068,
+          685
+        ],
+        [
+          "read",
+          1044,
+          0
+        ],
+        [
+          "write",
+          1044,
+          0
+        ],
+        [
+          "read",
+          1044,
+          0
+        ],
+        [
+          "write",
+          1044,
+          0
+        ],
+        [
+          "read",
+          1044,
+          0
+        ],
+        [
+          "write",
+          1044,
+          1536
+        ],
+        [
+          "read",
+          1040,
+          3
+        ],
+        [
+          "write",
+          1040,
+          35
+        ],
+        [
+          "read",
+          1040,
+          35
+        ],
+        [
+          "write",
+          1040,
+          99
+        ],
+        [
+          "read",
+          1040,
+          99
+        ],
+        [
+          "write",
+          1040,
+          995
+        ],
+        [
+          "read",
+          1040,
+          995
+        ],
+        [
+          "write",
+          1040,
+          995
+        ],
+        [
+          "read",
+          1040,
+          995
+        ],
+        [
+          "write",
+          1040,
+          33555427
+        ],
+        [
+          "read",
+          1040,
+          33555427
+        ],
+        [
+          "write",
+          1040,
+          33555427
+        ],
+        [
+          "read",
+          1040,
+          33555427
+        ],
+        [
+          "write",
+          1040,
+          37225443
+        ],
+        [
+          "read",
+          1040,
+          37225443
+        ],
+        [
+          "write",
+          1040,
+          37225443
+        ],
+        [
+          "read",
+          1040,
+          37225443
+        ],
+        [
+          "write",
+          1040,
+          37232611
+        ],
+        [
+          "read",
+          1040,
+          37232611
+        ],
+        [
+          "write",
+          1040,
+          37232611
+        ],
+        [
+          "read",
+          1040,
+          37232611
+        ],
+        [
+          "write",
+          1040,
+          37281763
+        ],
+        [
+          "read",
+          1040,
+          37281763
+        ],
+        [
+          "write",
+          1040,
+          574152675
+        ],
+        [
+          "read",
+          1040,
+          574152675
+        ],
+        [
+          "write",
+          1040,
+          574152675
+        ],
+        [
+          "read",
+          1044,
+          1536
+        ],
+        [
+          "write",
+          1044,
+          1600
+        ],
+        [
+          "read",
+          1044,
+          1600
+        ],
+        [
+          "write",
+          1044,
+          1600
+        ],
+        [
+          "read",
+          1040,
+          574152675
+        ],
+        [
+          "write",
+          1040,
+          574152679
+        ],
+        [
+          "hal_mdelay",
+          1
+        ],
+        [
+          "read",
+          1040,
+          574152679
+        ],
+        [
+          "write",
+          1040,
+          574152687
+        ],
+        [
+          "read",
+          1048,
+          9502736
+        ],
+        [
+          "write",
+          1048,
+          9510928
+        ],
+        [
+          "read",
+          1048,
+          9510928
+        ],
+        [
+          "write",
+          1048,
+          9510928
+        ],
+        [
+          "read",
+          1048,
+          9510928
+        ],
+        [
+          "write",
+          1048,
+          9510932
+        ],
+        [
+          "read",
+          1048,
+          9510932
+        ],
+        [
+          "write",
+          1048,
+          9512980
+        ],
+        [
+          "read",
+          1048,
+          9512980
+        ],
+        [
+          "write",
+          1048,
+          9512980
+        ],
+        [
+          "read",
+          1048,
+          9512980
+        ],
+        [
+          "write",
+          1048,
+          9512980
+        ],
+        [
+          "hal_mdelay",
+          10
+        ],
+        [
+          "read",
+          1048,
+          9512980
+        ],
+        [
+          "write",
+          1048,
+          9512981
+        ],
+        [
+          "hal_mdelay",
+          10
+        ],
+        [
+          "read",
+          1048,
+          9512981
+        ],
+        [
+          "write",
+          1048,
+          9512983
+        ]
+      ]
+    },
+    {
+      "name": "analog init pattern 0 lock 5",
+      "api_actions": 1,
+      "trace_events": 140,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 0 frequency 0",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 0 frequency 6500",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 0 frequency 7600",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 0 frequency 8750",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 0 frequency 9349",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 0 frequency 9350",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 0 frequency 9351",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 0 frequency 10800",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 0 frequency 65535",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 0 frequency 4294967295",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 1 frequency 0",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 1 frequency 6500",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 1 frequency 7600",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 1 frequency 8750",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass",
+      "trace": [
+        [
+          "read",
+          1052,
+          0
+        ],
+        [
+          "write",
+          1052,
+          128
+        ],
+        [
+          "write",
+          1060,
+          588493
+        ],
+        [
+          "write",
+          1064,
+          226435631
+        ],
+        [
+          "write",
+          1068,
+          1
+        ],
+        [
+          "read",
+          1068,
+          1
+        ],
+        [
+          "write",
+          1068,
+          45
+        ],
+        [
+          "read",
+          1056,
+          0
+        ],
+        [
+          "write",
+          1056,
+          2
+        ],
+        [
+          "read",
+          1056,
+          2
+        ],
+        [
+          "write",
+          1056,
+          259
+        ],
+        [
+          "read",
+          1056,
+          259
+        ],
+        [
+          "write",
+          1056,
+          775
+        ],
+        [
+          "read",
+          1048,
+          0
+        ],
+        [
+          "write",
+          1048,
+          65536
+        ],
+        [
+          "read",
+          1052,
+          128
+        ],
+        [
+          "write",
+          1052,
+          192
+        ],
+        [
+          "read",
+          1052,
+          192
+        ],
+        [
+          "write",
+          1052,
+          193
+        ],
+        [
+          "read",
+          1068,
+          45
+        ],
+        [
+          "read",
+          1068,
+          45
+        ],
+        [
+          "read",
+          1068,
+          173
+        ],
+        [
+          "read",
+          1068,
+          173
+        ],
+        [
+          "write",
+          1068,
+          685
+        ]
+      ]
+    },
+    {
+      "name": "PLL pattern 0 selector 1 frequency 9349",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 1 frequency 9350",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 1 frequency 9351",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 1 frequency 10800",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 1 frequency 65535",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 1 frequency 4294967295",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 4294967295 frequency 0",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 4294967295 frequency 6500",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 4294967295 frequency 7600",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 4294967295 frequency 8750",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 4294967295 frequency 9349",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 4294967295 frequency 9350",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 4294967295 frequency 9351",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 4294967295 frequency 10800",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 4294967295 frequency 65535",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 0 selector 4294967295 frequency 4294967295",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 0 value 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 0 value 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 0 value 15",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 0 value 31",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 0 value 32",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 0 value 255",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 0 value 4294967295",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "analog init pattern 1 lock 2",
+      "api_actions": 1,
+      "trace_events": 137,
+      "result": "pass"
+    },
+    {
+      "name": "analog init pattern 1 lock 5",
+      "api_actions": 1,
+      "trace_events": 140,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 0 frequency 0",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 0 frequency 6500",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 0 frequency 7600",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 0 frequency 8750",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 0 frequency 9349",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 0 frequency 9350",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 0 frequency 9351",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 0 frequency 10800",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 0 frequency 65535",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 0 frequency 4294967295",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 1 frequency 0",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 1 frequency 6500",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 1 frequency 7600",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 1 frequency 8750",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 1 frequency 9349",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 1 frequency 9350",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 1 frequency 9351",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 1 frequency 10800",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 1 frequency 65535",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 1 frequency 4294967295",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 4294967295 frequency 0",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 4294967295 frequency 6500",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 4294967295 frequency 7600",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 4294967295 frequency 8750",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 4294967295 frequency 9349",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 4294967295 frequency 9350",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 4294967295 frequency 9351",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 4294967295 frequency 10800",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 4294967295 frequency 65535",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 1 selector 4294967295 frequency 4294967295",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 1 value 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 1 value 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 1 value 15",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 1 value 31",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 1 value 32",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 1 value 255",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 1 value 4294967295",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "analog init pattern 2 lock 2",
+      "api_actions": 1,
+      "trace_events": 137,
+      "result": "pass"
+    },
+    {
+      "name": "analog init pattern 2 lock 5",
+      "api_actions": 1,
+      "trace_events": 140,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 0 frequency 0",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 0 frequency 6500",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 0 frequency 7600",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 0 frequency 8750",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 0 frequency 9349",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 0 frequency 9350",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 0 frequency 9351",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 0 frequency 10800",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 0 frequency 65535",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 0 frequency 4294967295",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 1 frequency 0",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 1 frequency 6500",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 1 frequency 7600",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 1 frequency 8750",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 1 frequency 9349",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 1 frequency 9350",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 1 frequency 9351",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 1 frequency 10800",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 1 frequency 65535",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 1 frequency 4294967295",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 4294967295 frequency 0",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 4294967295 frequency 6500",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 4294967295 frequency 7600",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 4294967295 frequency 8750",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 4294967295 frequency 9349",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 4294967295 frequency 9350",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 4294967295 frequency 9351",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 4294967295 frequency 10800",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 4294967295 frequency 65535",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 2 selector 4294967295 frequency 4294967295",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 2 value 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 2 value 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 2 value 15",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 2 value 31",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 2 value 32",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 2 value 255",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 2 value 4294967295",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "analog init pattern 3 lock 2",
+      "api_actions": 1,
+      "trace_events": 137,
+      "result": "pass"
+    },
+    {
+      "name": "analog init pattern 3 lock 5",
+      "api_actions": 1,
+      "trace_events": 140,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 0 frequency 0",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 0 frequency 6500",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 0 frequency 7600",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 0 frequency 8750",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 0 frequency 9349",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 0 frequency 9350",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 0 frequency 9351",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 0 frequency 10800",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 0 frequency 65535",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 0 frequency 4294967295",
+      "api_actions": 1,
+      "trace_events": 27,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 1 frequency 0",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 1 frequency 6500",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 1 frequency 7600",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 1 frequency 8750",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 1 frequency 9349",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 1 frequency 9350",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 1 frequency 9351",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 1 frequency 10800",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 1 frequency 65535",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 1 frequency 4294967295",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 4294967295 frequency 0",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 4294967295 frequency 6500",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 4294967295 frequency 7600",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 4294967295 frequency 8750",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 4294967295 frequency 9349",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 4294967295 frequency 9350",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 4294967295 frequency 9351",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 4294967295 frequency 10800",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 4294967295 frequency 65535",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL pattern 3 selector 4294967295 frequency 4294967295",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 3 value 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 3 value 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 3 value 15",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 3 value 31",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 3 value 32",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 3 value 255",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "RF cap pattern 3 value 4294967295",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 0",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 1",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 2",
+      "api_actions": 1,
+      "trace_events": 25,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 3",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 4",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 5",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 6",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 7",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 8",
+      "api_actions": 1,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 9",
+      "api_actions": 1,
+      "trace_events": 25,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 10",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 11",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 12",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 13",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 14",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 15",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 16",
+      "api_actions": 1,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 17",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 18",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 19",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 20",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 21",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 22",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 23",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 24",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 25",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 26",
+      "api_actions": 1,
+      "trace_events": 25,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 27",
+      "api_actions": 1,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 28",
+      "api_actions": 1,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 29",
+      "api_actions": 1,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 30",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 31",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 32",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 33",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 34",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 35",
+      "api_actions": 1,
+      "trace_events": 25,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 36",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 37",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 38",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 39",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 40",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 41",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 42",
+      "api_actions": 1,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 43",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 44",
+      "api_actions": 1,
+      "trace_events": 25,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 45",
+      "api_actions": 1,
+      "trace_events": 25,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 46",
+      "api_actions": 1,
+      "trace_events": 25,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 47",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 48",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 49",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 50",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 51",
+      "api_actions": 1,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 52",
+      "api_actions": 1,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 53",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 54",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 55",
+      "api_actions": 1,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 56",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 57",
+      "api_actions": 1,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 58",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 59",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 60",
+      "api_actions": 1,
+      "trace_events": 25,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 61",
+      "api_actions": 1,
+      "trace_events": 26,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 62",
+      "api_actions": 1,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "PLL full-width arithmetic 63",
+      "api_actions": 1,
+      "trace_events": 25,
+      "result": "pass"
+    },
+    {
+      "name": "initialized retune and cap",
+      "api_actions": 5,
+      "trace_events": 217,
+      "result": "pass"
+    },
+    {
+      "name": "PLL never locks",
+      "api_actions": 1,
+      "trace_events": 20,
+      "result": "pass"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 #include "drv_usb_audio.h"
 #include <stdint.h>
+#include "fmrx_hal.h"
 
 /* libhal.a 符号 */
 extern void uda_init(void);
@@ -7,7 +8,6 @@ extern void uda_run_loop_execute(void);
 extern void uda_set_spk_volume(uint8_t vol);
 extern void uda_set_spk_mute(uint8_t en);
 extern void usb_isoc_reset(void);
-extern void fmrx_dma_to_aubuf(uint32_t enable);
 extern void usb_ep_do_transfer(uint8_t ep, void *buf, uint32_t len);
 
 void drv_usb_audio_init(void)

@@ -26,6 +26,14 @@ else ifneq ($(SPI_BACKEND),vendor)
 $(error SPI_BACKEND must be vendor or recovered)
 endif
 
+# Select both FM objects together; keep the SDK backend as the default.
+FM_BACKEND ?= vendor
+ifeq ($(FM_BACKEND),recovered)
+BUILD_DIR := $(BUILD_DIR)/recovered-fm
+else ifneq ($(FM_BACKEND),vendor)
+$(error FM_BACKEND must be vendor or recovered)
+endif
+
 # 3. 目标定义 (根据 app 目录下的文件名，定义三个独立的目标)
 # 这里的逻辑是：取出 app/*.c 的文件名，去掉后缀，作为最终生成文件的名字
 APP_SRCS := $(wildcard $(APP_DIR)/*.c)
@@ -64,6 +72,9 @@ LDFLAGS  := $(ARCH_FLAGS) $(OPT_FLAGS) \
 DRV_SRCS := $(wildcard $(DRV_DIR)/src/*.c)
 ifeq ($(SPI_BACKEND),vendor)
 DRV_SRCS := $(filter-out $(DRV_DIR)/src/driver_spi_recovered.c,$(DRV_SRCS))
+endif
+ifeq ($(FM_BACKEND),vendor)
+DRV_SRCS := $(filter-out $(DRV_DIR)/src/fmrx_analog_recovered.c $(DRV_DIR)/src/fmrx_digital_recovered.c,$(DRV_SRCS))
 endif
 # 启动文件
 ASM_SRCS := startup.S

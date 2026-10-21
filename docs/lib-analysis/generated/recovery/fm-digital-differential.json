@@ -1,0 +1,668 @@
+{
+  "unicorn_version": "2.1.4",
+  "original_object_sha256": "f4ecad3933db2792ad6327f45d446d47d4e0aadb2a3d66f82423fcdf4a55430c",
+  "recovered_source_sha256": "61af23b2bb754ccea651d4eaee133835e511077551b7d02714f4c69aae1fbfdf",
+  "model": "Synthetic MMIO; fmrx_analog_init stub; __riscv_restore_0 ABI shim. No RF, DMA completion, audio format, custom-opcode or silicon timing verification.",
+  "cases": [
+    {
+      "name": "lifecycle 00000000",
+      "api_actions": 9,
+      "trace_events": 54,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ffffffff",
+      "api_actions": 9,
+      "trace_events": 54,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle aaaaaaaa",
+      "api_actions": 9,
+      "trace_events": 54,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle 55555555",
+      "api_actions": 9,
+      "trace_events": 54,
+      "result": "pass"
+    },
+    {
+      "name": "reserved power argument 1",
+      "api_actions": 1,
+      "trace_events": 20,
+      "result": "pass"
+    },
+    {
+      "name": "reserved power argument 4294967295",
+      "api_actions": 1,
+      "trace_events": 20,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 0 count 0",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 50000 count 0",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 50001 count 0",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 0 count 1",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 50000 count 1",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 50001 count 1",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 0 count 2",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 50000 count 2",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 50001 count 2",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 0 count 255",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 50000 count 255",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 50001 count 255",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 0 count 256",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 50000 count 256",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 50001 count 256",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 0 count 65536",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 50000 count 65536",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 50001 count 65536",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 0 count 4294967295",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 50000 count 4294967295",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "raw DMA ptr 50001 count 4294967295",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 0 fifo 0",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 0 fifo 1",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 0 fifo 4294967295",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 1 fifo 0",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 1 fifo 1",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 1 fifo 4294967295",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 2 fifo 0",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 2 fifo 1",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 2 fifo 4294967295",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 3 fifo 0",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 3 fifo 1",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 3 fifo 2",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 3 fifo 4294967295",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 6 fifo 0",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 6 fifo 1",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 6 fifo 2",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 6 fifo 3",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 6 fifo 4",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 6 fifo 4294967295",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 300 fifo 0",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 300 fifo 99",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 300 fifo 100",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 300 fifo 101",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 300 fifo 199",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 300 fifo 200",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 300 fifo 4294967295",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 1024 fifo 0",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 1024 fifo 340",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 1024 fifo 341",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 1024 fifo 342",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 1024 fifo 681",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 1024 fifo 682",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 1024 fifo 4294967295",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 4294967294 fifo 0",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 4294967294 fifo 1431655763",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 4294967294 fifo 1431655764",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 4294967294 fifo 1431655765",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 4294967294 fifo 2863311527",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 4294967294 fifo 2863311528",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 4294967294 fifo 4294967295",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 4294967295 fifo 0",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 4294967295 fifo 1431655764",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 4294967295 fifo 1431655765",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 4294967295 fifo 1431655766",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 4294967295 fifo 2863311529",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 4294967295 fifo 2863311530",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync size 4294967295 fifo 4294967295",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync moving FIFO [101, 0]",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync moving FIFO [101, 199]",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync moving FIFO [101, 200]",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "sync moving FIFO [101, 4294967295]",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 0",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 1",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 2",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 3",
+      "api_actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 4",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 5",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 6",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 7",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 8",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 9",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 10",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 11",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 12",
+      "api_actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 13",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 14",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 15",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 16",
+      "api_actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 17",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 18",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 19",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 20",
+      "api_actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 21",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 22",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 23",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 24",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 25",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 26",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 27",
+      "api_actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 28",
+      "api_actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 29",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 30",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random register state 31",
+      "api_actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    }
+  ]
+}

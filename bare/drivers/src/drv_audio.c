@@ -1,7 +1,6 @@
 #include "drv_audio.h"
 #include "drv_usb_audio.h"
-
-extern void fmrx_dma_to_aubuf(uint32_t enable);
+#include "fmrx_hal.h"
 
 static drv_audio_route_t audio_route;
 

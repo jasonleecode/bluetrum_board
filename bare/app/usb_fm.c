@@ -1,6 +1,10 @@
 #include "drv_fm.h"
 #include "drv_usb_audio.h"
 
+/* Control-flow skeleton only: DAC/audio-buffer setup and the FM-to-USB data
+ * path are not yet validated. Replace 512 with the verified buffer count.
+ * See docs/lib-analysis/FM_RECOVERY.md.
+ */
 int main(void)
 {
     /* ---------------- FM 初始化 ---------------- */
