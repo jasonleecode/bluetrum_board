@@ -15,12 +15,22 @@
 
 ## 编译
 
-默认工具链前缀是 `riscv64-unknown-elf-`，如需使用其他工具链，可以通过 `CROSS_COMPILE` 覆盖：
+优先使用仓库 `.toolchains/riscv64-unknown-elf-gcc-10.1.0-2020.08.2-x86_64-linux-ubuntu14/` 下的 SiFive GCC 10.1.0；没有该目录时使用 PATH 中的 `riscv64-unknown-elf-`。如需使用其他工具链，可以通过 `CROSS_COMPILE` 覆盖：
 
 ```sh
 make
 make CROSS_COMPILE=riscv64-unknown-elf-
 ```
+
+Linux x86_64 配套包来自 [SiFive 官方发布](https://github.com/sifive/freedom-tools/releases/tag/v2020.08.0)，与 [Bluetrum SDK 文档](https://bluetrum-sdk.readthedocs.io/zh/latest/getting-start/beforehand.html) 列出的 GCC 10.1.0 版本一致。安装到仓库内不需要修改系统 PATH（从仓库根目录执行）：
+
+```sh
+mkdir -p .toolchains
+tar -xzf "$HOME/Downloads/riscv64-unknown-elf-gcc-10.1.0-2020.08.2-x86_64-linux-ubuntu14.tar.gz" -C .toolchains
+make -C bare
+```
+
+工具链目录已被 Git 忽略。本次安装包 SHA-256 为 `8d2a6d2c123b9c7fe30d446bace4fa3d74576715e484ddfafbb491cb6082ebc5`（本地计算，用于复现，不是额外的官方签名验证）。默认后端及五个恢复后端同时开启时，四个应用的 GCC 编译、链接和 GNU objcopy 生成均已通过。链接脚本已将 `.sdata/.sbss` 纳入启动复制/清零区间；真实芯片内存布局、启动与 IRQ 接入仍待板级移植，构建成功不代表能够直接烧录运行。
 
 编译后会在 `build/` 下生成对应的 `.elf` 和 `.bin` 文件。例如 `app/main.c` 会生成：
 
@@ -152,3 +162,10 @@ riscv32-elf-xmaker.exe -b final_bin.xm
 生成的 `final_bin.dcf` 再交给厂家 Windows 版 `Downloader.exe` 通过串口烧录。`tools/XMAKER.md` 记录了目前对 `.xm` 脚本和 `.dcf` 合成格式的分析。
 
 `rtthread.xm` 属于 RT-Thread 工程流程，裸机工程不需要依赖 RT-Thread 的构建产物。
+
+## I2S 恢复代码补充
+
+`drivers/src/i2s_src_recovered.c` 新增同系列 AB53XX SDK 的硬件 SRC 输出子集，
+供 RT-Thread 音频接入复用。当前没有裸机 I2S 应用；调用者仍需完成真实音频时钟、
+时钟门控和 PCM 音源初始化。范围、差分测试和芯片兼容性限制见
+[I2S 恢复记录](../docs/lib-analysis/I2S_RECOVERY.md)。

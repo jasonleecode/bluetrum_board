@@ -9,6 +9,8 @@ void fmrx_power_off(void);
 void fmrx_digital_start(void);
 void fmrx_digital_stop(void);
 void fmrx_dac_sync(uint32_t buffer_count);
+/* Integration helper, not an original SDK symbol: neutralize sync correction. */
+void fmrx_dac_sync_reset(void);
 void fmrx_dma_to_aubuf(uint8_t enable);
 void fmrx_get_audio_data(void *buffer, uint32_t transfer_count);
 

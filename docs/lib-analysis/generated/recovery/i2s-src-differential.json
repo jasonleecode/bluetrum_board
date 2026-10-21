@@ -1,0 +1,824 @@
+{
+  "original_object_sha256": "e14bfb1fe6831b5dd371500de6d209e700475284cd5e492df23b44cce7f2face",
+  "recovered_source_sha256": "b00378ca207ce899ed3ec8c5434c47eceabdbb352b0793374a4d25b73ac0032b",
+  "model": "Ordered synthetic MMIO, SRC/master/16-bit/normal/MCLK256 only. No hardware timing or AB32VG1 silicon compatibility proof; DMA/IRQ calls forbidden.",
+  "cases": [
+    {
+      "state": 0,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 0,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 1,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 1,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 2,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 2,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 3,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 3,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 4,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 4,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 5,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 5,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 6,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 6,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 7,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 7,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 8,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 8,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 9,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 9,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 10,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 10,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 11,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 11,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 12,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 12,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 13,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 13,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 14,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 14,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 15,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 15,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 16,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 16,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 17,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 17,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 18,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 18,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 19,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 19,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 20,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 20,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 21,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 21,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 22,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 22,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 23,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 23,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 24,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 24,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 25,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 25,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 26,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 26,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 27,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 27,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 28,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 28,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 29,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 29,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 30,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 30,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 31,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 31,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 32,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 32,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 33,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 33,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 34,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 34,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 35,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 35,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 36,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 36,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 37,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 37,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 38,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 38,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 39,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 39,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 40,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 40,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 41,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 41,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 42,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 42,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 43,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 43,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 44,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 44,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 45,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 45,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 46,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 46,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 47,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 47,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 48,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 48,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 49,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 49,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 50,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 50,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 51,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 51,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 52,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 52,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 53,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 53,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 54,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 54,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 55,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 55,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 56,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 56,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 57,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 57,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 58,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 58,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 59,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 59,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 60,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 60,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 61,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 61,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 62,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 62,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 63,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 63,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 64,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 64,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 65,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 65,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 66,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 66,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 67,
+      "mapping": 0,
+      "operations": 36,
+      "passed": true
+    },
+    {
+      "state": 67,
+      "mapping": 1,
+      "operations": 36,
+      "passed": true
+    }
+  ],
+  "invalid_mapping_cases": 3
+}

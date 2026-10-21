@@ -43,6 +43,7 @@ struct ab32_hwtimer
     hal_sfr_t     tim_handle;
     char *name;
     irq_type tim_irqn;
+    struct rt_hwtimer_info info;
 };
 
 static struct ab32_hwtimer ab32_hwtimer_obj[] =
@@ -117,6 +118,12 @@ static void timer_init(struct rt_hwtimer_device *timer, rt_uint32_t state)
             LOG_E("Only support HWTIMER_CNTMODE_UP!");
         }
 
+        if (tim == TIM1_BASE) hal_rcu_periph_clk_enable(RCU_TMR1);
+        else if (tim == TIM2_BASE) hal_rcu_periph_clk_enable(RCU_TMR2);
+        else if (tim == TIM3_BASE) hal_rcu_periph_clk_enable(RCU_TMR3);
+        else if (tim == TIM4_BASE) hal_rcu_periph_clk_enable(RCU_TMR4);
+        else if (tim == TIM5_BASE) hal_rcu_periph_clk_enable(RCU_TMR5);
+
         /* set tim int */
         tim[TMRxCON] = BIT(7);
 
@@ -129,29 +136,25 @@ static void timer_init(struct rt_hwtimer_device *timer, rt_uint32_t state)
 
 static rt_err_t timer_start(rt_hwtimer_t *timer, rt_uint32_t t, rt_hwtimer_mode_t opmode)
 {
-    rt_err_t result = RT_EOK;
-    hal_sfr_t tim = RT_NULL;
-
-    RT_ASSERT(timer != RT_NULL);
-
-    tim = (hal_sfr_t)timer->parent.user_data;
-
-    /* set tim cnt */
-    tim[TMRxCNT] = 0;
-    tim[TMRxPR] = t * (get_sysclk_nhz() / timer->freq) - 1;
-
-    if (opmode != HWTIMER_MODE_PERIOD)
-    {
-        LOG_E("Opmode only support HWTIMER_MODE_PERIOD!");
+    hal_sfr_t tim = (hal_sfr_t)timer->parent.user_data;
+    rt_uint32_t clock = get_sysclk_nhz();
+    rt_uint64_t count;
+    if (!t || timer->freq <= 0 || clock % timer->freq ||
+        (opmode != HWTIMER_MODE_PERIOD && opmode != HWTIMER_MODE_ONESHOT))
         return -RT_EINVAL;
-    }
-
-    /* start timer */
+    count = (rt_uint64_t)t * (clock / timer->freq);
+    if (!count || count > 0x100000000ULL)
+        return -RT_EINVAL;
+    tim[TMRxCON] &= ~BIT(0);
+    tim[TMRxCPND] = (tim == TIM1_BASE || tim == TIM2_BASE) ? BIT(9) : BIT(16);
+    tim[TMRxCNT] = 0;
+    tim[TMRxPR] = (rt_uint32_t)(count - 1);
     tim[TMRxCON] |= BIT(0);
-
-    return result;
+    /* The common ISR stops one-shot timers after the last software cycle. */
+    return RT_EOK;
 }
 
+rt_section(".irq.timer")
 static void timer_stop(rt_hwtimer_t *timer)
 {
     hal_sfr_t tim = RT_NULL;
@@ -181,6 +184,9 @@ static rt_err_t timer_ctrl(rt_hwtimer_t *timer, rt_uint32_t cmd, void *arg)
     {
     case HWTIMER_CTRL_FREQ_SET:
     {
+        rt_uint32_t freq = *(rt_uint32_t *)arg;
+        if (!freq || freq > get_sysclk_nhz() || get_sysclk_nhz() % freq)
+            return -RT_EINVAL;
     }
     break;
     default:
@@ -206,6 +212,7 @@ static rt_uint32_t timer_counter_get(rt_hwtimer_t *timer)
 
 static const struct rt_hwtimer_info _info = TIM_DEV_INFO_CONFIG;
 
+rt_section(".irq.timer.ops")
 static const struct rt_hwtimer_ops _ops =
 {
     .init = timer_init,
@@ -221,20 +228,20 @@ void timer2_4_5_isr(int vector, void *param)
 {
     rt_interrupt_enter();
 #ifdef BSP_USING_TIM2
-    if (ab32_hwtimer_obj[TIM2_INDEX].tim_handle[TMRxCON] != 0) {
+    if (ab32_hwtimer_obj[TIM2_INDEX].tim_handle[TMRxCON] & BIT(9)) {
         ab32_hwtimer_obj[TIM2_INDEX].tim_handle[TMRxCPND] = BIT(9);
         _rt_device_hwtimer_isr(&ab32_hwtimer_obj[TIM2_INDEX].time_device);
     }
 #endif
 #ifdef BSP_USING_TIM4
-    if (ab32_hwtimer_obj[TIM4_INDEX].tim_handle[TMRxCON] != 0) {
-        ab32_hwtimer_obj[TIM4_INDEX].tim_handle[TMRxCPND] = BIT(9);
+    if (ab32_hwtimer_obj[TIM4_INDEX].tim_handle[TMRxCON] & BIT(16)) {
+        ab32_hwtimer_obj[TIM4_INDEX].tim_handle[TMRxCPND] = BIT(16);
         _rt_device_hwtimer_isr(&ab32_hwtimer_obj[TIM4_INDEX].time_device);
     }
 #endif
 #ifdef BSP_USING_TIM5
-    if (ab32_hwtimer_obj[TIM5_INDEX].tim_handle[TMRxCON] != 0) {
-        ab32_hwtimer_obj[TIM5_INDEX].tim_handle[TMRxCPND] = BIT(9);
+    if (ab32_hwtimer_obj[TIM5_INDEX].tim_handle[TMRxCON] & BIT(16)) {
+        ab32_hwtimer_obj[TIM5_INDEX].tim_handle[TMRxCPND] = BIT(16);
         _rt_device_hwtimer_isr(&ab32_hwtimer_obj[TIM5_INDEX].time_device);
     }
 #endif
@@ -247,7 +254,7 @@ rt_section(".irq.timer")
 void timer3_isr(int vector, void *param)
 {
     rt_interrupt_enter();
-    ab32_hwtimer_obj[TIM3_INDEX].tim_handle[TMRxCPND] = BIT(9);
+    ab32_hwtimer_obj[TIM3_INDEX].tim_handle[TMRxCPND] = BIT(16);
     _rt_device_hwtimer_isr(&ab32_hwtimer_obj[TIM3_INDEX].time_device);
     rt_interrupt_leave();
 }
@@ -271,7 +278,11 @@ static int ab32_hwtimer_init(void)
 
     for (i = 0; i < sizeof(ab32_hwtimer_obj) / sizeof(ab32_hwtimer_obj[0]); i++)
     {
-        ab32_hwtimer_obj[i].time_device.info = &_info;
+        ab32_hwtimer_obj[i].info = _info;
+        /* API counts are virtual ticks; reserve room for hardware scaling. */
+        ab32_hwtimer_obj[i].info.maxcnt = 0xffffffffu /
+            (get_sysclk_nhz() / _info.minfreq + 1);
+        ab32_hwtimer_obj[i].time_device.info = &ab32_hwtimer_obj[i].info;
         ab32_hwtimer_obj[i].time_device.ops  = &_ops;
         if (rt_device_hwtimer_register(&ab32_hwtimer_obj[i].time_device, ab32_hwtimer_obj[i].name, (void *)ab32_hwtimer_obj[i].tim_handle) == RT_EOK)
         {

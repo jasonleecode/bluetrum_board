@@ -15,6 +15,7 @@ static rt_mq_t drv_mq = RT_NULL;
 
 void uart0_irq_process(void);
 void uart1_irq_process(void);
+void uart2_irq_process(void);
 
 rt_section(".irq.uart")
 void uart0_irq_post(void)
@@ -67,6 +68,8 @@ static void drv_thread_entry(void *parameter)
 static int drv_thread_init(void)
 {
     drv_mq = rt_mq_create("drv", 1, 128, RT_IPC_FLAG_FIFO);
+    if (drv_mq == RT_NULL)
+        return -RT_ENOMEM;
     drv_tid = rt_thread_create("drv",
             drv_thread_entry,
             RT_NULL,
@@ -74,7 +77,12 @@ static int drv_thread_init(void)
             DRV_THREAD_PRIORITY,
             DRV_THREAD_TIMESLICE);
 
-    if (drv_tid != RT_NULL)
-        rt_thread_startup(drv_tid);
+    if (drv_tid == RT_NULL)
+    {
+        rt_mq_delete(drv_mq);
+        drv_mq = RT_NULL;
+        return -RT_ENOMEM;
+    }
+    return rt_thread_startup(drv_tid);
 }
 INIT_PREV_EXPORT(drv_thread_init);

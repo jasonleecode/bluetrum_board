@@ -8,4 +8,6 @@ rtt/bsp/rtthread.elf
 rtt/bsp/rtthread.map
 tools/windows/D*/
 bare/build/
+.toolchains/
 tools/**/__pycache__/
+rtt/**/__pycache__/

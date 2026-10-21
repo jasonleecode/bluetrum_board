@@ -1,6 +1,10 @@
 import os
 import platform
 
+LOCAL_TOOLCHAIN = os.path.abspath(os.path.join(
+    os.path.dirname(__file__), '../../.toolchains',
+    'riscv64-unknown-elf-gcc-10.1.0-2020.08.2-x86_64-linux-ubuntu14/bin'))
+
 
 # toolchains options
 ARCH        ='risc-v'
@@ -17,7 +21,7 @@ if os.getenv('RTT_CC'):
 
 if  CROSS_TOOL == 'gcc':
     PLATFORM    = 'gcc'
-    EXEC_PATH   = os.getenv('RISCV_TOOLCHAIN_PATH', r'/opt/homebrew/bin')
+    EXEC_PATH   = os.getenv('RISCV_TOOLCHAIN_PATH', LOCAL_TOOLCHAIN)
 else:
     print('Please make sure your toolchains is GNU GCC!')
     exit(0)
@@ -29,7 +33,7 @@ BUILD = 'release'
 
 if PLATFORM == 'gcc':
     # toolchains
-    PREFIX  = os.getenv('RTT_CC_PREFIX', 'riscv64-elf-')
+    PREFIX  = os.getenv('RTT_CC_PREFIX', 'riscv64-unknown-elf-')
     CC      = PREFIX + 'gcc'
     CXX     = PREFIX + 'g++'
     AS      = PREFIX + 'gcc'

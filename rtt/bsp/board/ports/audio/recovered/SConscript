@@ -1,0 +1,15 @@
+from building import *
+
+cwd = GetCurrentDir()
+bare = os.path.abspath(os.path.join(cwd, '../../../../../../bare/drivers'))
+# Compile the recovered sources themselves; do not extract FM objects from libhal.a.
+names = []
+if GetDepend(['BSP_USING_FMRX']):
+    names += ['fmrx_analog_recovered.c', 'fmrx_digital_recovered.c']
+if GetDepend(['BSP_USING_I2S']):
+    names += ['i2s_src_recovered.c']
+src = [os.path.join(bare, 'src', name) for name in names]
+group = DefineGroup('Audio-Recovered', src, depend=[''],
+                    CPPPATH=[os.path.join(bare, 'inc')],
+                    LOCAL_CPPDEFINES=['FMRX_PLL_WAIT_HOOK=ab32_fmrx_wait_pll'])
+Return('group')

@@ -8,6 +8,26 @@
  */
 
 #include <board.h>
+#ifdef BSP_USING_FMRX
+#include "drv_fmrx.h"
+#include "fmrx_hal.h"
+#endif
+#ifdef BSP_USING_I2S
+#include "i2s_src.h"
+#ifndef BSP_I2S_MAPPING
+#define BSP_I2S_MAPPING 1
+#endif
+#if BSP_I2S_MAPPING < 0 || BSP_I2S_MAPPING > 1
+#error "I2S mapping must be 0 (PA0..4) or 1 (PE0..4)"
+#endif
+/* Do not let SPI1 or the existing GPIO I2C own the same pins. */
+#if defined(BSP_USING_SPI1) && BSP_I2S_MAPPING == 0 && BSP_SPI1_MAPPING == 1
+#error "I2S PA0..4 conflicts with SPI1 mapping 1"
+#endif
+#if defined(BSP_USING_I2C1) && BSP_I2S_MAPPING == 1
+#error "I2S PE0..4 requires disabling the software I2C1 bus"
+#endif
+#endif
 
 #define DBG_TAG              "drv.snd_dev"
 #define DBG_LVL              DBG_INFO
@@ -28,9 +48,21 @@ struct sound_device
     rt_uint8_t *rx_fifo;
     rt_uint8_t  volume;
     rt_uint8_t  dma_to_aubuf;
+    rt_bool_t running;
 };
 
 static struct sound_device snd_dev = {0};
+#ifdef BSP_USING_FMRX
+static struct rt_mutex sound_lock;
+static rt_bool_t pcm_open;
+static struct {
+    rt_err_t (*init)(rt_device_t);
+    rt_err_t (*open)(rt_device_t, rt_uint16_t);
+    rt_err_t (*close)(rt_device_t);
+    rt_ssize_t (*write)(rt_device_t, rt_off_t, const void *, rt_size_t);
+    rt_err_t (*control)(rt_device_t, int, void *);
+} pcm_ops;
+#endif
 
 //apll = 采样率*ADPLL_DIV*512
 //audio pll init
@@ -115,9 +147,9 @@ void audio_sem_post(void)
     rt_sem_release(snd_dev.semaphore);
 }
 
-void audio_sem_pend(void)
+rt_err_t audio_sem_pend(void)
 {
-    rt_sem_take(snd_dev.semaphore, RT_WAITING_FOREVER);
+    return rt_sem_take(snd_dev.semaphore, rt_tick_from_millisecond(1000));
 }
 
 void saia_frequency_set(uint32_t frequency)
@@ -171,6 +203,9 @@ static rt_err_t sound_getcaps(struct rt_audio_device *audio, struct rt_audio_cap
 
     RT_ASSERT(audio != RT_NULL);
     snd_dev = (struct sound_device *)audio->parent.user_data;
+
+    if (caps == RT_NULL)
+        return -RT_EINVAL;
 
     switch (caps->main_type)
     {
@@ -245,16 +280,47 @@ static rt_err_t sound_getcaps(struct rt_audio_device *audio, struct rt_audio_cap
         break;
     }
 
-    return RT_EOK;
+    return result;
 }
 
-static rt_err_t sound_configure(struct rt_audio_device *audio, struct rt_audio_caps *caps)
+static rt_err_t sound_configure_unlocked(struct rt_audio_device *audio, struct rt_audio_caps *caps)
 {
     rt_err_t result = RT_EOK;
     struct sound_device *snd_dev = RT_NULL;
 
     RT_ASSERT(audio != RT_NULL);
     snd_dev = (struct sound_device *)audio->parent.user_data;
+
+    if (caps == RT_NULL)
+        return -RT_EINVAL;
+    if (caps->main_type == AUDIO_TYPE_OUTPUT)
+    {
+        rt_uint32_t rate = snd_dev->replay_config.samplerate;
+        rt_uint32_t channels = snd_dev->replay_config.channels;
+        rt_uint32_t bits = snd_dev->replay_config.samplebits;
+        if (snd_dev->running)
+            return -RT_EBUSY;
+        switch (caps->sub_type)
+        {
+        case AUDIO_DSP_PARAM:
+            rate = caps->udata.config.samplerate;
+            channels = caps->udata.config.channels;
+            bits = caps->udata.config.samplebits;
+            break;
+        case AUDIO_DSP_SAMPLERATE: rate = caps->udata.config.samplerate; break;
+        case AUDIO_DSP_CHANNELS: channels = caps->udata.config.channels; break;
+        case AUDIO_DSP_SAMPLEBITS: bits = caps->udata.config.samplebits; break;
+        default: return -RT_ENOSYS;
+        }
+        if ((rate != 48000 && rate != 44100) ||
+            (channels != 1 && channels != 2) || bits != 16)
+            return -RT_EINVAL;
+#ifdef BSP_USING_I2S
+        if (channels != 2) return -RT_EINVAL;
+#endif
+        if (rate != snd_dev->replay_config.samplerate)
+            adpll_init(rate == 48000);
+    }
 
     switch (caps->main_type)
     {
@@ -264,6 +330,8 @@ static rt_err_t sound_configure(struct rt_audio_device *audio, struct rt_audio_c
         {
         case AUDIO_MIXER_VOLUME:
         {
+            if (caps->udata.value < 0 || caps->udata.value > 100)
+                return -RT_EINVAL;
             rt_uint8_t volume = caps->udata.value;
 
             saia_volume_set(volume);
@@ -273,7 +341,7 @@ static rt_err_t sound_configure(struct rt_audio_device *audio, struct rt_audio_c
         }
 
         case AUDIO_MIXER_EXTEND:
-            snd_dev->dma_to_aubuf = caps->udata.value;
+            return -RT_ENOSYS;
         break;
 
         default:
@@ -335,20 +403,21 @@ static rt_err_t sound_configure(struct rt_audio_device *audio, struct rt_audio_c
     }
 
     default:
+        result = -RT_ENOSYS;
         break;
     }
 
-    return RT_EOK;
+    return result;
 }
 
-static rt_err_t sound_init(struct rt_audio_device *audio)
+static rt_err_t sound_init_unlocked(struct rt_audio_device *audio)
 {
     struct sound_device *snd_dev = RT_NULL;
 
     RT_ASSERT(audio != RT_NULL);
     snd_dev = (struct sound_device *)audio->parent.user_data;
 
-    adpll_init(0);
+    adpll_init(snd_dev->replay_config.samplerate == 48000);
     dac_start();
 
     /* set default params */
@@ -359,7 +428,7 @@ static rt_err_t sound_init(struct rt_audio_device *audio)
     return RT_EOK;
 }
 
-static rt_err_t sound_start(struct rt_audio_device *audio, int stream)
+static rt_err_t sound_start_unlocked(struct rt_audio_device *audio, int stream)
 {
     struct sound_device *snd_dev = RT_NULL;
 
@@ -377,24 +446,48 @@ static rt_err_t sound_start(struct rt_audio_device *audio, int stream)
         DACDIGCON0  |= BIT(0) | BIT(10); // (0x01<<2)
 
         AUBUFCON |= BIT(1);
+        snd_dev->running = RT_TRUE;
+#ifdef BSP_USING_I2S
+        if (!snd_dev->dma_to_aubuf)
+        {
+            hal_rcu_periph_clk_enable(RCU_IIS);
+            i2s_src_init(BSP_I2S_MAPPING);
+        }
+#endif
     }
+    else
+        return -RT_ENOSYS;
 
     return RT_EOK;
 }
 
-static rt_err_t sound_stop(struct rt_audio_device *audio, int stream)
+static rt_err_t sound_stop_unlocked(struct rt_audio_device *audio, int stream)
 {
     RT_ASSERT(audio != RT_NULL);
 
     if (stream == AUDIO_STREAM_REPLAY)
     {
         LOG_D("close sound device");
+        snd_dev.running = RT_FALSE;
+#ifdef BSP_USING_I2S
+        if (!snd_dev.dma_to_aubuf)
+        {
+            i2s_src_exit(BSP_I2S_MAPPING);
+            DACDIGCON0 &= ~BIT(23); /* release the SRC route selected by init */
+            hal_rcu_periph_clk_disable(RCU_IIS);
+        }
+#endif
+        AUBUFCON &= ~BIT(4);
+        DACDIGCON0 &= ~(BIT(0) | BIT(10));
+        rt_sem_release(snd_dev.semaphore);
     }
+    else
+        return -RT_ENOSYS;
 
     return RT_EOK;
 }
 
-rt_size_t sound_transmit(struct rt_audio_device *audio, const void *writeBuf, void *readBuf, rt_size_t size)
+rt_ssize_t sound_transmit(struct rt_audio_device *audio, const void *writeBuf, void *readBuf, rt_size_t size)
 {
     struct sound_device *snd_dev = RT_NULL;
     rt_size_t tmp_size = size / 4;
@@ -403,15 +496,21 @@ rt_size_t sound_transmit(struct rt_audio_device *audio, const void *writeBuf, vo
     RT_ASSERT(audio != RT_NULL);
     snd_dev = (struct sound_device *)audio->parent.user_data;
 
-    while (tmp_size-- > 0) {
-        if (AUBUFCON & BIT(8)) { // aubuf full
+    if (!writeBuf || ((rt_ubase_t)writeBuf & 3) || (size & 3) ||
+        !snd_dev->running || snd_dev->dma_to_aubuf)
+        return 0;
+    while (tmp_size-- > 0 && snd_dev->running) {
+        while ((AUBUFCON & BIT(8)) && snd_dev->running) { // aubuf full
             AUBUFCON |= BIT(1) | BIT(4);
-            audio_sem_pend();
+            if (audio_sem_pend() != RT_EOK)
+                return count ? (rt_ssize_t)(count * 4) : -RT_ETIMEOUT;
         }
+        if (!snd_dev->running)
+            break;
         AUBUFDATA = ((const uint32_t *)writeBuf)[count++];
     }
 
-    return size;
+    return count * 4;
 }
 
 static void sound_buffer_info(struct rt_audio_device *audio, struct rt_audio_buf_info *info)
@@ -433,6 +532,163 @@ static void sound_buffer_info(struct rt_audio_device *audio, struct rt_audio_buf
     info->block_size  = TX_FIFO_SIZE / 2;
     info->block_count = 2;
 }
+
+/* Share DAC ownership with FM. Hold the mutex across PLL setup (which can
+ * sleep), so a concurrent sound0 open/start/configure cannot overwrite FM.
+ * transmit stays unlocked: FM cannot acquire while PCM replay is running.
+ */
+#ifdef BSP_USING_FMRX
+#define SOUND_CALL(expression) do { \
+    rt_err_t ret = rt_mutex_take(&sound_lock, RT_WAITING_FOREVER); \
+    if (ret != RT_EOK) return ret; \
+    ret = snd_dev.dma_to_aubuf ? -RT_EBUSY : (expression); \
+    rt_mutex_release(&sound_lock); \
+    return ret; \
+} while (0)
+#else
+#define SOUND_CALL(expression) return (expression)
+#endif
+
+static rt_err_t sound_configure(struct rt_audio_device *audio, struct rt_audio_caps *caps)
+{ SOUND_CALL(sound_configure_unlocked(audio, caps)); }
+static rt_err_t sound_init(struct rt_audio_device *audio)
+{ SOUND_CALL(sound_init_unlocked(audio)); }
+static rt_err_t sound_start(struct rt_audio_device *audio, int stream)
+{ SOUND_CALL(sound_start_unlocked(audio, stream)); }
+static rt_err_t sound_stop(struct rt_audio_device *audio, int stream)
+{ SOUND_CALL(sound_stop_unlocked(audio, stream)); }
+
+#ifdef BSP_USING_FMRX
+rt_err_t ab32_sound_fm_acquire(rt_uint32_t *buffer_words)
+{
+    rt_err_t ret;
+    if (!buffer_words || !snd_dev.rx_fifo)
+        return -RT_EINVAL;
+    ret = rt_mutex_take(&sound_lock, RT_WAITING_FOREVER);
+    if (ret != RT_EOK)
+        return ret;
+    if (snd_dev.running || snd_dev.dma_to_aubuf || pcm_open || snd_dev.audio.parent.ref_count)
+        ret = -RT_EBUSY;
+    else
+    {
+        snd_dev.dma_to_aubuf = RT_TRUE;
+        rt_memset(snd_dev.rx_fifo, 0, TX_FIFO_SIZE);
+        /* Same 38 kHz FM DAC selection as the SDK fmrx_test1.c example.
+         * Keep the user's PCM config; restore it when FM releases the DAC.
+         */
+        sound_init_unlocked(&snd_dev.audio);
+        saia_frequency_set(SAI_AUDIO_FREQUENCY_38K);
+        saia_channels_set(2);
+        saia_volume_set(0);
+        sound_start_unlocked(&snd_dev.audio, AUDIO_STREAM_REPLAY);
+        *buffer_words = TX_FIFO_SIZE / 4;
+    }
+    rt_mutex_release(&sound_lock);
+    return ret;
+}
+
+void ab32_sound_fm_release(void)
+{
+    rt_mutex_take(&sound_lock, RT_WAITING_FOREVER);
+    if (snd_dev.dma_to_aubuf)
+    {
+        saia_volume_set(0);
+        sound_stop_unlocked(&snd_dev.audio, AUDIO_STREAM_REPLAY);
+        fmrx_dac_sync_reset();
+        saia_frequency_set(snd_dev.replay_config.samplerate);
+        saia_channels_set(snd_dev.replay_config.channels);
+        saia_volume_set(snd_dev.volume);
+        snd_dev.dma_to_aubuf = RT_FALSE;
+    }
+    rt_mutex_release(&sound_lock);
+}
+
+void ab32_sound_fm_volume(rt_uint8_t volume)
+{
+    rt_mutex_take(&sound_lock, RT_WAITING_FOREVER);
+    if (snd_dev.dma_to_aubuf)
+        saia_volume_set(volume);
+    rt_mutex_release(&sound_lock);
+}
+
+/* Gate the audio framework before it allocates/queues PCM. The framework's
+ * start path marks replay active even when the HAL rejects a start, so HAL
+ * checks alone are not enough. Never hold sound_lock while close/STOP waits
+ * for the audio worker to call sound_stop(). pcm_open keeps FM excluded then.
+ */
+static rt_err_t sound_device_init(rt_device_t dev)
+{ SOUND_CALL(pcm_ops.init ? pcm_ops.init(dev) : RT_EOK); }
+
+static rt_err_t sound_device_open(rt_device_t dev, rt_uint16_t flags)
+{
+    rt_err_t ret = rt_mutex_take(&sound_lock, RT_WAITING_FOREVER);
+    if (ret != RT_EOK) return ret;
+    ret = snd_dev.dma_to_aubuf ? -RT_EBUSY : pcm_ops.open(dev, flags);
+    if (ret == RT_EOK) pcm_open = RT_TRUE;
+    rt_mutex_release(&sound_lock);
+    return ret;
+}
+
+static rt_err_t sound_device_close(rt_device_t dev)
+{
+    rt_err_t ret = pcm_ops.close(dev);
+    rt_mutex_take(&sound_lock, RT_WAITING_FOREVER);
+    if (ret == RT_EOK) pcm_open = RT_FALSE;
+    rt_mutex_release(&sound_lock);
+    return ret;
+}
+
+static rt_ssize_t sound_device_write(rt_device_t dev, rt_off_t pos,
+                                     const void *buffer, rt_size_t size)
+{
+    /* Normal writes have an open PCM owner, which cannot be taken by FM. */
+    if (snd_dev.dma_to_aubuf || !pcm_open) return -RT_EBUSY;
+    return pcm_ops.write(dev, pos, buffer, size);
+}
+
+static rt_err_t sound_device_control(rt_device_t dev, int cmd, void *args)
+{
+    rt_err_t ret = rt_mutex_take(&sound_lock, RT_WAITING_FOREVER);
+    if (ret != RT_EOK) return ret;
+    /* Require an open PCM owner for controls, including START and STOP. */
+    ret = snd_dev.dma_to_aubuf || !pcm_open ? -RT_EBUSY : RT_EOK;
+    rt_mutex_release(&sound_lock);
+    if (ret != RT_EOK) return ret;
+    return pcm_ops.control(dev, cmd, args);
+}
+
+#ifdef RT_USING_DEVICE_OPS
+static const struct rt_device_ops sound_device_ops = {
+    .init = sound_device_init, .open = sound_device_open,
+    .close = sound_device_close, .write = sound_device_write,
+    .control = sound_device_control
+};
+#endif
+
+static void sound_install_fm_gate(void)
+{
+    rt_device_t dev = &snd_dev.audio.parent;
+#ifdef RT_USING_DEVICE_OPS
+    pcm_ops.init = dev->ops->init;
+    pcm_ops.open = dev->ops->open;
+    pcm_ops.close = dev->ops->close;
+    pcm_ops.write = dev->ops->write;
+    pcm_ops.control = dev->ops->control;
+    dev->ops = &sound_device_ops;
+#else
+    pcm_ops.init = dev->init;
+    pcm_ops.open = dev->open;
+    pcm_ops.close = dev->close;
+    pcm_ops.write = dev->write;
+    pcm_ops.control = dev->control;
+    dev->init = sound_device_init;
+    dev->open = sound_device_open;
+    dev->close = sound_device_close;
+    dev->write = sound_device_write;
+    dev->control = sound_device_control;
+#endif
+}
+#endif
 
 static struct rt_audio_ops ops =
 {
@@ -463,7 +719,7 @@ static void audio_thread_entry(void *parameter)
 {
     while (1)
     {
-        if ((snd_dev.dma_to_aubuf == RT_FALSE) && (snd_dev.audio.replay->activated == RT_TRUE)) {
+        if ((snd_dev.dma_to_aubuf == RT_FALSE) && (snd_dev.audio.replay != RT_NULL) && (snd_dev.running == RT_TRUE) && (snd_dev.audio.replay->activated == RT_TRUE)) {
             rt_audio_tx_complete(&snd_dev.audio);
         } else {
             rt_thread_mdelay(50);
@@ -473,61 +729,46 @@ static void audio_thread_entry(void *parameter)
 
 static int rt_hw_sound_init(void)
 {
-    rt_uint8_t *tx_fifo = RT_NULL;
-    rt_uint8_t *rx_fifo = RT_NULL;
-
-    /* 分配 DMA 搬运 buffer */
-    tx_fifo = rt_calloc(1, TX_FIFO_SIZE);
-    if(tx_fifo == RT_NULL)
-    {
-        return -RT_ENOMEM;
-    }
-
-    snd_dev.tx_fifo = tx_fifo;
-
-    /* 分配 DMA 搬运 buffer */
-    rx_fifo = rt_calloc(1, TX_FIFO_SIZE);
-    if(rx_fifo == RT_NULL)
-    {
-        return -RT_ENOMEM;
-    }
-
-    snd_dev.rx_fifo = rx_fifo;
-
+    rt_err_t result = -RT_ENOMEM;
+#ifdef BSP_USING_FMRX
+    result = rt_mutex_init(&sound_lock, "sndlock", RT_IPC_FLAG_PRIO);
+    if (result != RT_EOK)
+        return result;
+    result = -RT_ENOMEM;
+#endif
+    snd_dev.tx_fifo = rt_calloc(1, TX_FIFO_SIZE);
+    snd_dev.rx_fifo = rt_calloc(1, TX_FIFO_SIZE);
+    if (!snd_dev.tx_fifo || !snd_dev.rx_fifo)
+        goto fail;
     snd_dev.semaphore = rt_sem_create("snd", 0, RT_IPC_FLAG_FIFO);
-    if (snd_dev.semaphore == RT_NULL)
-    {
-        return -RT_ENOMEM;
-    }
-
-    snd_dev.thread = rt_thread_create(
-        "audio",
-        audio_thread_entry,
-        RT_NULL,
-        1024,
-        20, // must equal or lower than tshell priority
-        1
-    );
-
-    if (snd_dev.thread != RT_NULL)
-    {
-        rt_thread_startup(snd_dev.thread);
-    }
-
-    /* init default configuration */
-    {
-        snd_dev.replay_config.samplerate = SAI_AUDIO_FREQUENCY_48K;
-        snd_dev.replay_config.channels   = 2;
-        snd_dev.replay_config.samplebits = 16;
-        snd_dev.volume                   = 55;
-    }
-
-    /* register snd_dev device */
+    if (!snd_dev.semaphore)
+        goto fail;
+    snd_dev.thread = rt_thread_create("audio", audio_thread_entry, RT_NULL,
+                                      1024, 20, 1);
+    if (!snd_dev.thread)
+        goto fail;
+    snd_dev.replay_config.samplerate = SAI_AUDIO_FREQUENCY_48K;
+    snd_dev.replay_config.channels = 2;
+    snd_dev.replay_config.samplebits = 16;
+    snd_dev.volume = 55;
     snd_dev.audio.ops = &ops;
-    rt_audio_register(&snd_dev.audio, "sound0", RT_DEVICE_FLAG_WRONLY, &snd_dev);
-
+    result = rt_audio_register(&snd_dev.audio, "sound0", RT_DEVICE_FLAG_WRONLY, &snd_dev);
+    if (result != RT_EOK)
+        goto fail;
+#ifdef BSP_USING_FMRX
+    sound_install_fm_gate();
+#endif
     rt_hw_interrupt_install(IRQ_AUBUF0_1_VECTOR, audio_isr, RT_NULL, "au_isr");
-
-    return RT_EOK;
+    return rt_thread_startup(snd_dev.thread);
+fail:
+    if (snd_dev.thread) rt_thread_delete(snd_dev.thread);
+    if (snd_dev.semaphore) rt_sem_delete(snd_dev.semaphore);
+    if (snd_dev.rx_fifo) rt_free(snd_dev.rx_fifo);
+    if (snd_dev.tx_fifo) rt_free(snd_dev.tx_fifo);
+    rt_memset(&snd_dev, 0, sizeof(snd_dev));
+#ifdef BSP_USING_FMRX
+    rt_mutex_detach(&sound_lock);
+#endif
+    return result;
 }
 INIT_DEVICE_EXPORT(rt_hw_sound_init);

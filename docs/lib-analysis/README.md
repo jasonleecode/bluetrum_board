@@ -12,6 +12,15 @@ examined artifacts and has not been replaced with software emulation.
 `fmrx_ang.o`, fixes the two-argument PLL ABI and 10-kHz frequency units, and
 provides an opt-in backend with 332 original-machine-code differential cases.
 Search/RSSI, the complete audio path and hardware reception remain unverified.
+The RT-Thread port now reuses these sources for manual tuning, DAC playback,
+volume, periodic synchronization and stop, with bounded PLL waits and exclusive
+PCM ownership; reception still needs a board test.
+
+[I2S output recovery](I2S_RECOVERY.md) adds a newly located AB53XX-family
+`i2s.o` as evidence. Its SRC/master/16-bit/normal/MCLK256 subset is reconstructed
+and connected to RT-Thread `sound0`, with 136 ordered-MMIO comparisons and three
+invalid-mapping checks. Chip compatibility remains experimental; RX and DMA are
+not enabled. The same SDK still uses GPIO software I2C.
 
 [Bluetooth recovery](BLUETOOTH_RECOVERY.md) replaces `hct_msg.o` and
 `hct_proc.o` plus three platform entry points, with 581 HCI and 62 platform

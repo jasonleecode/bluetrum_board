@@ -41,9 +41,12 @@ static struct ab32_adc ab32_adc_obj[] =
 #endif
 };
 
-static rt_err_t ab32_adc_enabled(struct rt_adc_device *device, rt_uint32_t channel, rt_bool_t enabled)
+static rt_err_t ab32_adc_enabled(struct rt_adc_device *device, rt_int8_t channel, rt_bool_t enabled)
 {
     RT_ASSERT(device != RT_NULL);
+
+    if (channel < 0 || channel >= 16)
+        return -RT_EINVAL;
 
     hal_adc_enable(enabled);
 
@@ -109,17 +112,23 @@ static rt_uint32_t ab32_adc_get_channel(rt_uint32_t channel)
     return ab32_channel;
 }
 
-static rt_err_t ab32_get_adc_value(struct rt_adc_device *device, rt_uint32_t channel, rt_uint32_t *value)
+static rt_err_t ab32_get_adc_value(struct rt_adc_device *device, rt_int8_t channel, rt_uint32_t *value)
 {
     hal_sfr_t ab32_adc_handler;
+    hal_error_t result;
 
     RT_ASSERT(device != RT_NULL);
     RT_ASSERT(value != RT_NULL);
 
+    if (channel < 0 || channel >= 16)
+        return -RT_EINVAL;
+
     ab32_adc_handler = device->parent.user_data;
 
     hal_adc_start(ab32_adc_get_channel(channel));
-    hal_adc_poll_for_conversion(1000);
+    result = hal_adc_poll_for_conversion(1000);
+    if (result != HAL_EOK)
+        return result == HAL_ETIMEOUT ? -RT_ETIMEOUT : -RT_EIO;
 
     *value = ab32_adc_handler[channel];
 

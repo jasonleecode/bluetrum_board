@@ -11,6 +11,8 @@
 #ifndef DRV_WDT_H__
 #define DRV_WDT_H__
 
+/* Legacy raw register encodings; do NOT pass these to the RT-Thread
+ * watchdog control API, which accepts seconds (1..16). */
 #define AB32_WDT_TIMEOUT_1MS        0
 #define AB32_WDT_TIMEOUT_256MS      1
 #define AB32_WDT_TIMEOUT_512MS      2

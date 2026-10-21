@@ -66,6 +66,8 @@ static rt_base_t ab32_pin_get(const char *name)
     int hw_port_num, hw_pin_num = 0;
     int i, name_len;
 
+    if (name == RT_NULL)
+        return -RT_EINVAL;
     name_len = rt_strlen(name);
 
     if ((name_len < 4) || (name_len >= 6))
@@ -81,7 +83,7 @@ static rt_base_t ab32_pin_get(const char *name)
     {
         hw_port_num = (int)(name[1] - 'A');
     }
-    else if ((name[1] >= 'E') && (name[1] <= 'G'))
+    else if ((name[1] >= 'E') && (name[1] <= 'F'))
     {
         hw_port_num = (int)(name[1] - 'A') - 2;  /* Without 'C' and 'D'. */
     }
@@ -92,10 +94,14 @@ static rt_base_t ab32_pin_get(const char *name)
 
     for (i = 3; i < name_len; i++)
     {
+        if (name[i] < '0' || name[i] > '9')
+            return -RT_EINVAL;
         hw_pin_num *= 10;
         hw_pin_num += name[i] - '0';
     }
 
+    if (hw_pin_num >= port_table[hw_port_num].delta_pin)
+        return -RT_EINVAL;
     pin = PIN_NUM(hw_port_num, hw_pin_num);
     LOG_D("name=%s", name);
     LOG_D("hw_port_num=%d hw_pin_num=%d pin=%d", hw_port_num, hw_pin_num, pin);
@@ -105,6 +111,8 @@ static rt_base_t ab32_pin_get(const char *name)
 
 static void ab32_pin_write(rt_device_t dev, rt_base_t pin, rt_uint8_t value)
 {
+    if (pin < 0 || pin >= 27)
+        return;
     rt_uint8_t port = PIN_PORT(pin);
     rt_uint8_t gpio_pin  = pin - port_table[port].total_pin;
     hal_gpio_write(PORT_SFR(port), gpio_pin, (rt_uint8_t)value);
@@ -112,6 +120,8 @@ static void ab32_pin_write(rt_device_t dev, rt_base_t pin, rt_uint8_t value)
 
 static rt_ssize_t ab32_pin_read(rt_device_t dev, rt_base_t pin)
 {
+    if (pin < 0 || pin >= 27)
+        return -RT_EINVAL;
     rt_uint8_t port = PIN_PORT(pin);
     rt_uint8_t gpio_pin  = pin - port_table[port].total_pin;
     return hal_gpio_read(PORT_SFR(port), gpio_pin);
@@ -119,7 +129,9 @@ static rt_ssize_t ab32_pin_read(rt_device_t dev, rt_base_t pin)
 
 static void ab32_pin_mode(rt_device_t dev, rt_base_t pin, rt_uint8_t mode)
 {
-    struct gpio_init gpio_init;
+    struct gpio_init gpio_init = {0};
+    if (pin < 0 || pin >= 27)
+        return;
     rt_uint8_t port = PIN_PORT(pin);
 
     gpio_init.pin = BIT(pin - port_table[port].total_pin);

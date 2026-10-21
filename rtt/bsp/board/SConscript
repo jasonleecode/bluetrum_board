@@ -13,12 +13,18 @@ CPPPATH += [cwd + '/ports']
 if GetDepend(['RT_USING_AUDIO']):
     src += Glob('ports/audio/drv_sound.c')
 
+if GetDepend(['BSP_USING_FMRX']):
+    src += Glob('ports/audio/drv_fmrx.c')
+
 if GetDepend(['BSP_USING_ON_CHIP_FLASH']):
     src += Glob('ports/on_chip_flash_init.c')
 
 group = DefineGroup('Board', src, depend = [''], CPPPATH = CPPPATH)
 
 objs = [group]
+
+if GetDepend(['BSP_USING_FMRX']) or GetDepend(['BSP_USING_I2S']):
+    objs += SConscript('ports/audio/recovered/SConscript')
 
 list = os.listdir(cwd)
 

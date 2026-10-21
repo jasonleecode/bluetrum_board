@@ -22,6 +22,35 @@ menu "Onboard Peripheral Drivers"
             default y
         endif
 
+    config BSP_USING_I2S
+        bool "Enable experimental hardware I2S output from sound0"
+        select BSP_USING_AUDIO
+        select BSP_USING_AUDIO_PLAY
+        default n
+        help
+            Recovered from the AB5300-family SDK. Master, 16-bit stereo,
+            normal I2S, MCLK=256fs, audio SRC output at 44.1/48 kHz.
+            PCM written to sound0 also drives I2S; FM does not drive I2S.
+            Register/pin compatibility checked, requires board validation.
+            External codec configuration, RX and DMA are not implemented.
+    if BSP_USING_I2S
+        config BSP_I2S_MAPPING
+            int "I2S group: 0=PA0..4, 1=PE0..4 (DI/DO/BCLK/LRCLK/MCLK)"
+            range 0 1
+            default 1
+    endif
+
+    config BSP_USING_FMRX
+        bool "Enable recovered FM receiver with internal DAC playback"
+        select BSP_USING_AUDIO
+        select BSP_USING_AUDIO_PLAY
+        default n
+        help
+            Registers fm0 and the fmrx shell command. Manual tuning,
+            volume, stop and a 100 ms DAC synchronization worker.
+            Exclusively shares the DAC with sound0. No automatic scan/RDS.
+            Requires an antenna and hardware validation.
+
     config BSP_USING_SDCARD
         bool "Enable SDCARD"
         select BSP_USING_SDIO
@@ -30,7 +59,7 @@ menu "Onboard Peripheral Drivers"
     if BSP_USING_SDCARD
     config SDIO_MAX_FREQ
         int "sdio max freq"
-        range 0 24000000
+        range 240000 24000000
         default 24000000
     endif
 
@@ -42,6 +71,27 @@ menu "Onboard Peripheral Drivers"
 endmenu
 
 menu "On-chip Peripheral Drivers"
+    menuconfig BSP_USING_SPI1
+        bool "Enable hardware SPI1 (experimental, fixed reset timing)"
+        select RT_USING_SPI
+        select RT_USING_PIN
+        default n
+        help
+            Recovered hardware master, 8-bit MSB, separate TX/RX phases.
+            Mode 0 is the API placeholder for SDK reset timing, still
+            requiring oscilloscope verification. Other modes and full
+            duplex are rejected. No software SPI is used.
+    if BSP_USING_SPI1
+        config BSP_SPI1_MAPPING
+            int "SPI1 group: 1=PA2/3/4, 2=PA5/6/7, 3=PB0/1/2, 4=PE5/6/7, 5=PF0/1/2"
+            range 1 5
+            default 4
+        config BSP_SPI1_TIMEOUT_MS
+            int "SPI byte timeout (ms)"
+            range 1 1000
+            default 100
+    endif
+
     menuconfig BSP_USING_UART
         bool "Enable UART"
         if BSP_USING_UART
@@ -190,14 +240,17 @@ menu "On-chip Peripheral Drivers"
 
             config BSP_USING_TIM3
                 bool "Enable TIM3"
+                depends on !BSP_USING_T3_PWM && !BSP_USING_IRRX
                 default n
 
             config BSP_USING_TIM4
                 bool "Enable TIM4"
+                depends on !BSP_USING_T4_PWM
                 default n
 
             config BSP_USING_TIM5
                 bool "Enable TIM5"
+                depends on !BSP_USING_T5_PWM
                 default n
         endif
 
@@ -209,10 +262,6 @@ menu "On-chip Peripheral Drivers"
             config RTC_USING_INTERNAL_CLK
                 bool "Using internal clock RTC"
                 default y
-            config RTC_USING_1S_INT
-                bool "Using 1 second interrupt"
-                depends on RT_USING_ALARM
-                default n
         endif
 
     menuconfig BSP_USING_ADC
@@ -239,6 +288,7 @@ menu "On-chip Peripheral Drivers"
 
     config BSP_USING_ON_CHIP_FLASH
         bool "Enable on-chip FLASH"
+        select RT_USING_FAL
         default n
 endmenu
 

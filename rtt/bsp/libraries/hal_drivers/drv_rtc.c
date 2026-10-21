@@ -12,6 +12,7 @@
 
 #include "board.h"
 #include <sys/time.h>
+#include <time.h>
 
 #ifdef BSP_USING_ONCHIP_RTC
 
@@ -110,11 +111,11 @@ static void _init_rtc_clock(void)
 #ifdef RTC_USING_INTERNAL_CLK
     rtccon0 &= ~RTC_CON0_XOSC32K_ENABLE;
     rtccon0 |= RTC_CON0_INTERNAL_32K;
-    rtccon2 | RTC_CON2_32K_SELECT;
+    rtccon2 |= RTC_CON2_32K_SELECT;
 #else
     rtccon0 |= RTC_CON0_XOSC32K_ENABLE;
     rtccon0 &= ~RTC_CON0_INTERNAL_32K;
-    rtccon2 & ~RTC_CON2_32K_SELECT;
+    rtccon2 &= ~RTC_CON2_32K_SELECT;
 #endif
     irtc_sfr_write(RTCCON0_CMD, rtccon0);
     irtc_sfr_write(RTCCON2_CMD, rtccon2);
@@ -138,41 +139,23 @@ void hal_rtc_init(void)
 
         irtc_time_write(RTCCNT_CMD, sec);
     }
-#ifdef RT_USING_ALARM
-    RTCCON |= RTC_CON_ALM_INTERRUPT;
-#ifdef RTC_USING_1S_INT
-    RTCCON |= RTC_CON_1S_INTERRUPT;
-#endif
-#endif
+    RTCCON &= ~(RTC_CON_ALM_INTERRUPT | RTC_CON_1S_INTERRUPT);
 }
 /************** HAL End *******************/
 
-static rt_err_t ab32_rtc_get_secs(void *args)
+static rt_err_t ab32_rtc_get_secs(time_t *secs)
 {
-    *(rt_uint32_t *)args = irtc_time_read(RTCCNT_CMD);
-    LOG_D("RTC: get rtc_time %x\n", *(rt_uint32_t *)args);
-
+    if (secs == RT_NULL)
+        return -RT_EINVAL;
+    *secs = (time_t)irtc_time_read(RTCCNT_CMD);
     return RT_EOK;
 }
 
-static rt_err_t ab32_rtc_set_secs(void *args)
+static rt_err_t ab32_rtc_set_secs(time_t *secs)
 {
-    irtc_time_write(RTCCNT_CMD, *(rt_uint32_t *)args);
-
-    return RT_EOK;
-}
-
-static rt_err_t ab32_rtc_get_alarm(void *args)
-{
-    *(rt_uint32_t *)args = irtc_time_read(RTCALM_CMD);
-
-    return RT_EOK;
-}
-
-static rt_err_t ab32_rtc_set_alarm(void *args)
-{
-    irtc_time_write(RTCALM_CMD, *(rt_uint32_t *)args);
-
+    if (secs == RT_NULL || *secs < 0 || (rt_uint64_t)*secs > 0xffffffffULL)
+        return -RT_EINVAL;
+    irtc_time_write(RTCCNT_CMD, (rt_uint32_t)*secs);
     return RT_EOK;
 }
 
@@ -183,15 +166,13 @@ static rt_err_t ab32_rtc_init(void)
     return RT_EOK;
 }
 
+/* The old alarm callbacks treated rt_rtc_wkalarm as a uint32_t timestamp.
+ * No alarm ISR exists in this BSP yet; do not advertise this operation. */
 static const struct rt_rtc_ops ab32_rtc_ops =
 {
-    ab32_rtc_init,
-    ab32_rtc_get_secs,
-    ab32_rtc_set_secs,
-    ab32_rtc_get_alarm,
-    ab32_rtc_set_alarm,
-    RT_NULL,
-    RT_NULL,
+    .init = ab32_rtc_init,
+    .get_secs = ab32_rtc_get_secs,
+    .set_secs = ab32_rtc_set_secs,
 };
 
 static rt_rtc_dev_t ab32_rtc_dev;

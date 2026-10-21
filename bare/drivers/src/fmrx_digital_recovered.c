@@ -31,6 +31,12 @@ void fmrx_dac_sync(uint32_t buf_size)
     }
 }
 
+/* Added for FM -> PCM handoff; zero is the neutral correction above. */
+void fmrx_dac_sync_reset(void)
+{
+    write32(0x160, 0);
+}
+
 /* .text+0x2c. SDK reserves val and specifies zero. It is unused here.
  * Analog initialization tunes the vendor default of 87.5 MHz.
  * Callers retune after power-on when another frequency is desired.

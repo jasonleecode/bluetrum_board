@@ -45,6 +45,8 @@ struct rthw_sdio
     struct rt_event event;
     struct rt_mutex mutex;
     struct sdio_pkg *pkg;
+    volatile rt_uint32_t command_status;
+    volatile rt_uint32_t data_status;
 };
 
 rt_align(SDIO_ALIGN_LEN)
@@ -56,7 +58,7 @@ rt_uint8_t sysclk_update_baud(rt_uint8_t baud);
 
 static rt_uint32_t ab32_sdio_clk_get(hal_sfr_t hw_sdio)
 {
-    return (get_sysclk_nhz() / (sd_baud+1));
+    return get_sysclk_nhz();
 }
 
 /**
@@ -136,7 +138,7 @@ static void rthw_sdio_wait_completed(struct rthw_sdio *sdio)
     hal_sfr_t hw_sdio = sdio->sdio_des.hw_sdio;
     rt_err_t tx_finish = -RT_ERROR;
 
-    if (rt_event_recv(&sdio->event, 0xFFFFFFFF & ~HW_SDIO_CON_DFLAG, RT_EVENT_FLAG_OR | RT_EVENT_FLAG_CLEAR,
+    if (rt_event_recv(&sdio->event, HW_SDIO_CON_CFLAG, RT_EVENT_FLAG_OR | RT_EVENT_FLAG_CLEAR,
                         rt_tick_from_millisecond(5000), &status) != RT_EOK)
     {
         LOG_E("wait completed timeout");
@@ -154,7 +156,10 @@ static void rthw_sdio_wait_completed(struct rthw_sdio *sdio)
     cmd->resp[2] = hw_sdio[SDxARG1];
     cmd->resp[3] = hw_sdio[SDxARG0];
 
-    if (!(status & HW_SDIO_CON_NRPS)) {
+    status = sdio->command_status;
+    if ((resp_type(cmd) == RESP_NONE || !(status & HW_SDIO_CON_NRPS)) &&
+        (resp_type(cmd) == RESP_NONE || resp_type(cmd) == RESP_R3 ||
+         resp_type(cmd) == RESP_R4 || !(status & HW_SDIO_CON_CCRCE))) {
         cmd->err = RT_EOK;
         LOG_D("sta:0x%08X [%08X %08X %08X %08X]", status, cmd->resp[0], cmd->resp[1], cmd->resp[2], cmd->resp[3]);
     } else {
@@ -200,7 +205,7 @@ static void rthw_sdio_transfer_by_dma(struct rthw_sdio *sdio, struct sdio_pkg *p
     if (data->flags & DATA_DIR_WRITE)
     {
         LOG_D("DATA_DIR_WRITE %d", pkg->xfer_blks);
-        sdio->sdio_des.txconfig((rt_uint32_t *)((rt_uint8_t *)buff + (pkg->xfer_blks * data->blksize)), 512);
+        sdio->sdio_des.txconfig((rt_uint32_t *)((rt_uint8_t *)buff + (pkg->xfer_blks * data->blksize)), data->blksize);
     }
     else if (data->flags & DATA_DIR_READ)
     {
@@ -224,6 +229,9 @@ static void rthw_sdio_send_command(struct rthw_sdio *sdio, struct sdio_pkg *pkg)
     rt_uint32_t data_flag = 0;
 
     /* save pkg */
+    rt_event_control(&sdio->event, RT_IPC_CMD_RESET, RT_NULL);
+    hw_sdio[SDxCPND] = HW_SDIO_CON_CFLAG | HW_SDIO_CON_DFLAG;
+    sdio->command_status = sdio->data_status = 0;
     sdio->pkg = pkg;
 
     #define CK8E            BIT(11)             //在命令/数据包后加上8CLK
@@ -295,6 +303,9 @@ static void rthw_sdio_send_command(struct rthw_sdio *sdio, struct sdio_pkg *pkg)
     /* wait cmd completed */
     rthw_sdio_wait_completed(sdio);
 
+    if (cmd->err != RT_EOK)
+        goto complete;
+
     /* transfer config */
     if (data != RT_NULL)
     {
@@ -305,24 +316,35 @@ static void rthw_sdio_send_command(struct rthw_sdio *sdio, struct sdio_pkg *pkg)
 
             rt_uint32_t status = 0;
 
-            if (rt_event_recv(&sdio->event, 0xFFFFFFFF & ~HW_SDIO_CON_DFLAG, RT_EVENT_FLAG_OR | RT_EVENT_FLAG_CLEAR,
+            if (rt_event_recv(&sdio->event, HW_SDIO_CON_DFLAG, RT_EVENT_FLAG_OR | RT_EVENT_FLAG_CLEAR,
                             rt_tick_from_millisecond(5000), &status) != RT_EOK)
             {
                 LOG_E("wait completed timeout");
                 LOG_E("SDxCON=0x%X SDxCMD=0x%X\n", hw_sdio[SDxCON], hw_sdio[SDxCMD]);
                 cmd->err = -RT_ETIMEOUT;
+                break;
+            }
+            status = sdio->data_status;
+            if ((data_flag & DATA_DIR_READ) && (status & HW_SDIO_CON_DCRCE))
+            {
+                cmd->err = -RT_EIO;
+                break;
             }
 
             if (data_flag & DATA_DIR_WRITE) {
-                if (((hw_sdio[SDxCON] & HW_SDIO_CON_CRCS) >> 17) != 2) {
+                if (((status & HW_SDIO_CON_CRCS) >> 17) != 2) {
                     LOG_E("Write CRC error!");
                     cmd->err = -RT_ERROR;
                     hw_sdio[SDxCPND] = HW_SDIO_CON_DFLAG;
+                    break;
                 }
             }
         } while(++pkg->xfer_blks != data->blks);
     }
 
+complete:
+    if (data != RT_NULL)
+        data->err = cmd->err;
     /* clear pkg */
     sdio->pkg = RT_NULL;
 }
@@ -351,10 +373,15 @@ static void rthw_sdio_request(struct rt_mmcsd_host *host, struct rt_mmcsd_req *r
         {
             rt_uint32_t size = data->blks * data->blksize;
 
-            RT_ASSERT(size <= SDIO_BUFF_SIZE);
+            if (!data->buf || !data->blks || !data->blksize ||
+                data->blksize > 512 || data->blks > SDIO_BUFF_SIZE / data->blksize)
+            {
+                req->cmd->err = data->err = -RT_EINVAL;
+                goto request_done;
+            }
 
             pkg.buff = data->buf;
-            if ((rt_uint32_t)data->buf & (SDIO_ALIGN_LEN - 1))
+            if ((rt_ubase_t)data->buf & (SDIO_ALIGN_LEN - 1))
             {
                 pkg.buff = cache_buf;
                 if (data->flags & DATA_DIR_WRITE)
@@ -366,7 +393,7 @@ static void rthw_sdio_request(struct rt_mmcsd_host *host, struct rt_mmcsd_req *r
 
         rthw_sdio_send_command(sdio, &pkg);
 
-        if ((data != RT_NULL) && (data->flags & DATA_DIR_READ) && ((rt_uint32_t)data->buf & (SDIO_ALIGN_LEN - 1)))
+        if (req->cmd->err == RT_EOK && (data != RT_NULL) && (data->flags & DATA_DIR_READ) && ((rt_ubase_t)data->buf & (SDIO_ALIGN_LEN - 1)))
         {
             rt_memcpy(data->buf, cache_buf, data->blksize * data->blks);
         }
@@ -379,6 +406,7 @@ static void rthw_sdio_request(struct rt_mmcsd_host *host, struct rt_mmcsd_req *r
         rthw_sdio_send_command(sdio, &pkg);
     }
 
+request_done:
     RTHW_SDIO_UNLOCK(sdio);
 
     mmcsd_req_complete(sdio->host);
@@ -430,12 +458,15 @@ static void rthw_sdio_iocfg(struct rt_mmcsd_host *host, struct rt_mmcsd_io_cfg *
         hw_sdio[SDxCON] &= ~BIT(0);
         break;
     case MMCSD_POWER_UP:
-        sd_baud = 199;
+        div = clk_src / 400000 + (clk_src % 400000 != 0);
+        if (div < 1) div = 1;
+        if (div > 256) div = 256;
+        sd_baud = div - 1;
         hw_sdio[SDxCON] = 0;
         rt_thread_mdelay(1);
 
         hw_sdio[SDxCON] |= BIT(0);                 /* SD control enable */
-        hw_sdio[SDxBAUD] = sysclk_update_baud(sd_baud);
+        hw_sdio[SDxBAUD] = sd_baud;
         hw_sdio[SDxCON] |= BIT(3);                 /* Keep clock output */
         hw_sdio[SDxCON] |= BIT(4);
         hw_sdio[SDxCON] |= BIT(5);                 /* Data interrupt enable */
@@ -443,10 +474,13 @@ static void rthw_sdio_iocfg(struct rt_mmcsd_host *host, struct rt_mmcsd_io_cfg *
         hal_mdelay(40);
         break;
     case MMCSD_POWER_ON:
-        if (clk == SDIO_MAX_FREQ) {
+        if (clk) {
+            div = clk_src / clk + (clk_src % clk != 0);
+            if (div < 1) div = 1;
+            if (div > 256) div = 256;
+            sd_baud = div - 1;
             hw_sdio[SDxCON] &= ~BIT(3);
-            sd_baud = 3;
-            hw_sdio[SDxBAUD] = sysclk_update_baud(sd_baud);
+            hw_sdio[SDxBAUD] = sd_baud;
         }
         break;
     default:
@@ -507,17 +541,19 @@ void rthw_sdio_irq_process(struct rt_mmcsd_host *host)
     /* clear flag */
     if (intstatus & HW_SDIO_CON_CFLAG) {
         complete = 1;
+        sdio->command_status = intstatus;
         hw_sdio[SDxCPND] = HW_SDIO_CON_CFLAG;
     }
 
     if (intstatus & HW_SDIO_CON_DFLAG) {
         complete = 1;
+        sdio->data_status = intstatus;
         hw_sdio[SDxCPND] = HW_SDIO_CON_DFLAG;
     }
 
     if (complete)
     {
-        rt_event_send(&sdio->event, intstatus);
+        rt_event_send(&sdio->event, intstatus & (HW_SDIO_CON_CFLAG | HW_SDIO_CON_DFLAG));
     }
 }
 
@@ -576,25 +612,20 @@ struct rt_mmcsd_host *sdio_host_create(struct ab32_sdio_des *sdio_des)
     host->ops = &ab32_sdio_ops;
     host->freq_min = 240 * 1000;
     host->freq_max = SDIO_MAX_FREQ;
-    host->valid_ocr = 0X00FFFF80;/* The voltage range supported is 1.65v-3.6v */
+    host->valid_ocr = 0x00300000;/* Board supply: 3.2-3.4 V OCR window. */
 #ifndef SDIO_USING_1_BIT
-    host->flags = MMCSD_BUSWIDTH_4 | MMCSD_MUTBLKWRITE | MMCSD_SUP_SDIO_IRQ;
+    host->flags = MMCSD_BUSWIDTH_4 | MMCSD_MUTBLKWRITE;
 #else
-    host->flags = MMCSD_MUTBLKWRITE | MMCSD_SUP_SDIO_IRQ;
+    host->flags = MMCSD_MUTBLKWRITE;
 #endif
     host->max_seg_size = SDIO_BUFF_SIZE;
     host->max_dma_segs = 1;
     host->max_blk_size = 512;
-    host->max_blk_count = 512;
+    host->max_blk_count = SDIO_BUFF_SIZE / 512;
 
     /* link up host and sdio */
     sdio->host = host;
     host->private_data = sdio;
-
-    rthw_sdio_irq_update(host, 1);
-
-    /* ready to change */
-    mmcsd_change(host);
 
     return host;
 }
@@ -623,7 +654,8 @@ void sdio_isr(int vector, void *param)
     /* enter interrupt */
     rt_interrupt_enter();
     /* Process All SDIO Interrupt Sources */
-    rthw_sdio_irq_process(host);
+    if (host)
+        rthw_sdio_irq_process(host);
 
     /* leave interrupt */
     rt_interrupt_leave();
@@ -633,13 +665,14 @@ int rt_hw_sdio_init(void)
 {
     struct ab32_sdio_des sdio_des = {0};
     struct sd_handle hsd = {0};
-    rt_uint8_t param = 0;
     hsd.instance = SDMMC0_BASE;
 
     hal_rcu_periph_clk_enable(RCU_SD0);
     hal_sd_mspinit(&hsd);
+    hsd.instance[SDxCON] = 0;
+    hsd.instance[SDxCPND] = HW_SDIO_CON_CFLAG | HW_SDIO_CON_DFLAG;
 
-    rt_hw_interrupt_install(IRQ_SD_VECTOR, sdio_isr, &param, "sd_isr");
+    rt_hw_interrupt_install(IRQ_SD_VECTOR, sdio_isr, RT_NULL, "sd_isr");
 
     sdio_des.clk_get    = ab32_sdio_clk_get;
     sdio_des.hw_sdio    = SDMMC0_BASE;
@@ -648,13 +681,18 @@ int rt_hw_sdio_init(void)
 
     host = sdio_host_create(&sdio_des);
 
-    return 0;
+    if (!host)
+        return -RT_ENOMEM;
+    rthw_sdio_irq_update(host, 1);
+    mmcsd_change(host);
+    return RT_EOK;
 }
 INIT_DEVICE_EXPORT(rt_hw_sdio_init);
 
 void ab32_mmcsd_change(void)
 {
-    mmcsd_change(host);
+    if (host)
+        mmcsd_change(host);
 }
 
 #endif // 0

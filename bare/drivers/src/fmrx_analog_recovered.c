@@ -8,6 +8,10 @@
 
 #define FMREG(address) (*(volatile uint32_t *)(uintptr_t)(address))
 extern void hal_mdelay(uint32_t milliseconds);
+#ifdef FMRX_PLL_WAIT_HOOK
+/* Optional OS timeout policy. Default bare build retains the original wait. */
+extern int FMRX_PLL_WAIT_HOOK(volatile uint32_t *status);
+#endif
 
 /* The original ABI takes TWO arguments. Frequency is in 10 kHz units
  * (analog_init passes 8750; the band threshold is 9350). offset_selector is
@@ -41,7 +45,12 @@ void fmrx_set_pll(uint32_t offset_selector, uint32_t frequency_10khz)
     FMREG(0x418) |= 0x10000u;
     FMREG(0x41c) |= 0x40u;
     FMREG(0x41c) |= 1u;
+#ifdef FMRX_PLL_WAIT_HOOK
+    if (FMRX_PLL_WAIT_HOOK(&FMREG(0x42c)) != 0)
+        return;
+#else
     while ((FMREG(0x42c) & 0x80u) == 0u) {}
+#endif
     FMREG(0x42c) |= 0x200u;
 }
 

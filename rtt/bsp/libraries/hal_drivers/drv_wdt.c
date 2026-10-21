@@ -32,102 +32,39 @@ static rt_err_t wdt_init(rt_watchdog_t *wdt)
 
 static rt_err_t wdt_control(rt_watchdog_t *wdt, int cmd, void *arg)
 {
-    rt_uint32_t tmp = 0;
-
+    rt_uint32_t seconds, select;
     switch (cmd)
     {
-        /* feed the watchdog */
     case RT_DEVICE_CTRL_WDT_KEEPALIVE:
         WDTCON = 0xa;
         break;
-        /* set watchdog timeout */
     case RT_DEVICE_CTRL_WDT_SET_TIMEOUT:
-        if (arg == RT_NULL) {
-            LOG_E("The watchdog timeout argument cannot be NULL!");
-            break;
-        }
-
-        tmp = WDTCON & ~(0x7 << 20);
-
-        switch (*((rt_uint32_t *)arg))
-        {
-        case AB32_WDT_TIMEOUT_1MS:
-            LOG_I("The watchdog timeout is set to 1ms");
-            tmp |= (0xa << 24) | (0x00 << 20);
-            break;
-        case AB32_WDT_TIMEOUT_256MS:
-            LOG_I("The watchdog timeout is set to 256ms");
-            tmp |= (0xa << 24) | (0x01 << 20);
-            break;
-        case AB32_WDT_TIMEOUT_512MS:
-            LOG_I("The watchdog timeout is set to 512ms");
-            tmp |= (0xa << 24) | (0x02 << 20);
-            break;
-        case AB32_WDT_TIMEOUT_1024MS:
-            LOG_I("The watchdog timeout is set to 1024ms");
-            tmp |= (0xa << 24) | (0x03 << 20);
-            break;
-        case AB32_WDT_TIMEOUT_2048MS:
-            LOG_I("The watchdog timeout is set to 2048ms");
-            tmp |= (0xa << 24) | (0x04 << 20);
-            break;
-        case AB32_WDT_TIMEOUT_4096MS:
-            LOG_I("The watchdog timeout is set to 4096ms");
-            tmp |= (0xa << 24) | (0x05 << 20);
-            break;
-        case AB32_WDT_TIMEOUT_8192MS:
-            LOG_I("The watchdog timeout is set to 8192ms");
-            tmp |= (0xa << 24) | (0x06 << 20);
-            break;
-        case AB32_WDT_TIMEOUT_16384MS:
-            LOG_I("The watchdog timeout is set to 16384ms");
-            tmp |= (0xa << 24) | (0x07 << 20);
-            break;
-        default:
-            LOG_W("The watchdog timeout argument range from 0 to 7!");
-            tmp = WDTCON;
-            break;
-        }
-        WDTCON = tmp;
-        LOG_D("WDTCON=%X", WDTCON);
+        if (!arg)
+            return -RT_EINVAL;
+        seconds = *(rt_uint32_t *)arg;
+        if (seconds < 1 || seconds > 16)
+            return -RT_EINVAL;
+        /* RT-Thread uses seconds, not the hardware's 0..7 encoding.
+         * Round up to 1.024/2.048/4.096/8.192/16.384 seconds. */
+        for (select = 3; (1u << (select - 3)) < seconds; ++select) {}
+        WDTCON = (0xau << 24) | (select << 20);
         break;
     case RT_DEVICE_CTRL_WDT_GET_TIMEOUT:
-        switch ((WDTCON >> 20) & 0x7)
-        {
-        case AB32_WDT_TIMEOUT_1MS:
-            LOG_D("The watchdog timeout is set to 1ms");
-            break;
-        case AB32_WDT_TIMEOUT_256MS:
-            LOG_D("The watchdog timeout is set to 256ms");
-            break;
-        case AB32_WDT_TIMEOUT_512MS:
-            LOG_D("The watchdog timeout is set to 512ms");
-            break;
-        case AB32_WDT_TIMEOUT_1024MS:
-            LOG_D("The watchdog timeout is set to 1024ms");
-            break;
-        case AB32_WDT_TIMEOUT_2048MS:
-            LOG_D("The watchdog timeout is set to 2048ms");
-            break;
-        case AB32_WDT_TIMEOUT_4096MS:
-            LOG_D("The watchdog timeout is set to 4096ms");
-            break;
-        case AB32_WDT_TIMEOUT_8192MS:
-            LOG_D("The watchdog timeout is set to 8192ms");
-            break;
-        case AB32_WDT_TIMEOUT_16384MS:
-            LOG_D("The watchdog timeout is set to 16384ms");
-            break;
-        default:
-            break;
-        }
+        if (!arg)
+            return -RT_EINVAL;
+        select = (WDTCON >> 20) & 7;
+        if (select < 3)
+            return -RT_ENOSYS; /* subsecond setting cannot be reported */
+        *(rt_uint32_t *)arg = 1u << (select - 3);
         break;
     case RT_DEVICE_CTRL_WDT_START:
-        WDTCON = 0x110;
+        WDTCON = 0x11a;
+        break;
+    case RT_DEVICE_CTRL_WDT_STOP:
+        WDTCON = 0xaa0;
         break;
     default:
-        LOG_W("This command is not supported.");
-        return -RT_ERROR;
+        return -RT_ENOSYS;
     }
     return RT_EOK;
 }

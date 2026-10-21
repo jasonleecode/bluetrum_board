@@ -1,7 +1,7 @@
 {
   "unicorn_version": "2.1.4",
   "original_object_sha256": "f4ecad3933db2792ad6327f45d446d47d4e0aadb2a3d66f82423fcdf4a55430c",
-  "recovered_source_sha256": "61af23b2bb754ccea651d4eaee133835e511077551b7d02714f4c69aae1fbfdf",
+  "recovered_source_sha256": "9893c9ba71a12b5c7f07bb45e6357ef1f3df8985fbc6998dac5d516f3122813b",
   "model": "Synthetic MMIO; fmrx_analog_init stub; __riscv_restore_0 ABI shim. No RF, DMA completion, audio format, custom-opcode or silicon timing verification.",
   "cases": [
     {

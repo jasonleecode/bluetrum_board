@@ -3,7 +3,9 @@
 ################################################################################
 
 # 1. 编译工具链配置 (根据你的环境修改路径)
-CROSS_COMPILE ?= riscv64-unknown-elf-
+# Prefer the project-local SiFive GCC installation; explicit overrides still win.
+LOCAL_TOOLCHAIN := $(abspath ../.toolchains/riscv64-unknown-elf-gcc-10.1.0-2020.08.2-x86_64-linux-ubuntu14/bin/riscv64-unknown-elf-)
+CROSS_COMPILE ?= $(if $(wildcard $(LOCAL_TOOLCHAIN)gcc),$(LOCAL_TOOLCHAIN),riscv64-unknown-elf-)
 BINUTILS_PREFIX ?= $(CROSS_COMPILE)
 # 或者使用: riscv64-unknown-elf- 
 CC      := $(CROSS_COMPILE)gcc
@@ -123,6 +125,11 @@ ASM_OBJS := $(addprefix $(BUILD_DIR)/, $(ASM_SRCS:.S=.o))
 
 # 所有的共享 Object (驱动 + 启动)
 COMMON_OBJS := $(DRV_OBJS) $(ASM_OBJS)
+APP_OBJS := $(addprefix $(BUILD_DIR)/, $(APP_SRCS:.c=.o))
+
+# Retain implicit-rule intermediates for incremental builds.
+.SECONDARY: $(COMMON_OBJS) $(APP_OBJS)
+.DEFAULT_GOAL := all
 
 ################################################################################
 # 构建规则
@@ -138,7 +145,7 @@ info:
 
 # --- 链接规则 (针对每个独立的 APP) ---
 # 依赖关系：具体的 APP .o + 公共驱动 .o + 公共启动 .o
-$(BUILD_DIR)/%.elf: $(BUILD_DIR)/$(APP_DIR)/%.o $(COMMON_OBJS)
+$(BUILD_DIR)/%.elf: $(BUILD_DIR)/$(APP_DIR)/%.o $(COMMON_OBJS) $(LDSCRIPT)
 	@echo "------------------------------------------------"
 	@echo "Linking Target: $@"
 	@mkdir -p $(dir $@)
@@ -172,6 +179,6 @@ clean:
 	rm -rf $(BUILD_DIR)
 
 # 引入依赖文件 (.d)
--include $(wildcard $(BUILD_DIR)/**/*.d)
+-include $(COMMON_OBJS:.o=.d) $(APP_OBJS:.o=.d)
 
 .PHONY: all clean info

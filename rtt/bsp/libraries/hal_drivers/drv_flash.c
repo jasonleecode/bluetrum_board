@@ -41,36 +41,48 @@ const struct fal_flash_dev ab32_onchip_flash =
     256 * 8
 };
 
+static int flash_range_valid(long offset, size_t size)
+{
+    return offset >= 0 && (size_t)offset <= AB32_FLASH_SIZE &&
+           size <= AB32_FLASH_SIZE - (size_t)offset;
+}
+
 static int fal_flash_read(long offset, rt_uint8_t *buf, size_t size)
 {
-    return os_spiflash_read(buf, offset, size);
+    size_t done = 0;
+    if (!flash_range_valid(offset, size) || (!buf && size))
+        return -RT_EINVAL;
+    while (done < size)
+    {
+        size_t chunk = size - done;
+        if (chunk > 256) chunk = 256;
+        /* The SDK returns a CRC16, not a byte count (libhal disassembly). */
+        os_spiflash_read(buf + done, offset + done, (uint16_t)chunk);
+        done += chunk;
+    }
+    return (int)done;
 }
 
 static int fal_flash_write(long offset, const rt_uint8_t *buf, size_t size)
 {
-    if (size % 256)
-    {
-        rt_kprintf("Flash write requires 256 byte alignment\n");
-        return -1;
-    }
-    os_spiflash_program(buf, offset, size);
-    return 0;
+    size_t done;
+    if (!flash_range_valid(offset, size) || (!buf && size) ||
+        (offset % 256) || (size % 256))
+        return -RT_EINVAL;
+    /* The original function issues one page-program command per call. */
+    for (done = 0; done < size; done += 256)
+        os_spiflash_program(buf + done, offset + done, 256);
+    return (int)size;
 }
 
 static int fal_flash_erase(long offset, size_t size)
 {
-    if (size % 4096)
-    {
-        rt_kprintf("Flash erase requires 4096 byte alignment\n");
-        return -1;
-    }
-    while (size > 0)
-    {
-        os_spiflash_erase(offset);
-        offset += 4096;
-        size -= 4096;
-    }
-    return 0;
+    size_t done;
+    if (!flash_range_valid(offset, size) || (offset % 4096) || (size % 4096))
+        return -RT_EINVAL;
+    for (done = 0; done < size; done += 4096)
+        os_spiflash_erase(offset + done);
+    return (int)size;
 }
 
 int fal_ops_test(void)
@@ -82,6 +94,11 @@ int fal_ops_test(void)
     int size = 256;
     int addr = 0;
 
+    if (!data || !part_dev)
+    {
+        if (data) rt_free(data);
+        return -RT_ERROR;
+    }
     for (int i = 0; i < 256; i++)
     {
         data[i] = i;

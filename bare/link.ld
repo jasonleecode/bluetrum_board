@@ -25,6 +25,7 @@ SECTIONS
     .rodata : {
         *(.rodata)
         *(.rodata.*)
+        *(.srodata .srodata.*)
     } > FLASH
 
     /* Data section in RAM but stored in Flash */
@@ -33,6 +34,8 @@ SECTIONS
         _sdata = .;        /* Global symbol at start of .data */
         *(.data)
         *(.data.*)
+        *(.sdata .sdata.*)
+        . = ALIGN(4);     /* startup.S copies complete words */
         _edata = .;        /* Global symbol at end of .data */
     } > RAM AT > FLASH
 
@@ -44,7 +47,9 @@ SECTIONS
         _sbss = .;
         *(.bss)
         *(.bss.*)
+        *(.sbss .sbss.* .scommon)
         *(COMMON)
+        . = ALIGN(4);     /* startup.S clears complete words */
         _ebss = .;
     } > RAM
 

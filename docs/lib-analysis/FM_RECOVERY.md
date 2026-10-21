@@ -122,3 +122,7 @@ python3 docs/lib-analysis/test_fm_integration.py
 - [ ] 恢复 RSSI、有效台判定、自动搜台以及去加重配置。
 
 DataSheet 宣称支持自动搜台、RSSI 与 50/75 µs 去加重。当前 `libhal.a` 的上述 10 个函数没有提供对应的明确接口；对现有两库符号表的相关名称检索也未定位到 FM 搜台/RSSI 入口。这是当前证据范围内的缺口，不能据此判定芯片不支持这些功能，更不能用循环改频率冒充有效搜台。
+
+## RT-Thread 接入更新
+
+已直接复用两份恢复 C，新增 `BSP_USING_FMRX`、`fm0` 及 `fmrx` 命令，支持手动调谐、音量、片内 DAC 播放、周期同步和停止；与普通 PCM 互斥。RT-Thread 单独启用 PLL 等待钩子，100 ms 超时后关闭并释放资源；bare 默认仍保留原对象等待行为。另新增 `fmrx_dac_sync_reset()` 用于 FM→PCM 交接，它是接入辅助函数，不是原 SDK 恢复符号。使用、验证及尚未完成的硬件实测见 [RT-Thread 说明](../../rtt/README.md#spi-fm-与-i2s-接入)。
