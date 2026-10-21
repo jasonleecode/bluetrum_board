@@ -1,0 +1,2582 @@
+{
+  "original_object_sha256": "f9f398f884f9e6527cf5ab44a9f40bb46101ac16ae39e15eda160cb998db206f",
+  "model": "Original hct.o RV32 execution. Controller lookups, allocator, scheduler, memcpy and ROM services stubbed; vendor restore helper ABI shims. No RF or live scheduler validation.",
+  "cases": [
+    {
+      "name": "ACL type 1 flags 0 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 0 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 0 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 0 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 1 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000100000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 1 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000100000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 1 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000100000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 1 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000100000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 2 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000200000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 2 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000200000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 2 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000200000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 2 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000200000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 3 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000300000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 3 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000300000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 3 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000300000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 3 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000300000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 4 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 4 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 4 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 4 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 15 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 15 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 15 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 15 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 0 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000000000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 0 length 27",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b00001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 0 length 28",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b00001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 0 length 1024",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b00001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 1 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0100000000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 1 length 27",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b01001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 1 length 28",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b01001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 1 length 1024",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b01001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 2 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0200000000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 2 length 27",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b02001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 2 length 28",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b02001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 2 length 1024",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b02001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 3 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0300000000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 3 length 27",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b03001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 3 length 28",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b03001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 3 length 1024",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b03001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 4 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 4 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 4 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 4 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 15 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 15 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 15 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 15 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL allocation exhausted type 1",
+      "returned": 1,
+      "copied": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_go_by_promise",
+          1
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "allocate",
+          5223,
+          9,
+          5,
+          1
+        ],
+        [
+          "send",
+          348160,
+          "01000000000000000000000000000000"
+        ],
+        [
+          "my_printf",
+          "acl alloc error\n"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL allocation exhausted type 4",
+      "returned": 1,
+      "copied": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_go_by_promise",
+          1
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "allocate",
+          5223,
+          9,
+          5,
+          1
+        ],
+        [
+          "send",
+          348160,
+          "01000000000000000000000000000000"
+        ],
+        [
+          "my_printf",
+          "acl alloc error\n"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL invalid type 3 connection 1",
+      "returned": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_go_by_promise",
+          1
+        ],
+        [
+          "my_printf",
+          "handler %04x had disconnected\n"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL invalid type 1 connection 0",
+      "returned": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_go_by_promise",
+          1
+        ],
+        [
+          "my_printf",
+          "handler %04x had disconnected\n"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL invalid type 4 connection 0",
+      "returned": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_go_by_promise",
+          1
+        ],
+        [
+          "my_printf",
+          "handler %04x had disconnected\n"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command 0c03 credits 0",
+      "credits_after": 0,
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "command 2006 credits 0",
+      "credits_after": 0,
+      "trace": [
+        [
+          "allocate",
+          1038,
+          1,
+          9,
+          15
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          15
+        ],
+        [
+          "free",
+          348144
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command 0c35 credits 0",
+      "credits_after": 0,
+      "trace": [
+        [
+          "allocate",
+          4159,
+          4,
+          9,
+          9
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          5
+        ],
+        [
+          "hct_get_on_birth",
+          348160,
+          "01020304050000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command ffff credits 0",
+      "credits_after": 0,
+      "trace": [
+        [
+          "memcpy",
+          196616,
+          327680,
+          16
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command 0c03 credits 1",
+      "credits_after": 0,
+      "trace": [
+        [
+          "empty_message",
+          4125,
+          4,
+          9
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command 2006 credits 1",
+      "credits_after": 0,
+      "trace": [
+        [
+          "allocate",
+          1038,
+          1,
+          9,
+          15
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          15
+        ],
+        [
+          "hct_get_on_birth",
+          348160,
+          "0102030405060708090a0b0c0d0e0f00"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command 0c35 credits 1",
+      "credits_after": 1,
+      "trace": [
+        [
+          "allocate",
+          4159,
+          4,
+          9,
+          9
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          5
+        ],
+        [
+          "hct_get_on_birth",
+          348160,
+          "01020304050000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command ffff credits 1",
+      "credits_after": 0,
+      "trace": [
+        [
+          "memcpy",
+          196616,
+          327680,
+          16
+        ],
+        [
+          "allocate",
+          4220,
+          9,
+          9,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "fffc0100000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command OCF alias 2006",
+      "trace": [
+        [
+          "allocate",
+          1038,
+          1,
+          9,
+          15
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          15
+        ],
+        [
+          "hct_get_on_birth",
+          348160,
+          "0102030405060708090a0b0c0d0e0f00"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command OCF alias 2106",
+      "trace": [
+        [
+          "allocate",
+          1038,
+          1,
+          9,
+          15
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          15
+        ],
+        [
+          "hct_get_on_birth",
+          348160,
+          "0102030405060708090a0b0c0d0e0f00"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command OCF alias 2206",
+      "trace": [
+        [
+          "allocate",
+          1038,
+          1,
+          9,
+          15
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          15
+        ],
+        [
+          "hct_get_on_birth",
+          348160,
+          "0102030405060708090a0b0c0d0e0f00"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command OCF alias 2306",
+      "trace": [
+        [
+          "allocate",
+          1038,
+          1,
+          9,
+          15
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          15
+        ],
+        [
+          "hct_get_on_birth",
+          348160,
+          "0102030405060708090a0b0c0d0e0f00"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX H4 borrowed packet stalls without ack; scheduled ack frees queue head",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          352271,
+          4,
+          "040e0100"
+        ],
+        [
+          "bb_find_to_afternoon",
+          3
+        ],
+        [
+          "scheduler_ack",
+          3
+        ],
+        [
+          "bb_get_without_card",
+          2
+        ],
+        [
+          "queue_pop",
+          196652
+        ],
+        [
+          "free",
+          352256
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 0",
+      "packet_hex": "022301040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022301040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 1",
+      "packet_hex": "022311040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022311040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 2",
+      "packet_hex": "022321040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022321040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 3",
+      "packet_hex": "022331040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022331040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 4",
+      "packet_hex": "022341040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022341040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 5",
+      "packet_hex": "022351040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022351040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 6",
+      "packet_hex": "022361040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022361040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 7",
+      "packet_hex": "022371040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022371040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 8",
+      "packet_hex": "022381040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022381040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 9",
+      "packet_hex": "022391040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022391040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 10",
+      "packet_hex": "0223a1040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "0223a1040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 11",
+      "packet_hex": "0223b1040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "0223b1040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 12",
+      "packet_hex": "0223c1040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "0223c1040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 13",
+      "packet_hex": "0223d1040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "0223d1040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 14",
+      "packet_hex": "0223e1040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "0223e1040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 15",
+      "packet_hex": "0223f1040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "0223f1040041424344"
+        ]
+      ],
+      "result": "pass"
+    }
+  ]
+}

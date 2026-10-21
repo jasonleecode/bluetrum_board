@@ -34,6 +34,15 @@ else ifneq ($(FM_BACKEND),vendor)
 $(error FM_BACKEND must be vendor or recovered)
 endif
 
+# Partial Bluetooth support recovery: HCI message helpers and platform glue.
+# Controller/RF/ROM code still comes from the vendor; this is not a full stack.
+BT_SUPPORT_BACKEND ?= vendor
+ifeq ($(BT_SUPPORT_BACKEND),recovered)
+BUILD_DIR := $(BUILD_DIR)/recovered-bt-support
+else ifneq ($(BT_SUPPORT_BACKEND),vendor)
+$(error BT_SUPPORT_BACKEND must be vendor or recovered)
+endif
+
 # 3. 目标定义 (根据 app 目录下的文件名，定义三个独立的目标)
 # 这里的逻辑是：取出 app/*.c 的文件名，去掉后缀，作为最终生成文件的名字
 APP_SRCS := $(wildcard $(APP_DIR)/*.c)
@@ -75,6 +84,9 @@ DRV_SRCS := $(filter-out $(DRV_DIR)/src/driver_spi_recovered.c,$(DRV_SRCS))
 endif
 ifeq ($(FM_BACKEND),vendor)
 DRV_SRCS := $(filter-out $(DRV_DIR)/src/fmrx_analog_recovered.c $(DRV_DIR)/src/fmrx_digital_recovered.c,$(DRV_SRCS))
+endif
+ifeq ($(BT_SUPPORT_BACKEND),vendor)
+DRV_SRCS := $(filter-out $(DRV_DIR)/src/bt_hct_recovered.c $(DRV_DIR)/src/bt_platform_recovered.c,$(DRV_SRCS))
 endif
 # 启动文件
 ASM_SRCS := startup.S

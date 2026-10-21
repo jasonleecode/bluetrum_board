@@ -13,6 +13,13 @@ examined artifacts and has not been replaced with software emulation.
 provides an opt-in backend with 332 original-machine-code differential cases.
 Search/RSSI, the complete audio path and hardware reception remain unverified.
 
+[Bluetooth recovery](BLUETOOTH_RECOVERY.md) replaces `hct_msg.o` and
+`hct_proc.o` plus three platform entry points, with 581 HCI and 62 platform
+differential groups and 82 probes of the original transport code. It also fixes
+wrapper ownership/IRQ handling and documents the fixed RAM, ROM heap and startup
+requirements. The bare platform now rejects Bluetooth initialization until a real
+board port provides those prerequisites; the radio/controller is still partial.
+
 The [2026-10-21 recovery assessment](RECOVERY_ASSESSMENT.md) adds byte-verified
 archive inventories and a compilable reconstruction of `sdadc.o`. It also finds
 two remaining ADC wrapper defects: channel zero is rejected by the vendor, and

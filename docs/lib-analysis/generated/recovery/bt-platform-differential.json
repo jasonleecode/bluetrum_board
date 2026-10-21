@@ -1,0 +1,380 @@
+{
+  "unicorn_version": "2.1.4",
+  "original_object_sha256": "739f64a176598a6a3ee87b234f36976308e4c1a6cbd535930d7f213f7bd26358",
+  "recovered_source_sha256": "1bc575c8cebd2dc55691b0a739d194e72fcc0b8922b3e8bf9bd81f310d25c02d",
+  "model": "Synthetic MMIO and platform-call hooks; vendor restore_0/1 ABI shims. Three exports and one registered callback. Vector JAL bytes checked but not executed. No silicon IRQ entry, ROM worker, custom-opcode, cache coherence or RF timing verification.",
+  "cases": [
+    {
+      "name": "init delta 0 packet 00000000",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 0 packet 000000ff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 0 packet 12345678",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 0 packet ffffffff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1 packet 00000000",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1 packet 000000ff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1 packet 12345678",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1 packet ffffffff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 2 packet 00000000",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 2 packet 000000ff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 2 packet 12345678",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 2 packet ffffffff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 2046 packet 00000000",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 2046 packet 000000ff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 2046 packet 12345678",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 2046 packet ffffffff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 2048 packet 00000000",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 2048 packet 000000ff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 2048 packet 12345678",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 2048 packet ffffffff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 4094 packet 00000000",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 4094 packet 000000ff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 4094 packet 12345678",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 4094 packet ffffffff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 4096 packet 00000000",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 4096 packet 000000ff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 4096 packet 12345678",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 4096 packet ffffffff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 524286 packet 00000000",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 524286 packet 000000ff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 524286 packet 12345678",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 524286 packet ffffffff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1048574 packet 00000000",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1048574 packet 000000ff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1048574 packet 12345678",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1048574 packet ffffffff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1048575 packet 00000000",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1048575 packet 000000ff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1048575 packet 12345678",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1048575 packet ffffffff",
+      "api_actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1048576 packet 00000000",
+      "api_actions": 1,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1048576 packet 000000ff",
+      "api_actions": 1,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1048576 packet 12345678",
+      "api_actions": 1,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "init delta 1048576 packet ffffffff",
+      "api_actions": 1,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "init delta -2 packet 00000000",
+      "api_actions": 1,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "init delta -2 packet 000000ff",
+      "api_actions": 1,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "init delta -2 packet 12345678",
+      "api_actions": 1,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "init delta -2 packet ffffffff",
+      "api_actions": 1,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle fill 00000000 changing False",
+      "api_actions": 7,
+      "trace_events": 56,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle fill 00000000 changing True",
+      "api_actions": 7,
+      "trace_events": 56,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle fill 00000001 changing False",
+      "api_actions": 7,
+      "trace_events": 56,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle fill 00000001 changing True",
+      "api_actions": 7,
+      "trace_events": 56,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle fill 00000002 changing False",
+      "api_actions": 7,
+      "trace_events": 56,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle fill 00000002 changing True",
+      "api_actions": 7,
+      "trace_events": 56,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle fill 00000003 changing False",
+      "api_actions": 7,
+      "trace_events": 56,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle fill 00000003 changing True",
+      "api_actions": 7,
+      "trace_events": 56,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle fill ffffffff changing False",
+      "api_actions": 7,
+      "trace_events": 56,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle fill ffffffff changing True",
+      "api_actions": 7,
+      "trace_events": 56,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle fill aaaaaaaa changing False",
+      "api_actions": 7,
+      "trace_events": 56,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle fill aaaaaaaa changing True",
+      "api_actions": 7,
+      "trace_events": 56,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle fill 55555555 changing False",
+      "api_actions": 7,
+      "trace_events": 56,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle fill 55555555 changing True",
+      "api_actions": 7,
+      "trace_events": 56,
+      "result": "pass"
+    }
+  ]
+}

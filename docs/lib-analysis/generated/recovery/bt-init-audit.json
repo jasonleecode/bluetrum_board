@@ -1,0 +1,668 @@
+{
+  "scope": "Static ELF symbol/relocation extraction only. Calls through constants/ROM are documented separately; relocation graph is not a complete call graph. Offsets are section-relative, before linker relaxation.",
+  "archive_sha256": "60cda98155de21b3feda330d494d38a79d61db6f279f750dc1b12e1c45c4ac9b",
+  "members": [
+    {
+      "member": "bb.o",
+      "sha256": "57247131de81983d795f81887cb4db88e624950cfc9d24f4f178cf4c19c35e25",
+      "selected_functions": [
+        {
+          "name": "bthw_get_heap_info",
+          "section": ".text",
+          "offset": "0x0",
+          "size": 20,
+          "relocation_calls": []
+        },
+        {
+          "name": "bthw_soft_isr",
+          "section": ".com_text.bb.btisr",
+          "offset": "0x0",
+          "size": 10,
+          "relocation_calls": []
+        },
+        {
+          "name": "bthw_isr_do",
+          "section": ".com_text.bb.btisr",
+          "offset": "0xa",
+          "size": 44,
+          "relocation_calls": [
+            {
+              "offset": "0x18",
+              "target": "bb_pass_in_airport"
+            },
+            {
+              "offset": "0x26",
+              "target": "bb_reserve_without_volume"
+            }
+          ]
+        },
+        {
+          "name": "bb_init",
+          "section": ".text",
+          "offset": "0x62",
+          "size": 272,
+          "relocation_calls": [
+            {
+              "offset": "0xbc",
+              "target": "memset"
+            },
+            {
+              "offset": "0x106",
+              "target": "bb_do_on_ordinary"
+            },
+            {
+              "offset": "0x10e",
+              "target": "bb_make_into_mother"
+            },
+            {
+              "offset": "0x116",
+              "target": "bb_do_at_review"
+            },
+            {
+              "offset": "0x11e",
+              "target": "bb_go_on_valuable"
+            }
+          ]
+        },
+        {
+          "name": "bb_reset",
+          "section": ".text",
+          "offset": "0x172",
+          "size": 116,
+          "relocation_calls": [
+            {
+              "offset": "0x1bc",
+              "target": "bb_tell_with_base"
+            },
+            {
+              "offset": "0x1c4",
+              "target": "bb_take_about_press"
+            },
+            {
+              "offset": "0x1cc",
+              "target": "bb_give_into_radio"
+            }
+          ]
+        },
+        {
+          "name": "bb_run_loop",
+          "section": ".com_text.bb.loop",
+          "offset": "0x0",
+          "size": 24,
+          "relocation_calls": []
+        }
+      ]
+    },
+    {
+      "member": "bb_rf.o",
+      "sha256": "1bd766f5605fb795b917c0fa8bb7ae35e8866d6cfdf4b31623a99614ebbb1137",
+      "selected_functions": [
+        {
+          "name": "bb_give_into_radio",
+          "section": ".text",
+          "offset": "0x5ea",
+          "size": 1492,
+          "relocation_calls": [
+            {
+              "offset": "0x676",
+              "target": "bb_rf_keep_about_professor"
+            },
+            {
+              "offset": "0x6a8",
+              "target": "bb_rf_get_with_leadership"
+            },
+            {
+              "offset": "0x724",
+              "target": "bb_rf_show_in_worker"
+            },
+            {
+              "offset": "0x77a",
+              "target": "bb_rf_show_on_cash"
+            },
+            {
+              "offset": "0x788",
+              "target": "bb_rf_keep_about_uncle"
+            },
+            {
+              "offset": "0x794",
+              "target": "bb_rf_send_for_confidence"
+            },
+            {
+              "offset": "0x7ba",
+              "target": "bb_rf_tell_on_ease"
+            },
+            {
+              "offset": "0x7ca",
+              "target": "bb_rf_tell_on_ease"
+            },
+            {
+              "offset": "0x7da",
+              "target": "bb_rf_tell_on_ease"
+            },
+            {
+              "offset": "0x7ea",
+              "target": "bb_rf_tell_on_ease"
+            },
+            {
+              "offset": "0x800",
+              "target": "bb_rf_fetch_without_dish"
+            },
+            {
+              "offset": "0x812",
+              "target": "bb_rf_tell_on_ease"
+            },
+            {
+              "offset": "0x822",
+              "target": "bb_rf_tell_on_ease"
+            },
+            {
+              "offset": "0x856",
+              "target": "bb_rf_make_in_job"
+            },
+            {
+              "offset": "0x866",
+              "target": "bb_rf_make_for_branch"
+            },
+            {
+              "offset": "0x8be",
+              "target": "bb_rf_keep_about_professor"
+            },
+            {
+              "offset": "0x9a4",
+              "target": "bb_rf_show_in_worker"
+            },
+            {
+              "offset": "0xad8",
+              "target": "bb_rf_tell_at_entry"
+            },
+            {
+              "offset": "0xb34",
+              "target": "bb_rf_get_into_temporary"
+            },
+            {
+              "offset": "0xb48",
+              "target": "bb_rf_tell_at_entry"
+            },
+            {
+              "offset": "0xb50",
+              "target": "bb_rf_get_about_importance"
+            }
+          ]
+        },
+        {
+          "name": "bb_make_into_mother",
+          "section": ".text",
+          "offset": "0xbe8",
+          "size": 110,
+          "relocation_calls": [
+            {
+              "offset": "0xbf0",
+              "target": "bb_rf_reserve_into_strategy"
+            },
+            {
+              "offset": "0xc14",
+              "target": "bb_give_into_radio"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "member": "ble.o",
+      "sha256": "0c3ffd4024613802a59051e1834a2b5c9975edd609d0f7dfd17eeadf81bd8401",
+      "selected_functions": [
+        {
+          "name": "ble_write_about_black",
+          "section": ".text",
+          "offset": "0x0",
+          "size": 34,
+          "relocation_calls": [
+            {
+              "offset": "0x8",
+              "target": "ble_pick_to_teacher"
+            },
+            {
+              "offset": "0x12",
+              "target": "ble_take_for_screw"
+            }
+          ]
+        },
+        {
+          "name": "bb_go_on_valuable",
+          "section": ".text",
+          "offset": "0x22",
+          "size": 40,
+          "relocation_calls": [
+            {
+              "offset": "0x2c",
+              "target": "ble_leave_about_television"
+            },
+            {
+              "offset": "0x34",
+              "target": "ble_write_about_black"
+            }
+          ]
+        },
+        {
+          "name": "ble_sell_about_sun",
+          "section": ".text",
+          "offset": "0x4a",
+          "size": 34,
+          "relocation_calls": [
+            {
+              "offset": "0x52",
+              "target": "ble_make_of_distribution"
+            },
+            {
+              "offset": "0x5c",
+              "target": "ble_take_for_screw"
+            }
+          ]
+        },
+        {
+          "name": "bb_take_about_press",
+          "section": ".text",
+          "offset": "0x6c",
+          "size": 72,
+          "relocation_calls": [
+            {
+              "offset": "0x88",
+              "target": "bb_pick_under_strike"
+            },
+            {
+              "offset": "0x92",
+              "target": "ble_leave_about_television"
+            },
+            {
+              "offset": "0x9a",
+              "target": "ble_sell_about_sun"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "member": "ext_init.o",
+      "sha256": "cd188bca5652a4add7699b38096543421f15e41c4c00d265415c3edc1d4609b0",
+      "selected_functions": [
+        {
+          "name": "bb_write_without_passenger",
+          "section": ".text",
+          "offset": "0x0",
+          "size": 86,
+          "relocation_calls": []
+        },
+        {
+          "name": "bt21_set_on_tennis",
+          "section": ".text",
+          "offset": "0x56",
+          "size": 346,
+          "relocation_calls": [
+            {
+              "offset": "0xbe",
+              "target": "memset"
+            },
+            {
+              "offset": "0xe4",
+              "target": "bt_get_local_bd_addr"
+            },
+            {
+              "offset": "0x134",
+              "target": "ext_init_cause_within_lift"
+            },
+            {
+              "offset": "0x14e",
+              "target": "bt21_find_on_you"
+            },
+            {
+              "offset": "0x15a",
+              "target": "ext_init_get_without_name"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "member": "bt21.o",
+      "sha256": "f96c66085e8c5611510a50f7ecd00888bb4b347354a9f4d92d2b4f5c1fe725b2",
+      "selected_functions": [
+        {
+          "name": "bb_do_at_review",
+          "section": ".text",
+          "offset": "0x0",
+          "size": 56,
+          "relocation_calls": [
+            {
+              "offset": "0x8",
+              "target": "bt21_give_to_dust"
+            },
+            {
+              "offset": "0x10",
+              "target": "bt21_find_on_you"
+            },
+            {
+              "offset": "0x18",
+              "target": "bt21_save_under_dig"
+            },
+            {
+              "offset": "0x20",
+              "target": "bt21_set_on_tennis"
+            },
+            {
+              "offset": "0x28",
+              "target": "bt21_keep_within_grocery"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "member": "nanos.o",
+      "sha256": "e8105a1f1899da0f61ca4122e7e8b006b97245f9ebd00f16af6775732bb28e46",
+      "selected_functions": [
+        {
+          "name": "nanos_save_to_draft",
+          "section": ".com_text.bb.nanos",
+          "offset": "0x0",
+          "size": 32,
+          "relocation_calls": []
+        },
+        {
+          "name": "bb_find_to_afternoon",
+          "section": ".com_text.bb.nanos",
+          "offset": "0x20",
+          "size": 50,
+          "relocation_calls": [
+            {
+              "offset": "0x2e",
+              "target": "bthw_soft_kick"
+            },
+            {
+              "offset": "0x36",
+              "target": "nanos_event_set_trigger"
+            }
+          ]
+        },
+        {
+          "name": "nanos_write_inside_process",
+          "section": ".com_text.bb.nanos",
+          "offset": "0x52",
+          "size": 48,
+          "relocation_calls": []
+        },
+        {
+          "name": "bb_do_on_ordinary",
+          "section": ".text",
+          "offset": "0x8",
+          "size": 56,
+          "relocation_calls": []
+        }
+      ]
+    },
+    {
+      "member": "baseband_platform.o",
+      "sha256": "739f64a176598a6a3ee87b234f36976308e4c1a6cbd535930d7f213f7bd26358",
+      "selected_functions": [
+        {
+          "name": "baseband_platform_get_of_officer",
+          "section": ".com_text.irq",
+          "offset": "0x2",
+          "size": 50,
+          "relocation_calls": [
+            {
+              "offset": "0xa",
+              "target": "os_interrupt_enter"
+            },
+            {
+              "offset": "0x1c",
+              "target": "bthw_thread_post"
+            },
+            {
+              "offset": "0x24",
+              "target": "os_interrupt_leave"
+            }
+          ]
+        },
+        {
+          "name": "bthw_isr_do_plus",
+          "section": ".com_text.bthw",
+          "offset": "0x0",
+          "size": 36,
+          "relocation_calls": [
+            {
+              "offset": "0x8",
+              "target": "bthw_isr_do"
+            }
+          ]
+        },
+        {
+          "name": "bthw_irq_init",
+          "section": ".text",
+          "offset": "0x46",
+          "size": 156,
+          "relocation_calls": [
+            {
+              "offset": "0x5a",
+              "target": "bt_get_packet"
+            },
+            {
+              "offset": "0x6a",
+              "target": "baseband_platform_pass_by_hello"
+            },
+            {
+              "offset": "0x7c",
+              "target": "register_isr"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "member": "hct.o",
+      "sha256": "f9f398f884f9e6527cf5ab44a9f40bb46101ac16ae39e15eda160cb998db206f",
+      "selected_functions": []
+    },
+    {
+      "member": "mgr_proc.o",
+      "sha256": "bfa0eefcf8a1803c90f8c368a67c6da5f2d0323841b11a6f9ab293b7d1a1d220",
+      "selected_functions": []
+    }
+  ],
+  "le_hci_routes": [
+    {
+      "opcode": "0x2001",
+      "standard_hci_name": "LE Set Event Mask",
+      "descriptor_section": ".rodata.bb.tbl",
+      "descriptor_offset": "0xb4",
+      "descriptor_hex": "0a040008",
+      "internal_message_id": "0x40a",
+      "declared_parameter_bytes": 8,
+      "mgr_proc_handler": {
+        "table_offset": "0x38",
+        "symbol": "mgr_proc_show_on_limit",
+        "symbol_section": ".text",
+        "symbol_offset": "0x31c"
+      }
+    },
+    {
+      "opcode": "0x2002",
+      "standard_hci_name": "LE Read Buffer Size",
+      "descriptor_section": ".rodata.bb.tbl",
+      "descriptor_offset": "0xb8",
+      "descriptor_hex": "0b040000",
+      "internal_message_id": "0x40b",
+      "declared_parameter_bytes": 0,
+      "mgr_proc_handler": {
+        "table_offset": "0x40",
+        "symbol": "mgr_proc_pick_inside_two",
+        "symbol_section": ".text",
+        "symbol_offset": "0x0"
+      }
+    },
+    {
+      "opcode": "0x2003",
+      "standard_hci_name": "LE Read Local Supported Features",
+      "descriptor_section": ".rodata.bb.tbl",
+      "descriptor_offset": "0xbc",
+      "descriptor_hex": "0c040000",
+      "internal_message_id": "0x40c",
+      "declared_parameter_bytes": 0,
+      "mgr_proc_handler": {
+        "table_offset": "0x48",
+        "symbol": "mgr_proc_cause_about_round",
+        "symbol_section": ".text",
+        "symbol_offset": "0x106"
+      }
+    },
+    {
+      "opcode": "0x2005",
+      "standard_hci_name": "LE Set Random Address",
+      "descriptor_section": ".rodata.bb.tbl",
+      "descriptor_offset": "0xc4",
+      "descriptor_hex": "0d040006",
+      "internal_message_id": "0x40d",
+      "declared_parameter_bytes": 6,
+      "mgr_proc_handler": {
+        "table_offset": "0x50",
+        "symbol": "mgr_proc_set_inside_cash",
+        "symbol_section": ".text",
+        "symbol_offset": "0x72a"
+      }
+    },
+    {
+      "opcode": "0x2006",
+      "standard_hci_name": "LE Set Advertising Parameters",
+      "descriptor_section": ".rodata.bb.tbl",
+      "descriptor_offset": "0xc8",
+      "descriptor_hex": "0e04000f",
+      "internal_message_id": "0x40e",
+      "declared_parameter_bytes": 15,
+      "mgr_proc_handler": {
+        "table_offset": "0x58",
+        "symbol": "mgr_proc_show_under_diamond",
+        "symbol_section": ".text",
+        "symbol_offset": "0x6de"
+      }
+    },
+    {
+      "opcode": "0x2007",
+      "standard_hci_name": "LE Read Advertising Channel TX Power",
+      "descriptor_section": ".rodata.bb.tbl",
+      "descriptor_offset": "0xcc",
+      "descriptor_hex": "0f040000",
+      "internal_message_id": "0x40f",
+      "declared_parameter_bytes": 0,
+      "mgr_proc_handler": {
+        "table_offset": "0x60",
+        "symbol": "mgr_proc_fetch_into_influence",
+        "symbol_section": ".text",
+        "symbol_offset": "0x69a"
+      }
+    },
+    {
+      "opcode": "0x2008",
+      "standard_hci_name": "LE Set Advertising Data",
+      "descriptor_section": ".rodata.bb.tbl",
+      "descriptor_offset": "0xd0",
+      "descriptor_hex": "10040020",
+      "internal_message_id": "0x410",
+      "declared_parameter_bytes": 32,
+      "mgr_proc_handler": {
+        "table_offset": "0x68",
+        "symbol": "mgr_proc_give_by_serve",
+        "symbol_section": ".text",
+        "symbol_offset": "0x636"
+      }
+    },
+    {
+      "opcode": "0x2009",
+      "standard_hci_name": "LE Set Scan Response Data",
+      "descriptor_section": ".rodata.bb.tbl",
+      "descriptor_offset": "0xd4",
+      "descriptor_hex": "11040020",
+      "internal_message_id": "0x411",
+      "declared_parameter_bytes": 32,
+      "mgr_proc_handler": {
+        "table_offset": "0x78",
+        "symbol": "mgr_proc_give_for_clothes",
+        "symbol_section": ".text",
+        "symbol_offset": "0x578"
+      }
+    },
+    {
+      "opcode": "0x200a",
+      "standard_hci_name": "LE Set Advertising Enable",
+      "descriptor_section": ".rodata.bb.tbl",
+      "descriptor_offset": "0xd8",
+      "descriptor_hex": "12040001",
+      "internal_message_id": "0x412",
+      "declared_parameter_bytes": 1,
+      "mgr_proc_handler": {
+        "table_offset": "0x70",
+        "symbol": "mgr_proc_fetch_into_dream",
+        "symbol_section": ".text",
+        "symbol_offset": "0x5c4"
+      }
+    },
+    {
+      "opcode": "0x200b",
+      "standard_hci_name": "LE Set Scan Parameters",
+      "descriptor_section": ".rodata.bb.tbl",
+      "descriptor_offset": "0xdc",
+      "descriptor_hex": "13040007",
+      "internal_message_id": "0x413",
+      "declared_parameter_bytes": 7,
+      "mgr_proc_handler": {
+        "table_offset": "0x80",
+        "symbol": "mgr_proc_go_without_purple",
+        "symbol_section": ".text",
+        "symbol_offset": "0x52c"
+      }
+    },
+    {
+      "opcode": "0x200c",
+      "standard_hci_name": "LE Set Scan Enable",
+      "descriptor_section": ".rodata.bb.tbl",
+      "descriptor_offset": "0xe0",
+      "descriptor_hex": "14040002",
+      "internal_message_id": "0x414",
+      "declared_parameter_bytes": 2,
+      "mgr_proc_handler": {
+        "table_offset": "0x88",
+        "symbol": "mgr_proc_leave_to_result",
+        "symbol_section": ".text",
+        "symbol_offset": "0x4ba"
+      }
+    },
+    {
+      "opcode": "0x200d",
+      "standard_hci_name": "LE Create Connection",
+      "descriptor_section": ".rodata.bb.tbl",
+      "descriptor_offset": "0xe4",
+      "descriptor_hex": "15040019",
+      "internal_message_id": "0x415",
+      "declared_parameter_bytes": 25,
+      "mgr_proc_handler": {
+        "table_offset": "0x90",
+        "symbol": "mgr_proc_send_on_muscle",
+        "symbol_section": ".text",
+        "symbol_offset": "0x466"
+      }
+    },
+    {
+      "opcode": "0x200e",
+      "standard_hci_name": "LE Create Connection Cancel",
+      "descriptor_section": ".rodata.bb.tbl",
+      "descriptor_offset": "0xe8",
+      "descriptor_hex": "16040000",
+      "internal_message_id": "0x416",
+      "declared_parameter_bytes": 0,
+      "mgr_proc_handler": {
+        "table_offset": "0x98",
+        "symbol": "mgr_proc_tell_within_string",
+        "symbol_section": ".text",
+        "symbol_offset": "0x9b8"
+      }
+    }
+  ]
+}

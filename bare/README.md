@@ -65,6 +65,22 @@ if (drv_fm_init(&cfg)) {
 
 `app/main.c` 和 `app/usb_fm.c` 仍是调用流程骨架，DAC/缓冲区初始化及实际 FM→USB 音频链路尚未验证。DMA 接口只启动传输，计数单位、样本格式和完成条件仍待确认。收音需插入 CTIA 标准 3.5 mm 耳机线作为天线；搜台/RSSI 尚未恢复。证据、测试命令和限制见 [FM 恢复记录](../docs/lib-analysis/FM_RECOVERY.md)。
 
+## 蓝牙控制器恢复
+
+`drv_bluetooth` 提供 HCI 控制器接口，尚未提供可直接使用的 GAP/GATT 主机功能。两个 HCI 消息对象和部分中断适配已恢复为 C，可在 `bare/` 下选择：
+
+```sh
+make BT_SUPPORT_BACKEND=recovered
+```
+
+输出在 `build/recovered-bt-support/`，也可与 SPI/FM 恢复选项组合。仍依赖原库的控制器、射频和芯片 ROM；这是部分支持层恢复。
+
+当前裸机骨架没有满足蓝牙固定 RAM、ROM 堆初始化及真实 IRQ 分发要求，因此 `drv_bt_init()` **默认返回 false**。板级实现需要覆盖 `drv_bt_platform_init()`，完成这些前提后才能返回 true。不能仅修改返回值跳过检查。平台依赖及已有 SDK 参考路径见 [蓝牙恢复记录](../docs/lib-analysis/BLUETOOTH_RECOVERY.md)。
+
+初始化成功后须在主循环持续调用 `drv_bt_run_loop()`。`drv_bt_isr()` 只标记待处理工作，主循环再处理并重新使能控制器中断。接收回调中的数据包含 H4 类型字节，缓冲区仅在回调期间借用；需保留时先复制，不能在回调里重入控制器。
+
+发送命令仍需主机管理信用与完成事件；ACL 只接受一个容量以内的分片。底层返回 true 不可靠地代表排队成功，封装也不代表已建立无线连接。本轮验证为离线机器码、封装与独立链接检查，完整固件启动、广播、扫描、连接尚未实机验证。
+
 ## 生成下载文件
 
 裸机程序编译完成后，`build/*.bin` 不能直接交给串口烧录工具烧写。它只是用户程序输入文件，需要先将用户程序 `bin` 和固定的 `header.bin` 合成为最终的 `.dcf` 下载文件。Linux 可使用本仓库恢复的打包工具（从仓库根目录执行）：

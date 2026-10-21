@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include "drv_bluetooth.h"
 
 #define DRV_VENDOR_MAX_IRQ 32u
 #define DRV_VENDOR_SYSCLK_HZ 48000000u
@@ -14,6 +15,7 @@ static uint8_t ep2_isoc_storage[192] __attribute__((aligned(4)));
 void *ep2_isoc = ep2_isoc_storage;
 
 extern void drv_bt_hci_rx_dispatch(uint8_t *buf, int len) __attribute__((weak));
+extern void drv_bt_isr(void) __attribute__((weak));
 
 static void busy_delay(uint32_t loops)
 {
@@ -61,11 +63,11 @@ int memcmp(const void *s1, const void *s2, unsigned long n)
     return 0;
 }
 
-void os_interrupt_enter(void)
+__attribute__((weak)) void os_interrupt_enter(void)
 {
 }
 
-void os_interrupt_leave(void)
+__attribute__((weak)) void os_interrupt_leave(void)
 {
 }
 
@@ -79,7 +81,7 @@ void *rt_thread_self(void)
     return 0;
 }
 
-isr_t register_isr(int vector, isr_t isr)
+__attribute__((weak)) isr_t register_isr(int vector, isr_t isr)
 {
     if (vector < 0 || (uint32_t)vector >= DRV_VENDOR_MAX_IRQ) {
         return 0;
@@ -90,7 +92,7 @@ isr_t register_isr(int vector, isr_t isr)
     return old;
 }
 
-void interrupt_handler_c(void)
+__attribute__((weak)) void interrupt_handler_c(void)
 {
 }
 
@@ -197,14 +199,22 @@ void hci_host_recv_packet(uint8_t *buf, int len)
     }
 }
 
-void nanos_event_set_trigger(void)
+/* This scaffold has no valid BT RAM layout, ROM heap or interrupt dispatcher.
+ * A board port must override this hook before controller initialization. */
+__attribute__((weak)) bool drv_bt_platform_init(void)
+{
+    return false;
+}
+
+__attribute__((weak)) void nanos_event_set_trigger(void)
 {
 }
 
-void bthw_thread_post(void)
+__attribute__((weak)) void bthw_thread_post(void)
 {
+    if (drv_bt_isr) drv_bt_isr();
 }
 
-void bthw_soft_kick(void)
+__attribute__((weak)) void bthw_soft_kick(void)
 {
 }
