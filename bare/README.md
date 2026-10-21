@@ -81,6 +81,24 @@ make BT_SUPPORT_BACKEND=recovered
 
 发送命令仍需主机管理信用与完成事件；ACL 只接受一个容量以内的分片。底层返回 true 不可靠地代表排队成功，封装也不代表已建立无线连接。本轮验证为离线机器码、封装与独立链接检查，完整固件启动、广播、扫描、连接尚未实机验证。
 
+## USB 驱动恢复
+
+控制器/连接检测、端点、EP0 状态机和 HID 共 33 个函数已恢复，可在 `bare/` 下选择：
+
+```sh
+make USB_BACKEND=recovered
+```
+
+输出在 `build/recovered-usb/`，也可与 SPI/FM/蓝牙选项组合。默认仍使用厂家库；恢复选项替换五个库对象，仍保留原库的设备生命周期代码。
+
+`drv_usb_init(DRV_USB_DEVICE)` **默认返回 false**：当前裸机骨架缺少完整板级接入与标准请求派发。需实现 `drv_usb_platform_init()`、`drv_usb_platform_poll()` 及 `os_mq_ude_*_post` 钩子，落实时钟/引脚、DMA 内存和代码段、定时器、串行化的中断处理，以及描述符和 SETUP 请求处理。仅将初始化钩子改为返回 true 不会实现枚举。
+
+现有 HID 描述符只有单字节多媒体按键输入报告，不能直接作为 CDC 串口或任意双向数据接口。平台完成枚举后，`drv_usb_hid_try_send()` 复制一个字节并排队，通过持续调用 `drv_usb_run_loop()` 推进；按键释放需另发零报告。`drv_usb_hid_busy()` 变为 false 也可能源于复位/中止，不是主机接收确认。
+
+Host 模式目前返回 false；USB 音频初始化和发送也返回 false。旧封装误把端点编号当作状态指针，且遗漏了初始化上下文参数，现已移除这些无效调用。`app/usb_fm.c` 会在 USB 音频未实现时返回失败，不再启动 FM 后假报音频发送成功；FM 到内部 audio buffer 的路由不等于 USB 音频上传。
+
+1066 项原库差分测试、封装测试和独立链接检查已通过，尚未验证实机 DMA、枚举或 Linux 通信。接口布局、描述符限制与后续接入步骤见 [USB 恢复记录](../docs/lib-analysis/USB_RECOVERY.md)。
+
 ## 生成下载文件
 
 裸机程序编译完成后，`build/*.bin` 不能直接交给串口烧录工具烧写。它只是用户程序输入文件，需要先将用户程序 `bin` 和固定的 `header.bin` 合成为最终的 `.dcf` 下载文件。Linux 可使用本仓库恢复的打包工具（从仓库根目录执行）：

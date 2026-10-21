@@ -1,0 +1,936 @@
+{
+  "unicorn_version": "2.1.4",
+  "original_object_sha256": {
+    "usb_comm.o": "cad0b6e0616e1351cd5c6846fb787ef26bdfb5ca5032973cf3e7a4ed844098da",
+    "usb_detect.o": "5d06e1bf617bffa1afe21943ad35237c135cdc3c9b326b2974f808e14816f218"
+  },
+  "recovered_source_sha256": "197e0646ace071a4fa2f322e72a660c6f8ce4498f0eec5a9caebe5100be8c2c0",
+  "model": "Synthetic MMIO; memset/device ISR hooks; restore_0 ABI shim. No USB PHY, host, IRQ or wire timing validation.",
+  "cases": [
+    {
+      "name": "usb_disable seed 0",
+      "result": "pass",
+      "trace_events": 6
+    },
+    {
+      "name": "usb_init seed 0",
+      "result": "pass",
+      "trace_events": 22
+    },
+    {
+      "name": "usb_interrupt_disable seed 0",
+      "result": "pass",
+      "trace_events": 10
+    },
+    {
+      "name": "usb_isr seed 0",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "usbchk_only_device seed 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_only_host seed 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_device seed 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_host seed 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_init_state seed 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_connect seed 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "lifecycle 0",
+      "result": "pass",
+      "trace_events": 41
+    },
+    {
+      "name": "usb_disable seed 1",
+      "result": "pass",
+      "trace_events": 6
+    },
+    {
+      "name": "usb_init seed 1",
+      "result": "pass",
+      "trace_events": 22
+    },
+    {
+      "name": "usb_interrupt_disable seed 1",
+      "result": "pass",
+      "trace_events": 10
+    },
+    {
+      "name": "usb_isr seed 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "usbchk_only_device seed 1",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_only_host seed 1",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_device seed 1",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_host seed 1",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_init_state seed 1",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_connect seed 1",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "lifecycle 1",
+      "result": "pass",
+      "trace_events": 41
+    },
+    {
+      "name": "usb_disable seed 2",
+      "result": "pass",
+      "trace_events": 6
+    },
+    {
+      "name": "usb_init seed 2",
+      "result": "pass",
+      "trace_events": 22
+    },
+    {
+      "name": "usb_interrupt_disable seed 2",
+      "result": "pass",
+      "trace_events": 10
+    },
+    {
+      "name": "usb_isr seed 2",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_only_device seed 2",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_only_host seed 2",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_device seed 2",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_host seed 2",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_init_state seed 2",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_connect seed 2",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "lifecycle 2",
+      "result": "pass",
+      "trace_events": 41
+    },
+    {
+      "name": "usb_disable seed 3",
+      "result": "pass",
+      "trace_events": 6
+    },
+    {
+      "name": "usb_init seed 3",
+      "result": "pass",
+      "trace_events": 22
+    },
+    {
+      "name": "usb_interrupt_disable seed 3",
+      "result": "pass",
+      "trace_events": 10
+    },
+    {
+      "name": "usb_isr seed 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "usbchk_only_device seed 3",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_only_host seed 3",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_device seed 3",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_host seed 3",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_init_state seed 3",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_connect seed 3",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "lifecycle 3",
+      "result": "pass",
+      "trace_events": 41
+    },
+    {
+      "name": "usb_disable seed 4",
+      "result": "pass",
+      "trace_events": 6
+    },
+    {
+      "name": "usb_init seed 4",
+      "result": "pass",
+      "trace_events": 22
+    },
+    {
+      "name": "usb_interrupt_disable seed 4",
+      "result": "pass",
+      "trace_events": 10
+    },
+    {
+      "name": "usb_isr seed 4",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "usbchk_only_device seed 4",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_only_host seed 4",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_device seed 4",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_host seed 4",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_init_state seed 4",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_connect seed 4",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "lifecycle 4",
+      "result": "pass",
+      "trace_events": 41
+    },
+    {
+      "name": "usb_disable seed 5",
+      "result": "pass",
+      "trace_events": 6
+    },
+    {
+      "name": "usb_init seed 5",
+      "result": "pass",
+      "trace_events": 22
+    },
+    {
+      "name": "usb_interrupt_disable seed 5",
+      "result": "pass",
+      "trace_events": 10
+    },
+    {
+      "name": "usb_isr seed 5",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "usbchk_only_device seed 5",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_only_host seed 5",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_device seed 5",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_host seed 5",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_init_state seed 5",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_connect seed 5",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "lifecycle 5",
+      "result": "pass",
+      "trace_events": 41
+    },
+    {
+      "name": "usb_disable seed 6",
+      "result": "pass",
+      "trace_events": 6
+    },
+    {
+      "name": "usb_init seed 6",
+      "result": "pass",
+      "trace_events": 22
+    },
+    {
+      "name": "usb_interrupt_disable seed 6",
+      "result": "pass",
+      "trace_events": 10
+    },
+    {
+      "name": "usb_isr seed 6",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_only_device seed 6",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_only_host seed 6",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_device seed 6",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_host seed 6",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_init_state seed 6",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_connect seed 6",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "lifecycle 6",
+      "result": "pass",
+      "trace_events": 41
+    },
+    {
+      "name": "usb_disable seed 7",
+      "result": "pass",
+      "trace_events": 6
+    },
+    {
+      "name": "usb_init seed 7",
+      "result": "pass",
+      "trace_events": 22
+    },
+    {
+      "name": "usb_interrupt_disable seed 7",
+      "result": "pass",
+      "trace_events": 10
+    },
+    {
+      "name": "usb_isr seed 7",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "usbchk_only_device seed 7",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_only_host seed 7",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_device seed 7",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_otg_host seed 7",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_switch_init_state seed 7",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "usbchk_connect seed 7",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "lifecycle 7",
+      "result": "pass",
+      "trace_events": 41
+    },
+    {
+      "name": "connect state 0 mode 0 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 0 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 0 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 1 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 1 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 1 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 2 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 2 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 2 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 3 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 3 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 3 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 255 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 255 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 255 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 4294967295 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 4294967295 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 0 mode 4294967295 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 0 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 0 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 0 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 1 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 1 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 1 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 2 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 2 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 2 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 3 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 3 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 3 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 255 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 255 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 255 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 4294967295 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 4294967295 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 1 mode 4294967295 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 0 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 0 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 0 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 1 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 1 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 1 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 2 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 2 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 2 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 3 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 3 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 3 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 255 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 255 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 255 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 4294967295 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 4294967295 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 2 mode 4294967295 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 0 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 0 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 0 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 1 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 1 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 1 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 2 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 2 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 2 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 3 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 3 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 3 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 255 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 255 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 255 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 4294967295 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 4294967295 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 3 mode 4294967295 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 0 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 0 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 0 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 1 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 1 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 1 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 2 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 2 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 2 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 3 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 3 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 3 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 255 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 255 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 255 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 4294967295 status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 4294967295 status 100",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "connect state 255 mode 4294967295 status ffffffff",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "interrupt register base 200",
+      "result": "pass",
+      "trace_events": 10
+    },
+    {
+      "name": "interrupt register base 800",
+      "result": "pass",
+      "trace_events": 10
+    },
+    {
+      "name": "IRQ status 0",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "IRQ status 1",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "IRQ status 2",
+      "result": "pass",
+      "trace_events": 1
+    },
+    {
+      "name": "IRQ status 3",
+      "result": "pass",
+      "trace_events": 2
+    },
+    {
+      "name": "IRQ status ffffffff",
+      "result": "pass",
+      "trace_events": 2
+    }
+  ]
+}

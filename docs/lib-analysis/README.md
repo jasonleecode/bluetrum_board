@@ -20,6 +20,15 @@ wrapper ownership/IRQ handling and documents the fixed RAM, ROM heap and startup
 requirements. The bare platform now rejects Bluetooth initialization until a real
 board port provides those prerequisites; the radio/controller is still partial.
 
+[USB recovery](USB_RECOVERY.md) replaces five objects / 33 functions covering
+controller detection, endpoints, EP0 transport and HID helpers, with 1066
+original-machine-code differential cases. Integration checks cover 16 backend
+combinations, wrapper ownership and isolated RV32 links. The context/pointer ABI
+is fixed, but standard-request dispatch and the board port remain missing;
+initialization defaults to failure. The supplied HID report is one byte of
+consumer controls, not general bidirectional USB communication. Host and USB
+audio sending remain unsupported.
+
 The [2026-10-21 recovery assessment](RECOVERY_ASSESSMENT.md) adds byte-verified
 archive inventories and a compilable reconstruction of `sdadc.o`. It also finds
 two remaining ADC wrapper defects: channel zero is rejected by the vendor, and
@@ -85,8 +94,11 @@ but it cannot disassemble them. Use `riscv64-elf-objdump`.
 and writes a focused list of library-external ABI hooks. The current generated
 summary shows 23 external symbols: 20 platform/glue hooks plus `memcpy`,
 `memset`, and `memcmp`. The existing `vendor_shim.c` covers all of them except
-`ude_hid_send`, which is only needed if `libhal.a:usb_device_run_loop.o` is
-pulled into a link.
+`ude_hid_send`, referenced by the legacy `usb_device_hid_send` entry in
+`libhal.a:usb_device_run_loop.o`. The current wrapper uses the endpoint APIs
+directly; section garbage collection discards that unused legacy entry even
+when other functions from the member are retained. Keeping that entry still
+requires a real implementation; no ROM alias or fake stub has been added.
 
 ## ABI Notes
 

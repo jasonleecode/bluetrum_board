@@ -2,27 +2,21 @@
 #include <stdint.h>
 #include "fmrx_hal.h"
 
-/* libhal.a 符号 */
-extern void uda_init(void);
-extern void uda_run_loop_execute(void);
-extern void uda_set_spk_volume(uint8_t vol);
-extern void uda_set_spk_mute(uint8_t en);
-extern void usb_isoc_reset(void);
-extern void usb_ep_do_transfer(uint8_t ep, void *buf, uint32_t len);
-
-void drv_usb_audio_init(void)
+bool drv_usb_audio_init(void)
 {
-    uda_init();
+    /* uda_init requires a bound context/EP2 OUT receive buffer. The old
+     * no-argument call was invalid; no validated audio device port exists. */
+    return false;
 }
 
 void drv_usb_audio_set_volume(uint8_t vol)
 {
-    uda_set_spk_volume(vol);
+    (void)vol;
 }
 
 void drv_usb_audio_mute(bool enable)
 {
-    uda_set_spk_mute(enable ? 1 : 0);
+    (void)enable;
 }
 
 bool drv_usb_audio_enable_fm_dma(bool enable)
@@ -33,10 +27,9 @@ bool drv_usb_audio_enable_fm_dma(bool enable)
 
 bool drv_usb_audio_send(int16_t *buf, uint32_t len)
 {
-    if (!buf || len == 0) {
-        return false;
-    }
-
-    usb_ep_do_transfer(2, buf, len * sizeof(*buf));
-    return true;
+    /* EP2 is an OUT receive endpoint. It is not an audio-upload function,
+     * and passing endpoint number 2 as a pointer dereferenced address 2. */
+    (void)buf;
+    (void)len;
+    return false;
 }

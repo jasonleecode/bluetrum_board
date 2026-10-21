@@ -1,0 +1,523 @@
+{
+  "original_object_sha256": "b4afb15253d35b3a7e835eab9a001d5216d6336669d98dda99b01c4ce9da90b1",
+  "recovered_source_sha256": "51d519fd400d60996057faad7dd2ff0da6bde978be5f732c01f84de81be4c74c",
+  "unicorn_version": "2.1.4",
+  "model": "RV32 bodies and original save helpers; restore_1/2/3 ABI shims; endpoint and memset call hooks. Compare ordered calls, state at calls, final RAM and register preservation. No hardware USB, IRQ cadence, DMA completion or silicon timing validation.",
+  "cases": [
+    {
+      "name": "timer 0",
+      "result": "pass",
+      "actions": 3
+    },
+    {
+      "name": "timer 1",
+      "result": "pass",
+      "actions": 3
+    },
+    {
+      "name": "timer 2",
+      "result": "pass",
+      "actions": 3
+    },
+    {
+      "name": "timer 9",
+      "result": "pass",
+      "actions": 3
+    },
+    {
+      "name": "timer 10",
+      "result": "pass",
+      "actions": 3
+    },
+    {
+      "name": "timer 29",
+      "result": "pass",
+      "actions": 3
+    },
+    {
+      "name": "timer 30",
+      "result": "pass",
+      "actions": 3
+    },
+    {
+      "name": "timer 127",
+      "result": "pass",
+      "actions": 3
+    },
+    {
+      "name": "timer 254",
+      "result": "pass",
+      "actions": 3
+    },
+    {
+      "name": "timer 255",
+      "result": "pass",
+      "actions": 3
+    },
+    {
+      "name": "volatile timer reads [1, 0]",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "volatile timer reads [1, 255]",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "volatile timer reads [255, 1]",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "volatile timer reads [0]",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "init size 0 context 40000",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "init size 0 context 45000",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "init size 1 context 40000",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "init size 1 context 45000",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "init size 2 context 40000",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "init size 2 context 45000",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "init size 3 context 40000",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "init size 3 context 45000",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "init size 4 context 40000",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "init size 4 context 45000",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "init size 16 context 40000",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "init size 16 context 45000",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "init size 255 context 40000",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "init size 255 context 45000",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "lifecycle random 0",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 1",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 2",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 3",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 4",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 5",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 6",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 7",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 8",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 9",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 10",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 11",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 12",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 13",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 14",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 15",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 16",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 17",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 18",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 19",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 20",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 21",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 22",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 23",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 24",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 25",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 26",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 27",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 28",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 29",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 30",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "lifecycle random 31",
+      "result": "pass",
+      "actions": 5
+    },
+    {
+      "name": "transmit length 0 complete 1 tick False",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 0 complete 2 tick False",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 0 complete 5 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 0 complete 30 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 0 complete 31 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 0 complete 99999 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 1 complete 1 tick False",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 1 complete 2 tick False",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 1 complete 5 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 1 complete 30 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 1 complete 31 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 1 complete 99999 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 8 complete 1 tick False",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 8 complete 2 tick False",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 8 complete 5 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 8 complete 30 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 8 complete 31 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 8 complete 99999 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 16 complete 1 tick False",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 16 complete 2 tick False",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 16 complete 5 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 16 complete 30 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 16 complete 31 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 16 complete 99999 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 64 complete 1 tick False",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 64 complete 2 tick False",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 64 complete 5 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 64 complete 30 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 64 complete 31 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 64 complete 99999 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 255 complete 1 tick False",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 255 complete 2 tick False",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 255 complete 5 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 255 complete 30 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 255 complete 31 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 255 complete 99999 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 65535 complete 1 tick False",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 65535 complete 2 tick False",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 65535 complete 5 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 65535 complete 30 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 65535 complete 31 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "transmit length 65535 complete 99999 tick True",
+      "result": "pass",
+      "actions": 1
+    },
+    {
+      "name": "busy without timer does not return",
+      "result": "pass",
+      "actions": 1
+    }
+  ]
+}

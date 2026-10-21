@@ -43,6 +43,15 @@ else ifneq ($(BT_SUPPORT_BACKEND),vendor)
 $(error BT_SUPPORT_BACKEND must be vendor or recovered)
 endif
 
+# Recovered USB common/detection, endpoints, EP0 transport and HID helpers.
+# Descriptor/request dispatch and board startup remain platform requirements.
+USB_BACKEND ?= vendor
+ifeq ($(USB_BACKEND),recovered)
+BUILD_DIR := $(BUILD_DIR)/recovered-usb
+else ifneq ($(USB_BACKEND),vendor)
+$(error USB_BACKEND must be vendor or recovered)
+endif
+
 # 3. 目标定义 (根据 app 目录下的文件名，定义三个独立的目标)
 # 这里的逻辑是：取出 app/*.c 的文件名，去掉后缀，作为最终生成文件的名字
 APP_SRCS := $(wildcard $(APP_DIR)/*.c)
@@ -87,6 +96,9 @@ DRV_SRCS := $(filter-out $(DRV_DIR)/src/fmrx_analog_recovered.c $(DRV_DIR)/src/f
 endif
 ifeq ($(BT_SUPPORT_BACKEND),vendor)
 DRV_SRCS := $(filter-out $(DRV_DIR)/src/bt_hct_recovered.c $(DRV_DIR)/src/bt_platform_recovered.c,$(DRV_SRCS))
+endif
+ifeq ($(USB_BACKEND),vendor)
+DRV_SRCS := $(filter-out $(DRV_DIR)/src/usb_comm_recovered.c $(DRV_DIR)/src/usb_ep_recovered.c $(DRV_DIR)/src/usb_enum_recovered.c $(DRV_DIR)/src/usb_class_recovered.c,$(DRV_SRCS))
 endif
 # 启动文件
 ASM_SRCS := startup.S

@@ -6,7 +6,10 @@ static drv_audio_route_t audio_route;
 
 bool drv_audio_init(void)
 {
-    drv_usb_audio_init();
+    if (!drv_usb_audio_init()) {
+        audio_route = DRV_AUDIO_ROUTE_NONE;
+        return false;
+    }
     audio_route = DRV_AUDIO_ROUTE_USB_AUDIO;
     return true;
 }
@@ -23,6 +26,7 @@ bool drv_audio_set_route(drv_audio_route_t route)
         audio_route = route;
         return true;
     case DRV_AUDIO_ROUTE_USB_AUDIO:
+        if (!drv_usb_audio_init()) return false;
         audio_route = route;
         return true;
     default:

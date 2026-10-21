@@ -1,0 +1,485 @@
+{
+  "objects": {
+    "usb_device_run_loop.o": {
+      "sha256": "cee4cc03f792336f36a366dd9b950dc017a5b245793ead3bbc1193a4163dabef",
+      "exports": [
+        {
+          "name": "usb_device_exit",
+          "size": 26,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "usb_device_init",
+          "size": 168,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "ude_0",
+          "size": 40,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "uda_0",
+          "size": 16,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "epcb2_rx",
+          "size": 24,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "epcb3_tx",
+          "size": 24,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "udh_0",
+          "size": 8,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "usb_device_enter",
+          "size": 116,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "usb_device_hid_send",
+          "size": 74,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "usb_dev_isr",
+          "size": 16,
+          "binding": "STB_WEAK",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "ep3_buf",
+          "size": 8,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        }
+      ],
+      "undefined": [
+        "usb_init",
+        "__riscv_save_3",
+        "memset",
+        "eps",
+        "ude_init",
+        "uda_init",
+        "udh_init",
+        "__riscv_restore_3",
+        "__riscv_save_0",
+        "usbchk_only_device",
+        "__riscv_restore_0",
+        "ude_hid_send",
+        "ude_run_loop_execute"
+      ]
+    },
+    "usb_device_hid.o": {
+      "sha256": "b4afb15253d35b3a7e835eab9a001d5216d6336669d98dda99b01c4ce9da90b1",
+      "exports": [
+        {
+          "name": "ude_tmr_isr",
+          "size": 34,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "ude_hid_setvalid",
+          "size": 22,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "usbd_ep3_transmit",
+          "size": 110,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "usb_int_ep_reset",
+          "size": 40,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "udh_init",
+          "size": 102,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        }
+      ],
+      "undefined": [
+        "udh_0",
+        "__riscv_save_3",
+        "usb_set_cur_ep",
+        "usb_ep_start_transfer",
+        "usb_ep_transfer",
+        "__riscv_restore_3",
+        "__riscv_save_1",
+        "usb_ep_reset",
+        "__riscv_restore_1",
+        "__riscv_save_2",
+        "ep3_buf",
+        "memset",
+        "epsize_tbl",
+        "usb_ep_init",
+        "__riscv_restore_2"
+      ]
+    },
+    "usb_device_audio.o": {
+      "sha256": "1ba23ef7283c6a0e213cc2570b28cddb9d256d15a9868383b70f394ba7d31b19",
+      "exports": [
+        {
+          "name": "ude_set_sys_volume",
+          "size": 2,
+          "binding": "STB_WEAK",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "ude_mic_start",
+          "size": 2,
+          "binding": "STB_WEAK",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "ude_mic_stop",
+          "size": 2,
+          "binding": "STB_WEAK",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "ude_micdnr_process",
+          "size": 2,
+          "binding": "STB_WEAK",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "ude_get_sys_volume",
+          "size": 4,
+          "binding": "STB_WEAK",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "ude_get_sys_vol_level",
+          "size": 4,
+          "binding": "STB_WEAK",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "uda_get_spk_mute",
+          "size": 14,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "uda_get_spk_volume",
+          "size": 64,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "uda_set_spk_mute",
+          "size": 10,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "uda_set_spk_volume",
+          "size": 38,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "usb_isoc_reset",
+          "size": 16,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "uda_run_loop_execute",
+          "size": 2,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "ex_spk_vol",
+          "size": 8,
+          "binding": "STB_WEAK",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "uda_init",
+          "size": 148,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_FUNC"
+        },
+        {
+          "name": "ude_mic_fadain",
+          "size": 1,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        }
+      ],
+      "undefined": [
+        "uda_0",
+        "usb_ep_reset",
+        "__riscv_save_2",
+        "ep2_isoc",
+        "memset",
+        "epsize_tbl",
+        "usb_ep_init",
+        "__riscv_restore_2"
+      ]
+    },
+    "usb_device_table.o": {
+      "sha256": "3b8f6cca186b5a38f1ed060797e8545eb4ca63e3c4da83a340df2c4e2a68c084",
+      "exports": [
+        {
+          "name": "desc_hid_report",
+          "size": 33,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "desc_config_hid",
+          "size": 25,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "desc_config_mic_stream_double",
+          "size": 52,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "desc_config_mic_stream",
+          "size": 52,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "desc_config_speaker_stream",
+          "size": 52,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "desc_config_audio_mic_double",
+          "size": 30,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "desc_config_audio_mic",
+          "size": 30,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "desc_config_audio_speaker",
+          "size": 31,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "desc_config_audio",
+          "size": 19,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "desc_config_storage",
+          "size": 23,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "desc_config_general",
+          "size": 9,
+          "binding": "STB_GLOBAL",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "str_serial_number",
+          "size": 30,
+          "binding": "STB_WEAK",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "str_product",
+          "size": 28,
+          "binding": "STB_WEAK",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "str_manufacturer",
+          "size": 16,
+          "binding": "STB_WEAK",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "str_language_id",
+          "size": 4,
+          "binding": "STB_WEAK",
+          "kind": "STT_OBJECT"
+        },
+        {
+          "name": "desc_usb_device",
+          "size": 18,
+          "binding": "STB_WEAK",
+          "kind": "STT_OBJECT"
+        }
+      ],
+      "undefined": []
+    }
+  },
+  "descriptors": {
+    "desc_hid_report": {
+      "length": 33,
+      "hex": "050c0901a1011500250109b309b509b609b709cd09e209e909ea750195088142c0"
+    },
+    "desc_config_hid": {
+      "length": 25,
+      "hex": "09040400010300000009210102000122210007058303100001"
+    },
+    "desc_config_mic_stream_double": {
+      "length": 52,
+      "hex": "090403000001020000090403010101020000072401060101000b2402010202100180bb0009058205c00001000007250101000000"
+    },
+    "desc_config_mic_stream": {
+      "length": 52,
+      "hex": "090403000001020000090403010101020000072401060101000b2402010102100180bb0009058205c00001000007250101000000"
+    },
+    "desc_config_speaker_stream": {
+      "length": 52,
+      "hex": "090402000001020000090402010101020000072401010101000b2402010202100180bb0009050209c00001000007250101010100"
+    },
+    "desc_config_audio_mic_double": {
+      "length": 30,
+      "hex": "0c2402040102000200000000092406050401030000092403060101000500"
+    },
+    "desc_config_audio_mic": {
+      "length": 30,
+      "hex": "0c2402040102000100000000092406050401030000092403060101000500"
+    },
+    "desc_config_audio_speaker": {
+      "length": 31,
+      "hex": "0c24020101010002030000000a240602010103000000092403030103000200"
+    },
+    "desc_config_audio": {
+      "length": 19,
+      "hex": "0904010000010100000a240100012800020203"
+    },
+    "desc_config_storage": {
+      "length": 23,
+      "hex": "0904000002080650000705010240000007058102400000"
+    },
+    "desc_config_general": {
+      "length": 9,
+      "hex": "09029e000501008032"
+    },
+    "str_serial_number": {
+      "length": 30,
+      "hex": "1e0332003000310037003000370032003600390030003500390032003300"
+    },
+    "str_product": {
+      "length": 28,
+      "hex": "1c0355005300420032002e0030002000440065007600690063006500"
+    },
+    "str_manufacturer": {
+      "length": 16,
+      "hex": "1003470065006e006500720069006300"
+    },
+    "str_language_id": {
+      "length": 4,
+      "hex": "04030904"
+    },
+    "desc_usb_device": {
+      "length": 18,
+      "hex": "120110010000004087802410000101020301"
+    }
+  },
+  "epsize_tbl": [
+    1,
+    1,
+    4,
+    16
+  ],
+  "interpretation": {
+    "device": {
+      "bcdUSB": "0x0110",
+      "vid": "0x8087",
+      "pid": "0x1024",
+      "ep0_max_packet": 64
+    },
+    "hid": {
+      "endpoint": "0x83",
+      "direction": "IN",
+      "transfer": "interrupt",
+      "descriptor_max_packet": 16,
+      "interval": 1,
+      "report_descriptor_bytes": 33,
+      "report_bytes": 1,
+      "report_id_present": false,
+      "usage_page": "Consumer (0x0c)",
+      "usages_lsb_first": [
+        "0xb3",
+        "0xb5",
+        "0xb6",
+        "0xb7",
+        "0xcd",
+        "0xe2",
+        "0xe9",
+        "0xea"
+      ],
+      "allocation_bytes": 8,
+      "initialized_ep_max_packet": 1024
+    },
+    "speaker": {
+      "endpoint": "0x02",
+      "direction": "OUT",
+      "transfer": "isochronous",
+      "descriptor_max_packet": 192,
+      "sample_rate": 48000,
+      "channels": 2,
+      "sample_bits": 16,
+      "initialized_ep_max_packet": 256
+    },
+    "microphone": {
+      "endpoint": "0x82",
+      "direction": "IN",
+      "transfer": "isochronous",
+      "descriptor_max_packet": 192,
+      "sample_rate": 48000,
+      "channels_variants": [
+        1,
+        2
+      ],
+      "sample_bits": 16
+    },
+    "storage": {
+      "endpoints": [
+        "0x01",
+        "0x81"
+      ],
+      "transfer": "bulk",
+      "max_packet": 64
+    },
+    "cdc_descriptor_present": false,
+    "configuration_is_template": true,
+    "ude_hid_send_implementation": "Undefined in supplied archive; no ROM address established."
+  }
+}

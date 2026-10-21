@@ -1,5 +1,7 @@
 #include <stdint.h>
 #include "drv_bluetooth.h"
+#include "drv_usb.h"
+#include "usb_enum_recovered.h"
 
 #define DRV_VENDOR_MAX_IRQ 32u
 #define DRV_VENDOR_SYSCLK_HZ 48000000u
@@ -151,17 +153,24 @@ void os_cache_unlock(void)
 {
 }
 
-void os_mq_ude_ctl_flow_post(void)
+__attribute__((weak)) void os_mq_ude_ctl_flow_post(struct usb_ude_recovered *ude)
 {
+    (void)ude;
 }
 
-void os_mq_ude_ep0_setup_post(void)
+__attribute__((weak)) void os_mq_ude_ep0_setup_post(const uint8_t *setup)
 {
+    (void)setup;
 }
 
-void os_mq_ude_reset_post(void)
+__attribute__((weak)) void os_mq_ude_reset_post(struct usb_ude_recovered *ude)
 {
+    (void)ude;
 }
+
+/* No real USB request dispatcher or board startup is provided by this shim. */
+__attribute__((weak)) bool drv_usb_platform_init(void) { return false; }
+__attribute__((weak)) void drv_usb_platform_poll(void) {}
 
 void sdadc_analog_aux_start(uint32_t channel, uint32_t gain)
 {

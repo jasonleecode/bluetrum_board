@@ -1,0 +1,2355 @@
+{
+  "unicorn_version": "2.1.4",
+  "original_object_sha256": "664688a55bb4df78e4248f55b9d5710b4f2870339eb7dba1ca5fd8ce2f13f928",
+  "recovered_source_sha256": "cc057e855cbd7aa7f3f5cfef50bf120e44388c241ceaaec0c28de32a567f8cbc",
+  "header_sha256": "e3f83db0b85675a8fdefe21c899c113e8354f9593e55de3f81f77b43438ad29f",
+  "model": "Synthetic indexed USB register values, delay hook and restore_0..3 ABI shims; ordered MMIO, endpoint RAM, eps table, callee-save registers and returns compared. No silicon bus, DMA content or timing verification; do_transfer abort return treated as void.",
+  "cases": [
+    {
+      "name": "lifecycle ep 0 flags 0 type 0",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 0 type 1",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 0 type 2",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 0 type 3",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 0 type 255",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 2 type 0",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 2 type 1",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 2 type 2",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 2 type 3",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 2 type 255",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 4 type 0",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 4 type 1",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 4 type 2",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 4 type 3",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 4 type 255",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 6 type 0",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 6 type 1",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 6 type 2",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 6 type 3",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 6 type 255",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 9 type 0",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 9 type 1",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 9 type 2",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 9 type 3",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 9 type 255",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 11 type 0",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 11 type 1",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 11 type 2",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 11 type 3",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 11 type 255",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 255 type 0",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 255 type 1",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 255 type 2",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 255 type 3",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 0 flags 255 type 255",
+      "api_actions": 7,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 0 type 0",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 0 type 1",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 0 type 2",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 0 type 3",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 0 type 255",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 2 type 0",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 2 type 1",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 2 type 2",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 2 type 3",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 2 type 255",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 4 type 0",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 4 type 1",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 4 type 2",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 4 type 3",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 4 type 255",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 6 type 0",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 6 type 1",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 6 type 2",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 6 type 3",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 6 type 255",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 9 type 0",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 9 type 1",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 9 type 2",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 9 type 3",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 9 type 255",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 11 type 0",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 11 type 1",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 11 type 2",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 11 type 3",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 11 type 255",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 255 type 0",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 255 type 1",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 255 type 2",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 255 type 3",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 1 flags 255 type 255",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 0 type 0",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 0 type 1",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 0 type 2",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 0 type 3",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 0 type 255",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 2 type 0",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 2 type 1",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 2 type 2",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 2 type 3",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 2 type 255",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 4 type 0",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 4 type 1",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 4 type 2",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 4 type 3",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 4 type 255",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 6 type 0",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 6 type 1",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 6 type 2",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 6 type 3",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 6 type 255",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 9 type 0",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 9 type 1",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 9 type 2",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 9 type 3",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 9 type 255",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 11 type 0",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 11 type 1",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 11 type 2",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 11 type 3",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 11 type 255",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 255 type 0",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 255 type 1",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 255 type 2",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 255 type 3",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 2 flags 255 type 255",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 0 type 0",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 0 type 1",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 0 type 2",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 0 type 3",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 0 type 255",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 2 type 0",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 2 type 1",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 2 type 2",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 2 type 3",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 2 type 255",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 4 type 0",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 4 type 1",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 4 type 2",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 4 type 3",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 4 type 255",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 6 type 0",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 6 type 1",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 6 type 2",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 6 type 3",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 6 type 255",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 9 type 0",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 9 type 1",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 9 type 2",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 9 type 3",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 9 type 255",
+      "api_actions": 7,
+      "trace_events": 13,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 11 type 0",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 11 type 1",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 11 type 2",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 11 type 3",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 11 type 255",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 255 type 0",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 255 type 1",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 255 type 2",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 255 type 3",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle ep 3 flags 255 type 255",
+      "api_actions": 7,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 0 length 0 busy 0",
+      "api_actions": 2,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 0 length 0 busy 1",
+      "api_actions": 2,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 0 length 1 busy 0",
+      "api_actions": 2,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 0 length 1 busy 1",
+      "api_actions": 2,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 0 length 63 busy 0",
+      "api_actions": 2,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 0 length 63 busy 1",
+      "api_actions": 2,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 0 length 64 busy 0",
+      "api_actions": 2,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 0 length 64 busy 1",
+      "api_actions": 2,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 0 length 65 busy 0",
+      "api_actions": 2,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 0 length 65 busy 1",
+      "api_actions": 2,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 0 length 128 busy 0",
+      "api_actions": 2,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 0 length 128 busy 1",
+      "api_actions": 2,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 0 length 65535 busy 0",
+      "api_actions": 2,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 0 length 65535 busy 1",
+      "api_actions": 2,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 1 length 0 busy 0",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 1 length 0 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 1 length 1 busy 0",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 1 length 1 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 1 length 63 busy 0",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 1 length 63 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 1 length 64 busy 0",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 1 length 64 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 1 length 65 busy 0",
+      "api_actions": 2,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 1 length 65 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 1 length 128 busy 0",
+      "api_actions": 2,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 1 length 128 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 1 length 65535 busy 0",
+      "api_actions": 2,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 1 length 65535 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 2 length 0 busy 0",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 2 length 0 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 2 length 1 busy 0",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 2 length 1 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 2 length 63 busy 0",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 2 length 63 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 2 length 64 busy 0",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 2 length 64 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 2 length 65 busy 0",
+      "api_actions": 2,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 2 length 65 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 2 length 128 busy 0",
+      "api_actions": 2,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 2 length 128 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 2 length 65535 busy 0",
+      "api_actions": 2,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 2 length 65535 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 3 length 0 busy 0",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 3 length 0 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 3 length 1 busy 0",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 3 length 1 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 3 length 63 busy 0",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 3 length 63 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 3 length 64 busy 0",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 3 length 64 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 3 length 65 busy 0",
+      "api_actions": 2,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 3 length 65 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 3 length 128 busy 0",
+      "api_actions": 2,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 3 length 128 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 3 length 65535 busy 0",
+      "api_actions": 2,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "IN ep 3 length 65535 busy 1",
+      "api_actions": 2,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 0 length 0 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 0 length 0 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 0 length 1 received 0",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 0 length 1 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 0 length 64 received 0",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 0 length 64 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 0 length 128 received 0",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 0 length 128 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 0 length 65535 received 0",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 0 length 65535 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1 length 0 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1 length 0 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1 length 0 received 2",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1 length 1 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1 length 1 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1 length 1 received 2",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1 length 64 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1 length 64 received 1",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1 length 64 received 2",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1 length 128 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1 length 128 received 1",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1 length 128 received 2",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1 length 65535 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1 length 65535 received 1",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1 length 65535 received 2",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 0 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 0 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 0 received 8",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 0 received 9",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 1 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 1 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 1 received 8",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 1 received 9",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 64 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 64 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 64 received 8",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 64 received 9",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 128 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 128 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 128 received 8",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 128 received 9",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 65535 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 65535 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 65535 received 8",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 8 length 65535 received 9",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 0 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 0 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 0 received 64",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 0 received 65",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 1 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 1 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 1 received 64",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 1 received 65",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 64 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 64 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 64 received 64",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 64 received 65",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 128 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 128 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 128 received 64",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 128 received 65",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 65535 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 65535 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 65535 received 64",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 64 length 65535 received 65",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 0 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 0 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 0 received 1024",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 0 received 1025",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 1 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 1 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 1 received 1024",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 1 received 1025",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 64 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 64 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 64 received 1024",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 64 received 1025",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 128 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 128 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 128 received 1024",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 128 received 1025",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 65535 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 65535 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 65535 received 1024",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 1024 length 65535 received 1025",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 65535 length 0 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 65535 length 0 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 65535 length 0 received 65535",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 65535 length 1 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 65535 length 1 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 65535 length 1 received 65535",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 65535 length 64 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 65535 length 64 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 65535 length 64 received 65535",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 65535 length 128 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 65535 length 128 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 65535 length 128 received 65535",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 65535 length 65535 received 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 65535 length 65535 received 1",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT packet 65535 length 65535 received 65535",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "no ready direction 0",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "no ready direction 2",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "OUT start ep 0",
+      "api_actions": 3,
+      "trace_events": 15,
+      "result": "pass"
+    },
+    {
+      "name": "IN delay mutation ep 0",
+      "api_actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "halt busy changing ep 0",
+      "api_actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "OUT start ep 1",
+      "api_actions": 3,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "IN delay mutation ep 1",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "halt busy changing ep 1",
+      "api_actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "OUT start ep 2",
+      "api_actions": 3,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "IN delay mutation ep 2",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "halt busy changing ep 2",
+      "api_actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "OUT start ep 3",
+      "api_actions": 3,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "IN delay mutation ep 3",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "halt busy changing ep 3",
+      "api_actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "raw invalid IN endpoint 4",
+      "api_actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "raw invalid IN endpoint 15",
+      "api_actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "raw invalid IN endpoint 16",
+      "api_actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "raw invalid IN endpoint 31",
+      "api_actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "raw invalid IN endpoint 255",
+      "api_actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "OUT unmasked count 100 0",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT unmasked count ffffffff ffffffff",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "OUT unmasked count 1 12345",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "blocking abort flags 0",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "blocking abort flags 1",
+      "api_actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "blocking abort flags 2",
+      "api_actions": 1,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "blocking abort flags 3",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "blocking IN completion",
+      "api_actions": 1,
+      "trace_events": 25,
+      "result": "pass"
+    },
+    {
+      "name": "blocking OUT completion",
+      "api_actions": 1,
+      "trace_events": 21,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 0",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 1",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 2",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 3",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 4",
+      "api_actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 5",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 6",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 7",
+      "api_actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 8",
+      "api_actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 9",
+      "api_actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 10",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 11",
+      "api_actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 12",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 13",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 14",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 15",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 16",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 17",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 18",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 19",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 20",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 21",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 22",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 23",
+      "api_actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 24",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 25",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 26",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 27",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 28",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 29",
+      "api_actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 30",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 31",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 32",
+      "api_actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 33",
+      "api_actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 34",
+      "api_actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 35",
+      "api_actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 36",
+      "api_actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 37",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 38",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 39",
+      "api_actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 40",
+      "api_actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 41",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 42",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 43",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 44",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 45",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 46",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 47",
+      "api_actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 48",
+      "api_actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 49",
+      "api_actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 50",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 51",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 52",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 53",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 54",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 55",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 56",
+      "api_actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 57",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 58",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 59",
+      "api_actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 60",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 61",
+      "api_actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 62",
+      "api_actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "random transfer 63",
+      "api_actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "unbounded halt IN busy",
+      "api_actions": 1,
+      "trace_prefix_events": 16,
+      "result": "both remain pending after 40000 instructions"
+    },
+    {
+      "name": "unbounded blocking IN busy",
+      "api_actions": 1,
+      "trace_prefix_events": 16,
+      "result": "both remain pending after 40000 instructions"
+    },
+    {
+      "name": "unbounded blocking OUT idle",
+      "api_actions": 1,
+      "trace_prefix_events": 16,
+      "result": "both remain pending after 40000 instructions"
+    }
+  ]
+}

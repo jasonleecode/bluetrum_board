@@ -1,0 +1,2330 @@
+{
+  "unicorn_version": "2.1.4",
+  "original_object_sha256": "42c581ee6ff514e09248d2a42f7eee116a393827ef5a640acd57f34dbbbe9320",
+  "recovered_source_sha256": "3d5318c6ff457508fab0be2ea1c64cbb75db534113a10e244a2a8327bea306d1",
+  "model": "Synthetic MMIO, memcpy, endpoint-selection and event hooks; restore ABI shim. No USB bus, descriptor dispatch, DMA completion or silicon timing.",
+  "cases": [
+    {
+      "name": "init/reset mode 0",
+      "actions": 2,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "init/reset mode 1",
+      "actions": 2,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "init/reset mode 2",
+      "actions": 2,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init/reset mode 3",
+      "actions": 2,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init/reset mode 4",
+      "actions": 2,
+      "trace_events": 15,
+      "result": "pass"
+    },
+    {
+      "name": "init/reset mode 5",
+      "actions": 2,
+      "trace_events": 15,
+      "result": "pass"
+    },
+    {
+      "name": "init/reset mode 6",
+      "actions": 2,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "init/reset mode 7",
+      "actions": 2,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "init/reset mode 8",
+      "actions": 2,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "init/reset mode 9",
+      "actions": 2,
+      "trace_events": 14,
+      "result": "pass"
+    },
+    {
+      "name": "init/reset mode 10",
+      "actions": 2,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init/reset mode 11",
+      "actions": 2,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "init/reset mode 12",
+      "actions": 2,
+      "trace_events": 15,
+      "result": "pass"
+    },
+    {
+      "name": "init/reset mode 13",
+      "actions": 2,
+      "trace_events": 15,
+      "result": "pass"
+    },
+    {
+      "name": "init/reset mode 14",
+      "actions": 2,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "init/reset mode 15",
+      "actions": 2,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 0 length 0",
+      "actions": 2,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 0 length 1",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 0 length 7",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 0 length 8",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 0 length 9",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 0 length 63",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 0 length 64",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 0 length 65",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 0 length 128",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 0 length 255",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 0 length 65535",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 1 length 0",
+      "actions": 2,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 1 length 1",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 1 length 7",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 1 length 8",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 1 length 9",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 1 length 63",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 1 length 64",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 1 length 65",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 1 length 128",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 1 length 255",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 1 length 65535",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 8 length 0",
+      "actions": 2,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 8 length 1",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 8 length 7",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 8 length 8",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 8 length 9",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 8 length 63",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 8 length 64",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 8 length 65",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 8 length 128",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 8 length 255",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 8 length 65535",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 64 length 0",
+      "actions": 2,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 64 length 1",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 64 length 7",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 64 length 8",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 64 length 9",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 64 length 63",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 64 length 64",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 64 length 65",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 64 length 128",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 64 length 255",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "transmit max 64 length 65535",
+      "actions": 2,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "address 0 configured 0",
+      "actions": 2,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "address 1 configured 0",
+      "actions": 2,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "address 127 configured 0",
+      "actions": 2,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "address 128 configured 0",
+      "actions": 2,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "address 255 configured 0",
+      "actions": 2,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "address 0 configured 1",
+      "actions": 2,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "address 1 configured 1",
+      "actions": 2,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "address 127 configured 1",
+      "actions": 2,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "address 128 configured 1",
+      "actions": 2,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "address 255 configured 1",
+      "actions": 2,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "address 0 configured 255",
+      "actions": 2,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "address 1 configured 255",
+      "actions": 2,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "address 127 configured 255",
+      "actions": 2,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "address 128 configured 255",
+      "actions": 2,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "address 255 configured 255",
+      "actions": 2,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 0 state 0",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 0 state 1",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 0 state 2",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 0 state 3",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 1 state 0",
+      "actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 1 state 1",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 1 state 2",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 1 state 3",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 2 state 0",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 2 state 1",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 2 state 2",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 2 state 3",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 3 state 0",
+      "actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 3 state 1",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 3 state 2",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 3 state 3",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 4 state 0",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 4 state 1",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 4 state 2",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 4 state 3",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 5 state 0",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 5 state 1",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 5 state 2",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 5 state 3",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 6 state 0",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 6 state 1",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 6 state 2",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 6 state 3",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 7 state 0",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 7 state 1",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 7 state 2",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 7 state 3",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 8 state 0",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 8 state 1",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 8 state 2",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 8 state 3",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 9 state 0",
+      "actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 9 state 1",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 9 state 2",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 9 state 3",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 10 state 0",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 10 state 1",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 10 state 2",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 10 state 3",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 11 state 0",
+      "actions": 1,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 11 state 1",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 11 state 2",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 11 state 3",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 12 state 0",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 12 state 1",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 12 state 2",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 12 state 3",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 13 state 0",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 13 state 1",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 13 state 2",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 13 state 3",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 14 state 0",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 14 state 1",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 14 state 2",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 14 state 3",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 15 state 0",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 15 state 1",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 15 state 2",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 15 state 3",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 16 state 0",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 16 state 1",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 16 state 2",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 16 state 3",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 17 state 0",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 17 state 1",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 17 state 2",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 17 state 3",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 18 state 0",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 18 state 1",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 18 state 2",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 18 state 3",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 19 state 0",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 19 state 1",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 19 state 2",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 19 state 3",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 20 state 0",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 20 state 1",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 20 state 2",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 20 state 3",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 21 state 0",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 21 state 1",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 21 state 2",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 21 state 3",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 22 state 0",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 22 state 1",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 22 state 2",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 22 state 3",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 23 state 0",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 23 state 1",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 23 state 2",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 23 state 3",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 24 state 0",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 24 state 1",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 24 state 2",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 24 state 3",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 25 state 0",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 25 state 1",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 25 state 2",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 25 state 3",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 26 state 0",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 26 state 1",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 26 state 2",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 26 state 3",
+      "actions": 1,
+      "trace_events": 4,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 27 state 0",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 27 state 1",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 27 state 2",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 27 state 3",
+      "actions": 1,
+      "trace_events": 17,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 28 state 0",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 28 state 1",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 28 state 2",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 28 state 3",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 29 state 0",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 29 state 1",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 29 state 2",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 29 state 3",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 30 state 0",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 30 state 1",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 30 state 2",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 30 state 3",
+      "actions": 1,
+      "trace_events": 5,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 31 state 0",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 31 state 1",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 31 state 2",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "control CSR 31 state 3",
+      "actions": 1,
+      "trace_events": 18,
+      "result": "pass"
+    },
+    {
+      "name": "setup type 00",
+      "actions": 1,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "setup type 10",
+      "actions": 1,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "setup type 20",
+      "actions": 1,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "setup type 30",
+      "actions": 1,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "setup type 40",
+      "actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "setup type 50",
+      "actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "setup type 60",
+      "actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "setup type 70",
+      "actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "setup type 80",
+      "actions": 1,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "setup type 90",
+      "actions": 1,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "setup type a0",
+      "actions": 1,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "setup type b0",
+      "actions": 1,
+      "trace_events": 11,
+      "result": "pass"
+    },
+    {
+      "name": "setup type c0",
+      "actions": 1,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "setup type d0",
+      "actions": 1,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "setup type e0",
+      "actions": 1,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "setup type f0",
+      "actions": 1,
+      "trace_events": 9,
+      "result": "pass"
+    },
+    {
+      "name": "setup FIFO drain 0",
+      "actions": 1,
+      "trace_events": 2,
+      "result": "pass"
+    },
+    {
+      "name": "setup FIFO drain 1",
+      "actions": 1,
+      "trace_events": 3,
+      "result": "pass"
+    },
+    {
+      "name": "setup FIFO drain 8",
+      "actions": 1,
+      "trace_events": 10,
+      "result": "pass"
+    },
+    {
+      "name": "setup FIFO drain 64",
+      "actions": 1,
+      "trace_events": 66,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 0 mask 0 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 0 mask 0 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 0 mask 0 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 0 mask 1 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 0 mask 1 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 0 mask 1 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 0 mask 2 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 0 mask 2 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 0 mask 2 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 0 mask 4 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 0 mask 4 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 0 mask 4 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 0 mask 7 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 0 mask 7 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 0 mask 7 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 1 mask 0 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 1 mask 0 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 1 mask 0 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 1 mask 1 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 1 mask 1 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 1 mask 1 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 1 mask 2 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 1 mask 2 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 1 mask 2 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 1 mask 4 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 1 mask 4 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 1 mask 4 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 1 mask 7 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 1 mask 7 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 1 mask 7 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 2 mask 0 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 2 mask 0 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 2 mask 0 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 2 mask 1 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 2 mask 1 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 2 mask 1 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 2 mask 2 tx 0",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 2 mask 2 tx 1",
+      "actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 2 mask 2 tx 3",
+      "actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 2 mask 4 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 2 mask 4 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 2 mask 4 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 2 mask 7 tx 0",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 2 mask 7 tx 1",
+      "actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 2 mask 7 tx 3",
+      "actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 3 mask 0 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 3 mask 0 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 3 mask 0 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 3 mask 1 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 3 mask 1 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 3 mask 1 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 3 mask 2 tx 0",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 3 mask 2 tx 1",
+      "actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 3 mask 2 tx 3",
+      "actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 3 mask 4 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 3 mask 4 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 3 mask 4 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 3 mask 7 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 3 mask 7 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 3 mask 7 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 4 mask 0 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 4 mask 0 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 4 mask 0 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 4 mask 1 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 4 mask 1 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 4 mask 1 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 4 mask 2 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 4 mask 2 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 4 mask 2 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 4 mask 4 tx 0",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 4 mask 4 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 4 mask 4 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 4 mask 7 tx 0",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 4 mask 7 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 4 mask 7 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 5 mask 0 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 5 mask 0 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 5 mask 0 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 5 mask 1 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 5 mask 1 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 5 mask 1 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 5 mask 2 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 5 mask 2 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 5 mask 2 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 5 mask 4 tx 0",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 5 mask 4 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 5 mask 4 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 5 mask 7 tx 0",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 5 mask 7 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 5 mask 7 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 6 mask 0 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 6 mask 0 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 6 mask 0 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 6 mask 1 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 6 mask 1 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 6 mask 1 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 6 mask 2 tx 0",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 6 mask 2 tx 1",
+      "actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 6 mask 2 tx 3",
+      "actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 6 mask 4 tx 0",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 6 mask 4 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 6 mask 4 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 6 mask 7 tx 0",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 6 mask 7 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 6 mask 7 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 7 mask 0 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 7 mask 0 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 7 mask 0 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 7 mask 1 tx 0",
+      "actions": 1,
+      "trace_events": 6,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 7 mask 1 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 7 mask 1 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 7 mask 2 tx 0",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 7 mask 2 tx 1",
+      "actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 7 mask 2 tx 3",
+      "actions": 1,
+      "trace_events": 8,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 7 mask 4 tx 0",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 7 mask 4 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 7 mask 4 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 7 mask 7 tx 0",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 7 mask 7 tx 1",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "IRQ bus 7 mask 7 tx 3",
+      "actions": 1,
+      "trace_events": 7,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 0",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 1",
+      "actions": 5,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 2",
+      "actions": 5,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 3",
+      "actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 4",
+      "actions": 5,
+      "trace_events": 21,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 5",
+      "actions": 5,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 6",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 7",
+      "actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 8",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 9",
+      "actions": 5,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 10",
+      "actions": 5,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 11",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 12",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 13",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 14",
+      "actions": 5,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 15",
+      "actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 16",
+      "actions": 5,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 17",
+      "actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 18",
+      "actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 19",
+      "actions": 5,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 20",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 21",
+      "actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 22",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 23",
+      "actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 24",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 25",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 26",
+      "actions": 5,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 27",
+      "actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 28",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 29",
+      "actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 30",
+      "actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 31",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 32",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 33",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 34",
+      "actions": 5,
+      "trace_events": 21,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 35",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 36",
+      "actions": 5,
+      "trace_events": 24,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 37",
+      "actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 38",
+      "actions": 5,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "random controls 39",
+      "actions": 5,
+      "trace_events": 22,
+      "result": "pass"
+    },
+    {
+      "name": "packet sequence 8",
+      "actions": 7,
+      "trace_events": 16,
+      "result": "pass"
+    },
+    {
+      "name": "packet sequence 16",
+      "actions": 9,
+      "trace_events": 23,
+      "result": "pass"
+    },
+    {
+      "name": "packet sequence 17",
+      "actions": 9,
+      "trace_events": 25,
+      "result": "pass"
+    },
+    {
+      "name": "packet sequence 64",
+      "actions": 21,
+      "trace_events": 65,
+      "result": "pass"
+    }
+  ]
+}
