@@ -32,6 +32,31 @@ class TranscriptPort:
 
 
 class FramingTest(unittest.TestCase):
+    def test_busy_response_can_outlast_three_polls(self):
+        request = b'\xb4\x01'
+        answer = bytes.fromhex('4b010900313233343536373839b129')
+        port = TranscriptPort([(request, b'\x2d\x01')] * 6 + [(request, answer)])
+        with patch('bluetrum_download.time.sleep'):
+            link = FramedUart(port, echo=False)
+            self.assertEqual(link.receive(9), b'123456789')
+        self.assertEqual(link.sequence, 1)
+        self.assertFalse(port.steps)
+
+    def test_busy_response_stops_at_deadline(self):
+        request = b'\xb4\x01'
+        port = TranscriptPort([(request, b'\x2d\x01')] * 2)
+        with patch('bluetrum_download.time.monotonic', side_effect=[0, .4, 1.1]), \
+             patch('bluetrum_download.time.sleep'):
+            with self.assertRaisesRegex(TimeoutError, 'before deadline'):
+                FramedUart(port, echo=False, timeout=1).receive(9)
+        self.assertEqual(port.writes, [request, request])
+
+    def test_missing_response_ack_is_not_retried(self):
+        port = TranscriptPort([(b'\xb4\x01', b'')])
+        with self.assertRaises(TimeoutError):
+            FramedUart(port, echo=False).receive(9)
+        self.assertEqual(len(port.writes), 1)
+
     def test_vendor_frame_crc_sequence_and_echo(self):
         # CRC-16/CCITT("123456789") = 29b1; vendor frame stores it LE.
         frame = bytes.fromhex('4b010900313233343536373839b129')
@@ -63,6 +88,70 @@ class FramingTest(unittest.TestCase):
                 port = TranscriptPort([(b'\xb4\x01', answer)])
                 with self.assertRaises(ProtocolError):
                     FramedUart(port, echo=False).receive(9)
+
+
+class SyncPort:
+    def __init__(self, *, needs_reset=False, responds=True):
+        self.now = 0
+        self.needs_reset = needs_reset
+        self.responds = responds
+        self.reset_seen = False
+        self.pending = []
+        self.writes = []
+        self.baud = None
+
+    def set_baud(self, baud):
+        self.baud = baud
+
+    def flush_input(self):
+        self.pending.clear()
+
+    def write_all(self, data, timeout=None):
+        self.now += .0001
+        self.writes.append((self.baud, data))
+        if data == bytes.fromhex('f5a0a596875a'):
+            self.reset_seen = self.baud == 1500000
+            self.pending.append(data)
+        elif self.responds and (not self.needs_reset or self.reset_seen):
+            self.pending.extend([b'boot log\r\n' + data + bytes.fromhex('5a69'),
+                                 bytes.fromhex('78a5')])
+        else:
+            self.pending.append(data)
+
+    def read_some(self, maximum, timeout=None):
+        if self.pending:
+            return self.pending.pop(0)
+        self.now += timeout
+        raise TimeoutError('no ROM response')
+
+    def read_exact(self, length, timeout=None):
+        data = self.read_some(length, timeout)
+        assert len(data) == length
+        return data
+
+
+class SynchronizationTest(unittest.TestCase):
+    def test_scan_fragmented_sync_amid_boot_logs_and_echo(self):
+        port = SyncPort()
+        with patch('bluetrum_download.time.monotonic', side_effect=lambda: port.now):
+            FramedUart(port).synchronize(timeout=1)
+        self.assertEqual(len(port.writes), 1)
+
+    def test_reset_running_firmware_and_immediately_return_to_rom_baud(self):
+        port = SyncPort(needs_reset=True)
+        with patch('bluetrum_download.time.monotonic', side_effect=lambda: port.now):
+            FramedUart(port).synchronize(timeout=1)
+        self.assertTrue(port.reset_seen)
+        self.assertEqual(port.writes[-2:], [(1500000, bytes.fromhex('f5a0a596875a')),
+                                           (115200, bytes.fromhex('a596875a'))])
+        self.assertEqual(port.baud, 115200)
+
+    def test_echo_alone_is_not_a_rom_handshake(self):
+        port = SyncPort(responds=False)
+        with patch('bluetrum_download.time.monotonic', side_effect=lambda: port.now):
+            with self.assertRaisesRegex(TimeoutError, 'ROM sync timed out'):
+                FramedUart(port).synchronize(timeout=.1)
+        self.assertLess(port.now, .12)
 
 
 class CommandTranscript:

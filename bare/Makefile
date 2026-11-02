@@ -68,8 +68,8 @@ APP_SRCS := $(wildcard $(APP_DIR)/*.c)
 TARGETS  := $(patsubst $(APP_DIR)/%.c, %, $(APP_SRCS))
 
 # 4. 核心编译参数 (RISC-V 架构参数)
-# AB32VG1 通常是 RV32IMAC，具体请参考芯片手册
-ARCH_FLAGS := -march=rv32imac -mabi=ilp32
+# AB32VG1 SDK uses RV32IMC (no atomic extension).
+ARCH_FLAGS := -march=rv32imc -mabi=ilp32
 OPT_FLAGS  := -Os -g
 
 # C 编译选项
@@ -138,6 +138,30 @@ APP_OBJS := $(addprefix $(BUILD_DIR)/, $(APP_SRCS:.c=.o))
 # 默认目标：构建所有 APP
 all: $(addprefix $(BUILD_DIR)/, $(addsuffix .elf, $(TARGETS)))
 
+# Minimal, board-ready RAM-resident example; other examples retain their
+# existing experimental platform until their peripheral startup is ported.
+HEARTBEAT_OBJS := $(BUILD_DIR)/app/heartbeat.o $(BUILD_DIR)/drivers/src/drv_led.o \
+                 $(BUILD_DIR)/drivers/src/serial_console.o \
+                 $(BUILD_DIR)/board/heartbeat_board.o $(BUILD_DIR)/board/heartbeat_start.o
+heartbeat: $(BUILD_DIR)/heartbeat.dcf
+
+$(BUILD_DIR)/heartbeat.elf: $(HEARTBEAT_OBJS) board/heartbeat.ld
+	$(CC) $(ARCH_FLAGS) -nostdlib -nostartfiles -Wl,--gc-sections \
+		-Wl,-Map,$(@:.elf=.map) -Tboard/heartbeat.ld $(HEARTBEAT_OBJS) -lgcc -o $@
+	$(OBJCOPY) -O binary $@ $(@:.elf=.bin)
+	$(SIZE) $@
+
+$(BUILD_DIR)/heartbeat.dcf: $(BUILD_DIR)/heartbeat.elf ../tools/header.bin
+	../tools/linux/convert ../tools/header.bin $(BUILD_DIR)/heartbeat.bin $@
+
+$(BUILD_DIR)/board/%.o: board/%.c
+	@mkdir -p $(dir $@)
+	$(CC) -c $(CFLAGS) $< -o $@
+
+$(BUILD_DIR)/board/%.o: board/%.S
+	@mkdir -p $(dir $@)
+	$(CC) -c $(ASFLAGS) $< -o $@
+
 # 打印检测到的目标 (调试用)
 info:
 	@echo "Detected Targets: $(TARGETS)"
@@ -180,5 +204,6 @@ clean:
 
 # 引入依赖文件 (.d)
 -include $(COMMON_OBJS:.o=.d) $(APP_OBJS:.o=.d)
+-include $(HEARTBEAT_OBJS:.o=.d)
 
-.PHONY: all clean info
+.PHONY: all clean info heartbeat

@@ -11,12 +11,14 @@ import tty
 class SerialPort:
     """Explicit 8N1 serial port, with bounded reads/writes and no port scanning."""
 
-    def __init__(self, path: str, baud: int = 115200, timeout: float = 2.0):
+    def __init__(self, path: str, baud: int = 115200, timeout: float = 2.0,
+                 *, restore_settings: bool = True):
         if timeout <= 0:
             raise ValueError("serial timeout must be positive")
         self.timeout = timeout
         self.fd = None
         self.original_settings = None
+        self.restore_settings = True  # Always restore if opening/configuring fails.
         self._baud_value(baud)
         descriptor = os.open(path, os.O_RDWR | os.O_NOCTTY | os.O_NONBLOCK)
         self.fd = descriptor
@@ -31,6 +33,7 @@ class SerialPort:
             settings[6][termios.VTIME] = 0
             termios.tcsetattr(descriptor, termios.TCSANOW, settings)
             self.set_baud(baud)
+            self.restore_settings = restore_settings
         except BaseException:
             self.close()
             raise
@@ -123,7 +126,7 @@ class SerialPort:
         if self.fd is not None:
             descriptor, self.fd = self.fd, None
             try:
-                if self.original_settings is not None:
+                if self.restore_settings and self.original_settings is not None:
                     termios.tcsetattr(descriptor, termios.TCSANOW, self.original_settings)
             except (OSError, termios.error):
                 pass  # The USB device may have disappeared; still release the FD.

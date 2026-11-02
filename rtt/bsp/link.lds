@@ -73,9 +73,10 @@ SECTIONS
         *src*thread.o (.text* .rodata*)
         *src*timer.o (.text* .rodata*)
         *src*mempool.o (.text* .rodata*)
-        *src*scheduler.o (.text* .rodata*)
+        *src*scheduler*.o (.text* .rodata*)
         *src*clock.o (.text* .rodata*)
         *src*kservice.o (.text* .rodata*)
+        *src*klibc*.o (.text* .rodata*)
         *src*device.o (.text* .rodata*)
         *src*idle.o (.text* .rodata*)
         *src*components.o (.text* .rodata*)
@@ -108,8 +109,8 @@ SECTIONS
     {
         __bss_start = .;
         *(COMMON)
-        *(.bss)
-        *(.sbss)
+        *(.bss .bss.*)
+        *(.sbss .sbss.*)
         *(.buf*)
         __bss_end = .;
     } > data

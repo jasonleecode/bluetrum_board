@@ -355,13 +355,13 @@ static rt_err_t ab32_pin_irq_enable(struct rt_device *device, rt_base_t pin,
 
 static int ab32_pin_irq_init(void)
 {
-    gpio_irq_mq = rt_mq_create("gpio_irq", sizeof(rt_uint8_t), 128, RT_IPC_FLAG_FIFO);
+    gpio_irq_mq = rt_mq_create("gpioirq", sizeof(rt_uint8_t), 128, RT_IPC_FLAG_FIFO);
     if (gpio_irq_mq == RT_NULL)
     {
         return -RT_ENOMEM;
     }
 
-    rt_thread_t tid = rt_thread_create("gpio_irq",
+    rt_thread_t tid = rt_thread_create("gpioirq",
                                        ab32_pin_irq_thread,
                                        RT_NULL,
                                        512,

@@ -44,7 +44,7 @@ enable_int_ret:
 
 /* Macro for saving task context */
 .macro save_context
-    addi    sp, sp, -124
+    addi    sp, sp, -128
 
     /* Save Context */
     sw      x1, 0(sp)
@@ -130,7 +130,7 @@ enable_int_ret:
     lw      x30, 108(sp)
     lw      x31, 112(sp)
 
-    addi    sp, sp, 124
+    addi    sp, sp, 128
     mret
     .endm
 
@@ -143,7 +143,7 @@ rt_hw_context_switch_to:
     sw      zero, rt_interrupt_from_thread, a4                      /*set from thread to 0*/
     sw      a0, rt_interrupt_to_thread, a4                          /*set rt_interrupt_to_thread*/
 
-    sb      zero, rt_interrupt_nest, a4                             /*rt_interrupt_nest = 0*/
+    sw      zero, rt_interrupt_nest, a4                             /*rt_interrupt_nest = 0*/
 
     li      a5, 1
     sw      a5, rt_thread_switch_interrupt_flag, a4                 // rt_thread_switch_interrupt_flag = 1;
@@ -175,9 +175,10 @@ rt_hw_context_switch:
     .globl rt_switch_to_thread
 rt_switch_to_thread:
     lw     a0, rt_interrupt_from_thread
+    beqz   a0, 1f
     lw     a5, rt_cur_thread_sp
     sw     a5, 0(a0)
-
+1:
     lw     a0, rt_interrupt_to_thread
     lw     a5, 0(a0)
     sw     a5, rt_cur_thread_sp, a4

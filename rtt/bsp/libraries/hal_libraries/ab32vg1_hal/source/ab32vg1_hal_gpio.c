@@ -16,23 +16,23 @@
 
 void gpio_afinit(hal_sfr_t gpiox, uint8_t pin, uint32_t alternate, uint32_t af_con)
 {
-    uint32_t is_rx_map_tx = (alternate & UT1RXMAP_TX) || (alternate & UT0RXMAP_TX);
+    uint32_t is_rx_map_tx = (alternate & UT1RXMAP_TX) | (alternate & UT0RXMAP_TX);
     if ((af_con & 0xf0u) != GPIO_AFDIS) {
         gpiox[GPIOxFEN]   |= BIT(pin);
 
         switch (is_rx_map_tx)
         {
         case UT1RXMAP_TX:
-            FUNCMCONx(GPIO_GET_AFCON(af_con)) |= GPIO_AF_MAP_CLR(UT1RXMAP_AF);
+            FUNCMCONx(GPIO_GET_AFCON(af_con)) &= ~GPIO_AF_MAP_CLR(UT1RXMAP_AF);
             break;
         case UT0RXMAP_TX:
-            FUNCMCONx(GPIO_GET_AFCON(af_con)) |= GPIO_AF_MAP_CLR(UT0RXMAP_AF);
+            FUNCMCONx(GPIO_GET_AFCON(af_con)) &= ~GPIO_AF_MAP_CLR(UT0RXMAP_AF);
             break;
         default:
             break;
         }
 
-        FUNCMCONx(GPIO_GET_AFCON(af_con)) |= GPIO_AF_MAP_CLR(af_con & 0x1f);
+        FUNCMCONx(GPIO_GET_AFCON(af_con)) &= ~GPIO_AF_MAP_CLR(af_con & 0x1f);
         FUNCMCONx(GPIO_GET_AFCON(af_con)) |= alternate;
         HAL_LOG("af_con=0x%X AFCON=%d alternate=%d\n", af_con, GPIO_GET_AFCON(af_con), (af_con & 0x1f));
     }

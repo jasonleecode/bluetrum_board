@@ -3,6 +3,7 @@
 import os
 from pathlib import Path
 import pty
+import select
 import sys
 import termios
 import threading
@@ -59,6 +60,18 @@ class SerialTransportTests(unittest.TestCase):
         os.write(self.master, b"partial")
         with self.assertRaises(TimeoutError):
             self.port.read_exact(8, timeout=0.02)
+
+    def test_single_wire_console_keeps_host_echo_disabled_after_close(self):
+        self.port.close()
+        settings = termios.tcgetattr(self.slave)
+        settings[3] |= termios.ECHO | termios.ICANON
+        termios.tcsetattr(self.slave, termios.TCSANOW, settings)
+        self.port = SerialPort(os.ttyname(self.slave), restore_settings=False)
+        self.port.close()
+        self.assertFalse(termios.tcgetattr(self.slave)[3] & (termios.ECHO | termios.ICANON))
+        os.write(self.master, b'heartbeat: LED ON\r\n')
+        # Incoming application logs must not be reflected back to the wire.
+        self.assertFalse(select.select([self.master], [], [], .02)[0])
 
     def test_invalid_parameters(self):
         with self.assertRaises(ValueError):

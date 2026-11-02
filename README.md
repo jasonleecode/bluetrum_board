@@ -29,7 +29,7 @@
 | USB | 已恢复控制器、端点、EP0 和 HID 共 33 个函数，通过 1066 项原库差分测试；标准请求派发、板级接入与 Linux 枚举待完成，见 [USB 分析](docs/lib-analysis/USB_RECOVERY.md) |
 | SD 卡 | 已根据寄存器手册和公开 BSP 实现原生 SD0 一位总线、SDSC/SDHC/SDXC 512 字节块读写；板级时钟/DMA 接入及实卡验证待完成，见 [SD 分析](docs/lib-analysis/SD_RECOVERY.md) |
 | DCF 打包 | 已实现 Linux 工具，默认打包路径通过原版机器码逐字节对照 |
-| 串口下载 | 已恢复握手、loader 上传、Flash 擦写、CRC 校验和重启，通过离线测试，待上板验证 |
+| 串口下载 | 已在 CH340/CRWN 实机完成 loader 上传、Flash 擦写、CRC 校验及首块提交；裸机串口及 RT-Thread 5.2.2 启动和 shell 通信均已验证，见 [实机记录](tools/linux/README.md#2026-11-02-实机记录) |
 
 Linux 工具的命令、支持范围和验证方法见 [使用说明](tools/linux/README.md)，打包格式和下载协议分别记录在 [XMAKER.md](tools/XMAKER.md) 与 [DOWNLOADER.md](tools/DOWNLOADER.md)。
 
@@ -67,8 +67,8 @@ ab32vg1-prougen 是 中科蓝讯(Bluetrum) 推出的一款基于 RISC-V 内核�
 
 | 板载外设/接口 | `bare` 当前状态 | RT-Thread BSP 当前状态 |
 | --- | --- | --- |
-| USB 转串口 | 有 UART 库封装，待实测；桥接芯片由电脑侧驱动 | UART0 已启用；这是外置 USB-UART 桥，不是片上 USB Device |
-| RGB LED / 用户按键 | 尚无通用 GPIO/按键驱动；RESET 是硬件复位键 | 有 GPIO 驱动并已启用；不代表已提供完整按键应用 |
+| USB 转串口 | 裸机心跳程序已通过板载 CH340/UART0 单线双向通信验证，支持命令、文本回传和 LED 控制；见 [用法](bare/README.md) | UART0 已启用；这是外置 USB-UART 桥，不是片上 USB Device |
+| RGB LED / 用户按键 | 已新增 PE1 红灯控制和独立裸机心跳，实机确认闪烁；通用 GPIO/按键驱动尚未实现 | 有 GPIO 驱动并已启用；不代表已提供完整按键应用 |
 | SD 卡槽 | 已实现原生 SD0 单块读写，待真实时钟/DMA 接入及实卡验证 | 有 SDIO 驱动和卡协议框架，当前未启用 |
 | 红外遥控接收 | 尚未移植 | 有 `drv_irrx.c`，当前未启用；原表的“IRDA”不准确，不能据此认定支持完整 IrDA 协议 |
 | 模拟音频输出 | 已实现片内 DAC 播放，默认平台钩子拒绝启动；待板级接入与实测 | 有 `sound0` 输出驱动，当前未启用 |
@@ -77,7 +77,7 @@ ab32vg1-prougen 是 中科蓝讯(Bluetrum) 推出的一款基于 RISC-V 内核�
 | 片上外设 | `bare` 当前状态 | RT-Thread BSP 源码/配置范围 |
 | --- | --- | --- |
 | GPIO | 尚无独立通用驱动；个别外设内部有专用引脚配置 | 有 `drv_gpio.c`，已启用 |
-| UART | 有 `huart` 库封装，尚未独立恢复/实测；不等于全部 UART 通道已适配 | 有 UART0/1/2 配置选项，当前仅 UART0 启用 |
+| UART | 心跳目标的 UART0/PA7 已实现直接寄存器轮询收发并实测；原 `huart` 库封装和其他通道仍待验证 | 有 UART0/1/2 配置选项，当前仅 UART0 启用 |
 | SDIO/SD 控制器 | 已实现 SD0 一位 SD 卡模式；未实现四位、MMC、SDIO 功能卡 | 有 `drv_sdio.c`，当前未启用 |
 | SARADC 电压采样 | 尚无裸机 SARADC 封装；`drv_adc` 是音频 SDADC | 有 `drv_adc.c` 的 SARADC 接入，当前未启用 |
 | 音频 SDADC | 12 个底层函数及模拟输入恢复；完整 PCM 录音待完成 | 不属于上述 SARADC 驱动的支持范围 |

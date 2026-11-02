@@ -310,7 +310,7 @@ int rt_hw_usart_init(void)
         uart_obj[i].rx_idx_prev     = 0;
         uart_obj[i].serial.ops      = &ab32_uart_ops;
         uart_obj[i].serial.config   = config;
-        uart_obj[i].serial.config.baud_rate = 1500000;
+        uart_obj[i].serial.config.baud_rate = 115200;
         uart_obj[i].rx_buf          = rt_malloc(uart_config[i].fifo_size);
 
         if (uart_obj[i].rx_buf == RT_NULL) {

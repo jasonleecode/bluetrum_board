@@ -70,7 +70,7 @@ PYTHONPATH=/tmp/downloader-research python3 tools/research/recover_downloader_me
 
 | 方法 RID | 恢复行为 |
 | --- | --- |
-| 1244 | 115200 路径的物理同步：发送 `a596875a`，滑窗匹配 `5a6978a5` |
+| 1244 | 115200 物理同步：发送 `a596875a`，滑窗匹配 `5a6978a5`；已有固件可能需在其波特率发送 `f5a0a596875a` 复位，随即返回 115200 握手 |
 | 1253 | 发帧 `4b,seq,lenLE16,payload,CRC16LE16`；回复 `status,seq`，`1e/3c` 成功、`2d` 重试 |
 | 1255 | 请求回复 `b4,seq`，接收 `4b,seq,lenLE16,payload,CRC16LE16`，每块最多 512 字节 |
 | 534 / 532 | 请求索引 1，selector=1，随机 nonce；24 字节回复包含 `BLUE`、芯片、版本、RAM 地址及 challenge |
@@ -85,6 +85,8 @@ PYTHONPATH=/tmp/downloader-research python3 tools/research/recover_downloader_me
 
 默认 DCF 没有额外 XCFG 预处理：直接传输 body 原字节。应用段内的块使用 selector=1，其他块使用 0；CRC 返回每块的小端 16 位结果。Linux 擦除规划按 4 KiB 对齐，容量检查也按该边界加 20 KiB，比原版 body 长度检查略严格。
 
-当前实现仅覆盖 CRWN ROM `01000000`、普通 UART 115200 路径。不实现专用适配器、高速切换或权限认证；回显会检查内容，丢失 ACK/错序/CRC 错误时直接终止，明确 NACK 才有限重试。这些限制与原版完整 GUI 支持范围不同。
+当前实现仅覆盖 CRWN ROM `01000000`、普通 UART 115200 数据传输；连接阶段会尝试 1500000/115200 复位序列，立即恢复 ROM 波特率。不实现专用适配器、高速数据传输或权限认证。握手时滑窗扫描包含日志及回显的数据流；数据帧仍检查回显内容，丢失 ACK/错序/CRC 错误时直接终止。明确写入 NACK 才有限重试；读取 NACK 表示尚未就绪，在截止时间内以同一序号等待，不重发上层命令。
+
+2026-11-02 CH340/CRWN 实机已通过擦写、CRC 校验和首块提交。实际大段 CRC 查询会超过三次立即轮询，因而不能用固定三次 NACK 限制代替等待；详见 [实机记录](linux/README.md#2026-11-02-实机记录)。复位序列的含义也与独立实现 [bluetrum-tools UARTDownload](https://github.com/kagaimiq/bluetrum-tools/blob/main/bluetrum/dl/uart.py) 及其 [连接流程](https://github.com/kagaimiq/bluetrum-tools/blob/main/download.py) 交叉核对。
 
 `bluetrum_serial.py` 负责 Linux 8N1 串口传输、波特率切换及有截止时间的读写，伪终端测试覆盖原始字节、分片回复、超时和关闭时恢复设置。它本身不选择芯片命令，也不自动扫描端口。

@@ -9,8 +9,53 @@
 .global _start
 .section .reset, "ax"
 _start:
+    .option push
+    .option norelax
     la      tp, _tp
     la      gp, _gp
+    .option pop
+
+    /* Fill the startup/IRQ stack before any call uses it. */
+    la      t0, __irq_stack_start
+    la      sp, __irq_stack
+    li      t1, 0x23232323
+1:
+    sw      t1, 0(t0)
+    addi    t0, t0, 4
+    bltu    t0, sp, 1b
+
+    /* Initialize the shared UART clock and pad before ROM/cache calls. */
+    lw t0, 0x74(zero)
+    li t1, 0x4000
+    or t0, t0, t1
+    sw t0, 0x74(zero)
+    lw t0, 0x3b0(zero)
+    li t1, 0x20400
+    or t0, t0, t1
+    sw t0, 0x3b0(zero)
+    lw t0, 0x1c(zero)
+    li t1, 0xffff00ff
+    and t0, t0, t1
+    li t1, 0x7100
+    or t0, t0, t1
+    sw t0, 0x1c(zero)
+    lw t0, 0x60c(zero)
+    ori t0, t0, 128
+    sw t0, 0x60c(zero)
+    lw t0, 0x610(zero)
+    ori t0, t0, 128
+    sw t0, 0x610(zero)
+    lw t0, 0x614(zero)
+    ori t0, t0, 128
+    sw t0, 0x614(zero)
+    lw t0, 0x61c(zero)
+    ori t0, t0, 128
+    sw t0, 0x61c(zero)
+    sw zero, 0x40(zero)
+    li t0, 0x00700070
+    sw t0, 0x48(zero)
+    li t0, 0x61
+    sw t0, 0x40(zero)
 
     //load comm
     la      a0, __comm_vma
@@ -24,20 +69,19 @@ _start:
     la      a2, __ram1_size
     call    _memcpy
 
-    la      a0, __irq_stack_start           //Stack清成0x23
-    li      a1, 0x23
-    la      a2, __irq_stack_size
-    call    rt_memset
-    la      ra, __irq_stack
     lui	    a5, 0x1
     sw	    zero, -1920(a5)
     sw	    zero, -1916(a5)
 
     //clear bss
     la      a0, __bss_start
-    li      a1, 0
-    la      a2, __bss_size
-    call    rt_memset
+    la      a1, __bss_end
+2:
+    bgeu    a0, a1, 3f
+    sw      zero, 0(a0)
+    addi    a0, a0, 4
+    j       2b
+3:
 
     call    cache_init
 

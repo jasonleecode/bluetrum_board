@@ -59,3 +59,7 @@ objs.extend(SConscript(os.path.join(libcpu_path_prefix, 'cpu', 'SConscript')))
 
 # make a building
 DoBuilding(TARGET, objs)
+
+# Build the firmware when invoked without an explicit target.
+Depends(TARGET, "link.lds")
+Default(TARGET)

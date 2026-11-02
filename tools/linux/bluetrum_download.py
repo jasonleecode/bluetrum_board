@@ -1,8 +1,9 @@
 """CRWN serial ROM/loader protocol recovered from Downloader.exe 1.9.7.
 
 Method RIDs refer to the decrypted vendor IL, not its on-disk dummy bodies.
-Only the ordinary UART adapter, 115200-baud path is implemented. No serial port
-is opened by importing this module. Hardware validation is still outstanding.
+Transfers use the ordinary UART adapter at 115200 baud. Synchronization can
+reset running firmware at 1500000 baud before returning to the ROM baud rate.
+No serial port is opened by importing this module.
 """
 from dataclasses import dataclass, replace
 import secrets
@@ -39,7 +40,11 @@ class FramedUart:
                 raise ProtocolError("UART local echo mismatch; check adapter wiring/--no-echo")
 
     def synchronize(self, *, timeout=10.0):
-        """RID 1244 normal UART path: A596875A -> 5A6978A5."""
+        """RID 1244: poll ROM; reset running firmware then return to 115200.
+
+        Boot logs may overlap the hardware echo during reset. Scan that stream
+        for the ROM token; strict echo checks apply only after synchronization.
+        """
         if timeout <= 0:
             raise ValueError("positive synchronization timeout required")
         self.sequence = 0
@@ -47,18 +52,39 @@ class FramedUart:
         self.transport.flush_input()
         deadline = time.monotonic() + timeout
         window = bytearray()
+        attempts = 0
         while time.monotonic() < deadline:
+            if attempts and attempts % 30 == 0:
+                baud = 1500000 if (attempts // 30) % 2 else 115200
+                self.transport.set_baud(baud)
+                self.transport.flush_input()
+                reset = bytes.fromhex("f5a0a596875a")
+                try:
+                    remaining = max(.001, deadline - time.monotonic())
+                    self.transport.write_all(reset, timeout=min(self.timeout, remaining))
+                    if self.echo:
+                        self.transport.read_exact(len(reset), timeout=min(.005, remaining))
+                except TimeoutError:
+                    pass
+                finally:
+                    self.transport.set_baud(115200)
+                window.clear()
+                if time.monotonic() >= deadline:
+                    break
             try:
-                self._write(bytes.fromhex("a596875a"))
-                until = min(deadline, time.monotonic() + .05)
+                remaining = max(.001, deadline - time.monotonic())
+                self.transport.write_all(bytes.fromhex("a596875a"),
+                                         timeout=min(self.timeout, remaining))
+                until = min(deadline, time.monotonic() + .02)
                 while time.monotonic() < until:
-                    part = self.transport.read_some(64, timeout=max(.001, until-time.monotonic()))
+                    part = self.transport.read_some(64, timeout=max(.001, min(.005, until-time.monotonic())))
                     window.extend(part)
                     if bytes.fromhex("5a6978a5") in window:
                         return
                     del window[:-3]
             except TimeoutError:
                 pass
+            attempts += 1
         raise TimeoutError("ROM sync timed out; reset/power the target into its download mode")
 
     def send(self, payload):
@@ -86,12 +112,20 @@ class FramedUart:
         if not 0 < length <= 512:
             raise ValueError("UART response must contain 1..512 bytes")
         seq = self._next_sequence()
-        for _ in range(self.retries):
+        deadline = time.monotonic() + self.timeout
+        while True:
             self._write(bytes((0xb4, seq)))
             status, got_seq = self.transport.read_exact(2, timeout=self.timeout)
             if got_seq != seq:
                 raise ProtocolError("UART response sequence mismatch")
             if status == 0x2d:
+                # A CRC calculation can outlast several immediate polls. This
+                # is "not ready", not a failed transfer: keep the same sequence
+                # and poll only the response, never resend its command.
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    raise TimeoutError("target did not provide UART data before deadline")
+                time.sleep(min(.001, remaining))
                 continue
             if status != 0x4b:
                 raise ProtocolError(f"unexpected UART response {status:02x}")
@@ -104,7 +138,6 @@ class FramedUart:
             if crc16(data[:-2]) != int.from_bytes(data[-2:], "little"):
                 raise ProtocolError("UART response CRC mismatch")
             return data[:-2]
-        raise ProtocolError("target did not provide UART data")
 
     def exchange(self, command, *, read_size=0, write_data=b""):
         if read_size < 0 or (read_size and write_data):

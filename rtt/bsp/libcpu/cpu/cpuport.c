@@ -32,22 +32,19 @@ rt_uint8_t *rt_hw_stack_init(void       *tentry,
                              void       *texit)
 {
     rt_uint32_t *stk;
-    register int *tp asm("x3");
+    rt_uint32_t tp;
+    __asm__ volatile ("mv %0, tp" : "=r" (tp));
 
     stack_addr += sizeof(rt_uint32_t);
-    stack_addr  = (rt_uint8_t *)RT_ALIGN_DOWN((rt_uint32_t)stack_addr, 8);
-    stk  = (rt_uint32_t *)stack_addr;
-
-    stk--;
-    *stk = (rt_uint32_t)0x10003;         /* Start address */
-    stk--;
-    *stk = (rt_uint32_t)tentry;         /* Start address */
-    stk -= 22;
-    *stk = (rt_uint32_t)parameter;      /* Register a0  parameter*/
-    stk -= 6;
-    *stk = (rt_uint32_t)tp;             /* Register thread pointer */
-    stk --;
-    *stk = (rt_uint32_t)texit;          /* Register ra   texit*/
+    stack_addr = (rt_uint8_t *)RT_ALIGN_DOWN((rt_ubase_t)stack_addr, 16);
+    /* Match context_gcc.S, including one word of ABI alignment padding. */
+    stk = (rt_uint32_t *)stack_addr - 32;
+    rt_memset(stk, 0, 32 * sizeof(*stk));
+    stk[0] = (rt_uint32_t)texit;
+    stk[1] = tp;
+    stk[7] = (rt_uint32_t)parameter;
+    stk[29] = (rt_uint32_t)tentry;
+    stk[30] = 0x10003;                 /* EPICCON */
 
     /* return task's current stack address */
     return (rt_uint8_t *)stk;

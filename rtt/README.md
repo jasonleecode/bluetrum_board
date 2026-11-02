@@ -14,7 +14,7 @@
 
 芯片有部分不开源的代码是以静态库提供的，静态库在软件包中，默认已勾选，直接运行 `pkgs --update` 即可
 
-波特率默认为 1.5M，需要使用 [Downloader](https://github.com/BLUETRUM/Downloader) 下载 `.dcf` 到芯片，需要编译后自动下载，需要在 `Downloader` 中的下载的下拉窗中选择 `自动`；目前暂时屏蔽 uart1 打印
+本仓库默认控制台波特率为 115200（8N1），可使用 Linux 下载器或 [Downloader](https://github.com/BLUETRUM/Downloader) 下载 `.dcf` 到芯片，需要编译后自动下载，需要在 `Downloader` 中的下载的下拉窗中选择 `自动`；目前暂时屏蔽 uart1 打印
 
 使用 `romfs` 时，需要自己生成 `romfs.c` 进行替换，操作参考[使用 RomFS](https://www.rt-thread.org/document/site/#/rt-thread-version/rt-thread-standard/tutorial/qemu-network/filesystems/filesystems?id=%e4%bd%bf%e7%94%a8-romfs)
 
@@ -103,8 +103,37 @@ scons -j4
 ```
 
 可用 `RTT_EXEC_PATH=/编译器/bin RTT_CC_PREFIX=riscv64-unknown-elf- scons -j4`
-覆盖工具链。生成 `rtthread.elf`、`rtthread.bin`；Linux DCF 打包/下载另见
-[工具说明](../tools/linux/README.md)。构建通过不代表已在开发板启动或完成外设实测。
+覆盖工具链。生成 `rtthread.elf`、`rtthread.bin`。在仓库根目录打包并下载：
+
+```sh
+tools/linux/convert rtt/bsp/header.bin rtt/bsp/rtthread.bin rtt/bsp/rtthread.dcf
+tools/linux/downloader flash rtt/bsp/rtthread.dcf --port /dev/ttyUSB0 --connect-timeout 120 --timeout 5
+```
+
+下载器等待连接时按 RESET（S1）。同一 CH340 串口用于运行期控制台，参数为
+**115200、8N1、无流控**；发送命令后以回车结束。单线连接有硬件回显，
+终端应关闭本地回显，脚本逐字符发送时建议间隔 20 ms，避免与 shell 回显冲突。
+可执行 `version`、`ps`、`free`、`list device`。
+
+### 2026-11-02 上板验证
+
+已在当前 CH340 / CRWN 开发板上完成干净编译、Flash 写入及逐块 CRC 校验，
+并验证 RT-Thread **5.2.2** 启动、`Hello, world` 和 `msh >` 提示符。
+`ps` 可见 main、tshell、drv、gpioirq、timer、tidle0 六个线程；
+`free` 显示总堆 53160 字节、已用 9824 字节、可用 43336 字节。
+主线程通过 PIN API 每 500 ms 翻转 PE1 红灯，沿用 P1 的 3–4 脚跳线。
+原始串口验证输出保存在本地 `bsp/uart-verify.log`。
+随后连续执行 40 条版本、线程、堆内存、设备查询，全部成功返回 shell 提示符；
+收取 11600 字节，测试前后堆使用量一致。
+
+启动修复包括：初始化启动栈并清除完整 BSS；纠正线程 tp 寄存器、上下文
+保存大小及首次切换；将当前内核的 scheduler/klibc 放入 RAM；修正 UART
+引脚复用清位并在 ROM/cache 调用前准备串口时钟和引脚；时钟切换前停用
+继承的 UART；缩短超出 RT_NAME_MAX 的互斥锁和 GPIO 线程/队列名称。
+SCons 默认目标为完整固件，并跟踪链接脚本变化，避免继续使用旧链接结果。
+
+本次实机验证覆盖默认 GPIO/UART0 配置；可选外设的边界仍见下表。
+更多下载器说明见 [工具说明](../tools/linux/README.md)。
 
 当前 `rtconfig.h` 默认仍只启用 GPIO 和 UART0。可选驱动通过 BSP 的
 `Hardware Drivers Config` 菜单配置，不能把所有选项同时开启：

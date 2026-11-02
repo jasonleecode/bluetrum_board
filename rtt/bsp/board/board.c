@@ -191,6 +191,13 @@ void rt_hw_systick_init(void)
 void rt_hw_board_init(void)
 {
     WDT_DIS();
+    /* Stop the inherited UART before set_sysclk(): its baud update waits
+     * for TX pending whenever UART is enabled. The console driver configures
+     * UART0 again after the clock is stable.
+     */
+    UART0CON = 0;
+    set_sys_uart0baud(115200);
+    CLKGAT0 |= BIT(8) | BIT(17); /* TIMER0 and GPIO */
     rt_hw_systick_init();
 
 #ifdef RT_USING_HEAP
@@ -218,8 +225,8 @@ rt_section(".irq.cache")
 void cache_init(void)
 {
     os_cache_init();
-    rt_mutex_init(&mutex_spiflash, "flash_mutex", RT_IPC_FLAG_PRIO);
-    rt_mutex_init(&mutex_cache, "cache_mutex", RT_IPC_FLAG_PRIO);
+    rt_mutex_init(&mutex_spiflash, "flash", RT_IPC_FLAG_PRIO);
+    rt_mutex_init(&mutex_cache, "cache", RT_IPC_FLAG_PRIO);
 }
 
 rt_section(".irq.cache")

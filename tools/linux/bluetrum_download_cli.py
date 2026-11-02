@@ -1,4 +1,4 @@
-"""Linux Bluetrum downloader. Hardware flashing is not yet board-validated."""
+"""Linux Bluetrum downloader for CRWN ROM 01000000."""
 
 import argparse
 from dataclasses import asdict
@@ -35,7 +35,8 @@ def main(argv=None):
         command.add_argument("--baud", type=int, default=115200, choices=(115200,),
                              help="keep original low-speed path (default: 115200)")
         command.add_argument("--no-echo", action="store_true", help="adapter does not echo transmitted bytes")
-        command.add_argument("--timeout", type=float, default=2.0, help="per-transfer timeout in seconds")
+        command.add_argument("--timeout", type=float, default=2.0,
+                             help="transfer and response-ready timeout in seconds")
         command.add_argument("--connect-timeout", type=float, default=10.0, help="boot ROM synchronization deadline")
     args = parser.parse_args(argv)
     try:
@@ -70,7 +71,9 @@ def main(argv=None):
         from bluetrum_download import Bootloader, FramedUart
         from bluetrum_serial import SerialPort
         print(f"Connecting to {args.port}; reset the board to enter its bootloader.", file=sys.stderr)
-        with SerialPort(args.port, args.baud, args.timeout) as serial:
+        # Restoring Linux's default ECHO after reboot feeds the application's
+        # console output back into this single-wire adapter, causing collisions.
+        with SerialPort(args.port, args.baud, args.timeout, restore_settings=False) as serial:
             boot = Bootloader(FramedUart(serial, echo=not args.no_echo, timeout=args.timeout))
             info = boot.connect(timeout=args.connect_timeout)
             if args.command == "probe":

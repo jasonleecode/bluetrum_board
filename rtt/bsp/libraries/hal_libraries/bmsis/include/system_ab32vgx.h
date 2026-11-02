@@ -43,5 +43,6 @@ enum {
 extern uint32_t get_sysclk_nhz(void);
 extern void system_init(void);
 extern void set_sysclk(uint32_t sys_clk);
+extern void set_sys_uart0baud(uint32_t baud);
 
 #endif

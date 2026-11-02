@@ -15,6 +15,54 @@
 
 ## 编译
 
+### 已上板验证的 LED 心跳与串口通信
+
+在仓库根目录执行：
+
+```sh
+make -C bare heartbeat
+tools/linux/downloader flash bare/build/heartbeat.dcf --port /dev/ttyUSB0 --connect-timeout 90 --timeout 5
+```
+
+`app/heartbeat.c` 使用 `drv_led` 控制 **PE1 红灯**，低电平点亮，约亮 500 ms、灭 500 ms。V2 板需要短接 P1 的 3–4 脚（LED-R ↔ PE1）；V1 为 J8。2026-11-02 已完成 CRWN/1 MiB Flash 实机擦写及 CRC 校验，用户观察确认红灯闪烁。
+
+心跳程序有独立的 `board/heartbeat_start.S` 和 `board/heartbeat.ld`：保留厂商 header 的下载入口，在映射地址 `0x10000000` 执行短入口，通过厂商 ROM memcpy 把程序装入 SRAM `0x20000`，使用 `0x30000` 栈顶。主循环在 RAM 中轮询 Timer0 和 UART0，使用板载 26 MHz 晶振作为系统时钟，无操作系统或中断调度依赖；LED 闪烁期间也持续接收命令。看门狗约 2 秒，由主循环喂狗。
+
+**通信复用烧录的 Type-C / CH340 / `/dev/ttyUSB0` 接口，无需另接串口线。** UART0 单线 PA7 使用 **115200 8N1、无流控**。上电默认红灯闪烁，收到命令才回复，不自动打印日志。接收中保留下载器复位序列；新版固件已实测可由下载器自动复位进入 ROM。
+
+电脑端仅依赖 Python 标准库，从仓库根目录执行：
+
+```sh
+# 单条命令
+python3 tools/linux/console.py --port /dev/ttyUSB0 ping
+python3 tools/linux/console.py --port /dev/ttyUSB0 status
+python3 tools/linux/console.py --port /dev/ttyUSB0 "echo hello board"
+
+# 交互模式，输入 quit 退出
+python3 tools/linux/console.py --port /dev/ttyUSB0
+```
+
+| 命令 | 行为 / 回复示例 |
+| --- | --- |
+| `ping` | `OK pong` |
+| `status` | `OK mode=blink led=on uptime_ms=12345` |
+| `echo hello` | `OK hello` |
+| `led on` | 红灯常亮，`OK led on` |
+| `led off` | 红灯熄灭，`OK led off` |
+| `led blink` | 恢复 500 ms 亮/灭心跳，`OK led blink` |
+| `help` | 返回支持的命令列表 |
+| `reboot` | 回复 `OK reboot` 后复位，重新进入默认闪灯模式 |
+
+协议为可打印 ASCII 文本，每条命令最多 **95 字节**，以 CR 或 LF 结束；CRLF 也可用。正常回复以 `OK ` 开头，错误以 `ERR ` 开头，均以 CRLF 结束。超长行整行丢弃，直到换行返回错误，下一条命令可正常处理；不支持多条命令同时发送。
+
+该板的 CH340 TX/RX 有硬件回显，且与芯片共用一根线。主机应先发完命令、再等完整回复，`console.py` 会逐字节消费硬件回显并区分真正的板端回复。固件在回复前等待 1 ms，发送期间关闭自身接收，避免自己的输出进入命令解析。使用其他串口工具时，关闭软件回显/流控；烧录前退出通信工具，避免抢占同一端口。下载器和本工具关闭时均保持主机 raw、无软件回显模式。
+
+2026-11-02 串口实测通过 115 项检查：包括 100 次连续文本往返、90 字节文本回传（95 字节命令）、超长行拒绝后的恢复、LED 模式与状态查询、闪烁状态切换及重启后的通信。最终固件烧录及 CRC 校验通过，设备恢复默认闪灯模式。电脑端和实际 C 命令解析器的回归测试包含在 `make -C tools/linux check` 中。
+
+本目标不依赖 FM、蓝牙或闭源 HAL。其余外设示例仍使用原有实验性 `startup.S` / `link.ld`，不能据此认为它们也已完成板级启动移植。
+
+### 其他外设示例
+
 优先使用仓库 `.toolchains/riscv64-unknown-elf-gcc-10.1.0-2020.08.2-x86_64-linux-ubuntu14/` 下的 SiFive GCC 10.1.0；没有该目录时使用 PATH 中的 `riscv64-unknown-elf-`。如需使用其他工具链，可以通过 `CROSS_COMPILE` 覆盖：
 
 ```sh
@@ -146,7 +194,7 @@ tools/linux/convert tools/header.bin bare/build/main.bin /tmp/main.dcf
 python3 tools/linux/bluetrum_cli.py inspect /tmp/main.dcf
 ```
 
-默认打包路径已通过原版机器码输出对照。Linux 串口下载命令也已实现，但尚未上板验证；使用范围和接线适配选项见 [Linux 工具说明](../tools/linux/README.md)：
+默认打包路径已通过原版机器码输出对照。Linux 串口下载已通过 CRWN 实机擦写和校验；上面说明的心跳目标已确认运行，其他外设示例仍需各自验证。使用范围和接线适配选项见 [Linux 工具说明](../tools/linux/README.md)：
 
 ```sh
 tools/linux/downloader flash /tmp/main.dcf --dry-run
