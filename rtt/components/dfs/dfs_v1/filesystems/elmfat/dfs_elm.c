@@ -22,6 +22,7 @@
 #include "ff.h"
 #include <string.h>
 #include <sys/time.h>
+#include <time.h>
 
 /* ELM FatFs provide a DIR struct */
 #define HAVE_DIR_STRUCTURE
@@ -904,7 +905,8 @@ DSTATUS disk_status(BYTE drv)
 DRESULT disk_read(BYTE drv, BYTE *buff, DWORD sector, UINT count)
 {
     rt_size_t result;
-    rt_device_t device = disk[drv];
+    rt_device_t device;
+    if (drv >= FF_VOLUMES || !(device = disk[drv])) return RES_NOTRDY;
 
     result = rt_device_read(device, sector, buff, count);
     if (result == count)
@@ -919,7 +921,8 @@ DRESULT disk_read(BYTE drv, BYTE *buff, DWORD sector, UINT count)
 DRESULT disk_write(BYTE drv, const BYTE *buff, DWORD sector, UINT count)
 {
     rt_size_t result;
-    rt_device_t device = disk[drv];
+    rt_device_t device;
+    if (drv >= FF_VOLUMES || !(device = disk[drv])) return RES_NOTRDY;
 
     result = rt_device_write(device, sector, buff, count);
     if (result == count)
@@ -933,49 +936,30 @@ DRESULT disk_write(BYTE drv, const BYTE *buff, DWORD sector, UINT count)
 /* Miscellaneous Functions */
 DRESULT disk_ioctl(BYTE drv, BYTE ctrl, void *buff)
 {
-    rt_device_t device = disk[drv];
-
-    if (device == RT_NULL)
+    rt_device_t device;
+    struct rt_device_blk_geometry geometry;
+    if (drv >= FF_VOLUMES || !(device = disk[drv])) return RES_NOTRDY;
+    if (ctrl == CTRL_SYNC)
+        return rt_device_control(device, RT_DEVICE_CTRL_BLK_SYNC, RT_NULL) == RT_EOK
+            ? RES_OK : RES_ERROR;
+    if (ctrl == CTRL_TRIM)
+        return rt_device_control(device, RT_DEVICE_CTRL_BLK_ERASE, buff) == RT_EOK
+            ? RES_OK : RES_ERROR;
+    if (!buff || (ctrl != GET_SECTOR_COUNT && ctrl != GET_SECTOR_SIZE && ctrl != GET_BLOCK_SIZE))
+        return RES_PARERR;
+    rt_memset(&geometry, 0, sizeof(geometry));
+    if (rt_device_control(device, RT_DEVICE_CTRL_BLK_GETGEOME, &geometry) != RT_EOK ||
+        !geometry.sector_count || !geometry.bytes_per_sector)
         return RES_ERROR;
-
     if (ctrl == GET_SECTOR_COUNT)
     {
-        struct rt_device_blk_geometry geometry;
-
-        rt_memset(&geometry, 0, sizeof(geometry));
-        rt_device_control(device, RT_DEVICE_CTRL_BLK_GETGEOME, &geometry);
-
-        *(DWORD *)buff = geometry.sector_count;
-        if (geometry.sector_count == 0)
-            return RES_ERROR;
+        if (geometry.sector_count > 0xffffffffu) return RES_PARERR;
+        *(DWORD *)buff = (DWORD)geometry.sector_count;
     }
     else if (ctrl == GET_SECTOR_SIZE)
-    {
-        struct rt_device_blk_geometry geometry;
-
-        rt_memset(&geometry, 0, sizeof(geometry));
-        rt_device_control(device, RT_DEVICE_CTRL_BLK_GETGEOME, &geometry);
-
-        *(WORD *)buff = (WORD)(geometry.bytes_per_sector);
-    }
-    else if (ctrl == GET_BLOCK_SIZE) /* Get erase block size in unit of sectors (DWORD) */
-    {
-        struct rt_device_blk_geometry geometry;
-
-        rt_memset(&geometry, 0, sizeof(geometry));
-        rt_device_control(device, RT_DEVICE_CTRL_BLK_GETGEOME, &geometry);
-
+        *(WORD *)buff = (WORD)geometry.bytes_per_sector;
+    else
         *(DWORD *)buff = geometry.block_size / geometry.bytes_per_sector;
-    }
-    else if (ctrl == CTRL_SYNC)
-    {
-        rt_device_control(device, RT_DEVICE_CTRL_BLK_SYNC, RT_NULL);
-    }
-    else if (ctrl == CTRL_TRIM)
-    {
-        rt_device_control(device, RT_DEVICE_CTRL_BLK_ERASE, buff);
-    }
-
     return RES_OK;
 }
 
@@ -986,7 +970,10 @@ DWORD get_fattime(void)
     struct tm tm_now;
 
     now = time(RT_NULL);
-    gmtime_r(&now, &tm_now);
+    /* No configured RTC is common on small boards. Use a valid FAT epoch
+     * instead of allowing a pre-1980 year to wrap into the FAT bitfield. */
+    if (!gmtime_r(&now, &tm_now) || tm_now.tm_year < 80 || tm_now.tm_year > 207)
+        return (DWORD)(2020 - 1980) << 25 | (DWORD)1 << 21 | (DWORD)1 << 16;
 
     fat_time = (DWORD)(tm_now.tm_year - 80) << 25 |
                (DWORD)(tm_now.tm_mon + 1)   << 21 |

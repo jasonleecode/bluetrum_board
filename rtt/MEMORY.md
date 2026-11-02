@@ -1,7 +1,7 @@
 # 综合 RTT 内存记录（2026-11-02）
 
-当前默认配置已加入实验性 USB CDC。下文保留各阶段的历史验证数据；
-最新链接用量见“USB CDC 软件适配后”，该版本尚无运行时内存实测。
+当前默认配置已加入实验性 USB CDC 和 TF/FAT。下文保留各阶段的历史验证数据；
+最新链接用量见“TF/FAT 软件适配后”，该版本尚无运行时内存实测。
 
 ## 接入前内存优化
 
@@ -154,3 +154,34 @@ USB 代码及 CherryUSB 核心/CDC 放 Flash，由单个线程轮询，USB CPU �
 尤其先前保留完整 PCM 池的 NimBLE 状态只余 2864 字节，不能假定再启动 USB 仍有足够余量。
 原控制器固定内存与栈未缩减，第二 SRAM 仍只余 24 字节。
 见 [USB 软件适配](USB.md) 和 [离线结果](../docs/lib-analysis/generated/recovery/usb-rtt-software.json)。
+
+## TF/FAT 软件适配后
+
+在同一综合固件中加入原生 SD0 块设备和 DFS v1/FatFs，默认只注册 `tf0`，
+不分配 MMC/SDIO 后台线程。挂载和文件对象按需分配，当前没有 TF 卡，未烧录。
+
+| 段 | 字节 |
+| --- | ---: |
+| `.comm` | 75200 |
+| `.ram1` | 31200 / 31232 |
+| `.bss` | 13088 |
+| `.bram` | 6540 / 10240 |
+| `.heap` | 24352 |
+| `.stack` | 4096 |
+| `.flash` | 97792 |
+
+相对首次 USB 软件适配，原始堆减少 3968 字节。新 SD0/TF/DFS/FatFs 代码全部在线程执行，
+放入 Flash；FinSH 文件处理新引用的 `strstr` 也放 Flash（新增 IRQ 使用者必须重新审核）。
+增加文件系统所需内核路径使 SRAM1 首次链接超出 384 字节，因此把内核 `irq.o` 和
+`components.o` 移回主 SRAM，所有中断和临界区仍在 SRAM。SRAM1 现只余 32 字节。
+DMA staging 固定 512 字节、32 字节对齐，在主 SRAM；脚本验证其位置和大小边界。
+
+带 TF 的原始堆下限设为 23 KiB；其他配置保留 USB 27 KiB、NimBLE 28 KiB、控制器 39 KiB。
+这是新增功能后的最低链接预算，并非运行时空闲量。DFS 初始化、挂载、文件对象会占堆，
+USB 另需线程栈，PCM 的 8496 字节懒分配仍保留；不能保证这些模块同时启动仍有足够堆。
+后续实板应逐项记录 `free`/`ps`，尤其验证 TF + BLE + USB，不沿用旧固件的空闲值。
+固定控制器区、IRQ 栈、已有线程栈均未缩减。
+
+默认、TF 综合、USB、NimBLE、旧 SDIO 配置编译通过；TF 适配/FAT 模拟卡、原 SD0 模型、
+八组驱动和 USB 离线回归通过。详见 [TF.md](TF.md) 和
+[软件验证记录](../docs/lib-analysis/generated/recovery/tf-rtt-software.json)。

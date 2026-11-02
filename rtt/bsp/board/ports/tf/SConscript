@@ -1,0 +1,7 @@
+from building import *
+cwd = GetCurrentDir()
+bare = os.path.abspath(os.path.join(cwd, '../../../../../bare/drivers'))
+group = DefineGroup('AB32-TF', Glob('*.c') + [os.path.join(bare, 'src/drv_sdcard.c')],
+    depend=['BSP_USING_TFCARD'], LOCAL_CPPPATH=[os.path.join(bare, 'inc')],
+    LOCAL_CCFLAGS=' -fdata-sections')
+Return('group')

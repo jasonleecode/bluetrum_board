@@ -135,6 +135,21 @@
 
 /* DFS: device virtual file system */
 
+#define RT_USING_DFS
+#define RT_USING_DFS_V1
+#define DFS_USING_POSIX
+#define DFS_USING_WORKDIR
+#define DFS_FD_MAX 4
+#define DFS_FILESYSTEMS_MAX 1
+#define DFS_FILESYSTEM_TYPES_MAX 1
+#define RT_USING_DFS_ELMFAT
+#define RT_DFS_ELM_CODE_PAGE 437
+#define RT_DFS_ELM_USE_LFN_0
+#define RT_DFS_ELM_USE_LFN 0
+#define RT_DFS_ELM_DRIVES 1
+#define RT_DFS_ELM_MAX_SECTOR_SIZE 512
+#define RT_DFS_ELM_REENTRANT
+#define RT_DFS_ELM_MUTEX_TIMEOUT 3000
 /* end of DFS: device virtual file system */
 
 /* Device Drivers */
@@ -419,5 +434,8 @@
 
 /* Native USB: explicit usbcdc start; physical enumeration pending. */
 #define BSP_USING_USB_CDC
+
+/* Native SD0: explicit tf probe/mount; physical card testing pending. */
+#define BSP_USING_TFCARD
 
 #endif

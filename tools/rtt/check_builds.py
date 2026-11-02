@@ -51,6 +51,10 @@ PROFILES['bluetooth'] = dict(PROFILES['audio'], BSP_USING_FMRX=1, BSP_USING_BTCT
     RT_AUDIO_USING_LAZY_INIT=1)
 PROFILES['nimble'] = dict(PROFILES['bluetooth'], BSP_USING_NIMBLE=1)
 PROFILES['usb'] = dict(PROFILES['nimble'], BSP_USING_USB_CDC=1)
+PROFILES['tf'] = dict(PROFILES['usb'], BSP_USING_TFCARD=1,
+    **{k: v for k, v in PROFILES['sd'].items() if k.startswith(('DFS_', 'RT_USING_DFS', 'RT_DFS_'))})
+PROFILES['tf'].update(DFS_FD_MAX=4, DFS_FILESYSTEMS_MAX=1,
+    DFS_FILESYSTEM_TYPES_MAX=1, RT_DFS_ELM_DRIVES=1)
 
 def base_config(config):
     """Keep optional profiles independent of enabled workspace peripherals."""
@@ -95,6 +99,10 @@ def main():
             print('\n'.join(log.read_text().splitlines()[-22:]), flush=True)
         else:
             linkmap = (work / 'rtt/bsp/rtthread.map').read_text()
+            if PROFILES[name].get('BSP_USING_TFCARD') or (name == 'default' and
+                    re.search(r'^#define\s+BSP_USING_TFCARD\b', config, re.M)):
+                assert 'drv_sdcard.o' in linkmap and 'drv_tf.o' in linkmap
+                assert 'drv_sdio.o' not in linkmap, 'both SD0 owners linked'
             if PROFILES[name].get('BSP_USING_FMRX'):
                 for member in ('fmrx.o', 'fmrx_ang.o'):
                     assert f'libhal.a({member})' not in linkmap, 'FM vendor object linked'

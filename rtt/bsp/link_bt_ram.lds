@@ -19,7 +19,6 @@ SECTIONS
     {
         __ram1_vma = .;
         *src*ipc.o (.text* .rodata*)
-        *src*irq.o (.text* .rodata*)
         *src*object.o (.text* .rodata*)
         *src*thread.o (.text* .rodata*)
         *src*timer.o (.text* .rodata*)
@@ -30,7 +29,6 @@ SECTIONS
         *src*klibc*.o (.text* .rodata*)
         *src*device.o (.text* .rodata*)
         *src*idle.o (.text* .rodata*)
-        *src*components.o (.text* .rodata*)
         *bt_hct*_recovered.o (.text* .rodata*)
         . = ALIGN(4);
     } > ram1 AT > flash
@@ -59,6 +57,12 @@ SECTIONS
         *app_usb_cdc.o (.text* .rodata* .srodata*)
         *usbd_core.o (.text* .rodata* .srodata*)
         *usbd_cdc_acm.o (.text* .rodata* .srodata*)
+        /* TF is synchronous thread-only I/O, with polling that yields. */
+        *drv_tf.o (.text* .rodata* .srodata*)
+        *drv_sdcard.o (.text* .rodata* .srodata*)
+        *components*dfs*.o (.text* .rodata* .srodata*)
+        /* Linked only by FinSH file/script handling in this configuration. */
+        *lib_a-strstr.o (.text* .rodata* .srodata*)
         . = ALIGN(512);
     } > flash
     __bank_size = SIZEOF(.flash);
@@ -123,6 +127,6 @@ SECTIONS
     __irq_stack_size = SIZEOF(.stack);
     ASSERT(bb_get_without_vehicle == 0x11000, "BT fixed RAM base is incorrect")
     ASSERT(__bt_end <= 0x13800, "BT controller RAM exceeds reservation")
-    ASSERT(__heap_end - __heap_start >= (DEFINED(ab32_usb_poll) ? 27K : (DEFINED(ble_hs_init) ? 28K : 39K)), "Unified image heap below budget")
+    ASSERT(__heap_end - __heap_start >= (DEFINED(drv_sdcard_init) ? 23K : (DEFINED(ab32_usb_poll) ? 27K : (DEFINED(ble_hs_init) ? 28K : 39K))), "Unified image heap below budget")
     /DISCARD/ : { *(.comment .eh_frame*) }
 }

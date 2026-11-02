@@ -1,0 +1,185 @@
+{
+  "kind": "TF module in unified RTT: software-only integration",
+  "date": "2026-11-02",
+  "hardware_verified": false,
+  "flashed": false,
+  "base_commit": "a2f1464d56d14d5523a006ced99def70c2b3c9c0",
+  "source_state": "working tree additions on top of base_commit",
+  "tests": {
+    "native_sd0": {
+      "scenarios": 34,
+      "assertions": 1217,
+      "result": "PASS"
+    },
+    "tf_fatfs": "PASS: native block adapter and actual DFS disk glue/FatFs; RAM-only FAT12 superfloppy, FAT16/FAT32 partitioned media; format/write/sync/remount/read/date and error propagation; UBSan",
+    "driver_regressions": "PASS: 8 existing groups",
+    "usb_regression": "PASS: actual core/CDC and modeled DCD, ASan/UBSan; run outside ptrace sandbox for LeakSanitizer",
+    "builds": {
+      "default": "PASS",
+      "tf": "PASS",
+      "usb": "PASS",
+      "nimble": "PASS",
+      "sd": "PASS"
+    },
+    "packaging": "PASS: Linux convert generated rtthread.dcf"
+  },
+  "limits": [
+    "No TF card available; no serial access, firmware download or real media writes",
+    "Physical pin mux, SD clocks, DMA completion, CRC status and card persistence remain unverified",
+    "No hotplug detection/automount, exFAT, long filenames, multi-block SD commands or USB MSC",
+    "Linked RAM budget is not runtime free heap; BLE/USB/TF/PCM combinations require hardware measurements"
+  ],
+  "memory": {
+    "sections": {
+      ".init": {
+        "bytes": 326,
+        "vma": 268435456,
+        "lma": 268435456
+      },
+      ".ram1": {
+        "bytes": 31200,
+        "vma": 327680,
+        "lma": 268435968
+      },
+      ".flash": {
+        "bytes": 97792,
+        "vma": 268467200,
+        "lma": 268467200
+      },
+      ".comm": {
+        "bytes": 75200,
+        "vma": 79872,
+        "lma": 268564992
+      },
+      ".bram": {
+        "bytes": 6540,
+        "vma": 69632,
+        "lma": 69632
+      },
+      ".bss": {
+        "bytes": 13088,
+        "vma": 155072,
+        "lma": 155072
+      },
+      ".heap": {
+        "bytes": 24352,
+        "vma": 168160,
+        "lma": 168160
+      },
+      ".stack": {
+        "bytes": 4096,
+        "vma": 192512,
+        "lma": 192512
+      },
+      ".riscv.attributes": {
+        "bytes": 42,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_info": {
+        "bytes": 664,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_abbrev": {
+        "bytes": 382,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_loc": {
+        "bytes": 310,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_aranges": {
+        "bytes": 64,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_line": {
+        "bytes": 556,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_str": {
+        "bytes": 640,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_frame": {
+        "bytes": 64,
+        "vma": 0,
+        "lma": 0
+      }
+    },
+    "placement_checks": {
+      "finsh_thread_entry": "0x1000b25c",
+      "_audio_dev_init": "0x1000b986",
+      "pcmcheck": "0x1000c638",
+      "ble_hs_init": "0x10012308",
+      "ble_gatts_init": "0x10011e1e",
+      "ble_gap_adv_start": "0x1000f0d6",
+      "ab32_usb_poll": "0x10016d7c",
+      "usbd_initialize": "0x1001897c",
+      "usb_worker": "0x10017456",
+      "drv_sdcard_init": "0x10019466",
+      "tf_read": "0x1001910c",
+      "f_read": "0x1001bac6",
+      "dfs_mount": "0x1001e8c4",
+      "strstr": "0x1001f67c",
+      "rt_schedule": "0x53e12",
+      "rt_sem_release": "0x51428",
+      "rt_hw_context_switch": "0x17092",
+      "os_cache_init": "0x15152",
+      "load_cache": "0x15212",
+      "__wrap_bthw_isr_do": "0x1f706",
+      "bb_run_loop": "0x140cc",
+      "hci_host_recv_packet": "0x1f7c4",
+      "audio_isr": "0x13ce4",
+      "uart_isr": "0x13da8",
+      "ble_npl_hw_enter_critical": "0x1fab8",
+      "ble_npl_hw_exit_critical": "0x1fad2",
+      "ble_npl_eventq_put": "0x1fb2e",
+      "ble_mqueue_get": "0x1e3fa",
+      "ble_mqueue_put": "0x1e41e",
+      "os_memblock_get": "0x1ed6e",
+      "os_memblock_put": "0x1edd0",
+      "alloc_acl": "0x14e2c",
+      "free_acl": "0x14e6e"
+    },
+    "nimble_enabled": true,
+    "usb_enabled": true,
+    "tf_enabled": true,
+    "heap_region_bytes": 24352,
+    "note": "Heap region includes allocator metadata; use board free for runtime availability."
+  },
+  "sha256": {
+    "rtt/bsp/board/ports/tf/drv_tf.c": "31591848a102b82f5c2b0240d4c559ff96395b99324b49ed2d0ca8d5c8c01d02",
+    "rtt/bsp/board/ports/tf/SConscript": "271dd6acada04e183f6923ef9d1678ab06618f1c2fc88f8cc7c88df9bc8cea55",
+    "bare/drivers/src/drv_sdcard.c": "0404111faf064c7c2dd4dd80deceea99fd43dcfd7180168d36a6fe63a9ae63ff",
+    "bare/drivers/inc/drv_sdcard.h": "290028ea40ef144820d292befa5d6c643f45b460e8f19204c61e331919d07644",
+    "rtt/components/dfs/dfs_v1/filesystems/elmfat/dfs_elm.c": "27e20ad2d7703abe2139da86e24da0195500d6fa0103e19fb523ee3454f7b936",
+    "rtt/bsp/rtconfig.h": "84ad780db5d98bf464c629b9556ff839bc8563f86b9bc8cae1c75ffe60236f47",
+    "rtt/bsp/link_bt_ram.lds": "bd9d2eac387464512e2201e673b4938ea4851cee7d08cd8fda4ec6081dc30370",
+    "rtt/bsp/board/Kconfig": "ef6b068ce9fae9ae6a062b4ebec021609539d447f533e118d847475f444dc800",
+    "rtt/bsp/board/SConscript": "f95a840359f8610cc912f0b405ba253adbdd8586c9633647d7a0ab2ec3a9eff7",
+    "tools/rtt/test_tf.py": "a165adf096dadbca5cec5fc6e0b3d0350faa728936f103620a11dc7927364bba",
+    "tools/rtt/tests/tf.c": "ceb95eb69881714944d70fcbee2ed450eed7c2c6bb4ec5033b69a1281bdcee86",
+    "tools/rtt/check_builds.py": "74fc785e582f02b9d31f1e44a5bade4210838d3fd9c0be2af6b97e69d5fb4d87",
+    "tools/rtt/memory_report.py": "e01137ce18eb7602f4020dc693a8c27769b4f2e51974528f66aebb112de2cd83"
+  },
+  "build_outputs": {
+    "rtt/bsp/rtthread.elf": {
+      "bytes": 304192,
+      "sha256": "14733e3cfbfcd8852b84b73e2f7c26dc124654524918f83631ab651a5c236eaf"
+    },
+    "rtt/bsp/rtthread.bin": {
+      "bytes": 204736,
+      "sha256": "b275cc2b5ff198f70791720992ebb443d746057a3f916bae513be93c351ce2bc"
+    },
+    "rtt/bsp/rtthread.dcf": {
+      "bytes": 214104,
+      "sha256": "57f03400f6d30140949e5cf0d83010555cac2247f12bb6b616d2b24a07f6dbf2"
+    }
+  }
+}

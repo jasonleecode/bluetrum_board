@@ -25,11 +25,16 @@ def inspect(elf):
     checks = {}
     nimble = 'ble_hs_init' in symbols
     usb = 'ab32_usb_poll' in symbols
+    tf = 'drv_sdcard_init' in symbols
     flash_functions = ['finsh_thread_entry', '_audio_dev_init', 'pcmcheck']
     if nimble:
         flash_functions += ['ble_hs_init', 'ble_gatts_init', 'ble_gap_adv_start']
     if usb:
         flash_functions += ['ab32_usb_poll', 'usbd_initialize', 'usb_worker']
+    if tf:
+        flash_functions += ['drv_sdcard_init', 'tf_read', 'f_read', 'dfs_mount', 'strstr']
+        assert 0x13800 <= symbols['staging'] <= 0x2f000 - 512
+        assert symbols['staging'] % 32 == 0
     for name in flash_functions:
         addr = symbols[name]
         assert 0x10000200 <= addr < 0x10100000, f'{name} is not in flash'
@@ -47,12 +52,12 @@ def inspect(elf):
         checks[name] = hex(addr)
     assert symbols['bb_get_without_vehicle'] == 0x11000
     assert sections['.bram']['bytes'] <= 10 * 1024
-    assert sections['.heap']['bytes'] >= (27 if usb else 28 if nimble else 39) * 1024
+    assert sections['.heap']['bytes'] >= (23 if tf else 27 if usb else 28 if nimble else 39) * 1024
     assert sections['.ram1']['bytes'] <= 0x7a00
     assert symbols['__bank_size'] == sections['.flash']['bytes']
     assert sections['.flash']['vma'] % 512 == 0
     assert sections['.comm']['vma'] % 512 == 0
-    return dict(sections=sections, placement_checks=checks, nimble_enabled=nimble, usb_enabled=usb,
+    return dict(sections=sections, placement_checks=checks, nimble_enabled=nimble, usb_enabled=usb, tf_enabled=tf,
                 heap_region_bytes=sections['.heap']['bytes'],
                 note='Heap region includes allocator metadata; use board free for runtime availability.')
 

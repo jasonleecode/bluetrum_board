@@ -49,6 +49,20 @@ menu "Onboard Peripheral Drivers"
             Uses the SRAM linker layout. Requires CTIA earphones as antenna;
             broadcast reception remains unverified on the current board.
 
+    config BSP_USING_TFCARD
+        bool "Native TF card block device (experimental)"
+        depends on !BSP_USING_SDIO && !BSP_USING_SDCARD && !BSP_USING_T3_PWM0
+        depends on !BSP_USING_SPI1 || BSP_SPI1_MAPPING != 3
+        depends on !RT_USING_DFS_V2
+        select RT_USING_DEVICE_OPS
+        select RT_USING_DFS
+        select RT_USING_DFS_ELMFAT
+        default n
+        help
+            Reuses the native SD0 1-bit source driver on PB0/PB1/PB2.
+            tf probe and tf mount are explicit; no worker, hotplug or autoformat.
+            FAT12/16/32 read/write; physical card validation remains pending.
+
     config BSP_USING_SDCARD
         bool "Enable SDCARD"
         select BSP_USING_SDIO

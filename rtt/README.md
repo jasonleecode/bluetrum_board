@@ -6,6 +6,7 @@
 同一 RT-Thread 工程和固件。共享资源由项目统一管理，并分别验证模块功能及共存行为。
 当前已接入 GPIO、UART0、DAC 音频、FM 和恢复源码的蓝牙控制器（见 [恢复记录](../docs/lib-analysis/BLUETOOTH_RECOVERY.md)）。综合 RTT 不链接 `libbtctrl.a`。NimBLE Host 已通过 `rtt/nimble` 子模块接入，BLE 连接、ACL 分片、GATT 读写和通知已在实板验证；构建、命令与使用边界见 [NimBLE 接入说明](NIMBLE.md)。
 原生 USB CDC 已完成软件适配、离线测试和编译，实机枚举及收发待独立数据线就绪后验证；见 [USB 接入说明](USB.md)。
+TF 的原生 SD0、块设备 tf0 和 FAT12/16/32 已完成软件集成及离线测试，实卡验证待卡到位后进行；见 [TF 接入说明](TF.md)。
 
 主要内容如下：
 
@@ -87,7 +88,7 @@ msh >
 ```
 ### 进阶使用
 
-当前配置开启了 GPIO、串口0、DAC 音频、FM、恢复源码的蓝牙控制器、NimBLE Host 和实验性 USB CDC，如果需使用 SD 卡、Flash 等更多高级功能，需要利用 ENV 工具对BSP 进行配置，步骤如下：
+当前配置开启了 GPIO、串口0、DAC 音频、FM、恢复源码的蓝牙控制器、NimBLE Host、实验性 USB CDC 和 TF/FAT，如果需使用 Flash 等更多高级功能，需要利用 ENV 工具对BSP 进行配置，步骤如下：
 
 1. 在 bsp 下打开 env 工具。
 
@@ -154,7 +155,8 @@ TIMER3/4/5 与对应 PWM 共用计数器，TIMER3 与红外共用中断；SPI �
 | TIMER / `BSP_USING_TIM` | 区分 TIMER1/2 bit9 与 TIMER3/4/5 bit16 的溢出/清除位；共享 IRQ 只处理真实 pending；支持单次模式，检查计数溢出，开启时钟，并将 IRQ 调用的停止操作及函数表放入 RAM |
 | RTC / `BSP_USING_ONCHIP_RTC` | 修复时钟选择赋值及 `time_t` 回调，拒绝负值和超过 32 位计数范围的时间；未完成的闹钟/秒中断不再作为可用操作暴露 |
 | WDT / `BSP_USING_WDT` | SET/GET_TIMEOUT 使用 RT-Thread 的秒单位，输入 1..16 秒向上选择 1/2/4/8/16 档，实际硬件约为 1.024/2.048/4.096/8.192/16.384 秒；支持停止，拒绝空参数。旧 `AB32_WDT_TIMEOUT_*` 是寄存器编码，不能作为秒值传入 |
-| SD / `BSP_USING_SDCARD` | 原生 SD0 一位总线；修复命令/数据事件等待、CRC/超时传递、时钟分频、缓存边界、写入长度和 host 初始化竞态；单请求上限 1024 字节（两个 512 字节块），已编译 SD＋FAT 配置 |
+| TF / `BSP_USING_TFCARD` | 当前默认：复用原生 SD0，静态 DMA 中转区、串行块 I/O、显式探测和 FAT 挂载；无卡启动不探测，离线测试通过，实卡待验证，见 [TF.md](TF.md) |
+| 旧 SD / `BSP_USING_SDCARD` | 原生 SD0 一位总线；修复命令/数据事件等待、CRC/超时传递、时钟分频、缓存边界、写入长度和 host 初始化竞态；单请求上限 1024 字节（两个 512 字节块），已编译 SD＋FAT 配置 |
 | 音频播放 / `BSP_USING_AUDIO` | 修正 48 kHz PLL，接受 44.1/48 kHz、16 位、单/双声道配置；拒绝未支持格式与录音，修正错误返回、分配失败清理、空 replay 访问及停止 DAC；缓冲区等待有超时。DAC 测试音与 `pcmcheck` 静音播放已实测，完整音频播放场景及录音未验证；I2S 可选输出另见下项 |
 | FM / `BSP_USING_FMRX` | 直接编译 bare 已恢复的模拟/数字代码；`fm0` 和 `fmrx` 命令接入手动调谐、音量、DAC 播放、周期同步、停止、PLL 超时及音频互斥；控制与 DAC 测试音已实测，广播仍只有杂音，搜台/RDS 未完成 |
 | I2S / `BSP_USING_I2S` | 新增同系列硬件 SRC 输出子集，接 `sound0`；主机、标准 I2S、16 位双声道、MCLK=256fs、44.1/48 kHz；未接收/DMA，兼容性仍需上板验证 |
@@ -350,8 +352,20 @@ PCM 缓冲池首次初始化后保留供复用，复位后重新按需分配。
 旧手册对应 J15/J16；仅连接烧录 Type-C 无法验证该接口。
 **目前没有合适的数据线，未烧录 USB 版本、未枚举、未实机收发。**
 软件已通过包含真实协议栈的离线测试和综合构建，接线与后续测试步骤见 [USB.md](USB.md)。
-新增 USB 后原始堆区为 28320 字节，运行时 `free` 和与蓝牙/PCM 的组合需重新实测；
-前面的 NimBLE 硬件内存数据属于接入 USB 前的版本。
+USB 初次接入时原始堆区为 28320 字节；当前再加入 TF/FAT 后为 24352 字节，
+运行时 `free` 和各模块组合需重新实测。前面的 NimBLE 硬件内存数据属于接入 USB 前的版本。
+
+### TF/FAT 软件适配（2026-11-02）
+
+当前默认 `BSP_USING_TFCARD` 使用原生 SD0 源码、静态 DMA 缓冲和互斥块 I/O，
+注册 `tf0`，并接入 DFS v1/FatFs。上电不自动探测，没有 SD 后台线程。
+`tf probe` 成功后 `tf mount` 将已有 FAT12/16/32 卷挂到 `/`；
+关闭文件后 `tf umount`、`tf stop`，不自动格式化。
+
+TF/FAT + USB + NimBLE + FM 综合工程已编译并生成 DCF，原始堆为 24352 字节，
+SRAM1 余 32 字节。FAT 内存模拟卡读写、原生 SD0 模型和回归测试通过。
+目前没有 TF 卡，未烧录此版本，实卡及运行时内存仍待验证；
+支持范围、接线和下一步测试见 [TF.md](TF.md)，完整预算见 [MEMORY.md](MEMORY.md)。
 
 ### 离线验证
 
@@ -360,8 +374,10 @@ PCM 缓冲池首次初始化后保留供复用，复位后重新按需分配。
 ```sh
 python3 tools/rtt/test_drivers.py
 python3 tools/rtt/test_usb.py
-python3 tools/rtt/check_builds.py usb nimble bluetooth audio
-# 更多外设配置：default peripherals pwm ir sd flash spi_fm spi_fm_i2s i2s_pa
+python3 tools/rtt/test_tf.py
+python3 tools/rtt/check_builds.py tf usb nimble bluetooth audio sd
+python3 tools/rtt/memory_report.py
+# 更多外设配置：default peripherals pwm ir flash spi_fm spi_fm_i2s i2s_pa
 ```
 
 `test_drivers.py` 用真实 RT-Thread 头文件与模拟寄存器运行 BSP 回调，覆盖 SPI 超时/tick 回绕/片选、
@@ -373,6 +389,9 @@ Flash 分页/返回值，以及 SD 命令和数据完成事件、超时/CRC/缓�
 
 `test_usb.py` 以模拟寄存器/DMA 驱动真实 CherryUSB 核心、CDC 和 AB32 适配代码，
 覆盖控制传输、地址/配置、回传/背压、STALL、越界和复位，并启用地址/未定义行为检查。
+
+`test_tf.py` 使用真实 TF 适配层、DFS disk glue 和 FatFs，在内存模拟卡上验证 FAT12/16/32
+读写、同步、重挂、日期及错误传播，并重跑 SD0 的 34 个场景、1217 个断言；不访问真实存储卡。
 
 `check_builds.py` 在 `/tmp/ab32-rtt-build-*` 的独立源码副本中执行指定配置的 GCC 完整构建，
 保留各配置 ELF、map 和日志，并检查 FM 未链接回原库 FM 对象，不修改工作目录的 `rtconfig.h`，也不烧写设备。
