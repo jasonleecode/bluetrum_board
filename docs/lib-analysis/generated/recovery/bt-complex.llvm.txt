@@ -1,0 +1,82 @@
+
+libbtctrl.a:complex.o:	file format ELF32-riscv
+
+
+Disassembly of section .text:
+
+00000000 complex_set_into_brave:
+       0: 21 11                        	addi	sp, sp, -24
+       2: 32 95                        	add	a0, a0, a2
+       4: b6 95                        	add	a1, a1, a3
+       6: 61 01                        	addi	sp, sp, 24
+       8: 82 80                        	ret
+
+0000000a bb_rf_fetch_without_dish:
+       a: 21 11                        	addi	sp, sp, -24
+       c: 11 8d                        	sub	a0, a0, a2
+       e: 95 8d                        	sub	a1, a1, a3
+      10: 61 01                        	addi	sp, sp, 24
+      12: 82 80                        	ret
+
+00000014 bb_rf_make_in_job:
+      14: b3 87 d5 02                  	mul	a5, a1, a3
+      18: 21 11                        	addi	sp, sp, -24
+      1a: 61 01                        	addi	sp, sp, 24
+      1c: b3 06 d5 02                  	mul	a3, a0, a3
+      20: 33 07 c5 02                  	mul	a4, a0, a2
+      24: b3 85 c5 02                  	mul	a1, a1, a2
+      28: 33 05 f7 40                  	sub	a0, a4, a5
+      2c: b6 95                        	add	a1, a1, a3
+      2e: 82 80                        	ret
+
+00000030 bb_rf_make_for_branch:
+      30: 21 11                        	addi	sp, sp, -24
+      32: 2a c4                        	sw	a0, 8(sp)
+      34: 2e c6                        	sw	a1, 12(sp)
+      36: 01 ea                        	bnez	a2, 16
+			00000036:  R_RISCV_RVC_BRANCH	.L8
+      38: 99 e6                        	bnez	a3, 14
+			00000038:  R_RISCV_RVC_BRANCH	.L8
+      3a: 02 c8                        	sw	zero, 16(sp)
+      3c: 02 ca                        	sw	zero, 20(sp)
+
+0000003e .L9:
+      3e: 42 45                        	lw	a0, 16(sp)
+      40: d2 45                        	lw	a1, 20(sp)
+      42: 61 01                        	addi	sp, sp, 24
+      44: 82 80                        	ret
+
+00000046 .L8:
+      46: b3 85 d6 02                  	mul	a1, a3, a3
+      4a: 22 45                        	lw	a0, 8(sp)
+      4c: b2 47                        	lw	a5, 12(sp)
+      4e: 33 07 c6 02                  	mul	a4, a2, a2
+      52: 33 88 d7 02                  	mul	a6, a5, a3
+      56: 2e 97                        	add	a4, a4, a1
+      58: b3 87 c7 02                  	mul	a5, a5, a2
+      5c: b3 06 d5 02                  	mul	a3, a0, a3
+      60: b3 05 c5 02                  	mul	a1, a0, a2
+      64: b3 86 d7 40                  	sub	a3, a5, a3
+      68: 13 56 f7 41                  	srai	a2, a4, 31
+      6c: 93 57 17 40                  	srai	a5, a4, 1
+      70: b1 8f                        	xor	a5, a5, a2
+      72: 91 8f                        	sub	a5, a5, a2
+      74: c2 95                        	add	a1, a1, a6
+      76: 33 85 f5 40                  	sub	a0, a1, a5
+      7a: 63 c4 05 00                  	bltz	a1, 8
+			0000007a:  R_RISCV_BRANCH	.L11
+      7e: 33 85 f5 00                  	add	a0, a1, a5
+
+00000082 .L11:
+      82: 33 86 f6 40                  	sub	a2, a3, a5
+      86: 63 c4 06 00                  	bltz	a3, 8
+			00000086:  R_RISCV_BRANCH	.L13
+      8a: 33 86 f6 00                  	add	a2, a3, a5
+
+0000008e .L13:
+      8e: 33 45 e5 02                  	div	a0, a0, a4
+      92: 33 47 e6 02                  	div	a4, a2, a4
+      96: 2a c8                        	sw	a0, 16(sp)
+      98: 3a ca                        	sw	a4, 20(sp)
+      9a: 55 b7                        	j	-92
+			0000009a:  R_RISCV_RVC_JUMP	.L9

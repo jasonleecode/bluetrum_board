@@ -1,0 +1,114 @@
+
+libbtctrl.a:bb_debug.o:	file format ELF32-riscv
+
+
+Disassembly of section .com_text.debug:
+
+00000000 bb_debug_give_within_lie:
+       0: b7 08 00 00                  	lui	a7, 0
+			00000000:  R_RISCV_HI20	.LANCHOR0
+			00000000:  R_RISCV_RELAX	*ABS*
+       4: 8d 47                        	addi	a5, zero, 3
+       6: 93 88 08 00                  	mv	a7, a7
+			00000006:  R_RISCV_LO12_I	.LANCHOR0
+			00000006:  R_RISCV_RELAX	*ABS*
+       a: 63 e6 a7 06                  	bltu	a5, a0, 108
+			0000000a:  R_RISCV_BRANCH	.L6
+       e: 9d 47                        	addi	a5, zero, 7
+      10: 33 05 f5 02                  	mul	a0, a0, a5
+      14: 46 95                        	add	a0, a0, a7
+
+00000016 .L2:
+      16: 37 07 00 00                  	lui	a4, 0
+			00000016:  R_RISCV_HI20	.LANCHOR0+0x1c
+			00000016:  R_RISCV_RELAX	*ABS*+0x1c
+      1a: 29 48                        	addi	a6, zero, 10
+      1c: f1 08                        	addi	a7, a7, 28
+      1e: b6 87                        	add	a5, zero, a3
+      20: 13 07 c7 01                  	addi	a4, a4, 28
+			00000020:  R_RISCV_LO12_I	.LANCHOR0+0x1c
+			00000020:  R_RISCV_RELAX	*ABS*+0x1c
+      24: 63 73 d8 00                  	bgeu	a6, a3, 6
+			00000024:  R_RISCV_BRANCH	.L3
+      28: c2 87                        	add	a5, zero, a6
+
+0000002a .L3:
+      2a: c2 07                        	slli	a5, a5, 16
+      2c: c1 83                        	srli	a5, a5, 16
+      2e: 8a 07                        	slli	a5, a5, 2
+      30: be 98                        	add	a7, a7, a5
+      32: a9 47                        	addi	a5, zero, 10
+      34: 32 88                        	add	a6, zero, a2
+      36: 63 f3 c7 00                  	bgeu	a5, a2, 6
+			00000036:  R_RISCV_BRANCH	.L4
+      3a: 3e 88                        	add	a6, zero, a5
+
+0000003c .L4:
+      3c: 42 08                        	slli	a6, a6, 16
+      3e: 13 58 08 01                  	srli	a6, a6, 16
+      42: 0a 08                        	slli	a6, a6, 2
+      44: 13 de a5 00                  	srli	t3, a1, 10
+      48: 29 43                        	addi	t1, zero, 10
+      4a: 3a 98                        	add	a6, a6, a4
+      4c: 93 f7 f5 3f                  	andi	a5, a1, 1023
+      50: f2 86                        	add	a3, zero, t3
+      52: 63 73 c3 01                  	bgeu	t1, t3, 6
+			00000052:  R_RISCV_BRANCH	.L5
+      56: 9a 86                        	add	a3, zero, t1
+
+00000058 .L5:
+      58: c2 06                        	slli	a3, a3, 16
+      5a: c1 82                        	srli	a3, a3, 16
+      5c: 8a 06                        	slli	a3, a3, 2
+      5e: 36 97                        	add	a4, a4, a3
+      60: ae 86                        	add	a3, zero, a1
+      62: aa 85                        	add	a1, zero, a0
+      64: 37 05 00 00                  	lui	a0, 0
+			00000064:  R_RISCV_HI20	.LC1
+			00000064:  R_RISCV_RELAX	*ABS*
+      68: 21 82                        	srli	a2, a2, 8
+      6a: 13 05 05 00                  	mv	a0, a0
+			0000006a:  R_RISCV_LO12_I	.LC1
+			0000006a:  R_RISCV_RELAX	*ABS*
+      6e: 17 03 00 00                  	auipc	t1, 0
+			0000006e:  R_RISCV_CALL	my_printf
+			0000006e:  R_RISCV_RELAX	*ABS*
+      72: 67 00 03 00                  	jr	t1
+
+00000076 .L6:
+      76: 37 05 00 00                  	lui	a0, 0
+			00000076:  R_RISCV_HI20	.LC0
+			00000076:  R_RISCV_RELAX	*ABS*
+      7a: 13 05 05 00                  	mv	a0, a0
+			0000007a:  R_RISCV_LO12_I	.LC0
+			0000007a:  R_RISCV_RELAX	*ABS*
+      7e: 61 bf                        	j	-104
+			0000007e:  R_RISCV_RVC_JUMP	.L2
+
+00000080 bb_debug_keep_by_type:
+      80: 2e 87                        	add	a4, zero, a1
+      82: 89 cd                        	beqz	a1, 26
+			00000082:  R_RISCV_RVC_BRANCH	.L7
+      84: 1c 41                        	lw	a5, 0(a0)
+      86: 3a 85                        	add	a0, zero, a4
+      88: 83 d6 c7 00                  	lhu	a3, 12(a5)
+      8c: 03 d6 a7 00                  	lhu	a2, 10(a5)
+      90: 83 d5 87 00                  	lhu	a1, 8(a5)
+      94: 17 03 00 00                  	auipc	t1, 0
+			00000094:  R_RISCV_CALL	bb_debug_give_within_lie
+			00000094:  R_RISCV_RELAX	*ABS*
+      98: 67 00 03 00                  	jr	t1
+
+0000009c .L7:
+      9c: 82 80                        	ret
+
+0000009e bb_debug_reserve_for_unit:
+      9e: 1c 41                        	lw	a5, 0(a0)
+      a0: 81 46                        	mv	a3, zero
+      a2: 0d 45                        	addi	a0, zero, 3
+      a4: 03 d6 67 00                  	lhu	a2, 6(a5)
+      a8: 83 d5 47 00                  	lhu	a1, 4(a5)
+      ac: 17 03 00 00                  	auipc	t1, 0
+			000000ac:  R_RISCV_CALL	bb_debug_give_within_lie
+			000000ac:  R_RISCV_RELAX	*ABS*
+      b0: 67 00 03 00                  	jr	t1

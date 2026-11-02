@@ -1,0 +1,61 @@
+{
+  "original_object_sha256": "a8d47e5b57540e647c2a648c9781c2491618acef5a70de47880233974513fec6",
+  "recovered_source_sha256": "70a7e814f02b268daa96457e09abff6a5cb76740a5c639fb5ce1462336431933",
+  "compilers": [
+    "clang",
+    "gcc"
+  ],
+  "exports": [
+    "bt21_keep_within_grocery",
+    "lm_leave_in_treat",
+    "lm_send_with_consequence"
+  ],
+  "local_functions": [],
+  "unicorn_version": "2.1.4",
+  "model": "Original/recovered RV32 with external/ROM hooks and restore ABI shim; ordered MMIO, calls and memory.",
+  "cases": [
+    {
+      "name": "message-0",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "message-1",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "message-2",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "message-3",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "message-4",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "message-5",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "message-6",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "message-7",
+      "actions": 3,
+      "result": "pass"
+    }
+  ],
+  "included_sources_sha256": {
+    "bare/drivers/inc/bt_recovered_internal.h": "098edac999400711aa0b55f7274a48e00441a635087b2375ba6b6d2db252af03"
+  }
+}

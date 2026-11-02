@@ -1,0 +1,1372 @@
+
+libbtctrl.a:mgr_proc.o:	file format ELF32-riscv
+
+
+Disassembly of section .text:
+
+00000000 mgr_proc_pick_inside_two:
+       0: 17 03 00 00                  	auipc	t1, 0
+			00000000:  R_RISCV_CALL	__riscv_save_1
+			00000000:  R_RISCV_RELAX	*ABS*
+       4: e7 02 03 00                  	jalr	t0, t1
+       8: 37 44 08 00                  	lui	s0, 132
+       c: b6 85                        	add	a1, zero, a3
+       e: 93 07 04 3a                  	addi	a5, s0, 928
+      12: 91 46                        	addi	a3, zero, 4
+      14: 05 46                        	addi	a2, zero, 1
+      16: 13 05 f0 42                  	addi	a0, zero, 1071
+      1a: 82 97                        	jalr	a5
+      1c: 15 47                        	addi	a4, zero, 5
+      1e: a3 01 e5 00                  	sb	a4, 3(a0)
+      22: 6d 47                        	addi	a4, zero, 27
+      24: a3 00 e5 00                  	sb	a4, 1(a0)
+      28: 23 01 05 00                  	sb	zero, 2(a0)
+      2c: 23 00 05 00                  	sb	zero, 0(a0)
+      30: 13 04 44 3a                  	addi	s0, s0, 932
+      34: 02 94                        	jalr	s0
+      36: 01 45                        	mv	a0, zero
+      38: 17 03 00 00                  	auipc	t1, 0
+			00000038:  R_RISCV_CALL	__riscv_restore_1
+			00000038:  R_RISCV_RELAX	*ABS*
+      3c: 67 00 03 00                  	jr	t1
+
+00000040 mgr_proc_get_for_escape:
+      40: 17 03 00 00                  	auipc	t1, 0
+			00000040:  R_RISCV_CALL	__riscv_save_3
+			00000040:  R_RISCV_RELAX	*ABS*
+      44: e7 02 03 00                  	jalr	t0, t1
+      48: b7 44 08 00                  	lui	s1, 132
+      4c: b6 85                        	add	a1, zero, a3
+      4e: 05 46                        	addi	a2, zero, 1
+      50: a5 46                        	addi	a3, zero, 9
+      52: 93 87 04 3a                  	addi	a5, s1, 928
+      56: 13 05 00 44                  	addi	a0, zero, 1088
+      5a: 82 97                        	jalr	a5
+      5c: 13 89 44 59                  	addi	s2, s1, 1428
+      60: 2a 84                        	add	s0, zero, a0
+      62: 02 99                        	jalr	s2
+      64: 93 57 85 00                  	srli	a5, a0, 8
+      68: a3 00 a4 00                  	sb	a0, 1(s0)
+      6c: 23 01 f4 00                  	sb	a5, 2(s0)
+      70: 93 57 05 01                  	srli	a5, a0, 16
+      74: 61 81                        	srli	a0, a0, 24
+      76: a3 01 f4 00                  	sb	a5, 3(s0)
+      7a: 23 02 a4 00                  	sb	a0, 4(s0)
+      7e: 02 99                        	jalr	s2
+      80: 93 57 85 00                  	srli	a5, a0, 8
+      84: a3 02 a4 00                  	sb	a0, 5(s0)
+      88: 23 03 f4 00                  	sb	a5, 6(s0)
+      8c: 93 57 05 01                  	srli	a5, a0, 16
+      90: 61 81                        	srli	a0, a0, 24
+      92: 23 04 a4 00                  	sb	a0, 8(s0)
+      96: a3 03 f4 00                  	sb	a5, 7(s0)
+      9a: 22 85                        	add	a0, zero, s0
+      9c: 23 00 04 00                  	sb	zero, 0(s0)
+      a0: 93 84 44 3a                  	addi	s1, s1, 932
+      a4: 82 94                        	jalr	s1
+      a6: 01 45                        	mv	a0, zero
+      a8: 17 03 00 00                  	auipc	t1, 0
+			000000a8:  R_RISCV_CALL	__riscv_restore_3
+			000000a8:  R_RISCV_RELAX	*ABS*
+      ac: 67 00 03 00                  	jr	t1
+
+000000b0 mgr_proc_save_by_holiday:
+      b0: 05 47                        	addi	a4, zero, 1
+      b2: b7 07 00 00                  	lui	a5, 0
+			000000b2:  R_RISCV_HI20	mgr_cause_within_nobody+0x2b
+			000000b2:  R_RISCV_RELAX	*ABS*+0x2b
+      b6: a3 85 e7 02                  	sb	a4, 43(a5)
+			000000b6:  R_RISCV_LO12_S	mgr_cause_within_nobody+0x2b
+			000000b6:  R_RISCV_RELAX	*ABS*+0x2b
+      ba: 01 45                        	mv	a0, zero
+      bc: 82 80                        	ret
+
+000000be mgr_proc_reserve_with_stomach:
+      be: 17 03 00 00                  	auipc	t1, 0
+			000000be:  R_RISCV_CALL	__riscv_save_2
+			000000be:  R_RISCV_RELAX	*ABS*
+      c2: e7 02 03 00                  	jalr	t0, t1
+      c6: 37 44 08 00                  	lui	s0, 132
+      ca: 93 07 04 3a                  	addi	a5, s0, 928
+      ce: b6 85                        	add	a1, zero, a3
+      d0: 05 46                        	addi	a2, zero, 1
+      d2: a5 46                        	addi	a3, zero, 9
+      d4: 13 05 10 44                  	addi	a0, zero, 1089
+      d8: 82 97                        	jalr	a5
+      da: b7 05 00 00                  	lui	a1, 0
+			000000da:  R_RISCV_HI20	mgr_pick_into_politics
+			000000da:  R_RISCV_RELAX	*ABS*
+      de: aa 84                        	add	s1, zero, a0
+      e0: 21 46                        	addi	a2, zero, 8
+      e2: 93 85 05 00                  	mv	a1, a1
+			000000e2:  R_RISCV_LO12_I	mgr_pick_into_politics
+			000000e2:  R_RISCV_RELAX	*ABS*
+      e6: 05 05                        	addi	a0, a0, 1
+      e8: 17 03 00 00                  	auipc	t1, 0
+			000000e8:  R_RISCV_CALL	memcpy
+			000000e8:  R_RISCV_RELAX	*ABS*
+      ec: e7 00 03 00                  	jalr	t1
+      f0: 26 85                        	add	a0, zero, s1
+      f2: 23 80 04 00                  	sb	zero, 0(s1)
+      f6: 13 04 44 3a                  	addi	s0, s0, 932
+      fa: 02 94                        	jalr	s0
+      fc: 01 45                        	mv	a0, zero
+      fe: 17 03 00 00                  	auipc	t1, 0
+			000000fe:  R_RISCV_CALL	__riscv_restore_2
+			000000fe:  R_RISCV_RELAX	*ABS*
+     102: 67 00 03 00                  	jr	t1
+
+00000106 mgr_proc_cause_about_round:
+     106: 17 03 00 00                  	auipc	t1, 0
+			00000106:  R_RISCV_CALL	__riscv_save_2
+			00000106:  R_RISCV_RELAX	*ABS*
+     10a: e7 02 03 00                  	jalr	t0, t1
+     10e: 37 44 08 00                  	lui	s0, 132
+     112: 93 07 04 3a                  	addi	a5, s0, 928
+     116: b6 85                        	add	a1, zero, a3
+     118: 05 46                        	addi	a2, zero, 1
+     11a: a5 46                        	addi	a3, zero, 9
+     11c: 13 05 00 43                  	addi	a0, zero, 1072
+     120: 82 97                        	jalr	a5
+     122: b7 05 00 00                  	lui	a1, 0
+			00000122:  R_RISCV_HI20	mgr_take_with_try
+			00000122:  R_RISCV_RELAX	*ABS*
+     126: aa 84                        	add	s1, zero, a0
+     128: 21 46                        	addi	a2, zero, 8
+     12a: 93 85 05 00                  	mv	a1, a1
+			0000012a:  R_RISCV_LO12_I	mgr_take_with_try
+			0000012a:  R_RISCV_RELAX	*ABS*
+     12e: 05 05                        	addi	a0, a0, 1
+     130: 17 03 00 00                  	auipc	t1, 0
+			00000130:  R_RISCV_CALL	memcpy
+			00000130:  R_RISCV_RELAX	*ABS*
+     134: e7 00 03 00                  	jalr	t1
+     138: 26 85                        	add	a0, zero, s1
+     13a: 23 80 04 00                  	sb	zero, 0(s1)
+     13e: 13 04 44 3a                  	addi	s0, s0, 932
+     142: 02 94                        	jalr	s0
+     144: 01 45                        	mv	a0, zero
+     146: 17 03 00 00                  	auipc	t1, 0
+			00000146:  R_RISCV_CALL	__riscv_restore_2
+			00000146:  R_RISCV_RELAX	*ABS*
+     14a: 67 00 03 00                  	jr	t1
+
+0000014e ll_proc_go_on_event:
+     14e: 17 03 00 00                  	auipc	t1, 0
+			0000014e:  R_RISCV_CALL	__riscv_save_12
+			0000014e:  R_RISCV_RELAX	*ABS*
+     152: e7 02 03 00                  	jalr	t0, t1
+     156: 03 c4 15 00                  	lbu	s0, 1(a1)
+     15a: b7 49 08 00                  	lui	s3, 132
+     15e: 41 11                        	addi	sp, sp, -16
+     160: 93 87 09 36                  	addi	a5, s3, 864
+     164: 05 45                        	addi	a0, zero, 1
+     166: 2e 8a                        	add	s4, zero, a1
+     168: 83 c4 05 00                  	lbu	s1, 0(a1)
+     16c: 82 97                        	jalr	a5
+     16e: 2a 89                        	add	s2, zero, a0
+     170: 45 ec                        	bnez	s0, 184
+			00000170:  R_RISCV_RVC_BRANCH	.L11
+     172: 85 47                        	addi	a5, zero, 1
+     174: 63 13 f5 04                  	bne	a0, a5, 70
+			00000174:  R_RISCV_BRANCH	.L13
+     178: b7 07 00 00                  	lui	a5, 0
+			00000178:  R_RISCV_HI20	mgr_cause_within_nobody+0x12
+			00000178:  R_RISCV_RELAX	*ABS*+0x12
+     17c: 03 c4 27 01                  	lbu	s0, 18(a5)
+			0000017c:  R_RISCV_LO12_I	mgr_cause_within_nobody+0x12
+			0000017c:  R_RISCV_RELAX	*ABS*+0x12
+     180: 63 1d a4 02                  	bne	s0, a0, 58
+			00000180:  R_RISCV_BRANCH	.L13
+     184: b7 07 00 00                  	lui	a5, 0
+			00000184:  R_RISCV_HI20	ble_con_keep_inside_cell
+			00000184:  R_RISCV_RELAX	*ABS*
+     188: 83 a7 07 00                  	lw	a5, 0(a5)
+			00000188:  R_RISCV_LO12_I	ble_con_keep_inside_cell
+			00000188:  R_RISCV_RELAX	*ABS*
+     18c: 19 46                        	addi	a2, zero, 6
+     18e: 33 05 c1 00                  	add	a0, sp, a2
+     192: cc 47                        	lw	a1, 12(a5)
+     194: 93 89 49 36                  	addi	s3, s3, 868
+     198: 93 85 05 10                  	addi	a1, a1, 256
+     19c: 17 03 00 00                  	auipc	t1, 0
+			0000019c:  R_RISCV_CALL	memcpy
+			0000019c:  R_RISCV_RELAX	*ABS*
+     1a0: e7 00 03 00                  	jalr	t1
+     1a4: 81 45                        	mv	a1, zero
+     1a6: 13 05 c0 03                  	addi	a0, zero, 60
+     1aa: 0a 86                        	add	a2, zero, sp
+     1ac: 17 03 00 00                  	auipc	t1, 0
+			000001ac:  R_RISCV_CALL	ll_go_without_restaurant
+			000001ac:  R_RISCV_RELAX	*ABS*
+     1b0: e7 00 03 00                  	jalr	t1
+     1b4: 81 45                        	mv	a1, zero
+     1b6: 22 85                        	add	a0, zero, s0
+     1b8: 82 99                        	jalr	s3
+
+000001ba .L13:
+     1ba: 37 04 00 00                  	lui	s0, 0
+			000001ba:  R_RISCV_HI20	mgr_cause_within_nobody
+			000001ba:  R_RISCV_RELAX	*ABS*
+     1be: 93 07 04 00                  	mv	a5, s0
+			000001be:  R_RISCV_LO12_I	mgr_cause_within_nobody
+			000001be:  R_RISCV_RELAX	*ABS*
+     1c2: 83 c7 77 03                  	lbu	a5, 55(a5)
+     1c6: 8d 46                        	addi	a3, zero, 3
+     1c8: 13 04 04 00                  	mv	s0, s0
+			000001c8:  R_RISCV_LO12_I	mgr_cause_within_nobody
+			000001c8:  R_RISCV_RELAX	*ABS*
+     1cc: 63 88 d7 04                  	beq	a5, a3, 80
+			000001cc:  R_RISCV_BRANCH	.L26
+     1d0: 83 47 64 03                  	lbu	a5, 54(s0)
+     1d4: a1 c7                        	beqz	a5, 72
+			000001d4:  R_RISCV_RVC_BRANCH	.L26
+     1d6: b7 47 08 00                  	lui	a5, 132
+     1da: 93 87 07 3a                  	addi	a5, a5, 928
+     1de: 05 46                        	addi	a2, zero, 1
+     1e0: a5 45                        	addi	a1, zero, 9
+     1e2: 13 05 40 44                  	addi	a0, zero, 1092
+     1e6: 82 97                        	jalr	a5
+     1e8: bd 66                        	lui	a3, 15
+     1ea: 9c 42                        	lw	a5, 0(a3)
+     1ec: 37 07 fc ff                  	lui	a4, 1048512
+     1f0: 7d 17                        	addi	a4, a4, -1
+     1f2: f9 8f                        	and	a5, a5, a4
+     1f4: 23 0b 04 02                  	sb	zero, 54(s0)
+     1f8: 9c c2                        	sw	a5, 0(a3)
+     1fa: 83 47 74 03                  	lbu	a5, 55(s0)
+     1fe: f5 e3                        	bnez	a5, 228
+			000001fe:  R_RISCV_RVC_BRANCH	.L27
+     200: a3 00 05 00                  	sb	zero, 1(a0)
+     204: 23 01 05 00                  	sb	zero, 2(a0)
+
+00000208 .L28:
+     208: 8d 47                        	addi	a5, zero, 3
+     20a: a3 0b f4 02                  	sb	a5, 55(s0)
+     20e: b7 47 08 00                  	lui	a5, 132
+     212: 23 00 05 00                  	sb	zero, 0(a0)
+     216: 93 87 47 3a                  	addi	a5, a5, 932
+     21a: 82 97                        	jalr	a5
+
+0000021c .L26:
+     21c: 01 45                        	mv	a0, zero
+     21e: 41 01                        	addi	sp, sp, 16
+     220: 17 03 00 00                  	auipc	t1, 0
+			00000220:  R_RISCV_CALL	__riscv_restore_12
+			00000220:  R_RISCV_RELAX	*ABS*
+     224: 67 00 03 00                  	jr	t1
+
+00000228 .L11:
+     228: b7 09 00 00                  	lui	s3, 0
+			00000228:  R_RISCV_HI20	mgr_cause_within_nobody
+			00000228:  R_RISCV_RELAX	*ABS*
+     22c: 93 0a c5 ff                  	addi	s5, a0, -4
+     230: 37 0c 00 00                  	lui	s8, 0
+			00000230:  R_RISCV_HI20	ble_con_keep_inside_cell
+			00000230:  R_RISCV_RELAX	*ABS*
+     234: 93 0c e0 02                  	addi	s9, zero, 46
+     238: 0d 4d                        	addi	s10, zero, 3
+     23a: 93 89 09 00                  	mv	s3, s3
+			0000023a:  R_RISCV_LO12_I	mgr_cause_within_nobody
+			0000023a:  R_RISCV_RELAX	*ABS*
+     23e: 93 fa fa 0f                  	andi	s5, s5, 255
+     242: 05 4b                        	addi	s6, zero, 1
+
+00000244 .L25:
+     244: b3 8d 94 03                  	mul	s11, s1, s9
+     248: 83 27 0c 00                  	lw	a5, 0(s8)
+			00000248:  R_RISCV_LO12_I	ble_con_keep_inside_cell
+			00000248:  R_RISCV_RELAX	*ABS*
+     24c: 93 8b 14 00                  	addi	s7, s1, 1
+     250: dc 4b                        	lw	a5, 20(a5)
+     252: be 9d                        	add	s11, s11, a5
+     254: 63 17 a9 03                  	bne	s2, s10, 46
+			00000254:  R_RISCV_BRANCH	.L15
+     258: 83 47 3a 00                  	lbu	a5, 3(s4)
+     25c: 89 ef                        	bnez	a5, 26
+			0000025c:  R_RISCV_RVC_BRANCH	.L16
+
+0000025e .L18:
+     25e: 7d 14                        	addi	s0, s0, -1
+     260: 26 85                        	add	a0, zero, s1
+     262: 13 74 f4 0f                  	andi	s0, s0, 255
+     266: 17 03 00 00                  	auipc	t1, 0
+			00000266:  R_RISCV_CALL	ll_sell_under_data
+			00000266:  R_RISCV_RELAX	*ABS*
+     26a: e7 00 03 00                  	jalr	t1
+     26e: 93 f4 7b 00                  	andi	s1, s7, 7
+     272: 69 f8                        	bnez	s0, -46
+			00000272:  R_RISCV_RVC_BRANCH	.L25
+     274: 99 b7                        	j	-186
+			00000274:  R_RISCV_RVC_JUMP	.L13
+
+00000276 .L16:
+     276: 6e 85                        	add	a0, zero, s11
+     278: 17 03 00 00                  	auipc	t1, 0
+			00000278:  R_RISCV_CALL	mgr_get_at_coffee
+			00000278:  R_RISCV_RELAX	*ABS*
+     27c: e7 00 03 00                  	jalr	t1
+     280: f9 bf                        	j	-34
+			00000280:  R_RISCV_RVC_JUMP	.L18
+
+00000282 .L15:
+     282: 83 d7 2d 00                  	lhu	a5, 2(s11)
+     286: fd 8b                        	andi	a5, a5, 31
+     288: 63 04 09 00                  	beqz	s2, 8
+			00000288:  R_RISCV_BRANCH	.L19
+     28c: 63 69 5b 01                  	bltu	s6, s5, 18
+			0000028c:  R_RISCV_BRANCH	.L20
+
+00000290 .L19:
+     290: f9 f7                        	bnez	a5, -50
+			00000290:  R_RISCV_RVC_BRANCH	.L18
+     292: 83 d7 89 03                  	lhu	a5, 56(s3)
+     296: 85 07                        	addi	a5, a5, 1
+     298: 23 9c f9 02                  	sh	a5, 56(s3)
+     29c: c9 b7                        	j	-62
+			0000029c:  R_RISCV_RVC_JUMP	.L18
+
+0000029e .L20:
+     29e: e1 f3                        	bnez	a5, -64
+			0000029e:  R_RISCV_RVC_BRANCH	.L18
+     2a0: 83 c7 4d 00                  	lbu	a5, 4(s11)
+     2a4: 19 47                        	addi	a4, zero, 6
+     2a6: bd 8b                        	andi	a5, a5, 15
+     2a8: e3 6b f7 fa                  	bltu	a4, a5, -74
+			000002a8:  R_RISCV_BRANCH	.L18
+     2ac: b3 17 fb 00                  	sll	a5, s6, a5
+     2b0: 13 f7 77 05                  	andi	a4, a5, 87
+     2b4: 0d e3                        	bnez	a4, 34
+			000002b4:  R_RISCV_RVC_BRANCH	.L23
+     2b6: 93 f7 07 02                  	andi	a5, a5, 32
+     2ba: d5 d3                        	beqz	a5, -92
+			000002ba:  R_RISCV_RVC_BRANCH	.L18
+     2bc: 17 03 00 00                  	auipc	t1, 0
+			000002bc:  R_RISCV_CALL	ll_save_under_decision
+			000002bc:  R_RISCV_RELAX	*ABS*
+     2c0: e7 00 03 00                  	jalr	t1
+     2c4: 89 47                        	addi	a5, zero, 2
+     2c6: e3 1c f5 f8                  	bne	a0, a5, -104
+			000002c6:  R_RISCV_BRANCH	.L18
+     2ca: 6e 85                        	add	a0, zero, s11
+     2cc: 17 03 00 00                  	auipc	t1, 0
+			000002cc:  R_RISCV_CALL	mgr_save_under_green
+			000002cc:  R_RISCV_RELAX	*ABS*
+     2d0: e7 00 03 00                  	jalr	t1
+     2d4: 69 b7                        	j	-118
+			000002d4:  R_RISCV_RVC_JUMP	.L18
+
+000002d6 .L23:
+     2d6: 6e 85                        	add	a0, zero, s11
+     2d8: 17 03 00 00                  	auipc	t1, 0
+			000002d8:  R_RISCV_CALL	mgr_pick_of_answer
+			000002d8:  R_RISCV_RELAX	*ABS*
+     2dc: e7 00 03 00                  	jalr	t1
+     2e0: bd bf                        	j	-130
+			000002e0:  R_RISCV_RVC_JUMP	.L18
+
+000002e2 .L27:
+     2e2: 83 47 84 03                  	lbu	a5, 56(s0)
+     2e6: a3 00 f5 00                  	sb	a5, 1(a0)
+     2ea: 83 47 94 03                  	lbu	a5, 57(s0)
+     2ee: 23 01 f5 00                  	sb	a5, 2(a0)
+     2f2: 23 1c 04 02                  	sh	zero, 56(s0)
+     2f6: 09 bf                        	j	-238
+			000002f6:  R_RISCV_RVC_JUMP	.L28
+
+000002f8 mgr_proc_make_in_dependent:
+     2f8: 17 03 00 00                  	auipc	t1, 0
+			000002f8:  R_RISCV_CALL	__riscv_save_0
+			000002f8:  R_RISCV_RELAX	*ABS*
+     2fc: e7 02 03 00                  	jalr	t0, t1
+     300: b6 85                        	add	a1, zero, a3
+     302: 05 46                        	addi	a2, zero, 1
+     304: 81 46                        	mv	a3, zero
+     306: 13 05 40 42                  	addi	a0, zero, 1060
+     30a: 17 03 00 00                  	auipc	t1, 0
+			0000030a:  R_RISCV_CALL	mgr_show_within_nobody
+			0000030a:  R_RISCV_RELAX	*ABS*
+     30e: e7 00 03 00                  	jalr	t1
+     312: 01 45                        	mv	a0, zero
+     314: 17 03 00 00                  	auipc	t1, 0
+			00000314:  R_RISCV_CALL	__riscv_restore_0
+			00000314:  R_RISCV_RELAX	*ABS*
+     318: 67 00 03 00                  	jr	t1
+
+0000031c mgr_proc_show_on_limit:
+     31c: 17 03 00 00                  	auipc	t1, 0
+			0000031c:  R_RISCV_CALL	__riscv_save_1
+			0000031c:  R_RISCV_RELAX	*ABS*
+     320: e7 02 03 00                  	jalr	t0, t1
+     324: 37 05 00 00                  	lui	a0, 0
+			00000324:  R_RISCV_HI20	mgr_cause_within_nobody+0x20
+			00000324:  R_RISCV_RELAX	*ABS*+0x20
+     328: 21 46                        	addi	a2, zero, 8
+     32a: 13 05 05 02                  	addi	a0, a0, 32
+			0000032a:  R_RISCV_LO12_I	mgr_cause_within_nobody+0x20
+			0000032a:  R_RISCV_RELAX	*ABS*+0x20
+     32e: 36 84                        	add	s0, zero, a3
+     330: 17 03 00 00                  	auipc	t1, 0
+			00000330:  R_RISCV_CALL	memcpy
+			00000330:  R_RISCV_RELAX	*ABS*
+     334: e7 00 03 00                  	jalr	t1
+     338: 81 46                        	mv	a3, zero
+     33a: 05 46                        	addi	a2, zero, 1
+     33c: a2 85                        	add	a1, zero, s0
+     33e: 13 05 e0 42                  	addi	a0, zero, 1070
+     342: 17 03 00 00                  	auipc	t1, 0
+			00000342:  R_RISCV_CALL	mgr_show_within_nobody
+			00000342:  R_RISCV_RELAX	*ABS*
+     346: e7 00 03 00                  	jalr	t1
+     34a: 01 45                        	mv	a0, zero
+     34c: 17 03 00 00                  	auipc	t1, 0
+			0000034c:  R_RISCV_CALL	__riscv_restore_1
+			0000034c:  R_RISCV_RELAX	*ABS*
+     350: 67 00 03 00                  	jr	t1
+
+00000354 mgr_proc_send_by_reply:
+     354: 37 07 00 00                  	lui	a4, 0
+			00000354:  R_RISCV_HI20	mgr_cause_within_nobody
+			00000354:  R_RISCV_RELAX	*ABS*
+     358: 13 07 07 00                  	mv	a4, a4
+			00000358:  R_RISCV_LO12_I	mgr_cause_within_nobody
+			00000358:  R_RISCV_RELAX	*ABS*
+     35c: 83 47 a7 03                  	lbu	a5, 58(a4)
+     360: fd 17                        	addi	a5, a5, -1
+     362: 93 f7 f7 0f                  	andi	a5, a5, 255
+     366: 23 0d f7 02                  	sb	a5, 58(a4)
+     36a: 99 ef                        	bnez	a5, 30
+			0000036a:  R_RISCV_RVC_BRANCH	.L44
+     36c: 17 03 00 00                  	auipc	t1, 0
+			0000036c:  R_RISCV_CALL	__riscv_save_0
+			0000036c:  R_RISCV_RELAX	*ABS*
+     370: e7 02 03 00                  	jalr	t0, t1
+     374: 09 45                        	addi	a0, zero, 2
+     376: 17 03 00 00                  	auipc	t1, 0
+			00000376:  R_RISCV_CALL	mgr_proc_fetch_at_novel
+			00000376:  R_RISCV_RELAX	*ABS*
+     37a: e7 00 03 00                  	jalr	t1
+     37e: 01 45                        	mv	a0, zero
+     380: 17 03 00 00                  	auipc	t1, 0
+			00000380:  R_RISCV_CALL	__riscv_restore_0
+			00000380:  R_RISCV_RELAX	*ABS*
+     384: 67 00 03 00                  	jr	t1
+
+00000388 .L44:
+     388: 01 45                        	mv	a0, zero
+     38a: 82 80                        	ret
+
+0000038c mgr_proc_read_without_habit:
+     38c: 17 03 00 00                  	auipc	t1, 0
+			0000038c:  R_RISCV_CALL	__riscv_save_2
+			0000038c:  R_RISCV_RELAX	*ABS*
+     390: e7 02 03 00                  	jalr	t0, t1
+     394: 37 05 00 00                  	lui	a0, 0
+			00000394:  R_RISCV_HI20	mgr_cause_within_nobody
+			00000394:  R_RISCV_RELAX	*ABS*
+     398: b7 47 08 00                  	lui	a5, 132
+     39c: 93 04 05 00                  	mv	s1, a0
+			0000039c:  R_RISCV_LO12_I	mgr_cause_within_nobody
+			0000039c:  R_RISCV_RELAX	*ABS*
+     3a0: 93 87 87 3c                  	addi	a5, a5, 968
+     3a4: 2e 84                        	add	s0, zero, a1
+     3a6: 13 05 05 00                  	mv	a0, a0
+			000003a6:  R_RISCV_LO12_I	mgr_cause_within_nobody
+			000003a6:  R_RISCV_RELAX	*ABS*
+     3aa: c1 15                        	addi	a1, a1, -16
+     3ac: 82 97                        	jalr	a5
+     3ae: 83 c7 44 03                  	lbu	a5, 52(s1)
+     3b2: 91 e7                        	bnez	a5, 12
+			000003b2:  R_RISCV_RVC_BRANCH	.L48
+     3b4: 22 85                        	add	a0, zero, s0
+     3b6: 17 03 00 00                  	auipc	t1, 0
+			000003b6:  R_RISCV_CALL	mgr_make_by_hand
+			000003b6:  R_RISCV_RELAX	*ABS*
+     3ba: e7 00 03 00                  	jalr	t1
+
+000003be .L48:
+     3be: 05 45                        	addi	a0, zero, 1
+     3c0: 17 03 00 00                  	auipc	t1, 0
+			000003c0:  R_RISCV_CALL	__riscv_restore_2
+			000003c0:  R_RISCV_RELAX	*ABS*
+     3c4: 67 00 03 00                  	jr	t1
+
+000003c8 mgr_proc_leave_within_feedback:
+     3c8: 17 03 00 00                  	auipc	t1, 0
+			000003c8:  R_RISCV_CALL	__riscv_save_5
+			000003c8:  R_RISCV_RELAX	*ABS*
+     3cc: e7 02 03 00                  	jalr	t0, t1
+     3d0: b7 04 00 00                  	lui	s1, 0
+			000003d0:  R_RISCV_HI20	mgr_cause_within_nobody
+			000003d0:  R_RISCV_RELAX	*ABS*
+     3d4: 93 84 04 00                  	mv	s1, s1
+			000003d4:  R_RISCV_LO12_I	mgr_cause_within_nobody
+			000003d4:  R_RISCV_RELAX	*ABS*
+     3d8: 83 c7 b4 02                  	lbu	a5, 43(s1)
+     3dc: 36 8a                        	add	s4, zero, a3
+     3de: 71 11                        	addi	sp, sp, -4
+     3e0: b1 46                        	addi	a3, zero, 12
+     3e2: a5 c7                        	beqz	a5, 104
+			000003e2:  R_RISCV_RVC_BRANCH	.L51
+     3e4: ae 89                        	add	s3, zero, a1
+     3e6: 4e 85                        	add	a0, zero, s3
+     3e8: 95 45                        	addi	a1, zero, 5
+     3ea: 17 03 00 00                  	auipc	t1, 0
+			000003ea:  R_RISCV_CALL	ble_con_do_without_notice
+			000003ea:  R_RISCV_RELAX	*ABS*
+     3ee: e7 00 03 00                  	jalr	t1
+     3f2: 37 44 08 00                  	lui	s0, 132
+     3f6: 2a 89                        	add	s2, zero, a0
+     3f8: 93 07 04 38                  	addi	a5, s0, 896
+     3fc: 13 06 40 06                  	addi	a2, zero, 100
+     400: 85 45                        	addi	a1, zero, 1
+     402: 13 05 90 44                  	addi	a0, zero, 1097
+     406: 82 97                        	jalr	a5
+     408: 7d 19                        	addi	s2, s2, -1
+     40a: a3 85 04 02                  	sb	zero, 43(s1)
+     40e: 13 79 f9 0f                  	andi	s2, s2, 255
+     412: 93 07 40 02                  	addi	a5, zero, 36
+     416: c9 46                        	addi	a3, zero, 18
+     418: 63 e9 27 03                  	bltu	a5, s2, 50
+			00000418:  R_RISCV_BRANCH	.L51
+     41c: 15 46                        	addi	a2, zero, 5
+     41e: ce 85                        	add	a1, zero, s3
+     420: 13 85 b4 03                  	addi	a0, s1, 59
+     424: 17 03 00 00                  	auipc	t1, 0
+			00000424:  R_RISCV_CALL	memcpy
+			00000424:  R_RISCV_RELAX	*ABS*
+     428: e7 00 03 00                  	jalr	t1
+     42c: 93 07 04 36                  	addi	a5, s0, 864
+     430: 09 45                        	addi	a0, zero, 2
+     432: 82 97                        	jalr	a5
+     434: 81 46                        	mv	a3, zero
+     436: 11 c9                        	beqz	a0, 20
+			00000436:  R_RISCV_RVC_BRANCH	.L51
+     438: 36 c0                        	sw	a3, 0(sp)
+     43a: 13 04 84 3a                  	addi	s0, s0, 936
+     43e: 05 46                        	addi	a2, zero, 1
+     440: 89 45                        	addi	a1, zero, 2
+     442: 13 05 b0 44                  	addi	a0, zero, 1099
+     446: 02 94                        	jalr	s0
+     448: 82 46                        	lw	a3, 0(sp)
+
+0000044a .L51:
+     44a: 05 46                        	addi	a2, zero, 1
+     44c: d2 85                        	add	a1, zero, s4
+     44e: 13 05 e0 43                  	addi	a0, zero, 1086
+     452: 17 03 00 00                  	auipc	t1, 0
+			00000452:  R_RISCV_CALL	mgr_show_within_nobody
+			00000452:  R_RISCV_RELAX	*ABS*
+     456: e7 00 03 00                  	jalr	t1
+     45a: 01 45                        	mv	a0, zero
+     45c: 11 01                        	addi	sp, sp, 4
+     45e: 17 03 00 00                  	auipc	t1, 0
+			0000045e:  R_RISCV_CALL	__riscv_restore_5
+			0000045e:  R_RISCV_RELAX	*ABS*
+     462: 67 00 03 00                  	jr	t1
+
+00000466 mgr_proc_send_on_muscle:
+     466: 17 03 00 00                  	auipc	t1, 0
+			00000466:  R_RISCV_CALL	__riscv_save_1
+			00000466:  R_RISCV_RELAX	*ABS*
+     46a: e7 02 03 00                  	jalr	t0, t1
+     46e: 71 11                        	addi	sp, sp, -4
+     470: b7 47 08 00                  	lui	a5, 132
+     474: 2e c0                        	sw	a1, 0(sp)
+     476: 05 45                        	addi	a0, zero, 1
+     478: 93 87 07 36                  	addi	a5, a5, 864
+     47c: 36 84                        	add	s0, zero, a3
+     47e: 82 97                        	jalr	a5
+     480: 82 45                        	lw	a1, 0(sp)
+     482: 19 c5                        	beqz	a0, 14
+			00000482:  R_RISCV_RVC_BRANCH	.L60
+     484: 11 47                        	addi	a4, zero, 4
+     486: 89 47                        	addi	a5, zero, 2
+     488: 63 03 e5 02                  	beq	a0, a4, 38
+			00000488:  R_RISCV_BRANCH	.L58
+     48c: b1 46                        	addi	a3, zero, 12
+     48e: 39 a0                        	j	14
+			0000048e:  R_RISCV_RVC_JUMP	.L59
+
+00000490 .L60:
+     490: 2e 85                        	add	a0, zero, a1
+     492: 17 03 00 00                  	auipc	t1, 0
+			00000492:  R_RISCV_CALL	mgr_pass_inside_top
+			00000492:  R_RISCV_RELAX	*ABS*
+     496: e7 00 03 00                  	jalr	t1
+     49a: aa 86                        	add	a3, zero, a0
+
+0000049c .L59:
+     49c: 05 46                        	addi	a2, zero, 1
+     49e: a2 85                        	add	a1, zero, s0
+     4a0: 13 05 50 44                  	addi	a0, zero, 1093
+     4a4: 17 03 00 00                  	auipc	t1, 0
+			000004a4:  R_RISCV_CALL	ll_proc_go_for_department
+			000004a4:  R_RISCV_RELAX	*ABS*
+     4a8: e7 00 03 00                  	jalr	t1
+     4ac: 81 47                        	mv	a5, zero
+
+000004ae .L58:
+     4ae: 3e 85                        	add	a0, zero, a5
+     4b0: 11 01                        	addi	sp, sp, 4
+     4b2: 17 03 00 00                  	auipc	t1, 0
+			000004b2:  R_RISCV_CALL	__riscv_restore_1
+			000004b2:  R_RISCV_RELAX	*ABS*
+     4b6: 67 00 03 00                  	jr	t1
+
+000004ba mgr_proc_leave_to_result:
+     4ba: 17 03 00 00                  	auipc	t1, 0
+			000004ba:  R_RISCV_CALL	__riscv_save_2
+			000004ba:  R_RISCV_RELAX	*ABS*
+     4be: e7 02 03 00                  	jalr	t0, t1
+     4c2: b7 47 08 00                  	lui	a5, 132
+     4c6: 93 87 07 36                  	addi	a5, a5, 864
+     4ca: 05 45                        	addi	a0, zero, 1
+     4cc: 2e 84                        	add	s0, zero, a1
+     4ce: b6 84                        	add	s1, zero, a3
+     4d0: 82 97                        	jalr	a5
+     4d2: 89 47                        	addi	a5, zero, 2
+     4d4: 63 0e f5 02                  	beq	a0, a5, 60
+			000004d4:  R_RISCV_BRANCH	.L68
+     4d8: 63 e1 a7 02                  	bltu	a5, a0, 34
+			000004d8:  R_RISCV_BRANCH	.L69
+     4dc: 85 47                        	addi	a5, zero, 1
+     4de: 63 0c f5 02                  	beq	a0, a5, 56
+			000004de:  R_RISCV_BRANCH	.L73
+
+000004e2 .L67:
+     4e2: 03 47 04 00                  	lbu	a4, 0(s0)
+     4e6: 85 47                        	addi	a5, zero, 1
+     4e8: 63 17 f7 02                  	bne	a4, a5, 46
+			000004e8:  R_RISCV_BRANCH	.L73
+
+000004ec .L72:
+     4ec: 22 85                        	add	a0, zero, s0
+     4ee: 17 03 00 00                  	auipc	t1, 0
+			000004ee:  R_RISCV_CALL	mgr_send_for_rate
+			000004ee:  R_RISCV_RELAX	*ABS*
+     4f2: e7 00 03 00                  	jalr	t1
+     4f6: aa 86                        	add	a3, zero, a0
+     4f8: 05 a0                        	j	32
+			000004f8:  R_RISCV_RVC_JUMP	.L70
+
+000004fa .L69:
+     4fa: 0d 47                        	addi	a4, zero, 3
+     4fc: 63 0d e5 00                  	beq	a0, a4, 26
+			000004fc:  R_RISCV_BRANCH	.L73
+     500: 11 47                        	addi	a4, zero, 4
+     502: e3 10 e5 fe                  	bne	a0, a4, -32
+			00000502:  R_RISCV_BRANCH	.L67
+
+00000506 .L66:
+     506: 3e 85                        	add	a0, zero, a5
+     508: 17 03 00 00                  	auipc	t1, 0
+			00000508:  R_RISCV_CALL	__riscv_restore_2
+			00000508:  R_RISCV_RELAX	*ABS*
+     50c: 67 00 03 00                  	jr	t1
+
+00000510 .L68:
+     510: 83 47 04 00                  	lbu	a5, 0(s0)
+     514: e1 df                        	beqz	a5, -40
+			00000514:  R_RISCV_RVC_BRANCH	.L72
+
+00000516 .L73:
+     516: b1 46                        	addi	a3, zero, 12
+
+00000518 .L70:
+     518: 05 46                        	addi	a2, zero, 1
+     51a: a6 85                        	add	a1, zero, s1
+     51c: 13 05 80 43                  	addi	a0, zero, 1080
+     520: 17 03 00 00                  	auipc	t1, 0
+			00000520:  R_RISCV_CALL	mgr_show_within_nobody
+			00000520:  R_RISCV_RELAX	*ABS*
+     524: e7 00 03 00                  	jalr	t1
+     528: 81 47                        	mv	a5, zero
+     52a: f1 bf                        	j	-36
+			0000052a:  R_RISCV_RVC_JUMP	.L66
+
+0000052c mgr_proc_go_without_purple:
+     52c: 17 03 00 00                  	auipc	t1, 0
+			0000052c:  R_RISCV_CALL	__riscv_save_1
+			0000052c:  R_RISCV_RELAX	*ABS*
+     530: e7 02 03 00                  	jalr	t0, t1
+     534: 71 11                        	addi	sp, sp, -4
+     536: b7 47 08 00                  	lui	a5, 132
+     53a: 2e c0                        	sw	a1, 0(sp)
+     53c: 93 87 07 36                  	addi	a5, a5, 864
+     540: 05 45                        	addi	a0, zero, 1
+     542: 36 84                        	add	s0, zero, a3
+     544: 82 97                        	jalr	a5
+     546: 89 47                        	addi	a5, zero, 2
+     548: 82 45                        	lw	a1, 0(sp)
+     54a: b1 46                        	addi	a3, zero, 12
+     54c: 63 08 f5 00                  	beq	a0, a5, 16
+			0000054c:  R_RISCV_BRANCH	.L81
+     550: 2e 85                        	add	a0, zero, a1
+     552: 17 03 00 00                  	auipc	t1, 0
+			00000552:  R_RISCV_CALL	mgr_leave_on_night
+			00000552:  R_RISCV_RELAX	*ABS*
+     556: e7 00 03 00                  	jalr	t1
+     55a: aa 86                        	add	a3, zero, a0
+
+0000055c .L81:
+     55c: 05 46                        	addi	a2, zero, 1
+     55e: a2 85                        	add	a1, zero, s0
+     560: 13 05 70 43                  	addi	a0, zero, 1079
+     564: 17 03 00 00                  	auipc	t1, 0
+			00000564:  R_RISCV_CALL	mgr_show_within_nobody
+			00000564:  R_RISCV_RELAX	*ABS*
+     568: e7 00 03 00                  	jalr	t1
+     56c: 01 45                        	mv	a0, zero
+     56e: 11 01                        	addi	sp, sp, 4
+     570: 17 03 00 00                  	auipc	t1, 0
+			00000570:  R_RISCV_CALL	__riscv_restore_1
+			00000570:  R_RISCV_RELAX	*ABS*
+     574: 67 00 03 00                  	jr	t1
+
+00000578 mgr_proc_give_for_clothes:
+     578: 17 03 00 00                  	auipc	t1, 0
+			00000578:  R_RISCV_CALL	__riscv_save_1
+			00000578:  R_RISCV_RELAX	*ABS*
+     57c: e7 02 03 00                  	jalr	t0, t1
+     580: 71 11                        	addi	sp, sp, -4
+     582: b7 47 08 00                  	lui	a5, 132
+     586: 2e c0                        	sw	a1, 0(sp)
+     588: 93 87 07 36                  	addi	a5, a5, 864
+     58c: 05 45                        	addi	a0, zero, 1
+     58e: 36 84                        	add	s0, zero, a3
+     590: 82 97                        	jalr	a5
+     592: 89 47                        	addi	a5, zero, 2
+     594: 82 45                        	lw	a1, 0(sp)
+     596: b1 46                        	addi	a3, zero, 12
+     598: 63 08 f5 00                  	beq	a0, a5, 16
+			00000598:  R_RISCV_BRANCH	.L87
+     59c: 2e 85                        	add	a0, zero, a1
+     59e: 17 03 00 00                  	auipc	t1, 0
+			0000059e:  R_RISCV_CALL	mgr_send_without_alternative
+			0000059e:  R_RISCV_RELAX	*ABS*
+     5a2: e7 00 03 00                  	jalr	t1
+     5a6: aa 86                        	add	a3, zero, a0
+
+000005a8 .L87:
+     5a8: 05 46                        	addi	a2, zero, 1
+     5aa: a2 85                        	add	a1, zero, s0
+     5ac: 13 05 50 43                  	addi	a0, zero, 1077
+     5b0: 17 03 00 00                  	auipc	t1, 0
+			000005b0:  R_RISCV_CALL	mgr_show_within_nobody
+			000005b0:  R_RISCV_RELAX	*ABS*
+     5b4: e7 00 03 00                  	jalr	t1
+     5b8: 01 45                        	mv	a0, zero
+     5ba: 11 01                        	addi	sp, sp, 4
+     5bc: 17 03 00 00                  	auipc	t1, 0
+			000005bc:  R_RISCV_CALL	__riscv_restore_1
+			000005bc:  R_RISCV_RELAX	*ABS*
+     5c0: 67 00 03 00                  	jr	t1
+
+000005c4 mgr_proc_fetch_into_dream:
+     5c4: 17 03 00 00                  	auipc	t1, 0
+			000005c4:  R_RISCV_CALL	__riscv_save_2
+			000005c4:  R_RISCV_RELAX	*ABS*
+     5c8: e7 02 03 00                  	jalr	t0, t1
+     5cc: b7 47 08 00                  	lui	a5, 132
+     5d0: 93 87 07 36                  	addi	a5, a5, 864
+     5d4: 05 45                        	addi	a0, zero, 1
+     5d6: 2e 84                        	add	s0, zero, a1
+     5d8: b6 84                        	add	s1, zero, a3
+     5da: 82 97                        	jalr	a5
+     5dc: 0d 47                        	addi	a4, zero, 3
+     5de: aa 87                        	add	a5, zero, a0
+     5e0: 63 65 a7 02                  	bltu	a4, a0, 42
+			000005e0:  R_RISCV_BRANCH	.L93
+     5e4: 09 47                        	addi	a4, zero, 2
+     5e6: b1 46                        	addi	a3, zero, 12
+     5e8: 63 7d e5 02                  	bgeu	a0, a4, 58
+			000005e8:  R_RISCV_BRANCH	.L94
+     5ec: 05 47                        	addi	a4, zero, 1
+     5ee: 63 06 e5 02                  	beq	a0, a4, 44
+			000005ee:  R_RISCV_BRANCH	.L95
+
+000005f2 .L92:
+     5f2: 03 47 04 00                  	lbu	a4, 0(s0)
+     5f6: 85 47                        	addi	a5, zero, 1
+     5f8: 63 14 f7 02                  	bne	a4, a5, 40
+			000005f8:  R_RISCV_BRANCH	.L104
+
+000005fc .L97:
+     5fc: 22 85                        	add	a0, zero, s0
+     5fe: 17 03 00 00                  	auipc	t1, 0
+			000005fe:  R_RISCV_CALL	mgr_do_without_strength
+			000005fe:  R_RISCV_RELAX	*ABS*
+     602: e7 00 03 00                  	jalr	t1
+     606: aa 86                        	add	a3, zero, a0
+     608: 29 a8                        	j	26
+			00000608:  R_RISCV_RVC_JUMP	.L94
+
+0000060a .L93:
+     60a: 11 47                        	addi	a4, zero, 4
+     60c: 09 45                        	addi	a0, zero, 2
+     60e: e3 92 e7 fe                  	bne	a5, a4, -28
+			0000060e:  R_RISCV_BRANCH	.L92
+
+00000612 .L91:
+     612: 17 03 00 00                  	auipc	t1, 0
+			00000612:  R_RISCV_CALL	__riscv_restore_2
+			00000612:  R_RISCV_RELAX	*ABS*
+     616: 67 00 03 00                  	jr	t1
+
+0000061a .L95:
+     61a: 83 47 04 00                  	lbu	a5, 0(s0)
+     61e: f9 df                        	beqz	a5, -34
+			0000061e:  R_RISCV_RVC_BRANCH	.L97
+
+00000620 .L104:
+     620: b1 46                        	addi	a3, zero, 12
+
+00000622 .L94:
+     622: 13 05 60 43                  	addi	a0, zero, 1078
+     626: 05 46                        	addi	a2, zero, 1
+     628: a6 85                        	add	a1, zero, s1
+     62a: 17 03 00 00                  	auipc	t1, 0
+			0000062a:  R_RISCV_CALL	mgr_show_within_nobody
+			0000062a:  R_RISCV_RELAX	*ABS*
+     62e: e7 00 03 00                  	jalr	t1
+     632: 01 45                        	mv	a0, zero
+     634: f9 bf                        	j	-34
+			00000634:  R_RISCV_RVC_JUMP	.L91
+
+00000636 mgr_proc_give_by_serve:
+     636: 17 03 00 00                  	auipc	t1, 0
+			00000636:  R_RISCV_CALL	__riscv_save_3
+			00000636:  R_RISCV_RELAX	*ABS*
+     63a: e7 02 03 00                  	jalr	t0, t1
+     63e: b7 47 08 00                  	lui	a5, 132
+     642: 93 87 07 36                  	addi	a5, a5, 864
+     646: 05 45                        	addi	a0, zero, 1
+     648: ae 84                        	add	s1, zero, a1
+     64a: 36 89                        	add	s2, zero, a3
+     64c: 82 97                        	jalr	a5
+     64e: 85 47                        	addi	a5, zero, 1
+     650: 63 1b f5 02                  	bne	a0, a5, 54
+			00000650:  R_RISCV_BRANCH	.L110
+     654: 03 c7 04 00                  	lbu	a4, 0(s1)
+     658: fd 47                        	addi	a5, zero, 31
+     65a: 63 ee e7 02                  	bltu	a5, a4, 60
+			0000065a:  R_RISCV_BRANCH	.L109
+     65e: c1 14                        	addi	s1, s1, -16
+     660: b7 07 00 00                  	lui	a5, 0
+			00000660:  R_RISCV_HI20	mgr_cause_within_nobody+0x8
+			00000660:  R_RISCV_RELAX	*ABS*+0x8
+     664: 23 a4 97 00                  	sw	s1, 8(a5)
+			00000664:  R_RISCV_LO12_S	mgr_cause_within_nobody+0x8
+			00000664:  R_RISCV_RELAX	*ABS*+0x8
+     668: 81 46                        	mv	a3, zero
+     66a: 2a 84                        	add	s0, zero, a0
+
+0000066c .L108:
+     66c: 05 46                        	addi	a2, zero, 1
+     66e: ca 85                        	add	a1, zero, s2
+     670: 13 05 40 43                  	addi	a0, zero, 1076
+     674: 17 03 00 00                  	auipc	t1, 0
+			00000674:  R_RISCV_CALL	mgr_show_within_nobody
+			00000674:  R_RISCV_RELAX	*ABS*
+     678: e7 00 03 00                  	jalr	t1
+     67c: 22 85                        	add	a0, zero, s0
+     67e: 17 03 00 00                  	auipc	t1, 0
+			0000067e:  R_RISCV_CALL	__riscv_restore_3
+			0000067e:  R_RISCV_RELAX	*ABS*
+     682: 67 00 03 00                  	jr	t1
+
+00000686 .L110:
+     686: 26 85                        	add	a0, zero, s1
+     688: 17 03 00 00                  	auipc	t1, 0
+			00000688:  R_RISCV_CALL	mgr_show_in_wife
+			00000688:  R_RISCV_RELAX	*ABS*
+     68c: e7 00 03 00                  	jalr	t1
+     690: aa 86                        	add	a3, zero, a0
+
+00000692 .L112:
+     692: 01 44                        	mv	s0, zero
+     694: e1 bf                        	j	-40
+			00000694:  R_RISCV_RVC_JUMP	.L108
+
+00000696 .L109:
+     696: c9 46                        	addi	a3, zero, 18
+     698: ed bf                        	j	-6
+			00000698:  R_RISCV_RVC_JUMP	.L112
+
+0000069a mgr_proc_fetch_into_influence:
+     69a: 17 03 00 00                  	auipc	t1, 0
+			0000069a:  R_RISCV_CALL	__riscv_save_2
+			0000069a:  R_RISCV_RELAX	*ABS*
+     69e: e7 02 03 00                  	jalr	t0, t1
+     6a2: 37 44 08 00                  	lui	s0, 132
+     6a6: 93 07 04 3a                  	addi	a5, s0, 928
+     6aa: 05 46                        	addi	a2, zero, 1
+     6ac: b6 85                        	add	a1, zero, a3
+     6ae: 13 05 30 43                  	addi	a0, zero, 1075
+     6b2: 89 46                        	addi	a3, zero, 2
+     6b4: 82 97                        	jalr	a5
+     6b6: aa 84                        	add	s1, zero, a0
+     6b8: 85 45                        	addi	a1, zero, 1
+     6ba: 01 45                        	mv	a0, zero
+     6bc: 17 03 00 00                  	auipc	t1, 0
+			000006bc:  R_RISCV_CALL	bb_rf_set_on_inflation
+			000006bc:  R_RISCV_RELAX	*ABS*
+     6c0: e7 00 03 00                  	jalr	t1
+     6c4: a3 80 a4 00                  	sb	a0, 1(s1)
+     6c8: 23 80 04 00                  	sb	zero, 0(s1)
+     6cc: 26 85                        	add	a0, zero, s1
+     6ce: 13 04 44 3a                  	addi	s0, s0, 932
+     6d2: 02 94                        	jalr	s0
+     6d4: 01 45                        	mv	a0, zero
+     6d6: 17 03 00 00                  	auipc	t1, 0
+			000006d6:  R_RISCV_CALL	__riscv_restore_2
+			000006d6:  R_RISCV_RELAX	*ABS*
+     6da: 67 00 03 00                  	jr	t1
+
+000006de mgr_proc_show_under_diamond:
+     6de: 17 03 00 00                  	auipc	t1, 0
+			000006de:  R_RISCV_CALL	__riscv_save_1
+			000006de:  R_RISCV_RELAX	*ABS*
+     6e2: e7 02 03 00                  	jalr	t0, t1
+     6e6: 71 11                        	addi	sp, sp, -4
+     6e8: b7 47 08 00                  	lui	a5, 132
+     6ec: 2e c0                        	sw	a1, 0(sp)
+     6ee: 93 87 07 36                  	addi	a5, a5, 864
+     6f2: 05 45                        	addi	a0, zero, 1
+     6f4: 36 84                        	add	s0, zero, a3
+     6f6: 82 97                        	jalr	a5
+     6f8: 85 47                        	addi	a5, zero, 1
+     6fa: 82 45                        	lw	a1, 0(sp)
+     6fc: b1 46                        	addi	a3, zero, 12
+     6fe: 63 08 f5 00                  	beq	a0, a5, 16
+			000006fe:  R_RISCV_BRANCH	.L117
+     702: 2e 85                        	add	a0, zero, a1
+     704: 17 03 00 00                  	auipc	t1, 0
+			00000704:  R_RISCV_CALL	mgr_get_to_town
+			00000704:  R_RISCV_RELAX	*ABS*
+     708: e7 00 03 00                  	jalr	t1
+     70c: aa 86                        	add	a3, zero, a0
+
+0000070e .L117:
+     70e: 05 46                        	addi	a2, zero, 1
+     710: a2 85                        	add	a1, zero, s0
+     712: 13 05 20 43                  	addi	a0, zero, 1074
+     716: 17 03 00 00                  	auipc	t1, 0
+			00000716:  R_RISCV_CALL	mgr_show_within_nobody
+			00000716:  R_RISCV_RELAX	*ABS*
+     71a: e7 00 03 00                  	jalr	t1
+     71e: 01 45                        	mv	a0, zero
+     720: 11 01                        	addi	sp, sp, 4
+     722: 17 03 00 00                  	auipc	t1, 0
+			00000722:  R_RISCV_CALL	__riscv_restore_1
+			00000722:  R_RISCV_RELAX	*ABS*
+     726: 67 00 03 00                  	jr	t1
+
+0000072a mgr_proc_set_inside_cash:
+     72a: 17 03 00 00                  	auipc	t1, 0
+			0000072a:  R_RISCV_CALL	__riscv_save_3
+			0000072a:  R_RISCV_RELAX	*ABS*
+     72e: e7 02 03 00                  	jalr	t0, t1
+     732: b7 07 00 00                  	lui	a5, 0
+			00000732:  R_RISCV_HI20	mgr_cause_within_nobody+0x4c
+			00000732:  R_RISCV_RELAX	*ABS*+0x4c
+     736: 83 c7 c7 04                  	lbu	a5, 76(a5)
+			00000736:  R_RISCV_LO12_I	mgr_cause_within_nobody+0x4c
+			00000736:  R_RISCV_RELAX	*ABS*+0x4c
+     73a: 61 11                        	addi	sp, sp, -8
+     73c: 2e 84                        	add	s0, zero, a1
+     73e: 36 89                        	add	s2, zero, a3
+     740: 93 04 00 0c                  	addi	s1, zero, 192
+     744: 91 c7                        	beqz	a5, 12
+			00000744:  R_RISCV_RVC_BRANCH	.L122
+     746: fd 17                        	addi	a5, a5, -1
+     748: b3 37 f0 00                  	snez	a5, a5
+     74c: 93 94 67 00                  	slli	s1, a5, 6
+
+00000750 .L122:
+     750: fd 57                        	addi	a5, zero, -1
+     752: 23 12 f1 00                  	sh	a5, 4(sp)
+     756: 3e c0                        	sw	a5, 0(sp)
+     758: 19 46                        	addi	a2, zero, 6
+     75a: 93 e7 f4 03                  	ori	a5, s1, 63
+     75e: 8a 85                        	add	a1, zero, sp
+     760: 22 85                        	add	a0, zero, s0
+     762: a3 02 f1 00                  	sb	a5, 5(sp)
+     766: 17 03 00 00                  	auipc	t1, 0
+			00000766:  R_RISCV_CALL	memcmp
+			00000766:  R_RISCV_RELAX	*ABS*
+     76a: e7 00 03 00                  	jalr	t1
+     76e: 39 c5                        	beqz	a0, 78
+			0000076e:  R_RISCV_RVC_BRANCH	.L123
+     770: 23 12 01 00                  	sh	zero, 4(sp)
+     774: 19 46                        	addi	a2, zero, 6
+     776: 8a 85                        	add	a1, zero, sp
+     778: 22 85                        	add	a0, zero, s0
+     77a: 02 c0                        	sw	zero, 0(sp)
+     77c: a3 02 91 00                  	sb	s1, 5(sp)
+     780: 17 03 00 00                  	auipc	t1, 0
+			00000780:  R_RISCV_CALL	memcmp
+			00000780:  R_RISCV_RELAX	*ABS*
+     784: e7 00 03 00                  	jalr	t1
+     788: 15 c9                        	beqz	a0, 52
+			00000788:  R_RISCV_RVC_BRANCH	.L123
+     78a: 37 05 00 00                  	lui	a0, 0
+			0000078a:  R_RISCV_HI20	mgr_cause_within_nobody+0x40
+			0000078a:  R_RISCV_RELAX	*ABS*+0x40
+     78e: 19 46                        	addi	a2, zero, 6
+     790: a2 85                        	add	a1, zero, s0
+     792: 13 05 05 04                  	addi	a0, a0, 64
+			00000792:  R_RISCV_LO12_I	mgr_cause_within_nobody+0x40
+			00000792:  R_RISCV_RELAX	*ABS*+0x40
+     796: 17 03 00 00                  	auipc	t1, 0
+			00000796:  R_RISCV_CALL	memcpy
+			00000796:  R_RISCV_RELAX	*ABS*
+     79a: e7 00 03 00                  	jalr	t1
+     79e: 81 46                        	mv	a3, zero
+
+000007a0 .L124:
+     7a0: 05 46                        	addi	a2, zero, 1
+     7a2: ca 85                        	add	a1, zero, s2
+     7a4: 13 05 10 43                  	addi	a0, zero, 1073
+     7a8: 17 03 00 00                  	auipc	t1, 0
+			000007a8:  R_RISCV_CALL	mgr_show_within_nobody
+			000007a8:  R_RISCV_RELAX	*ABS*
+     7ac: e7 00 03 00                  	jalr	t1
+     7b0: 01 45                        	mv	a0, zero
+     7b2: 21 01                        	addi	sp, sp, 8
+     7b4: 17 03 00 00                  	auipc	t1, 0
+			000007b4:  R_RISCV_CALL	__riscv_restore_3
+			000007b4:  R_RISCV_RELAX	*ABS*
+     7b8: 67 00 03 00                  	jr	t1
+
+000007bc .L123:
+     7bc: c9 46                        	addi	a3, zero, 18
+     7be: cd b7                        	j	-30
+			000007be:  R_RISCV_RVC_JUMP	.L124
+
+000007c0 ll_proc_keep_under_diamond:
+     7c0: 17 03 00 00                  	auipc	t1, 0
+			000007c0:  R_RISCV_CALL	__riscv_save_2
+			000007c0:  R_RISCV_RELAX	*ABS*
+     7c4: e7 02 03 00                  	jalr	t0, t1
+     7c8: b7 44 08 00                  	lui	s1, 132
+     7cc: 93 87 44 36                  	addi	a5, s1, 868
+     7d0: 81 45                        	mv	a1, zero
+     7d2: 05 45                        	addi	a0, zero, 1
+     7d4: 82 97                        	jalr	a5
+     7d6: 37 04 00 00                  	lui	s0, 0
+			000007d6:  R_RISCV_HI20	mgr_cause_within_nobody
+			000007d6:  R_RISCV_RELAX	*ABS*
+     7da: 93 07 04 00                  	mv	a5, s0
+			000007da:  R_RISCV_LO12_I	mgr_cause_within_nobody
+			000007da:  R_RISCV_RELAX	*ABS*
+     7de: 7d 57                        	addi	a4, zero, -1
+     7e0: 23 97 e7 02                  	sh	a4, 46(a5)
+     7e4: 83 c7 77 03                  	lbu	a5, 55(a5)
+     7e8: 8d 46                        	addi	a3, zero, 3
+     7ea: 63 88 d7 04                  	beq	a5, a3, 80
+			000007ea:  R_RISCV_BRANCH	.L137
+     7ee: 13 04 04 00                  	mv	s0, s0
+			000007ee:  R_RISCV_LO12_I	mgr_cause_within_nobody
+			000007ee:  R_RISCV_RELAX	*ABS*
+     7f2: 83 47 64 03                  	lbu	a5, 54(s0)
+     7f6: b1 c3                        	beqz	a5, 68
+			000007f6:  R_RISCV_RVC_BRANCH	.L137
+     7f8: 93 84 04 3a                  	addi	s1, s1, 928
+     7fc: 05 46                        	addi	a2, zero, 1
+     7fe: a5 45                        	addi	a1, zero, 9
+     800: 13 05 40 44                  	addi	a0, zero, 1092
+     804: 82 94                        	jalr	s1
+     806: bd 66                        	lui	a3, 15
+     808: 9c 42                        	lw	a5, 0(a3)
+     80a: 37 07 fc ff                  	lui	a4, 1048512
+     80e: 7d 17                        	addi	a4, a4, -1
+     810: f9 8f                        	and	a5, a5, a4
+     812: 23 0b 04 02                  	sb	zero, 54(s0)
+     816: 9c c2                        	sw	a5, 0(a3)
+     818: 83 47 74 03                  	lbu	a5, 55(s0)
+     81c: 85 e7                        	bnez	a5, 40
+			0000081c:  R_RISCV_RVC_BRANCH	.L138
+     81e: a3 00 05 00                  	sb	zero, 1(a0)
+     822: 23 01 05 00                  	sb	zero, 2(a0)
+
+00000826 .L139:
+     826: 8d 47                        	addi	a5, zero, 3
+     828: a3 0b f4 02                  	sb	a5, 55(s0)
+     82c: b7 47 08 00                  	lui	a5, 132
+     830: 23 00 05 00                  	sb	zero, 0(a0)
+     834: 93 87 47 3a                  	addi	a5, a5, 932
+     838: 82 97                        	jalr	a5
+
+0000083a .L137:
+     83a: 01 45                        	mv	a0, zero
+     83c: 17 03 00 00                  	auipc	t1, 0
+			0000083c:  R_RISCV_CALL	__riscv_restore_2
+			0000083c:  R_RISCV_RELAX	*ABS*
+     840: 67 00 03 00                  	jr	t1
+
+00000844 .L138:
+     844: 83 47 84 03                  	lbu	a5, 56(s0)
+     848: a3 00 f5 00                  	sb	a5, 1(a0)
+     84c: 83 47 94 03                  	lbu	a5, 57(s0)
+     850: 23 01 f5 00                  	sb	a5, 2(a0)
+     854: 23 1c 04 02                  	sh	zero, 56(s0)
+     858: f9 b7                        	j	-50
+			00000858:  R_RISCV_RVC_JUMP	.L139
+
+0000085a mgr_proc_pick_within_side:
+     85a: 17 03 00 00                  	auipc	t1, 0
+			0000085a:  R_RISCV_CALL	__riscv_save_2
+			0000085a:  R_RISCV_RELAX	*ABS*
+     85e: e7 02 03 00                  	jalr	t0, t1
+     862: 71 11                        	addi	sp, sp, -4
+     864: b7 44 08 00                  	lui	s1, 132
+     868: 93 87 04 36                  	addi	a5, s1, 864
+     86c: 36 c0                        	sw	a3, 0(sp)
+     86e: 05 45                        	addi	a0, zero, 1
+     870: 82 97                        	jalr	a5
+     872: 95 47                        	addi	a5, zero, 5
+     874: 82 45                        	lw	a1, 0(sp)
+     876: 63 1b f5 02                  	bne	a0, a5, 54
+			00000876:  R_RISCV_BRANCH	.L145
+     87a: 37 04 00 00                  	lui	s0, 0
+			0000087a:  R_RISCV_HI20	mgr_cause_within_nobody
+			0000087a:  R_RISCV_RELAX	*ABS*
+     87e: 13 04 04 00                  	mv	s0, s0
+			0000087e:  R_RISCV_LO12_I	mgr_cause_within_nobody
+			0000087e:  R_RISCV_RELAX	*ABS*
+     882: 08 58                        	lw	a0, 48(s0)
+     884: 85 47                        	addi	a5, zero, 1
+     886: 23 0b f4 02                  	sb	a5, 54(s0)
+     88a: 17 03 00 00                  	auipc	t1, 0
+			0000088a:  R_RISCV_CALL	ble_con_go_with_pen
+			0000088a:  R_RISCV_RELAX	*ABS*
+     88e: e7 00 03 00                  	jalr	t1
+     892: 93 84 44 36                  	addi	s1, s1, 868
+     896: 23 28 04 02                  	sw	zero, 48(s0)
+     89a: 91 45                        	addi	a1, zero, 4
+     89c: 05 45                        	addi	a0, zero, 1
+     89e: 82 94                        	jalr	s1
+
+000008a0 .L146:
+     8a0: 01 45                        	mv	a0, zero
+     8a2: 11 01                        	addi	sp, sp, 4
+     8a4: 17 03 00 00                  	auipc	t1, 0
+			000008a4:  R_RISCV_CALL	__riscv_restore_2
+			000008a4:  R_RISCV_RELAX	*ABS*
+     8a8: 67 00 03 00                  	jr	t1
+
+000008ac .L145:
+     8ac: b1 46                        	addi	a3, zero, 12
+     8ae: 05 46                        	addi	a2, zero, 1
+     8b0: 13 05 40 44                  	addi	a0, zero, 1092
+     8b4: 17 03 00 00                  	auipc	t1, 0
+			000008b4:  R_RISCV_CALL	mgr_show_within_nobody
+			000008b4:  R_RISCV_RELAX	*ABS*
+     8b8: e7 00 03 00                  	jalr	t1
+     8bc: d5 b7                        	j	-28
+			000008bc:  R_RISCV_RVC_JUMP	.L146
+
+000008be mgr_proc_send_into_hearing:
+     8be: 17 03 00 00                  	auipc	t1, 0
+			000008be:  R_RISCV_CALL	__riscv_save_1
+			000008be:  R_RISCV_RELAX	*ABS*
+     8c2: e7 02 03 00                  	jalr	t0, t1
+     8c6: 37 04 00 00                  	lui	s0, 0
+			000008c6:  R_RISCV_HI20	mgr_cause_within_nobody
+			000008c6:  R_RISCV_RELAX	*ABS*
+     8ca: 13 04 04 00                  	mv	s0, s0
+			000008ca:  R_RISCV_LO12_I	mgr_cause_within_nobody
+			000008ca:  R_RISCV_RELAX	*ABS*
+     8ce: 08 58                        	lw	a0, 48(s0)
+     8d0: 17 03 00 00                  	auipc	t1, 0
+			000008d0:  R_RISCV_CALL	ble_con_go_with_pen
+			000008d0:  R_RISCV_RELAX	*ABS*
+     8d4: e7 00 03 00                  	jalr	t1
+     8d8: b7 47 08 00                  	lui	a5, 132
+     8dc: 23 28 04 02                  	sw	zero, 48(s0)
+     8e0: 91 45                        	addi	a1, zero, 4
+     8e2: 93 87 47 36                  	addi	a5, a5, 868
+     8e6: 05 45                        	addi	a0, zero, 1
+     8e8: 82 97                        	jalr	a5
+     8ea: 09 45                        	addi	a0, zero, 2
+     8ec: 17 03 00 00                  	auipc	t1, 0
+			000008ec:  R_RISCV_CALL	__riscv_restore_1
+			000008ec:  R_RISCV_RELAX	*ABS*
+     8f0: 67 00 03 00                  	jr	t1
+
+000008f4 mgr_proc_make_on_standard:
+     8f4: 17 03 00 00                  	auipc	t1, 0
+			000008f4:  R_RISCV_CALL	__riscv_save_1
+			000008f4:  R_RISCV_RELAX	*ABS*
+     8f8: e7 02 03 00                  	jalr	t0, t1
+     8fc: 71 11                        	addi	sp, sp, -4
+     8fe: b7 47 08 00                  	lui	a5, 132
+     902: 93 87 07 36                  	addi	a5, a5, 864
+     906: 2e c0                        	sw	a1, 0(sp)
+     908: 05 45                        	addi	a0, zero, 1
+     90a: 36 84                        	add	s0, zero, a3
+     90c: 82 97                        	jalr	a5
+     90e: aa 87                        	add	a5, zero, a0
+     910: 11 47                        	addi	a4, zero, 4
+     912: 09 45                        	addi	a0, zero, 2
+     914: 63 8c e7 02                  	beq	a5, a4, 56
+			00000914:  R_RISCV_BRANCH	.L150
+     918: 15 47                        	addi	a4, zero, 5
+     91a: 63 85 e7 02                  	beq	a5, a4, 42
+			0000091a:  R_RISCV_BRANCH	.L153
+     91e: 82 45                        	lw	a1, 0(sp)
+     920: b1 46                        	addi	a3, zero, 12
+     922: 99 e7                        	bnez	a5, 14
+			00000922:  R_RISCV_RVC_BRANCH	.L151
+     924: 2e 85                        	add	a0, zero, a1
+     926: 17 03 00 00                  	auipc	t1, 0
+			00000926:  R_RISCV_CALL	mgr_leave_by_roll
+			00000926:  R_RISCV_RELAX	*ABS*
+     92a: e7 00 03 00                  	jalr	t1
+     92e: aa 86                        	add	a3, zero, a0
+
+00000930 .L151:
+     930: 13 05 30 44                  	addi	a0, zero, 1091
+     934: 05 46                        	addi	a2, zero, 1
+     936: a2 85                        	add	a1, zero, s0
+     938: 17 03 00 00                  	auipc	t1, 0
+			00000938:  R_RISCV_CALL	mgr_show_within_nobody
+			00000938:  R_RISCV_RELAX	*ABS*
+     93c: e7 00 03 00                  	jalr	t1
+     940: 01 45                        	mv	a0, zero
+     942: 29 a0                        	j	10
+			00000942:  R_RISCV_RVC_JUMP	.L150
+
+00000944 .L153:
+     944: 17 03 00 00                  	auipc	t1, 0
+			00000944:  R_RISCV_CALL	mgr_proc_make_of_cat
+			00000944:  R_RISCV_RELAX	*ABS*
+     948: e7 00 03 00                  	jalr	t1
+
+0000094c .L150:
+     94c: 11 01                        	addi	sp, sp, 4
+     94e: 17 03 00 00                  	auipc	t1, 0
+			0000094e:  R_RISCV_CALL	__riscv_restore_1
+			0000094e:  R_RISCV_RELAX	*ABS*
+     952: 67 00 03 00                  	jr	t1
+
+00000956 mgr_proc_find_on_truth:
+     956: 17 03 00 00                  	auipc	t1, 0
+			00000956:  R_RISCV_CALL	__riscv_save_1
+			00000956:  R_RISCV_RELAX	*ABS*
+     95a: e7 02 03 00                  	jalr	t0, t1
+     95e: 71 11                        	addi	sp, sp, -4
+     960: b7 47 08 00                  	lui	a5, 132
+     964: 93 87 07 36                  	addi	a5, a5, 864
+     968: 2e c0                        	sw	a1, 0(sp)
+     96a: 05 45                        	addi	a0, zero, 1
+     96c: 36 84                        	add	s0, zero, a3
+     96e: 82 97                        	jalr	a5
+     970: aa 87                        	add	a5, zero, a0
+     972: 11 47                        	addi	a4, zero, 4
+     974: 09 45                        	addi	a0, zero, 2
+     976: 63 8c e7 02                  	beq	a5, a4, 56
+			00000976:  R_RISCV_BRANCH	.L159
+     97a: 15 47                        	addi	a4, zero, 5
+     97c: 63 85 e7 02                  	beq	a5, a4, 42
+			0000097c:  R_RISCV_BRANCH	.L162
+     980: 82 45                        	lw	a1, 0(sp)
+     982: b1 46                        	addi	a3, zero, 12
+     984: 99 e7                        	bnez	a5, 14
+			00000984:  R_RISCV_RVC_BRANCH	.L160
+     986: 2e 85                        	add	a0, zero, a1
+     988: 17 03 00 00                  	auipc	t1, 0
+			00000988:  R_RISCV_CALL	mgr_keep_by_commission
+			00000988:  R_RISCV_RELAX	*ABS*
+     98c: e7 00 03 00                  	jalr	t1
+     990: aa 86                        	add	a3, zero, a0
+
+00000992 .L160:
+     992: 13 05 20 44                  	addi	a0, zero, 1090
+     996: 05 46                        	addi	a2, zero, 1
+     998: a2 85                        	add	a1, zero, s0
+     99a: 17 03 00 00                  	auipc	t1, 0
+			0000099a:  R_RISCV_CALL	mgr_show_within_nobody
+			0000099a:  R_RISCV_RELAX	*ABS*
+     99e: e7 00 03 00                  	jalr	t1
+     9a2: 01 45                        	mv	a0, zero
+     9a4: 29 a0                        	j	10
+			000009a4:  R_RISCV_RVC_JUMP	.L159
+
+000009a6 .L162:
+     9a6: 17 03 00 00                  	auipc	t1, 0
+			000009a6:  R_RISCV_CALL	mgr_proc_send_into_hearing
+			000009a6:  R_RISCV_RELAX	*ABS*
+     9aa: e7 00 03 00                  	jalr	t1
+
+000009ae .L159:
+     9ae: 11 01                        	addi	sp, sp, 4
+     9b0: 17 03 00 00                  	auipc	t1, 0
+			000009b0:  R_RISCV_CALL	__riscv_restore_1
+			000009b0:  R_RISCV_RELAX	*ABS*
+     9b4: 67 00 03 00                  	jr	t1
+
+000009b8 mgr_proc_tell_within_string:
+     9b8: 17 03 00 00                  	auipc	t1, 0
+			000009b8:  R_RISCV_CALL	__riscv_save_3
+			000009b8:  R_RISCV_RELAX	*ABS*
+     9bc: e7 02 03 00                  	jalr	t0, t1
+     9c0: 37 44 08 00                  	lui	s0, 132
+     9c4: 93 07 04 36                  	addi	a5, s0, 864
+     9c8: 05 45                        	addi	a0, zero, 1
+     9ca: 36 89                        	add	s2, zero, a3
+     9cc: 82 97                        	jalr	a5
+     9ce: 8d 47                        	addi	a5, zero, 3
+     9d0: 63 1a f5 04                  	bne	a0, a5, 84
+			000009d0:  R_RISCV_BRANCH	.L173
+     9d4: b7 04 00 00                  	lui	s1, 0
+			000009d4:  R_RISCV_HI20	mgr_cause_within_nobody
+			000009d4:  R_RISCV_RELAX	*ABS*
+     9d8: 93 84 04 00                  	mv	s1, s1
+			000009d8:  R_RISCV_LO12_I	mgr_cause_within_nobody
+			000009d8:  R_RISCV_RELAX	*ABS*
+     9dc: 88 58                        	lw	a0, 48(s1)
+     9de: 13 04 44 36                  	addi	s0, s0, 868
+     9e2: 17 03 00 00                  	auipc	t1, 0
+			000009e2:  R_RISCV_CALL	ble_con_write_under_state
+			000009e2:  R_RISCV_RELAX	*ABS*
+     9e6: e7 00 03 00                  	jalr	t1
+     9ea: 91 45                        	addi	a1, zero, 4
+     9ec: 23 a8 04 02                  	sw	zero, 48(s1)
+     9f0: 05 45                        	addi	a0, zero, 1
+     9f2: 02 94                        	jalr	s0
+     9f4: 01 44                        	mv	s0, zero
+
+000009f6 .L169:
+     9f6: a2 86                        	add	a3, zero, s0
+     9f8: 05 46                        	addi	a2, zero, 1
+     9fa: ca 85                        	add	a1, zero, s2
+     9fc: 13 05 90 43                  	addi	a0, zero, 1081
+     a00: 17 03 00 00                  	auipc	t1, 0
+			00000a00:  R_RISCV_CALL	mgr_show_within_nobody
+			00000a00:  R_RISCV_RELAX	*ABS*
+     a04: e7 00 03 00                  	jalr	t1
+     a08: 09 e8                        	bnez	s0, 18
+			00000a08:  R_RISCV_RVC_BRANCH	.L171
+     a0a: c1 65                        	lui	a1, 16
+     a0c: 01 46                        	mv	a2, zero
+     a0e: fd 15                        	addi	a1, a1, -1
+     a10: 09 45                        	addi	a0, zero, 2
+     a12: 17 03 00 00                  	auipc	t1, 0
+			00000a12:  R_RISCV_CALL	ll_go_without_restaurant
+			00000a12:  R_RISCV_RELAX	*ABS*
+     a16: e7 00 03 00                  	jalr	t1
+
+00000a1a .L171:
+     a1a: 01 45                        	mv	a0, zero
+     a1c: 17 03 00 00                  	auipc	t1, 0
+			00000a1c:  R_RISCV_CALL	__riscv_restore_3
+			00000a1c:  R_RISCV_RELAX	*ABS*
+     a20: 67 00 03 00                  	jr	t1
+
+00000a24 .L173:
+     a24: 31 44                        	addi	s0, zero, 12
+     a26: c1 bf                        	j	-48
+			00000a26:  R_RISCV_RVC_JUMP	.L169

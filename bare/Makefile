@@ -36,8 +36,8 @@ else ifneq ($(FM_BACKEND),vendor)
 $(error FM_BACKEND must be vendor or recovered)
 endif
 
-# Partial Bluetooth support recovery: HCI message helpers and platform glue.
-# Controller/RF/ROM code still comes from the vendor; this is not a full stack.
+# Recovered controller archive: all nonempty members have source replacements.
+# ROM services and board startup remain separate platform requirements.
 BT_SUPPORT_BACKEND ?= vendor
 ifeq ($(BT_SUPPORT_BACKEND),recovered)
 BUILD_DIR := $(BUILD_DIR)/recovered-bt-support
@@ -85,7 +85,11 @@ ASFLAGS := $(ARCH_FLAGS) -x assembler-with-cpp
 
 # 链接选项
 LDSCRIPT := link.ld
-LDLIBS   := -lhal -lbtctrl -lgcc
+LDLIBS   := -lhal
+ifeq ($(BT_SUPPORT_BACKEND),vendor)
+LDLIBS   += -lbtctrl
+endif
+LDLIBS   += -lgcc
 LDFLAGS  := $(ARCH_FLAGS) $(OPT_FLAGS) \
     -T$(LDSCRIPT) \
     -Wl,--gc-sections \
@@ -105,7 +109,7 @@ ifeq ($(FM_BACKEND),vendor)
 DRV_SRCS := $(filter-out $(DRV_DIR)/src/fmrx_analog_recovered.c $(DRV_DIR)/src/fmrx_digital_recovered.c,$(DRV_SRCS))
 endif
 ifeq ($(BT_SUPPORT_BACKEND),vendor)
-DRV_SRCS := $(filter-out $(DRV_DIR)/src/bt_hct_recovered.c $(DRV_DIR)/src/bt_platform_recovered.c,$(DRV_SRCS))
+DRV_SRCS := $(filter-out $(wildcard $(DRV_DIR)/src/bt_*_recovered.c),$(DRV_SRCS))
 endif
 ifeq ($(USB_BACKEND),vendor)
 DRV_SRCS := $(filter-out $(DRV_DIR)/src/usb_comm_recovered.c $(DRV_DIR)/src/usb_ep_recovered.c $(DRV_DIR)/src/usb_enum_recovered.c $(DRV_DIR)/src/usb_class_recovered.c,$(DRV_SRCS))

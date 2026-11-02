@@ -1,0 +1,165 @@
+
+libbtctrl.a:ble.o:	file format ELF32-riscv
+
+
+Disassembly of section .text:
+
+00000000 ble_write_about_black:
+       0: 17 03 00 00                  	auipc	t1, 0
+			00000000:  R_RISCV_CALL	__riscv_save_0
+			00000000:  R_RISCV_RELAX	*ABS*
+       4: e7 02 03 00                  	jalr	t0, t1
+       8: 17 03 00 00                  	auipc	t1, 0
+			00000008:  R_RISCV_CALL	ble_pick_to_teacher
+			00000008:  R_RISCV_RELAX	*ABS*
+       c: e7 00 03 00                  	jalr	t1
+      10: 01 45                        	mv	a0, zero
+      12: 17 03 00 00                  	auipc	t1, 0
+			00000012:  R_RISCV_CALL	ble_take_for_screw
+			00000012:  R_RISCV_RELAX	*ABS*
+      16: e7 00 03 00                  	jalr	t1
+      1a: 17 03 00 00                  	auipc	t1, 0
+			0000001a:  R_RISCV_CALL	__riscv_restore_0
+			0000001a:  R_RISCV_RELAX	*ABS*
+      1e: 67 00 03 00                  	jr	t1
+
+00000022 bb_go_on_valuable:
+      22: 17 03 00 00                  	auipc	t1, 0
+			00000022:  R_RISCV_CALL	__riscv_save_0
+			00000022:  R_RISCV_RELAX	*ABS*
+      26: e7 02 03 00                  	jalr	t0, t1
+      2a: 01 45                        	mv	a0, zero
+      2c: 17 03 00 00                  	auipc	t1, 0
+			0000002c:  R_RISCV_CALL	ble_leave_about_television
+			0000002c:  R_RISCV_RELAX	*ABS*
+      30: e7 00 03 00                  	jalr	t1
+      34: 17 03 00 00                  	auipc	t1, 0
+			00000034:  R_RISCV_CALL	ble_write_about_black
+			00000034:  R_RISCV_RELAX	*ABS*
+      38: e7 00 03 00                  	jalr	t1
+      3c: bd 67                        	lui	a5, 15
+      3e: 23 a8 07 04                  	sw	zero, 80(a5)
+      42: 17 03 00 00                  	auipc	t1, 0
+			00000042:  R_RISCV_CALL	__riscv_restore_0
+			00000042:  R_RISCV_RELAX	*ABS*
+      46: 67 00 03 00                  	jr	t1
+
+0000004a ble_sell_about_sun:
+      4a: 17 03 00 00                  	auipc	t1, 0
+			0000004a:  R_RISCV_CALL	__riscv_save_0
+			0000004a:  R_RISCV_RELAX	*ABS*
+      4e: e7 02 03 00                  	jalr	t0, t1
+      52: 17 03 00 00                  	auipc	t1, 0
+			00000052:  R_RISCV_CALL	ble_make_of_distribution
+			00000052:  R_RISCV_RELAX	*ABS*
+      56: e7 00 03 00                  	jalr	t1
+      5a: 05 45                        	addi	a0, zero, 1
+      5c: 17 03 00 00                  	auipc	t1, 0
+			0000005c:  R_RISCV_CALL	ble_take_for_screw
+			0000005c:  R_RISCV_RELAX	*ABS*
+      60: e7 00 03 00                  	jalr	t1
+      64: 17 03 00 00                  	auipc	t1, 0
+			00000064:  R_RISCV_CALL	__riscv_restore_0
+			00000064:  R_RISCV_RELAX	*ABS*
+      68: 67 00 03 00                  	jr	t1
+
+0000006c bb_take_about_press:
+      6c: 17 03 00 00                  	auipc	t1, 0
+			0000006c:  R_RISCV_CALL	__riscv_save_1
+			0000006c:  R_RISCV_RELAX	*ABS*
+      70: e7 02 03 00                  	jalr	t0, t1
+      74: 03 24 40 54                  	lw	s0, 1348(zero)
+      78: 83 27 40 54                  	lw	a5, 1348(zero)
+      7c: 13 74 04 18                  	andi	s0, s0, 384
+      80: 93 f7 f7 e7                  	andi	a5, a5, -385
+      84: 23 22 f0 54                  	sw	a5, 1348(zero)
+      88: 17 03 00 00                  	auipc	t1, 0
+			00000088:  R_RISCV_CALL	bb_pick_under_strike
+			00000088:  R_RISCV_RELAX	*ABS*
+      8c: e7 00 03 00                  	jalr	t1
+      90: 05 45                        	addi	a0, zero, 1
+      92: 17 03 00 00                  	auipc	t1, 0
+			00000092:  R_RISCV_CALL	ble_leave_about_television
+			00000092:  R_RISCV_RELAX	*ABS*
+      96: e7 00 03 00                  	jalr	t1
+      9a: 17 03 00 00                  	auipc	t1, 0
+			0000009a:  R_RISCV_CALL	ble_sell_about_sun
+			0000009a:  R_RISCV_RELAX	*ABS*
+      9e: e7 00 03 00                  	jalr	t1
+      a2: 83 27 40 54                  	lw	a5, 1348(zero)
+      a6: 5d 8c                        	or	s0, s0, a5
+      a8: 23 22 80 54                  	sw	s0, 1348(zero)
+      ac: 17 03 00 00                  	auipc	t1, 0
+			000000ac:  R_RISCV_CALL	__riscv_restore_1
+			000000ac:  R_RISCV_RELAX	*ABS*
+      b0: 67 00 03 00                  	jr	t1
+
+Disassembly of section .com_text.bb.leisr:
+
+00000000 bb_reserve_without_volume:
+       0: 17 03 00 00                  	auipc	t1, 0
+			00000000:  R_RISCV_CALL	__riscv_save_8
+			00000000:  R_RISCV_RELAX	*ABS*
+       4: e7 02 03 00                  	jalr	t0, t1
+       8: b7 44 08 00                  	lui	s1, 132
+       c: 93 89 44 68                  	addi	s3, s1, 1668
+      10: 13 8a c4 67                  	addi	s4, s1, 1660
+      14: 93 8a 04 68                  	addi	s5, s1, 1664
+      18: 37 09 00 00                  	lui	s2, 0
+			00000018:  R_RISCV_HI20	.LANCHOR0
+			00000018:  R_RISCV_RELAX	*ABS*
+
+0000001c .L16:
+      1c: 3d 6b                        	lui	s6, 15
+      1e: 93 8b c4 61                  	addi	s7, s1, 1564
+
+00000022 .L15:
+      22: 03 24 0b 01                  	lw	s0, 16(s6)
+      26: 21 c0                        	beqz	s0, 64
+			00000026:  R_RISCV_RVC_BRANCH	.L9
+      28: 93 77 24 00                  	andi	a5, s0, 2
+      2c: 91 c3                        	beqz	a5, 4
+			0000002c:  R_RISCV_RVC_BRANCH	.L11
+      2e: 82 99                        	jalr	s3
+
+00000030 .L11:
+      30: 93 77 04 08                  	andi	a5, s0, 128
+      34: 91 c3                        	beqz	a5, 4
+			00000034:  R_RISCV_RVC_BRANCH	.L12
+      36: 02 9a                        	jalr	s4
+
+00000038 .L12:
+      38: 93 77 84 00                  	andi	a5, s0, 8
+      3c: 91 c3                        	beqz	a5, 4
+			0000003c:  R_RISCV_RVC_BRANCH	.L13
+      3e: 82 9a                        	jalr	s5
+
+00000040 .L13:
+      40: 93 77 04 01                  	andi	a5, s0, 16
+      44: 91 c3                        	beqz	a5, 4
+			00000044:  R_RISCV_RVC_BRANCH	.L14
+      46: 82 9b                        	jalr	s7
+
+00000048 .L14:
+      48: 13 74 04 02                  	andi	s0, s0, 32
+      4c: 79 d8                        	beqz	s0, -42
+			0000004c:  R_RISCV_RVC_BRANCH	.L15
+      4e: bd 67                        	lui	a5, 15
+      50: 13 07 00 02                  	addi	a4, zero, 32
+      54: 98 cf                        	sw	a4, 24(a5)
+      56: ac 53                        	lw	a1, 96(a5)
+      58: 13 05 09 00                  	mv	a0, s2
+			00000058:  R_RISCV_LO12_I	.LANCHOR0
+			00000058:  R_RISCV_RELAX	*ABS*
+      5c: 17 03 00 00                  	auipc	t1, 0
+			0000005c:  R_RISCV_CALL	my_printf
+			0000005c:  R_RISCV_RELAX	*ABS*
+      60: e7 00 03 00                  	jalr	t1
+      64: 65 bf                        	j	-72
+			00000064:  R_RISCV_RVC_JUMP	.L16
+
+00000066 .L9:
+      66: 17 03 00 00                  	auipc	t1, 0
+			00000066:  R_RISCV_CALL	__riscv_restore_8
+			00000066:  R_RISCV_RELAX	*ABS*
+      6a: 67 00 03 00                  	jr	t1

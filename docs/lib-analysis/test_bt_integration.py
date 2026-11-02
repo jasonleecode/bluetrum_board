@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check Bluetooth wrapper regressions and partial recovery archive selection.
+"""Check Bluetooth wrapper regressions and complete controller archive replacement.
 
 The RV32 link is isolated, with an artificial layout; it is not bootable firmware.
 Requires host cc, clang, make, readelf and a RISC-V-capable ld.lld.
@@ -14,7 +14,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[2]
 INC = ROOT / 'bare/drivers/inc'
 SRC = ROOT / 'bare/drivers/src'
-RECOVERED = ('bt_hct_recovered', 'bt_platform_recovered')
+RECOVERED = tuple(sorted(path.stem for path in SRC.glob('bt_*_recovered.c')))
 PLATFORM_API = ('baseband_platform_pass_by_hello', 'bthw_irq_init', 'bthw_isr_do_plus')
 
 
@@ -24,6 +24,7 @@ def run(args, **kwargs):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--gcc')
     parser.add_argument('--linker', default=shutil.which('ld.lld'))
     args = parser.parse_args()
     if not args.linker:
@@ -54,36 +55,39 @@ def main():
             run(command)
             run([tmp / 'wrapper'])
 
-        objects = {}
-        for name in ('drv_bluetooth', 'vendor_shim', *RECOVERED):
-            objects[name] = tmp / (name + '.o')
-            run(['clang', '--target=riscv32-unknown-elf', '-march=rv32imac', '-mabi=ilp32',
-                 '-ffreestanding', '-fno-builtin', '-Os', '-Wall', '-Wextra', '-Werror',
-                 '-I', INC, '-c', SRC / (name + '.c'), '-o', objects[name]])
-        for recovered in (False, True):
-            selected = ['drv_bluetooth', 'vendor_shim'] + (list(RECOVERED) if recovered else [])
-            elf = tmp / ('recovered.elf' if recovered else 'vendor.elf')
-            linked = run([args.linker, '-m', 'elf32lriscv', '--no-relax', '--trace',
-                          '-Ttext=0x200000', '-e', 'drv_bt_init', '-o', elf,
-                          *[objects[name] for name in selected], '--start-group',
-                          ROOT / 'bare/lib/libbtctrl.a', ROOT / 'bare/lib/libhal.a', '--end-group'],
-                         capture_output=True, text=True)
-            for member in ('hct_msg.o', 'hct_proc.o'):
-                assert (f'libbtctrl.a({member})' in linked.stdout) != recovered
-            # These dependencies deliberately remain; recovery is partial.
-            for member in ('hct.o', 'bb.o', 'bb_rf.o', 'baseband_platform.o', 'platform_asm.o'):
-                assert f'libbtctrl.a({member})' in linked.stdout
-            symbols = run(['readelf', '-Ws', elf], capture_output=True, text=True).stdout
-            for name in PLATFORM_API:
-                matches = [line.split() for line in symbols.splitlines()
-                           if line.split() and line.split()[-1] == name]
-                assert len(matches) == 1 and matches[0][6] != 'UND', name
-                assert matches[0][4] == ('GLOBAL' if recovered else 'WEAK'), name
-            assert not [line for line in symbols.splitlines()
-                        if ' UND ' in line and line.split()[-1] != 'UND']
-            print(f'PASS isolated RV32 link: {"recovered support" if recovered else "vendor"}; '
-                  'archive members and platform bindings verified')
-
+        compilers=[('clang',['clang','--target=riscv32-unknown-elf'])]
+        if args.gcc:compilers.append(('gcc',[args.gcc,'-msave-restore']))
+        for compiler,command in compilers:
+            objects = {}
+            for name in ('drv_bluetooth', 'vendor_shim', *RECOVERED):
+                objects[name] = tmp / (compiler+'-'+name+'.o')
+                run([*command, '-march=rv32imc', '-mabi=ilp32',
+                     '-ffreestanding', '-fno-builtin', '-Os', '-Wall', '-Wextra', '-Werror',
+                     '-I', INC, '-c', SRC / (name + '.c'), '-o', objects[name]])
+            for recovered in (False, True):
+                selected = ['drv_bluetooth', 'vendor_shim'] + (list(RECOVERED) if recovered else [])
+                elf = tmp / (compiler+('-recovered.elf' if recovered else '-vendor.elf'))
+                linked = run([args.linker, '-m', 'elf32lriscv', '--no-relax', '--trace',
+                              '-Ttext=0x200000', '-e', 'drv_bt_init', '-o', elf,
+                              *[objects[name] for name in selected], '--start-group',
+                              *([ROOT / 'bare/lib/libbtctrl.a'] if not recovered else []), ROOT / 'bare/lib/libhal.a', '--end-group'],
+                             capture_output=True, text=True)
+                for member in ('hct_msg.o', 'hct_proc.o', 'nanos.o', 'bb.o', 'ext_init.o', 'bb_rf.o', 'complex.o',
+                               'ext_util.o', 'bb_utils.o', 'll_util.o', 'lm_sleep.o', 'ble_sleep.o',
+                               'weak_symbol.o', 'bt21.o', 'ble.o', 'lm.o', 'bb_buf.o', 'mgr_util.o',
+                               'bb_debug.o', 'baseband_platform.o', 'platform_asm.o', 'lm_proc.o', 'hct.o', 'ble_evt.o', 'ble_con.o', 'mgr_proc.o', 'll.o', 'mgr.o', 'll_cntl.o', 'll_proc.o'):
+                    assert (f'libbtctrl.a({member})' in linked.stdout) == (not recovered and member!='bb_debug.o'), (recovered, member, linked.stdout)
+                if recovered:assert 'libbtctrl.a' not in linked.stdout
+                symbols = run(['readelf', '-Ws', elf], capture_output=True, text=True).stdout
+                for name in PLATFORM_API:
+                    matches = [line.split() for line in symbols.splitlines()
+                               if line.split() and line.split()[-1] == name]
+                    assert len(matches) == 1 and matches[0][6] != 'UND', name
+                    assert matches[0][4] == 'WEAK', name
+                assert not [line for line in symbols.splitlines()
+                            if ' UND ' in line and line.split()[-1] != 'UND']
+                print(f'PASS isolated RV32 {compiler} link: {"recovered support" if recovered else "vendor"}; '
+                      'archive members and platform bindings verified')
 
 if __name__ == '__main__':
     main()

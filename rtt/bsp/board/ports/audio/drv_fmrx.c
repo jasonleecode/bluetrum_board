@@ -12,6 +12,18 @@ static struct rt_mutex fm_lock;
 static struct ab32_fmrx_status fm_status = {0, 55, RT_FALSE, RT_EOK};
 static rt_uint32_t fm_buffer_words;
 static rt_err_t pll_error;
+static rt_bool_t bt_claimed;
+
+/* Until RF coexistence is implemented, the BT test owns RF until reboot. */
+rt_err_t ab32_fmrx_bt_claim(void)
+{
+    rt_err_t ret = rt_mutex_take(&fm_lock, RT_WAITING_FOREVER);
+    if (ret != RT_EOK) return ret;
+    if (fm_status.running) ret = -RT_EBUSY;
+    else bt_claimed = RT_TRUE;
+    rt_mutex_release(&fm_lock);
+    return ret;
+}
 
 /* Called only while fm_lock is held. All callers check the sticky error and
  * power down before enabling the FM -> audio route if calibration times out.
@@ -63,6 +75,7 @@ static rt_err_t fm_control(rt_device_t dev, int cmd, void *arg)
     {
     case AB32_FMRX_START:
     case AB32_FMRX_TUNE:
+        if (bt_claimed) { ret = -RT_EBUSY; break; }
         value = *(rt_uint32_t *)arg;
         if (!fm_frequency_valid(value))
         { ret = -RT_EINVAL; break; }

@@ -1,6 +1,5 @@
-/* Recovered from libbtctrl.a:baseband_platform.o, not a complete BT port.
- * These strong definitions replace three weak vendor implementations. Other
- * vendor hooks remain available, including their nonfunctional defaults. */
+/* Recovered from libbtctrl.a:baseband_platform.o. All original weak
+ * defaults are retained; these do not supply a working board IRQ dispatcher. */
 #include "bt_platform_recovered.h"
 
 #define BT_REG(address) (*(volatile uint32_t *)(uintptr_t)(address))
@@ -28,7 +27,7 @@ static void BT_SECTION(".com_text.irq") baseband_platform_get_of_officer(void)
     os_interrupt_leave();
 }
 
-void baseband_platform_pass_by_hello(void)
+void __attribute__((weak)) baseband_platform_pass_by_hello(void)
 {
     /* 0x3a4 is PLL1DIV in the public SDK register header. Preserve all four
      * volatile RMW operations, including the intermediate states. */
@@ -38,13 +37,13 @@ void baseband_platform_pass_by_hello(void)
     BT_REG(0x3a4) &= ~UINT32_C(0x1c);
 }
 
-void BT_SECTION(".com_text.bthw") bthw_isr_do_plus(void)
+void __attribute__((weak)) BT_SECTION(".com_text.bthw") bthw_isr_do_plus(void)
 {
     bthw_isr_do();
     BT_REG(0x3f8) |= UINT32_C(3);
 }
 
-void bthw_irq_init(void)
+void __attribute__((weak)) bthw_irq_init(void)
 {
     bb_rf_read_inside_upper[0] = 0;
     bb_rf_read_inside_upper[1] = (uint8_t)bt_get_packet(255);
@@ -66,3 +65,18 @@ void bthw_irq_init(void)
         BT_REG(0x544) |= UINT32_C(1) << 22; /* PICEN */
     }
 }
+
+/* These are genuine defaults in the original object, not stand-ins for
+ * unrecovered functions. The board port overrides them where needed. */
+const uint8_t *__attribute__((weak)) bb_rf_reserve_into_strategy(void) { return 0; }
+void __attribute__((weak)) bb_save_about_song(uint32_t value) { (void)value; }
+void __attribute__((weak)) ll_get_on_spread(void) {}
+bt_isr_t __attribute__((weak)) register_isr(int vector, bt_isr_t handler)
+{ (void)vector; (void)handler; return 0; }
+uint32_t __attribute__((weak)) BT_SECTION(".com_text.sleep") bb_pass_within_library(uint32_t *duration)
+{ (void)duration; return 0; }
+void __attribute__((weak)) BT_SECTION(".com_text.stack.ticks") bt21_save_in_design(void) {}
+void __attribute__((weak)) BT_SECTION(".com_text.irq") bthw_thread_post(void) {}
+void __attribute__((weak)) BT_SECTION(".com_text.isr.txrx") os_interrupt_enter(void) {}
+void __attribute__((weak)) BT_SECTION(".com_text.isr.txrx") os_interrupt_leave(void) {}
+void __attribute__((weak)) BT_SECTION(".com_text.isr.txrx") bb_rf_take_without_start(void) {}

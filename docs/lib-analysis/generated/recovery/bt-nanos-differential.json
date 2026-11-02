@@ -1,0 +1,728 @@
+{
+  "original_object_sha256": "e8105a1f1899da0f61ca4122e7e8b006b97245f9ebd00f16af6775732bb28e46",
+  "recovered_source_sha256": "8574085dcac9b8af71ffac3b18b4a62ebbe1b353d1d09a953992ba8d1cefbe92",
+  "unicorn_version": "2.1.4",
+  "model": "Six nanos.o exports; synthetic MMIO, ROM-call hooks and vendor restore ABI shims. No ROM implementation, silicon timing or RF validation.",
+  "cases": [
+    {
+      "index": 0,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 1,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 2,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 3,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 4,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 5,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 6,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 7,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 8,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 9,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 10,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 11,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 12,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 13,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 14,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 15,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 16,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 17,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 18,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 19,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 20,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 21,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 22,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 23,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 24,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 25,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 26,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 27,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 28,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 29,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 30,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 31,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 32,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 33,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 34,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 35,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 36,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 37,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 38,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 39,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 40,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 41,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 42,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 43,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 44,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 45,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 46,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 47,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 48,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 49,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 50,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 51,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 52,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 53,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 54,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 55,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 56,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 57,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 58,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 59,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 60,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 61,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 62,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 63,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 64,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 65,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 66,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 67,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 68,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 69,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 70,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 71,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 72,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 73,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 74,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 75,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 76,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 77,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 78,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 79,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 80,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 81,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 82,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 83,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 84,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 85,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 86,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 87,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 88,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 89,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 90,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 91,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 92,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 93,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 94,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 95,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 96,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 97,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 98,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 99,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 100,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 101,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 102,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 103,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 104,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 105,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 106,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 107,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 108,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 109,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 110,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 111,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 112,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 113,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 114,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 115,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 116,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 117,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 118,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 119,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 120,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 121,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 122,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 123,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 124,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 125,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 126,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 127,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 128,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 129,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 130,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 131,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 132,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 133,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 134,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 135,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 136,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 137,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 138,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 139,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 140,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 141,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 142,
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "index": 143,
+      "actions": 10,
+      "result": "pass"
+    }
+  ]
+}

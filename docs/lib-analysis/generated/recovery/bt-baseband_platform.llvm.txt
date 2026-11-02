@@ -1,0 +1,183 @@
+
+libbtctrl.a:baseband_platform.o:	file format ELF32-riscv
+
+
+Disassembly of section .text:
+
+00000000 bb_rf_reserve_into_strategy:
+       0: 01 45                        	mv	a0, zero
+       2: 82 80                        	ret
+
+00000004 bb_save_about_song:
+       4: 82 80                        	ret
+
+00000006 ll_get_on_spread:
+       6: 82 80                        	ret
+
+00000008 register_isr:
+       8: 01 45                        	mv	a0, zero
+       a: 82 80                        	ret
+
+0000000c baseband_platform_pass_by_hello:
+       c: 83 27 40 3a                  	lw	a5, 932(zero)
+      10: 37 17 00 ff                  	lui	a4, 1044481
+      14: 7d 17                        	addi	a4, a4, -1
+      16: f9 8f                        	and	a5, a5, a4
+      18: 23 22 f0 3a                  	sw	a5, 932(zero)
+      1c: 83 27 40 3a                  	lw	a5, 932(zero)
+      20: 37 a7 eb 00                  	lui	a4, 3770
+      24: d9 8f                        	or	a5, a5, a4
+      26: 23 22 f0 3a                  	sw	a5, 932(zero)
+      2a: 83 27 40 3a                  	lw	a5, 932(zero)
+      2e: 7d 77                        	lui	a4, 1048575
+      30: 13 07 f7 7f                  	addi	a4, a4, 2047
+      34: f9 8f                        	and	a5, a5, a4
+      36: 23 22 f0 3a                  	sw	a5, 932(zero)
+      3a: 83 27 40 3a                  	lw	a5, 932(zero)
+      3e: 8d 9b                        	andi	a5, a5, -29
+      40: 23 22 f0 3a                  	sw	a5, 932(zero)
+      44: 82 80                        	ret
+
+00000046 bthw_irq_init:
+      46: 17 03 00 00                  	auipc	t1, 0
+			00000046:  R_RISCV_CALL	__riscv_save_1
+			00000046:  R_RISCV_RELAX	*ABS*
+      4a: e7 02 03 00                  	jalr	t0, t1
+      4e: 37 04 00 00                  	lui	s0, 0
+			0000004e:  R_RISCV_HI20	bb_rf_read_inside_upper
+			0000004e:  R_RISCV_RELAX	*ABS*
+      52: 13 05 f0 0f                  	addi	a0, zero, 255
+      56: 23 00 04 00                  	sb	zero, 0(s0)
+			00000056:  R_RISCV_LO12_S	bb_rf_read_inside_upper
+			00000056:  R_RISCV_RELAX	*ABS*
+      5a: 17 03 00 00                  	auipc	t1, 0
+			0000005a:  R_RISCV_CALL	bt_get_packet
+			0000005a:  R_RISCV_RELAX	*ABS*
+      5e: e7 00 03 00                  	jalr	t1
+      62: 13 04 04 00                  	mv	s0, s0
+			00000062:  R_RISCV_LO12_I	bb_rf_read_inside_upper
+			00000062:  R_RISCV_RELAX	*ABS*
+      66: a3 00 a4 00                  	sb	a0, 1(s0)
+      6a: 17 03 00 00                  	auipc	t1, 0
+			0000006a:  R_RISCV_CALL	baseband_platform_pass_by_hello
+			0000006a:  R_RISCV_RELAX	*ABS*
+      6e: e7 00 03 00                  	jalr	t1
+      72: b7 05 00 00                  	lui	a1, 0
+			00000072:  R_RISCV_HI20	baseband_platform_get_of_officer
+			00000072:  R_RISCV_RELAX	*ABS*
+      76: 93 85 05 00                  	mv	a1, a1
+			00000076:  R_RISCV_LO12_I	baseband_platform_get_of_officer
+			00000076:  R_RISCV_RELAX	*ABS*
+      7a: 05 45                        	addi	a0, zero, 1
+      7c: 17 03 00 00                  	auipc	t1, 0
+			0000007c:  R_RISCV_CALL	register_isr
+			0000007c:  R_RISCV_RELAX	*ABS*
+      80: e7 00 03 00                  	jalr	t1
+      84: 03 26 c0 54                  	lw	a2, 1356(zero)
+      88: b7 07 00 00                  	lui	a5, 0
+			00000088:  R_RISCV_HI20	bb_rf_take_without_start
+			00000088:  R_RISCV_RELAX	*ABS*
+      8c: 93 87 07 00                  	mv	a5, a5
+			0000008c:  R_RISCV_LO12_I	bb_rf_take_without_start
+			0000008c:  R_RISCV_RELAX	*ABS*
+      90: 13 07 06 1e                  	addi	a4, a2, 480
+      94: b7 05 10 00                  	lui	a1, 256
+      98: 99 8f                        	sub	a5, a5, a4
+      9a: 13 87 f5 ff                  	addi	a4, a1, -1
+      9e: 63 6e f7 02                  	bltu	a4, a5, 60
+			0000009e:  R_RISCV_BRANCH	.L16
+      a2: 13 97 47 01                  	slli	a4, a5, 20
+      a6: b7 06 e0 7f                  	lui	a3, 523776
+      aa: 75 8f                        	and	a4, a4, a3
+      ac: b7 f6 0f 00                  	lui	a3, 255
+      b0: fd 8e                        	and	a3, a3, a5
+      b2: 93 e6 f6 0e                  	ori	a3, a3, 239
+      b6: a6 07                        	slli	a5, a5, 9
+      b8: 55 8f                        	or	a4, a4, a3
+      ba: ed 8f                        	and	a5, a5, a1
+      bc: d9 8f                        	or	a5, a5, a4
+      be: 23 20 f6 1e                  	sw	a5, 480(a2)
+      c2: 03 27 80 54                  	lw	a4, 1352(zero)
+      c6: b7 06 40 00                  	lui	a3, 1024
+      ca: 55 8f                        	or	a4, a4, a3
+      cc: 23 24 e0 54                  	sw	a4, 1352(zero)
+      d0: 83 27 40 54                  	lw	a5, 1348(zero)
+      d4: d5 8f                        	or	a5, a5, a3
+      d6: 23 22 f0 54                  	sw	a5, 1348(zero)
+
+000000da .L16:
+      da: 17 03 00 00                  	auipc	t1, 0
+			000000da:  R_RISCV_CALL	__riscv_restore_1
+			000000da:  R_RISCV_RELAX	*ABS*
+      de: 67 00 03 00                  	jr	t1
+
+Disassembly of section .com_text.isr.txrx:
+
+00000000 bb_rf_take_without_start:
+       0: 82 80                        	ret
+
+00000002 os_interrupt_enter:
+       2: 82 80                        	ret
+
+00000004 os_interrupt_leave:
+       4: 82 80                        	ret
+
+Disassembly of section .com_text.bthw:
+
+00000000 bthw_isr_do_plus:
+       0: 17 03 00 00                  	auipc	t1, 0
+			00000000:  R_RISCV_CALL	__riscv_save_0
+			00000000:  R_RISCV_RELAX	*ABS*
+       4: e7 02 03 00                  	jalr	t0, t1
+       8: 17 03 00 00                  	auipc	t1, 0
+			00000008:  R_RISCV_CALL	bthw_isr_do
+			00000008:  R_RISCV_RELAX	*ABS*
+       c: e7 00 03 00                  	jalr	t1
+      10: 83 27 80 3f                  	lw	a5, 1016(zero)
+      14: 93 e7 37 00                  	ori	a5, a5, 3
+      18: 23 2c f0 3e                  	sw	a5, 1016(zero)
+      1c: 17 03 00 00                  	auipc	t1, 0
+			0000001c:  R_RISCV_CALL	__riscv_restore_0
+			0000001c:  R_RISCV_RELAX	*ABS*
+      20: 67 00 03 00                  	jr	t1
+
+Disassembly of section .com_text.sleep:
+
+00000000 bb_pass_within_library:
+       0: 01 45                        	mv	a0, zero
+       2: 82 80                        	ret
+
+Disassembly of section .com_text.stack.ticks:
+
+00000000 bt21_save_in_design:
+       0: 82 80                        	ret
+
+Disassembly of section .com_text.irq:
+
+00000000 bthw_thread_post:
+       0: 82 80                        	ret
+
+00000002 baseband_platform_get_of_officer:
+       2: 17 03 00 00                  	auipc	t1, 0
+			00000002:  R_RISCV_CALL	__riscv_save_0
+			00000002:  R_RISCV_RELAX	*ABS*
+       6: e7 02 03 00                  	jalr	t0, t1
+       a: 17 03 00 00                  	auipc	t1, 0
+			0000000a:  R_RISCV_CALL	os_interrupt_enter
+			0000000a:  R_RISCV_RELAX	*ABS*
+       e: e7 00 03 00                  	jalr	t1
+      12: 83 27 80 3f                  	lw	a5, 1016(zero)
+      16: f1 9b                        	andi	a5, a5, -4
+      18: 23 2c f0 3e                  	sw	a5, 1016(zero)
+      1c: 17 03 00 00                  	auipc	t1, 0
+			0000001c:  R_RISCV_CALL	bthw_thread_post
+			0000001c:  R_RISCV_RELAX	*ABS*
+      20: e7 00 03 00                  	jalr	t1
+      24: 17 03 00 00                  	auipc	t1, 0
+			00000024:  R_RISCV_CALL	os_interrupt_leave
+			00000024:  R_RISCV_RELAX	*ABS*
+      28: e7 00 03 00                  	jalr	t1
+      2c: 17 03 00 00                  	auipc	t1, 0
+			0000002c:  R_RISCV_CALL	__riscv_restore_0
+			0000002c:  R_RISCV_RELAX	*ABS*
+      30: 67 00 03 00                  	jr	t1

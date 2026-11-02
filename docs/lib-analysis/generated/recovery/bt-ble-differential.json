@@ -1,0 +1,188 @@
+{
+  "original_object_sha256": "0c3ffd4024613802a59051e1834a2b5c9975edd609d0f7dfd17eeadf81bd8401",
+  "recovered_source_sha256": "c79bc124bc26711dcf69af3e2a43c1827e2c80a5fd98b540fa6293935eaeb05b",
+  "compilers": [
+    "clang",
+    "gcc"
+  ],
+  "exports": [
+    "bb_go_on_valuable",
+    "bb_reserve_without_volume",
+    "bb_take_about_press",
+    "ble_sell_about_sun",
+    "ble_write_about_black"
+  ],
+  "local_functions": [],
+  "unicorn_version": "2.1.4",
+  "model": "Original/recovered RV32 with external/ROM hooks and restore ABI shim; ordered MMIO, calls and memory.",
+  "cases": [
+    {
+      "name": "irq-0",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-1",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-2",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-3",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-4",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-5",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-6",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-7",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-8",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-9",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-10",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-11",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-12",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-13",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-14",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-15",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-16",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-17",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-18",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-19",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-20",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-21",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-22",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-23",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-24",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-25",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-26",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-27",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-28",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-29",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-30",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "irq-31",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "unhandled-irq",
+      "actions": 1,
+      "result": "pass"
+    }
+  ],
+  "included_sources_sha256": {
+    "bare/drivers/inc/bt_recovered_internal.h": "098edac999400711aa0b55f7274a48e00441a635087b2375ba6b6d2db252af03"
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "original_object_sha256": "c27f1f7a61f16a81f6475f2ba462e6641cb6b3919e1dfb12cb97735c26d9baec",
+  "recovered_source_sha256": "6d3b17416952721835b6a89e13bcd6992c7f31e405ac9a0012f46994495d6f47",
+  "compilers": [
+    "clang",
+    "gcc"
+  ],
+  "exports": [],
+  "local_functions": [
+    "lm_proc_cause_under_cell",
+    "lm_proc_go_about_presentation",
+    "lm_proc_go_of_chain",
+    "lm_proc_reserve_to_boy",
+    "lm_proc_save_without_neck",
+    "lm_proc_sell_at_space",
+    "lm_proc_sell_by_coffee",
+    "lm_proc_sell_of_gas",
+    "lm_proc_send_without_aside",
+    "lm_proc_show_in_cause",
+    "lm_proc_take_within_bonus",
+    "lm_proc_tell_in_film"
+  ],
+  "unicorn_version": "2.1.4",
+  "model": "Original/recovered RV32 with external/ROM hooks and restore ABI shim; ordered MMIO, calls and memory.",
+  "cases": [
+    {
+      "name": "handlers-0",
+      "actions": 12,
+      "result": "pass"
+    },
+    {
+      "name": "handlers-1",
+      "actions": 12,
+      "result": "pass"
+    },
+    {
+      "name": "handlers-2",
+      "actions": 12,
+      "result": "pass"
+    },
+    {
+      "name": "handlers-3",
+      "actions": 12,
+      "result": "pass"
+    },
+    {
+      "name": "handlers-4",
+      "actions": 12,
+      "result": "pass"
+    },
+    {
+      "name": "handlers-5",
+      "actions": 12,
+      "result": "pass"
+    },
+    {
+      "name": "handlers-6",
+      "actions": 12,
+      "result": "pass"
+    },
+    {
+      "name": "handlers-7",
+      "actions": 12,
+      "result": "pass"
+    },
+    {
+      "name": "handlers-8",
+      "actions": 12,
+      "result": "pass"
+    },
+    {
+      "name": "handlers-9",
+      "actions": 12,
+      "result": "pass"
+    },
+    {
+      "name": "handlers-10",
+      "actions": 12,
+      "result": "pass"
+    },
+    {
+      "name": "handlers-11",
+      "actions": 12,
+      "result": "pass"
+    },
+    {
+      "name": "handlers-12",
+      "actions": 12,
+      "result": "pass"
+    },
+    {
+      "name": "handlers-13",
+      "actions": 12,
+      "result": "pass"
+    },
+    {
+      "name": "handlers-14",
+      "actions": 12,
+      "result": "pass"
+    }
+  ],
+  "included_sources_sha256": {
+    "bare/drivers/inc/bt_recovered_internal.h": "098edac999400711aa0b55f7274a48e00441a635087b2375ba6b6d2db252af03"
+  }
+}

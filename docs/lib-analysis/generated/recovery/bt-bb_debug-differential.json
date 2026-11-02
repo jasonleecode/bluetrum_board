@@ -1,0 +1,262 @@
+{
+  "original_object_sha256": "aeb4698087af85a025f04fea8770b3c33d3b745d5dbc846772c7a29a534dbeb5",
+  "recovered_source_sha256": "d9d9997cdfe8aff6f6244778a16fe7798f5d58f68a48c7a2ed50dc3bcca317a0",
+  "compilers": [
+    "clang",
+    "gcc"
+  ],
+  "exports": [
+    "bb_debug_keep_by_type",
+    "bb_debug_reserve_for_unit"
+  ],
+  "local_functions": [
+    "bb_debug_give_within_lie"
+  ],
+  "unicorn_version": "2.1.4",
+  "model": "Original/recovered RV32 with external/ROM hooks and restore ABI shim; ordered MMIO, calls and memory.",
+  "cases": [
+    {
+      "name": "print-0-0",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-0-1",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-0-10",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-0-11",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-0-255",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-0-256",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-0-65535",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-0-4294967295",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-1-0",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-1-1",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-1-10",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-1-11",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-1-255",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-1-256",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-1-65535",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-1-4294967295",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-2-0",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-2-1",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-2-10",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-2-11",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-2-255",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-2-256",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-2-65535",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-2-4294967295",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-3-0",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-3-1",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-3-10",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-3-11",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-3-255",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-3-256",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-3-65535",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-3-4294967295",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4-0",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4-1",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4-10",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4-11",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4-255",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4-256",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4-65535",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4-4294967295",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4294967295-0",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4294967295-1",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4294967295-10",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4294967295-11",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4294967295-255",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4294967295-256",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4294967295-65535",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "print-4294967295-4294967295",
+      "actions": 3,
+      "result": "pass"
+    }
+  ],
+  "included_sources_sha256": {
+    "bare/drivers/inc/bt_recovered_internal.h": "098edac999400711aa0b55f7274a48e00441a635087b2375ba6b6d2db252af03"
+  }
+}

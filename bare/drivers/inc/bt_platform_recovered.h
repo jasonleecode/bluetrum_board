@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-/* Partial baseband_platform.o recovery. See the platform recovery notes for
+/* baseband_platform.o recovery with original weak defaults. See the platform recovery notes for
  * the required interrupt dispatcher, RAM vector table and deferred worker. */
 void baseband_platform_pass_by_hello(void);
 void bthw_irq_init(void);

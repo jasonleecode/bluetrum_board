@@ -65,6 +65,15 @@ menu "Onboard Peripheral Drivers"
         default 24000000
     endif
 
+    config BSP_USING_BTCTRL
+        bool "Enable recovered Bluetooth controller and HCI diagnostics"
+        default n
+        help
+            Uses recovered controller sources, reserved 0x11000 controller RAM,
+            a dedicated RTT worker and the btctl shell command. No automatic
+            radio start. FM and Bluetooth RF operation are mutually exclusive
+            during bring-up. This option does not enable a NimBLE host.
+
     config BSP_USING_NIMBLE
         bool "use nimble stack(iot)"
         select PKG_USING_BLUETRUM_NIMBLE

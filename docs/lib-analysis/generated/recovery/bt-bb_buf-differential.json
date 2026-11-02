@@ -1,0 +1,100 @@
+{
+  "original_object_sha256": "3c5cc564472b46e6ce0be4cea3b07458543d9bbe3e2d882fce53e0164f259761",
+  "recovered_source_sha256": "534a6ea5b0b9ccd9869cbf7b5ada198dbb8ff492392376644d6bc14d289dcc29",
+  "compilers": [
+    "clang",
+    "gcc"
+  ],
+  "exports": [
+    "bt21_find_on_you",
+    "ll_sell_under_data"
+  ],
+  "local_functions": [],
+  "unicorn_version": "2.1.4",
+  "model": "Original/recovered RV32 with external/ROM hooks and restore ABI shim; ordered MMIO, calls and memory.",
+  "cases": [
+    {
+      "name": "buffers-0",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "buffers-1",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "buffers-2",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "buffers-3",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "buffers-4",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "buffers-5",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "buffers-6",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "buffers-7",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "buffers-8",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "buffers-9",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "buffers-10",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "buffers-11",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "buffers-12",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "buffers-13",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "buffers-14",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "buffers-15",
+      "actions": 10,
+      "result": "pass"
+    }
+  ],
+  "included_sources_sha256": {
+    "bare/drivers/inc/bt_recovered_internal.h": "098edac999400711aa0b55f7274a48e00441a635087b2375ba6b6d2db252af03"
+  }
+}

@@ -1,0 +1,385 @@
+{
+  "original_object_sha256": "af91da1e659ff27f9cf95d21c9b698092d733c88a0da5a2beb871d3ab68af1b0",
+  "recovered_source_sha256": "d85485cf72b3b4430abd5471c3330df1e61df0f5aff41af4fc93ee1c087a5472",
+  "compilers": [
+    "clang",
+    "gcc"
+  ],
+  "exports": [
+    "ble_con_tell_by_advantage",
+    "ble_evt_cause_for_impress",
+    "ble_evt_go_by_elevator",
+    "ble_evt_reserve_by_conflict",
+    "ble_make_of_distribution",
+    "ble_pick_to_teacher",
+    "ll_do_under_regret",
+    "ll_fetch_with_brother",
+    "ll_get_into_contribution",
+    "ll_go_into_variation",
+    "ll_go_without_restaurant",
+    "ll_leave_without_cry",
+    "ll_make_to_display",
+    "ll_read_under_responsibility",
+    "ll_reserve_within_drawing",
+    "ll_send_for_consideration",
+    "ll_send_under_supermarket",
+    "ll_show_of_depression",
+    "ll_show_of_incident",
+    "ll_tell_under_position",
+    "ll_tell_under_slip",
+    "ll_write_within_surprise"
+  ],
+  "local_functions": [],
+  "unicorn_version": "2.1.4",
+  "model": "Original/recovered RV32 with external/ROM hooks and restore ABI shim; ordered MMIO, calls and memory.",
+  "cases": [
+    {
+      "name": "events-0",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-1",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-2",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-3",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-4",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-5",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-6",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-7",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-8",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-9",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-10",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-11",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-12",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-13",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-14",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-15",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-16",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-17",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-18",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-19",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-20",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-21",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-22",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-23",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-24",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-25",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-26",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-27",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-28",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-29",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-30",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-31",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-32",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-33",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-34",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-35",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-36",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-37",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-38",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "events-39",
+      "actions": 17,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle-0",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle-1",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle-2",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle-3",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle-4",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle-5",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle-6",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle-7",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle-8",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle-9",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle-10",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "lifecycle-11",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4098-3-81-23",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4098-3-81-28",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4098-3-82-23",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4098-3-82-28",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4098-4-81-23",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4098-4-81-28",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4098-4-82-23",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4098-4-82-28",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4097-3-81-23",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4097-3-81-28",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4097-3-82-23",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4097-3-82-28",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4097-4-81-23",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4097-4-81-28",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4097-4-82-23",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reassembly-4097-4-82-28",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "connection-failure-event",
+      "actions": 1,
+      "result": "pass"
+    }
+  ],
+  "included_sources_sha256": {
+    "bare/drivers/inc/bt_recovered_internal.h": "098edac999400711aa0b55f7274a48e00441a635087b2375ba6b6d2db252af03"
+  }
+}

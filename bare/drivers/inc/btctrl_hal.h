@@ -8,7 +8,7 @@
  */
 void bb_init(void);
 void bb_run_loop(void);
-void bb_sleep(void);
+uint8_t bb_sleep(void);
 void bb_off(void);
 void bthw_irq_init(void);
 void bthw_isr_do_plus(void);

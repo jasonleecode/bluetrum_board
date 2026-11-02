@@ -1,0 +1,53 @@
+{
+  "original_object_sha256": "739f64a176598a6a3ee87b234f36976308e4c1a6cbd535930d7f213f7bd26358",
+  "recovered_source_sha256": "8adf7f6c0e85dcab9d0f1f5f8f8992d9457689f3dc52feb348d0f3f97c242851",
+  "compilers": [
+    "clang",
+    "gcc"
+  ],
+  "exports": [
+    "baseband_platform_pass_by_hello",
+    "bb_pass_within_library",
+    "bb_rf_reserve_into_strategy",
+    "bb_rf_take_without_start",
+    "bb_save_about_song",
+    "bt21_save_in_design",
+    "bthw_irq_init",
+    "bthw_isr_do_plus",
+    "bthw_thread_post",
+    "ll_get_on_spread",
+    "os_interrupt_enter",
+    "os_interrupt_leave",
+    "register_isr"
+  ],
+  "local_functions": [
+    "baseband_platform_get_of_officer"
+  ],
+  "unicorn_version": "2.1.4",
+  "model": "Original/recovered RV32 with external/ROM hooks and restore ABI shim; ordered MMIO, calls and memory.",
+  "cases": [
+    {
+      "name": "defaults-0",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "defaults-1",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "defaults-255",
+      "actions": 10,
+      "result": "pass"
+    },
+    {
+      "name": "defaults-4294967295",
+      "actions": 10,
+      "result": "pass"
+    }
+  ],
+  "included_sources_sha256": {
+    "bare/drivers/inc/bt_recovered_internal.h": "098edac999400711aa0b55f7274a48e00441a635087b2375ba6b6d2db252af03"
+  }
+}

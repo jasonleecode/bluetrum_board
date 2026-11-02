@@ -1,0 +1,205 @@
+Final firmware UART transmit verification
+
+ \ | /
+- RT -     Thread Operating System
+ / | \     5.2.2 b
+
+msh >bbttccttll  tteesstt
+
+BT: fixed RAM 0x00011000..0x0001298c, ROM heap ready
+BT: RF init begin
+BT: RF init done
+BT: classic init begin
+BT: classic init done
+BT: LE init begin
+BT: LE init done
+BT TX: HCI Reset (0x0c03)
+BT RX: 04 0e 04 05 03 0c 00
+BT PASS: HCI Reset status=0x00
+BT TX: Read Local Version (0x1001)
+BT RX: 04 0e 0c 05 01 10 00 09 03 00 09 42 06 03 00
+BT PASS: Read Local Version status=0x00
+BT TX: Read BD_ADDR (0x1009)
+BT RX: 04 0e 0a 05 09 10 00 02 00 ab 32 00 01
+BT PASS: Read BD_ADDR status=0x00
+BT TX: LE Read Buffer Size (0x2002)
+BT RX: 04 0e 07 05 02 20 00 1b 00 05
+BT PASS: LE Read Buffer Size status=0x00
+BT: HCI passed; RF link/GATT not tested
+msh >
+
+msh >bbttccttll  aaddvv
+
+BT TX: Set Random Address (0x2005)
+BT RX: 04 0e 04 05 05 20 00
+BT PASS: Set Random Address status=0x00
+BT TX: Advertising Parameters (0x2006)
+BT RX: 04 0e 04 05 06 20 00
+BT PASS: Advertising Parameters status=0x00
+BT TX: Advertising Data (0x2008)
+BT RX: 04 0e 04 05 08 20 00
+BT PASS: Advertising Data status=0x00
+BT TX: Advertising Enable (0x200a)
+BT RX: 04 0e 04 05 0a 20 00
+BT PASS: Advertising Enable status=0x00
+BT: AB32-RTT-TEST advertising requested; verify with external scanner
+msh >
+
+msh >bbttccttll  ssttaattuuss
+
+BT: advertising (await air capture) ready=1 finished=1 irq=10121 loops=15685 events=8
+BT IRQ: classic=10107/00000001 le=60/00000008 RF=0
+BT HW: PIC=0040420e/00400000 BB=00200107/ffff0003/00000000 LE=00001de2/000001ba/00000000
+BT LE: addr=ab320001/0001c200 adv=1 scan=0
+BT scheduler: soft=32 time=000027d7 list=000127ac/000127ac group=00000000
+BT BLE-only idle classic slots=31
+BT event: target=00002872 interval=160 kind=2 active=0 flags=04
+BT scan reports=0
+msh >
+
+msh >ffrreeee
+
+total    : 29160
+used     : 25104
+maximum  : 25104
+available: 4056
+msh >
+Final firmware UART receive/lifecycle verification
+
+
+msh >bbttccttll  ssccaann
+
+BT TX: Advertising Disable (0x200a)
+BT RX: 04 0e 04 05 0a 20 00
+BT PASS: Advertising Disable status=0x00
+BT TX: Set Event Mask (0x0c01)
+BT RX: 04 0e 04 05 01 0c 00
+BT PASS: Set Event Mask status=0x00
+BT TX: Scan Parameters (0x200b)
+BT RX: 04 0e 04 05 0b 20 00
+BT PASS: Scan Parameters status=0x00
+BT TX: Scan Enable (0x200c)
+BT RX: 04 0e 04 05 0c 20 00
+BT PASS: Scan Enable status=0x00
+msh >
+
+msh >bbttccttll  ssttaattuuss
+
+BT: scanning (count reports) ready=1 finished=1 irq=63014 loops=100075 events=537
+BT IRQ: classic=62638/00000001 le=1002/00000008 RF=0
+BT HW: PIC=0040420e/00400000 BB=00200107/ffff0003/00000000 LE=00001de2/0000013a/00000000
+BT LE: addr=32ab0002/00000100 adv=0 scan=1
+BT scheduler: soft=479 time=0000f5ae list=000127ac/000127ac group=00012798
+BT BLE-only idle classic slots=476
+BT event: target=0000f5be interval=32 kind=3 active=1 flags=00
+BT scan reports=534
+msh >
+
+msh >bbttccttll  ssccaannooffff
+
+BT TX: Scan Disable (0x200c)
+BT RX: 04 0e 04 05 0c 20 00
+BT PASS: Scan Disable status=0x00
+msh >
+
+msh >bbttccttll  aaddvv
+
+BT TX: Set Random Address (0x2005)
+BT RX: 04 0e 04 05 05 20 00
+BT PASS: Set Random Address status=0x00
+BT TX: Advertising Parameters (0x2006)
+BT RX: 04 0e 04 05 06 20 00
+BT PASS: Advertising Parameters status=0x00
+BT TX: Advertising Data (0x2008)
+BT RX: 04 0e 04 05 08 20 00
+BT PASS: Advertising Data status=0x00
+BT TX: Advertising Enable (0x200a)
+BT RX: 04 0e 04 05 0a 20 00
+BT PASS: Advertising Enable status=0x00
+BT: AB32-RTT-TEST advertising requested; verify with external scanner
+msh >
+
+msh >bbttccttll  aaddvvooffff
+
+BT TX: Advertising Disable (0x200a)
+BT RX: 04 0e 04 05 0a 20 00
+BT PASS: Advertising Disable status=0x00
+msh >
+
+msh >bbttccttll  ssccaann
+
+BT TX: Set Event Mask (0x0c01)
+BT RX: 04 0e 04 05 01 0c 00
+BT PASS: Set Event Mask status=0x00
+BT TX: Scan Parameters (0x200b)
+BT RX: 04 0e 04 05 0b 20 00
+BT PASS: Scan Parameters status=0x00
+BT TX: Scan Enable (0x200c)
+BT RX: 04 0e 04 05 0c 20 00
+BT PASS: Scan Enable status=0x00
+msh >
+
+msh >bbttccttll  ssttaattuuss
+
+BT: scanning (count reports) ready=1 finished=1 irq=88794 loops=143208 events=1595
+BT IRQ: classic=88205/00000001 le=1831/00000080 RF=0
+BT HW: PIC=0040420e/00400000 BB=00200107/ffff0003/00000000 LE=00001de2/0000013a/00000000
+BT LE: addr=32ab0002/00000100 adv=0 scan=1
+BT scheduler: soft=835 time=00015a12 list=000127ac/000127ac group=00012798
+BT BLE-only idle classic slots=828
+BT event: target=00015a38 interval=32 kind=3 active=1 flags=00
+BT scan reports=1578
+msh >
+
+msh >bbttccttll  ssccaannooffff
+
+BT TX: Scan Disable (0x200c)
+BT RX: 04 0e 04 05 0c 20 00
+BT PASS: Scan Disable status=0x00
+msh >
+
+msh >ffmmrrxx  ssttaarrtt  9977440000
+
+FM error -16
+fmrx: command failed -16.
+msh >
+
+msh >ffrreeee
+
+total    : 29160
+used     : 25104
+maximum  : 25104
+available: 4056
+msh >
+
+msh >ppss
+
+thread   pri  status      sp     stack size max used left tick   error  tcb addr   usage
+-------- ---  ------- ---------- ----------  ------  ---------- ------- ---------- -----
+btctrl     5  suspend 0x00000114 0x00000800    25%   0x00000001 EINTRPT 0x0002d760  N/A
+tshell    20  running 0x00000194 0x00000800    26%   0x00000003 OK      0x0002ce48  N/A
+fm_sync   21  suspend 0x000000ec 0x00000400    26%   0x0000000a EINTRPT 0x0002c760  N/A
+audio     20  suspend 0x000000e0 0x00000400    22%   0x00000001 EINTRPT 0x0002a178  N/A
+gpioirq   15  suspend 0x0000011c 0x00000200    55%   0x00000005 EINTRPT 0x00029668  N/A
+drv       18  suspend 0x00000114 0x00000200    53%   0x00000002 EINTRPT 0x00028b48  N/A
+tidle0    31  ready   0x000000b8 0x00000200    35%   0x00000005 OK      0x000275d8  N/A
+timer      4  suspend 0x000000ec 0x00000400    23%   0x00000009 EINTRPT 0x00027cb8  N/A
+main      10  suspend 0x000000e0 0x00000400    30%   0x00000012 EINTRPT 0x00027e28  N/A
+msh >
+
+msh >bbttccttll  aaddvv
+
+BT TX: Set Random Address (0x2005)
+BT RX: 04 0e 04 05 05 20 00
+BT PASS: Set Random Address status=0x00
+BT TX: Advertising Parameters (0x2006)
+BT RX: 04 0e 04 05 06 20 00
+BT PASS: Advertising Parameters status=0x00
+BT TX: Advertising Data (0x2008)
+BT RX: 04 0e 04 05 08 20 00
+BT PASS: Advertising Data status=0x00
+BT TX: Advertising Enable (0x200a)
+BT RX: 04 0e 04 05 0a 20 00
+BT PASS: Advertising Enable status=0x00
+BT: AB32-RTT-TEST advertising requested; verify with external scanner
+msh >

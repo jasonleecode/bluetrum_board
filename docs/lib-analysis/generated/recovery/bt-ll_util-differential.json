@@ -1,0 +1,183 @@
+{
+  "original_object_sha256": "bddbab801290390d1645c25e127188efdbb3ff20a5a99d92857c8ce49a18d635",
+  "recovered_source_sha256": "231075cf0d16cc050f3331b5f421cc15c240b2ce88747581222726f926b832f2",
+  "compilers": [
+    "clang",
+    "gcc"
+  ],
+  "exports": [
+    "ll_cntl_leave_about_cup",
+    "ll_cntl_pick_without_bid",
+    "ll_util_fetch_to_staff",
+    "ll_util_give_to_credit",
+    "ll_util_write_inside_god"
+  ],
+  "local_functions": [],
+  "unicorn_version": "2.1.4",
+  "model": "Original/recovered RV32 with external/ROM hooks and restore ABI shim; ordered MMIO, calls and memory.",
+  "cases": [
+    {
+      "name": "link-0",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-1",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-2",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-3",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-4",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-5",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-6",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-7",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-8",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-9",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-10",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-11",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-12",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-13",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-14",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-15",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-16",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-17",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-18",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-19",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-20",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-21",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-22",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-23",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-24",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-25",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-26",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-27",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-28",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-29",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-30",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "link-31",
+      "actions": 5,
+      "result": "pass"
+    }
+  ],
+  "included_sources_sha256": {
+    "bare/drivers/inc/bt_recovered_internal.h": "098edac999400711aa0b55f7274a48e00441a635087b2375ba6b6d2db252af03"
+  }
+}

@@ -4,7 +4,7 @@
     "hct_msg.o": "5623f932c53ada38917ab4679c42629b8faa3ca16c2ea81aca52891f97e67b07",
     "hct_proc.o": "d3d6a7baec02b1c8c03dbfd4c12c60686c93f14db8e16361aa0931bd78b72ea8"
   },
-  "recovered_source_sha256": "bade069069e45c7594588044b8b82732acfc2e596afa904c1f3f64520eb3ace6",
+  "recovered_source_sha256": "b213d08a9f64226be7c3e8aac5b02e25fa423638c3f3a276c28be716abb4c0c0",
   "model": "ROM queue/send/free and controller calls stubbed; restore_0/2 ABI shim; compare mutable memory, external call order and non-void results. No RF, scheduling, allocator, protocol or physical hardware validation.",
   "cases": [
     {

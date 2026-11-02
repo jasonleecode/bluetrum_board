@@ -32,7 +32,7 @@ void bb_init(void)
 #endif
 }
 void bb_off(void) { ++hardware_calls; }
-void bb_sleep(void) { ++hardware_calls; }
+uint8_t bb_sleep(void) { ++hardware_calls; return 0; }
 void bthw_isr_do_plus(void) { ++irq_work; }
 void bthw_soft_isr(void) { ++soft_polls; }
 void bb_run_loop(void) { ++polls; }

@@ -1,0 +1,13 @@
+from building import *
+
+cwd = GetCurrentDir()
+bare = os.path.abspath(os.path.join(cwd, '../../../../../bare/drivers'))
+src = Glob('*.c')
+src += Glob(os.path.join(bare, 'src/bt_*_recovered.c'))
+src += [os.path.join(bare, 'src/drv_bluetooth.c')]
+# No libbtctrl.a or bare vendor_shim: RTT supplies clocks, IRQs and memory.
+group = DefineGroup('Bluetooth-Recovered', src, depend=['BSP_USING_BTCTRL'],
+                    CPPPATH=[os.path.join(bare, 'inc')],
+                    LOCAL_CCFLAGS=' -ffreestanding -fno-builtin',
+                    LINKFLAGS=' -Wl,--wrap=bb_make_into_mother,--wrap=bb_do_at_review,--wrap=bb_go_on_valuable,--wrap=bthw_isr_do,--wrap=ble_leave_about_television')
+Return('group')

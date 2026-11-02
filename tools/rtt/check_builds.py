@@ -47,6 +47,7 @@ PROFILES['spi_fm'] = dict(PROFILES['audio'], BSP_USING_FMRX=1,
     RT_USING_SPI=1, BSP_USING_SPI1=1, BSP_SPI1_MAPPING=4, BSP_SPI1_TIMEOUT_MS=100)
 PROFILES['spi_fm_i2s'] = dict(PROFILES['spi_fm'], BSP_USING_I2S=1, BSP_I2S_MAPPING=1)
 PROFILES['i2s_pa'] = dict(PROFILES['audio'], BSP_USING_I2S=1, BSP_I2S_MAPPING=0)
+PROFILES['bluetooth'] = dict(PROFILES['audio'], BSP_USING_FMRX=1, BSP_USING_BTCTRL=1)
 
 def base_config(config):
     """Keep optional profiles independent of enabled workspace peripherals."""
@@ -98,6 +99,11 @@ def main():
                 assert 'fmrx_digital_recovered.o' in linkmap
             if PROFILES[name].get('BSP_USING_I2S'):
                 assert 'i2s_src_recovered.o' in linkmap
+            if PROFILES[name].get('BSP_USING_BTCTRL') or (name == 'default' and
+                    re.search(r'^#define\s+BSP_USING_BTCTRL\b', config, re.M)):
+                assert 'libbtctrl.a' not in linkmap, 'vendor Bluetooth archive linked'
+                assert 'bt_core_recovered.o' in linkmap
+                assert re.search(r'0x0*11000\s+bb_get_without_vehicle\b', linkmap)
             shutil.copy2(work / 'rtt/bsp/rtthread.elf', work / f'{name}.elf')
             shutil.copy2(work / 'rtt/bsp/rtthread.map', work / f'{name}.map')
     return bool(failed)

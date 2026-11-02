@@ -1,0 +1,6754 @@
+{
+  "original_object_sha256": "f9f398f884f9e6527cf5ab44a9f40bb46101ac16ae39e15eda160cb998db206f",
+  "model": "Original/recovered RV32 transport differential execution; controller and ROM services modeled.",
+  "cases": [
+    {
+      "name": "ACL type 1 flags 0 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 0 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 0 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 0 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 1 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000100000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 1 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000100000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 1 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000100000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 1 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000100000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 2 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000200000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 2 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000200000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 2 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000200000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 2 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000200000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 3 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000300000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 3 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000300000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 3 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000300000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 3 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000300000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 4 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 4 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 4 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 4 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 15 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 15 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 15 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 1 flags 15 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 0 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000000000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 0 length 27",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b00001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 0 length 28",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b00001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 0 length 1024",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b00001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 1 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0100000000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 1 length 27",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b01001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 1 length 28",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b01001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 1 length 1024",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 1,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b01001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 2 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0200000000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 2 length 27",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b02001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 2 length 28",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b02001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 2 length 1024",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 2,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b02001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 3 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0300000000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 3 length 27",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b03001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 3 length 28",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b03001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 3 length 1024",
+      "returned": 1,
+      "copied": 27,
+      "queued_length": 27,
+      "queued_flags": 3,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "memcpy",
+          335876,
+          327680,
+          27
+        ],
+        [
+          "allocate",
+          2059,
+          49410,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b03001b0000000040050000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 4 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 4 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 4 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 4 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 4,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000400000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 15 length 0",
+      "returned": 1,
+      "copied": 0,
+      "queued_length": 0,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          0
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10b0000001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 15 length 679",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 15 length 680",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL type 4 flags 15 length 1024",
+      "returned": 1,
+      "copied": 679,
+      "queued_length": 679,
+      "queued_flags": 15,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          3009
+        ],
+        [
+          "bb_utils_go_by_promise",
+          3009
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "memcpy",
+          331776,
+          327680,
+          679
+        ],
+        [
+          "allocate",
+          5158,
+          1,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "c10ba702001005000f00000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL allocation exhausted type 1",
+      "returned": 1,
+      "copied": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_go_by_promise",
+          1
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "allocate",
+          5223,
+          9,
+          5,
+          1
+        ],
+        [
+          "send",
+          348160,
+          "01000000000000000000000000000000"
+        ],
+        [
+          "my_printf",
+          "acl alloc error\n"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL allocation exhausted type 4",
+      "returned": 1,
+      "copied": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_go_by_promise",
+          1
+        ],
+        [
+          "queue_pop",
+          339968
+        ],
+        [
+          "allocate",
+          5223,
+          9,
+          5,
+          1
+        ],
+        [
+          "send",
+          348160,
+          "01000000000000000000000000000000"
+        ],
+        [
+          "my_printf",
+          "acl alloc error\n"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL invalid type 3 connection 1",
+      "returned": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_go_by_promise",
+          1
+        ],
+        [
+          "my_printf",
+          "handler %04x had disconnected\n"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL invalid type 1 connection 0",
+      "returned": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_go_by_promise",
+          1
+        ],
+        [
+          "my_printf",
+          "handler %04x had disconnected\n"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "ACL invalid type 4 connection 0",
+      "returned": 0,
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_go_by_promise",
+          1
+        ],
+        [
+          "my_printf",
+          "handler %04x had disconnected\n"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command 0c03 credits 0",
+      "credits_after": 0,
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "command 2006 credits 0",
+      "credits_after": 0,
+      "trace": [
+        [
+          "allocate",
+          1038,
+          1,
+          9,
+          15
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          15
+        ],
+        [
+          "free",
+          348144
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command 0c35 credits 0",
+      "credits_after": 0,
+      "trace": [
+        [
+          "allocate",
+          4159,
+          4,
+          9,
+          9
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          5
+        ],
+        [
+          "hct_get_on_birth",
+          348160,
+          "01020304050000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command ffff credits 0",
+      "credits_after": 0,
+      "trace": [
+        [
+          "memcpy",
+          196616,
+          327680,
+          16
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command 0c03 credits 1",
+      "credits_after": 0,
+      "trace": [
+        [
+          "empty_message",
+          4125,
+          4,
+          9
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command 2006 credits 1",
+      "credits_after": 0,
+      "trace": [
+        [
+          "allocate",
+          1038,
+          1,
+          9,
+          15
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          15
+        ],
+        [
+          "hct_get_on_birth",
+          348160,
+          "0102030405060708090a0b0c0d0e0f00"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command 0c35 credits 1",
+      "credits_after": 1,
+      "trace": [
+        [
+          "allocate",
+          4159,
+          4,
+          9,
+          9
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          5
+        ],
+        [
+          "hct_get_on_birth",
+          348160,
+          "01020304050000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command ffff credits 1",
+      "credits_after": 0,
+      "trace": [
+        [
+          "memcpy",
+          196616,
+          327680,
+          16
+        ],
+        [
+          "allocate",
+          4220,
+          9,
+          9,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "fffc0100000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command OCF alias 2006",
+      "trace": [
+        [
+          "allocate",
+          1038,
+          1,
+          9,
+          15
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          15
+        ],
+        [
+          "hct_get_on_birth",
+          348160,
+          "0102030405060708090a0b0c0d0e0f00"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command OCF alias 2106",
+      "trace": [
+        [
+          "allocate",
+          1038,
+          1,
+          9,
+          15
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          15
+        ],
+        [
+          "hct_get_on_birth",
+          348160,
+          "0102030405060708090a0b0c0d0e0f00"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command OCF alias 2206",
+      "trace": [
+        [
+          "allocate",
+          1038,
+          1,
+          9,
+          15
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          15
+        ],
+        [
+          "hct_get_on_birth",
+          348160,
+          "0102030405060708090a0b0c0d0e0f00"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command OCF alias 2306",
+      "trace": [
+        [
+          "allocate",
+          1038,
+          1,
+          9,
+          15
+        ],
+        [
+          "memcpy",
+          348160,
+          327680,
+          15
+        ],
+        [
+          "hct_get_on_birth",
+          348160,
+          "0102030405060708090a0b0c0d0e0f00"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX H4 borrowed packet stalls without ack; scheduled ack frees queue head",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          352271,
+          4,
+          "040e0100"
+        ],
+        [
+          "bb_find_to_afternoon",
+          3
+        ],
+        [
+          "scheduler_ack",
+          3
+        ],
+        [
+          "bb_get_without_card",
+          2
+        ],
+        [
+          "queue_pop",
+          196652
+        ],
+        [
+          "free",
+          352256
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 0",
+      "packet_hex": "022301040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022301040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 1",
+      "packet_hex": "022311040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022311040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 2",
+      "packet_hex": "022321040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022321040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 3",
+      "packet_hex": "022331040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022331040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 4",
+      "packet_hex": "022341040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022341040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 5",
+      "packet_hex": "022351040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022351040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 6",
+      "packet_hex": "022361040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022361040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 7",
+      "packet_hex": "022371040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022371040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 8",
+      "packet_hex": "022381040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022381040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 9",
+      "packet_hex": "022391040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "022391040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 10",
+      "packet_hex": "0223a1040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "0223a1040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 11",
+      "packet_hex": "0223b1040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "0223b1040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 12",
+      "packet_hex": "0223c1040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "0223c1040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 13",
+      "packet_hex": "0223d1040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "0223d1040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 14",
+      "packet_hex": "0223e1040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "0223e1040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "RX ACL flags nibble 15",
+      "packet_hex": "0223f1040041424344",
+      "trace": [
+        [
+          "bb_fetch_in_event",
+          2
+        ],
+        [
+          "hci_host_recv_packet",
+          331779,
+          9,
+          "0223f1040041424344"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-0-0",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-0-1",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-0-2",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-0-3",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-0-4",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-0-255",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-0-65535",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-0-4294967295",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-1-0",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-1-1",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-1-2",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-1-3",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-1-4",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-1-255",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-1-65535",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-1-4294967295",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-64-0",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-64-1",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-64-2",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-64-3",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-64-4",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-64-255",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-64-65535",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-64-4294967295",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-128-0",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-128-1",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-128-2",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-128-3",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-128-4",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-128-255",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-128-65535",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-128-4294967295",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-192-0",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-192-1",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-192-2",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-192-3",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-192-4",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-192-255",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-192-65535",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-192-4294967295",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-255-0",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-255-1",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-255-2",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-255-3",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-255-4",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-255-255",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-255-65535",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "features-255-4294967295",
+      "trace": [
+        [
+          "ext_util_read_without_raw",
+          "stack"
+        ],
+        [
+          "memcpy",
+          196692,
+          327680,
+          8
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-0-0",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-0-1",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-0-5",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-0-6",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-0-65535",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-1-0",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-1-1",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-1-5",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-1-6",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-1-65535",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-2-0",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-2-1",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-2-5",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-2-6",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-2-65535",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-3-0",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-3-1",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-3-5",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-3-6",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-3-65535",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-255-0",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-255-1",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-255-5",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-255-6",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-1-255-65535",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-0-0",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-0-1",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-0-5",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-0-6",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-0-65535",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-1-0",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-1-1",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-1-5",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-1-6",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-1-65535",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-2-0",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-2-1",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-2-5",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-2-6",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-2-65535",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-3-0",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-3-1",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-3-5",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-3-6",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-3-65535",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-255-0",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-255-1",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-255-5",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-255-6",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-3-255-65535",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-0-0",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-0-1",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-0-5",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-0-6",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-0-65535",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-1-0",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-1-1",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-1-5",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-1-6",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-1-65535",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-2-0",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-2-1",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-2-5",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-2-6",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-2-65535",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-3-0",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-3-1",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-3-5",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-3-6",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-3-65535",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419897
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          16,
+          1344,
+          4,
+          305419896
+        ],
+        [
+          "mmio",
+          17,
+          1344,
+          4,
+          305419897
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-255-0",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-255-1",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-255-5",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-255-6",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "credits-4-255-65535",
+      "trace": [
+        [
+          "bb_utils_keep_of_age",
+          0
+        ],
+        [
+          "bb_utils_keep_of_age",
+          1
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-0-4121",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-0-5120",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-0-5127",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-0-5128",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-0-5129",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5205,
+          9,
+          5,
+          5
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-0-5137",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-0-5141",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-0-5146",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5205,
+          9,
+          5,
+          5
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-0-5149",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-0-5151",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5205,
+          9,
+          5,
+          5
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-0-5155",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5205,
+          9,
+          5,
+          5
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-5-4121",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-5-5120",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-5-5127",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-5-5128",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-5-5129",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5205,
+          9,
+          5,
+          5
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-5-5137",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-5-5141",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-5-5146",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5205,
+          9,
+          5,
+          5
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-5-5149",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-5-5151",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5205,
+          9,
+          5,
+          5
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-0-5-5155",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5205,
+          9,
+          5,
+          5
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-0-4121",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-0-5120",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-0-5127",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-0-5128",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-0-5129",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-0-5137",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-0-5141",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-0-5146",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-0-5149",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-0-5151",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-0-5155",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-5-4121",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-5-5120",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-5-5127",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-5-5128",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-5-5129",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-5-5137",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-5-5141",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-5-5146",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-5-5149",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-5-5151",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-1-5-5155",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-0-4121",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-0-5120",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-0-5127",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-0-5128",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-0-5129",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-0-5137",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-0-5141",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-0-5146",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-0-5149",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-0-5151",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-0-5155",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-5-4121",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-5-5120",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-5-5127",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-5-5128",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-5-5129",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5205,
+          9,
+          5,
+          5
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-5-5137",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-5-5141",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-5-5146",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-5-5149",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5204,
+          9,
+          5,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-5-5151",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ],
+        [
+          "allocate",
+          5205,
+          9,
+          5,
+          5
+        ],
+        [
+          "send",
+          348160,
+          "00000200000000000000000000000000"
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "reroute-2-5-5155",
+      "trace": [
+        [
+          "bb_utils_go_by_promise",
+          0
+        ]
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "command-table-0",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "command-table-1",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "command-table-2",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "command-table-3",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "command-table-4",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "command-table-5",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "command-table-6",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "command-table-7",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "command-table-8",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "command-table-9",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "command-table-62",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "command-table-63",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "command-table-64",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "command-table-65535",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "credits-count--1",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "credits-count-0",
+      "trace": [],
+      "result": "pass"
+    },
+    {
+      "name": "initialize-and-empty-transport",
+      "trace": [
+        [
+          "memset",
+          196608,
+          0,
+          92
+        ],
+        [
+          "register",
+          9,
+          131228
+        ],
+        [
+          "state",
+          9,
+          0
+        ],
+        [
+          "init_list",
+          196652
+        ],
+        [
+          "init_list",
+          196660
+        ],
+        [
+          "memset",
+          196668,
+          0,
+          24
+        ],
+        [
+          "scheduler_register",
+          3,
+          "hct_pass_within_head"
+        ],
+        [
+          "memset",
+          196668,
+          0,
+          24
+        ],
+        [
+          "allocate",
+          4220,
+          9,
+          9,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000100000000000000000000000000"
+        ],
+        [
+          "allocate",
+          4220,
+          9,
+          9,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000100000000000000000000000000"
+        ],
+        [
+          "allocate",
+          4220,
+          9,
+          9,
+          3
+        ],
+        [
+          "send",
+          348160,
+          "00000100000000000000000000000000"
+        ],
+        [
+          "classic_buffer"
+        ],
+        [
+          "allocate",
+          2059,
+          2,
+          9,
+          12
+        ],
+        [
+          "send",
+          348160,
+          "00000000000000000010050000000000"
+        ]
+      ],
+      "result": "pass"
+    }
+  ],
+  "functions_exercised": [
+    "bt21_go_about_pool",
+    "bt21_save_under_dig",
+    "hct_acl_segment",
+    "hct_get_inside_minimum",
+    "hct_give_in_discount",
+    "hct_leave_in_bother",
+    "hct_leave_with_ability",
+    "hct_make_at_sell",
+    "hct_pass_within_head",
+    "hct_reserve_within_physics",
+    "hct_send_command",
+    "hct_set_by_god",
+    "hct_set_to_method",
+    "hct_take_into_brain",
+    "hct_take_into_host",
+    "hct_take_of_metal",
+    "hct_take_under_cook",
+    "hct_tx_done",
+    "hct_write_at_month",
+    "lm_proc_save_about_hearing",
+    "lm_proc_save_about_ruin",
+    "lm_proc_tell_to_complex"
+  ],
+  "recovered_source_sha256": "c994097a94f15b9c0d6eb895107ff247265c29b557b84535a81aedcfc19880c4",
+  "tables_sha256": "d4df5e1d38218c536c668518b2d0b56d2325e25b1972df55e56af374a06e225a",
+  "compilers": [
+    "clang",
+    "gcc"
+  ]
+}

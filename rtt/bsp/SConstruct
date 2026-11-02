@@ -57,9 +57,11 @@ objs.extend(SConscript(os.path.join(libraries_path_prefix, 'hal_drivers', 'SCons
 # include drivers
 objs.extend(SConscript(os.path.join(libcpu_path_prefix, 'cpu', 'SConscript')))
 
-# FM bring-up uses SRAM to keep cache faults out of RF/audio clock setup.
+# FM/BT bring-up uses SRAM to keep cache faults out of RF/audio clock setup.
+# BT reserves its fixed ABI RAM and uses the second executable SRAM bank.
 # Other profiles retain the legacy flash/cache layout.
-link_script = 'link_fm_ram.lds' if GetDepend('BSP_USING_FMRX') else 'link.lds'
+link_script = ('link_bt_ram.lds' if GetDepend('BSP_USING_BTCTRL') else
+               'link_fm_ram.lds' if GetDepend('BSP_USING_FMRX') else 'link.lds')
 if link_script != 'link.lds':
     env.Replace(LINKFLAGS=str(env['LINKFLAGS']).replace('link.lds', link_script))
 

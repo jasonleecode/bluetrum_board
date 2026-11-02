@@ -160,15 +160,19 @@ static uint32_t hct_proc_tell_for_efficiency(uint32_t id, uint8_t *payload)
 }
 
 uint8_t hct_find_without_crack __attribute__((section(".btmem.bb.hcic"), aligned(4))) = 0;
-const struct bt_hct_handler hct_proc_sell_to_horror[2]
-    __attribute__((section(".rodata.bb.tbl"), aligned(4))) = {
-        {0xffff, 0, hct_proc_tell_for_efficiency},
-        {0x2401, 0, hct_proc_cause_under_statement},
+static const struct {
+    struct bt_hct_handler_table table;
+    struct bt_hct_handler handlers[2];
+} hct_dispatch __attribute__((section(".rodata.bb.tbl"),aligned(4),used)) = {
+    {hct_proc_sell_to_horror,2,0},
+    {{0xffff,0,hct_proc_tell_for_efficiency},{0x2401,0,hct_proc_cause_under_statement}},
 };
-const struct bt_hct_handler_table hct_cause_without_cup
-    __attribute__((section(".rodata.bb.tbl"), aligned(4))) = {
-        hct_proc_sell_to_horror, 2, 0,
-};
+/* Independent leading label preserves the 8-byte public symbol size in GCC. */
+__asm__(".global hct_cause_without_cup\n.type hct_cause_without_cup,@object\n"
+        ".pushsection .rodata.bb.tbl,\"a\",@progbits\n.balign 4\nhct_cause_without_cup:\n.popsection\n"
+        ".size hct_cause_without_cup,8\n"
+        ".global hct_proc_sell_to_horror\n.type hct_proc_sell_to_horror,@object\n"
+        ".set hct_proc_sell_to_horror,hct_dispatch+8\n.size hct_proc_sell_to_horror,16\n");
 
 _Static_assert(sizeof(struct bt_hct_descriptor) == 8, "RV32 controller ABI required");
 _Static_assert(sizeof(struct bt_hct_handler) == 8, "RV32 controller ABI required");

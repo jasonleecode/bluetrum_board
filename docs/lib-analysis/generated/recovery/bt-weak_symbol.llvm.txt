@@ -1,0 +1,35 @@
+
+libbtctrl.a:weak_symbol.o:	file format ELF32-riscv
+
+
+Disassembly of section .text:
+
+00000000 bb_rf_get_about_importance:
+       0: 01 45                        	mv	a0, zero
+       2: 82 80                        	ret
+
+00000004 weak_symbol_give_to_preference:
+       4: 01 45                        	mv	a0, zero
+       6: 82 80                        	ret
+
+00000008 ble_get_local_bd_addr:
+       8: 17 03 00 00                  	auipc	t1, 0
+			00000008:  R_RISCV_CALL	__riscv_save_1
+			00000008:  R_RISCV_RELAX	*ABS*
+       c: e7 02 03 00                  	jalr	t0, t1
+      10: 2a 84                        	add	s0, zero, a0
+      12: 17 03 00 00                  	auipc	t1, 0
+			00000012:  R_RISCV_CALL	bt_get_local_bd_addr
+			00000012:  R_RISCV_RELAX	*ABS*
+      16: e7 00 03 00                  	jalr	t1
+      1a: 83 47 54 00                  	lbu	a5, 5(s0)
+      1e: 93 c7 57 05                  	xori	a5, a5, 85
+      22: a3 02 f4 00                  	sb	a5, 5(s0)
+      26: 17 03 00 00                  	auipc	t1, 0
+			00000026:  R_RISCV_CALL	__riscv_restore_1
+			00000026:  R_RISCV_RELAX	*ABS*
+      2a: 67 00 03 00                  	jr	t1
+
+0000002e mgr_fetch_on_savings:
+      2e: 01 45                        	mv	a0, zero
+      30: 82 80                        	ret

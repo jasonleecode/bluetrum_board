@@ -25,4 +25,5 @@ void ab32_sound_fm_release(void);
 void ab32_sound_fm_volume(rt_uint8_t volume);
 void ab32_sound_fm_diagnose(void);
 rt_err_t ab32_sound_fm_test_tone(void);
+rt_err_t ab32_fmrx_bt_claim(void);
 #endif

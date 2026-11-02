@@ -11,6 +11,7 @@ bare/build/
 .toolchains/
 tools/**/__pycache__/
 rtt/**/__pycache__/
+docs/lib-analysis/__pycache__/
 
 # RT-Thread packaged firmware and hardware verification output
 rtt/bsp/rtthread.dcf

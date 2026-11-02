@@ -1,7 +1,7 @@
 {
   "unicorn_version": "2.1.4",
   "original_object_sha256": "739f64a176598a6a3ee87b234f36976308e4c1a6cbd535930d7f213f7bd26358",
-  "recovered_source_sha256": "1bc575c8cebd2dc55691b0a739d194e72fcc0b8922b3e8bf9bd81f310d25c02d",
+  "recovered_source_sha256": "8adf7f6c0e85dcab9d0f1f5f8f8992d9457689f3dc52feb348d0f3f97c242851",
   "model": "Synthetic MMIO and platform-call hooks; vendor restore_0/1 ABI shims. Three exports and one registered callback. Vector JAL bytes checked but not executed. No silicon IRQ entry, ROM worker, custom-opcode, cache coherence or RF timing verification.",
   "cases": [
     {

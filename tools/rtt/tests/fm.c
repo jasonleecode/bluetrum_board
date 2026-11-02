@@ -75,6 +75,7 @@ int main(void) {
     assert(sound_device_close(&snd_dev.audio.parent) == RT_EOK);
     assert(fm_control(NULL, AB32_FMRX_START, &v) == RT_EOK);
     assert(fm_status.running && snd_dev.running && snd_dev.dma_to_aubuf && dac_clock_on);
+    assert(ab32_fmrx_bt_claim() == -RT_EBUSY);
     assert(tuned == 10110 && route && clock_on && (DACDIGCON0 & 0x3c) == 8);
     assert(DACDIGCON0 & BIT(1)); /* FM must use the 48 kHz PLL family. */
     assert(ab32_sound_fm_acquire(&words) == -RT_EBUSY);
@@ -121,5 +122,11 @@ int main(void) {
     assert(ab32_sound_fm_test_tone() == -RT_ETIMEOUT);
     assert(!snd_dev.running && !snd_dev.dma_to_aubuf && !locks);
     AUBUFCON = 0;
-    puts("PASS: FM tune/volume/sync, DAC/PCM ownership, timeout/unwind/restart, I2S stereo/gating");
+    assert(ab32_fmrx_bt_claim() == RT_EOK);
+    v = 97400;
+    before = power_on_calls;
+    assert(fm_control(NULL, AB32_FMRX_START, &v) == -RT_EBUSY);
+    assert(fm_control(NULL, AB32_FMRX_TUNE, &v) == -RT_EBUSY);
+    assert(power_on_calls == before && !locks);
+    puts("PASS: FM tune/volume/sync, DAC/PCM ownership, timeout/unwind/restart, I2S gating, BT RF exclusion");
 }

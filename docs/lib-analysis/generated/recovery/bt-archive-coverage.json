@@ -1,0 +1,2713 @@
+{
+  "archive_sha256": "60cda98155de21b3feda330d494d38a79d61db6f279f750dc1b12e1c45c4ac9b",
+  "members": [
+    {
+      "member": "bb.o",
+      "sha256": "57247131de81983d795f81887cb4db88e624950cfc9d24f4f178cf4c19c35e25",
+      "functions": 19,
+      "exports": {
+        "bthw_get_heap_info": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 20,
+          "section": ".text",
+          "value": 0
+        },
+        "bb_go_about_way": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 78,
+          "section": ".text",
+          "value": 20
+        },
+        "bb_keep_within_error": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 76,
+          "section": ".com_text.bb.putc",
+          "value": 0
+        },
+        "bthw_soft_isr": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 10,
+          "section": ".com_text.bb.btisr",
+          "value": 0
+        },
+        "bthw_isr_do": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 44,
+          "section": ".com_text.bb.btisr",
+          "value": 10
+        },
+        "bb_make_on_husband": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 4,
+          "section": ".text.update",
+          "value": 510
+        },
+        "bb_init": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 272,
+          "section": ".text",
+          "value": 98
+        },
+        "bb_reset": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 116,
+          "section": ".text",
+          "value": 370
+        },
+        "bb_off": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 146,
+          "section": ".text",
+          "value": 486
+        },
+        "bb_run_loop": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 24,
+          "section": ".com_text.bb.loop",
+          "value": 0
+        },
+        "bb_find_on_influence": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 2,
+          "section": ".com_text.bb.cvsd",
+          "value": 0
+        },
+        "bb_pass_under_iron": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 14,
+          "section": ".sleep_text.bb",
+          "value": 0
+        },
+        "bb_sleep": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 692,
+          "section": ".sleep_text.bb",
+          "value": 14
+        },
+        "bb_keep_within_opening": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 10,
+          "section": ".sleep_text.bb",
+          "value": 706
+        },
+        "bb_fetch_in_event": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 46,
+          "section": ".sleep_text.bb",
+          "value": 778
+        },
+        "bb_give_on_enthusiasm": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 70,
+          "section": ".com_text.bb.sleep",
+          "value": 0
+        },
+        "bb_get_without_card": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 50,
+          "section": ".sleep_text.bb",
+          "value": 886
+        },
+        "bb_is_sleep": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 48,
+          "section": ".com_text.bb.sleep",
+          "value": 70
+        },
+        "bb_get_at_clue": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 48,
+          "section": ".com_text.bb.sleep",
+          "value": 118
+        },
+        "bb_get_without_vehicle": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 1666,
+          "section": ".btmem.bthw",
+          "value": 0
+        }
+      },
+      "source": "bare/drivers/src/bt_core_recovered.c",
+      "source_sha256": "30207858f6ae6bf739894e170e94caa85f8bd06775bcb94eab4fdac402e2f75c",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "bb_rf.o",
+      "sha256": "1bd766f5605fb795b917c0fa8bb7ae35e8866d6cfdf4b31623a99614ebbb1137",
+      "functions": 37,
+      "exports": {
+        "bb_rf_send_by_burn": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 2,
+          "section": ".com_text.voltage.vbko",
+          "value": 0
+        },
+        "bt_get_hvbko": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 82,
+          "section": ".text",
+          "value": 832
+        },
+        "bt_get_packet": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 84,
+          "section": ".text",
+          "value": 914
+        },
+        "bb_rf_pass_on_water": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 50,
+          "section": ".text",
+          "value": 998
+        },
+        "bb_rf_cause_under_truck": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 38,
+          "section": ".text",
+          "value": 1048
+        },
+        "bb_rf_tell_at_entry": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 40,
+          "section": ".text",
+          "value": 1086
+        },
+        "bb_rf_fetch_within_fix": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 48,
+          "section": ".com_text.bb.rf.sleep.rssi",
+          "value": 0
+        },
+        "bb_rf_reserve_at_world": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 40,
+          "section": ".text",
+          "value": 1126
+        },
+        "bb_rf_find_inside_human": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 44,
+          "section": ".text",
+          "value": 1166
+        },
+        "bb_rf_give_by_picture": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 138,
+          "section": ".text",
+          "value": 1210
+        },
+        "bb_rf_make_of_position": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 4,
+          "section": ".text",
+          "value": 1348
+        },
+        "bb_rf_go_inside_log": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 2,
+          "section": ".com_text.bb.rf.sleep",
+          "value": 0
+        },
+        "bb_rf_set_on_inflation": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 38,
+          "section": ".text",
+          "value": 1352
+        },
+        "bb_set_about_agent": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 12,
+          "section": ".sleep_text.bb",
+          "value": 1334
+        },
+        "bb_rf_pass_without_consequence": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 140,
+          "section": ".text.bb.rf",
+          "value": 0
+        },
+        "bb_rf_send_to_officer": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 120,
+          "section": ".text.bb.rf",
+          "value": 140
+        },
+        "bb_rf_show_by_line": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 14,
+          "section": ".text.bb.rf.gain",
+          "value": 0
+        },
+        "bb_rf_sell_by_patience": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 14,
+          "section": ".text.bb.rf.gain",
+          "value": 14
+        },
+        "bb_rf_get_at_application": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 130,
+          "section": ".text.bb.rf",
+          "value": 260
+        },
+        "bb_rf_read_into_price": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 68,
+          "section": ".text.bb.rf",
+          "value": 390
+        },
+        "bb_rf_reserve_into_mud": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 22,
+          "section": ".text",
+          "value": 1390
+        },
+        "bb_rf_get_with_leadership": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 102,
+          "section": ".text",
+          "value": 1412
+        },
+        "bb_rf_take_without_start": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 34,
+          "section": ".com_text.isr.txrx",
+          "value": 0
+        },
+        "bb_give_into_radio": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 1492,
+          "section": ".text",
+          "value": 1514
+        },
+        "bb_sell_about_bet": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 42,
+          "section": ".text",
+          "value": 3006
+        },
+        "bb_show_with_stay": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 88,
+          "section": ".sleep_text.bb.rf",
+          "value": 0
+        },
+        "bb_pass_about_dependent": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 228,
+          "section": ".com_text.bb.rf.sleep",
+          "value": 2
+        },
+        "bb_make_into_mother": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 110,
+          "section": ".text",
+          "value": 3048
+        }
+      },
+      "source": "bare/drivers/src/bt_rf_recovered.c",
+      "source_sha256": "465b29ced8155bacc71558f9fbc78e997dfdf70015a7b410f24730f61115911d",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "ble.o",
+      "sha256": "0c3ffd4024613802a59051e1834a2b5c9975edd609d0f7dfd17eeadf81bd8401",
+      "functions": 5,
+      "exports": {
+        "ble_write_about_black": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 34,
+          "section": ".text",
+          "value": 0
+        },
+        "bb_go_on_valuable": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 40,
+          "section": ".text",
+          "value": 34
+        },
+        "ble_sell_about_sun": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 34,
+          "section": ".text",
+          "value": 74
+        },
+        "bb_take_about_press": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 72,
+          "section": ".text",
+          "value": 108
+        },
+        "bb_reserve_without_volume": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 110,
+          "section": ".com_text.bb.leisr",
+          "value": 0
+        },
+        "ble_sell_for_chocolate": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 14,
+          "section": ".com_rodata.bb.isr",
+          "value": 0
+        }
+      },
+      "source": "bare/drivers/src/bt_ble_recovered.c",
+      "source_sha256": "c79bc124bc26711dcf69af3e2a43c1827e2c80a5fd98b540fa6293935eaeb05b",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "ble_con.o",
+      "sha256": "7554fb960d688a25766fb60b724631e2302300bdf25789ce3725739b2a3b1eae",
+      "functions": 19,
+      "exports": {
+        "ble_con_show_on_border": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 44,
+          "section": ".text",
+          "value": 0
+        },
+        "ble_con_make_on_burn": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 68,
+          "section": ".text",
+          "value": 44
+        },
+        "ble_leave_about_television": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 534,
+          "section": ".text",
+          "value": 112
+        },
+        "ble_con_make_on_name": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 36,
+          "section": "SHN_COMMON",
+          "value": 4
+        },
+        "bb_pick_under_strike": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 42,
+          "section": ".text",
+          "value": 646
+        },
+        "ble_con_get_of_shoe": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 190,
+          "section": ".text",
+          "value": 688
+        },
+        "ble_con_write_under_state": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 14,
+          "section": ".text",
+          "value": 878
+        },
+        "ble_con_cause_within_youth": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 558,
+          "section": ".text",
+          "value": 892
+        },
+        "ble_con_find_of_blow": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 8,
+          "section": ".text",
+          "value": 1450
+        },
+        "ble_con_find_inside_service": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 254,
+          "section": ".text",
+          "value": 1458
+        },
+        "ble_con_keep_within_broad": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 8,
+          "section": ".text",
+          "value": 1712
+        },
+        "ble_con_make_on_street": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 218,
+          "section": ".text",
+          "value": 1720
+        },
+        "ble_con_find_inside_official": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 14,
+          "section": ".text",
+          "value": 1938
+        },
+        "ble_con_cause_about_mud": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 46,
+          "section": ".text",
+          "value": 1952
+        },
+        "ble_con_sell_by_champion": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 42,
+          "section": ".text",
+          "value": 1998
+        },
+        "ble_con_take_inside_pace": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 222,
+          "section": ".text",
+          "value": 2040
+        },
+        "ble_con_take_by_join": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 38,
+          "section": ".text",
+          "value": 2262
+        },
+        "ble_con_go_with_pen": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 42,
+          "section": ".text",
+          "value": 2300
+        },
+        "ble_con_reserve_on_option": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 184,
+          "section": ".text",
+          "value": 2342
+        },
+        "ble_con_do_by_wall": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 172,
+          "section": ".text",
+          "value": 2526
+        }
+      },
+      "source": "bare/drivers/src/bt_ble_con_recovered.c",
+      "source_sha256": "4a7f6714116906cb2c686813f0de383a7b39f35e6bac60cf4741a61cbebb35ec",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "ble_evt.o",
+      "sha256": "4e91629f3a41c49a9d81aef38a2667002186873eb4ad76934d8a2ade6baffb21",
+      "functions": 20,
+      "exports": {
+        "ble_evt_give_for_drawing": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 64,
+          "section": ".com_text.bb.leisr",
+          "value": 0
+        },
+        "ble_evt_show_under_paint": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 62,
+          "section": ".com_text.bb.leisr",
+          "value": 64
+        },
+        "ble_con_keep_by_success": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 108,
+          "section": ".com_text.bb.leisr",
+          "value": 126
+        },
+        "ble_con_send_at_age": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 88,
+          "section": ".com_text.bb.leisr",
+          "value": 234
+        },
+        "ble_con_show_to_slip": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 54,
+          "section": ".com_text.bb.leisr",
+          "value": 322
+        },
+        "ble_con_fetch_at_pressure": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 130,
+          "section": ".text",
+          "value": 52
+        },
+        "ble_evt_sell_for_mortgage": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 26,
+          "section": ".text",
+          "value": 182
+        },
+        "ble_con_keep_on_muscle": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 158,
+          "section": ".text",
+          "value": 208
+        },
+        "ble_con_give_at_black": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 40,
+          "section": ".text",
+          "value": 366
+        },
+        "ble_con_leave_of_dance": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 368,
+          "section": ".text",
+          "value": 406
+        },
+        "ble_con_give_within_suit": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 254,
+          "section": ".text",
+          "value": 774
+        },
+        "ble_con_make_in_spirit": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 26,
+          "section": ".text",
+          "value": 1028
+        },
+        "ble_evt_read_within_distribution": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 44,
+          "section": ".com_text.bb.leisr",
+          "value": 376
+        },
+        "ble_con_show_without_uncle": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 92,
+          "section": ".text",
+          "value": 1608
+        },
+        "ble_con_give_to_series": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 216,
+          "section": ".text",
+          "value": 1700
+        },
+        "ble_con_cause_with_cold": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 114,
+          "section": ".text",
+          "value": 1916
+        },
+        "ble_evt_find_for_stock": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 76,
+          "section": ".com_text.bb.leisr",
+          "value": 420
+        },
+        "ble_con_show_of_beat": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 24,
+          "section": ".btmem.bb.ble",
+          "value": 0
+        }
+      },
+      "source": "bare/drivers/src/bt_ble_evt_recovered.c",
+      "source_sha256": "4e83b5c17bcdf119fcb0f860d5d450125f969908b5876a5dad44a41381ab3963",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "ble_sleep.o",
+      "sha256": "d23ae105da70ecb83a16a751a1e607ee2396e5ffd3014d4135fcd880ca34ef74",
+      "functions": 1,
+      "exports": {
+        "bb_get_at_attitude": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 104,
+          "section": ".sleep_text.bb.ble",
+          "value": 0
+        }
+      },
+      "source": "bare/drivers/src/bt_ble_sleep_recovered.c",
+      "source_sha256": "73a8b3996d35bab1534546ead0a44d76c6674c746de331ac0d700c2c24027632",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "ble_txrx.o",
+      "sha256": "b374f1edcb4c10e1079fb13f6324453f8f405aa64cee1ed85f49a954035883c6",
+      "functions": 0,
+      "exports": {},
+      "status": "empty member; no replacement needed"
+    },
+    {
+      "member": "ll.o",
+      "sha256": "af91da1e659ff27f9cf95d21c9b698092d733c88a0da5a2beb871d3ab68af1b0",
+      "functions": 22,
+      "exports": {
+        "ll_show_of_depression": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 4,
+          "section": ".text",
+          "value": 0
+        },
+        "ll_fetch_with_brother": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 320,
+          "section": ".text",
+          "value": 4
+        },
+        "ll_pass_by_heat": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 4,
+          "section": ".sdata",
+          "value": 0
+        },
+        "ble_pick_to_teacher": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 54,
+          "section": ".text",
+          "value": 324
+        },
+        "ll_tell_under_position": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 68,
+          "section": ".text",
+          "value": 378
+        },
+        "ble_make_of_distribution": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 40,
+          "section": ".text",
+          "value": 446
+        },
+        "ll_tell_under_slip": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 112,
+          "section": ".text",
+          "value": 486
+        },
+        "ll_go_without_restaurant": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 272,
+          "section": ".text",
+          "value": 598
+        },
+        "ll_do_under_regret": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 292,
+          "section": ".text",
+          "value": 870
+        },
+        "ll_show_of_incident": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 174,
+          "section": ".com_text.bb.leisr",
+          "value": 0
+        },
+        "ll_write_within_surprise": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 116,
+          "section": ".text",
+          "value": 1162
+        },
+        "ll_read_under_responsibility": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 180,
+          "section": ".text",
+          "value": 1278
+        },
+        "ll_send_for_consideration": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 110,
+          "section": ".text",
+          "value": 1458
+        },
+        "ll_send_under_supermarket": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 168,
+          "section": ".text",
+          "value": 1568
+        },
+        "ll_reserve_within_drawing": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 58,
+          "section": ".text",
+          "value": 1736
+        },
+        "ll_make_to_display": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 58,
+          "section": ".text",
+          "value": 1794
+        },
+        "ll_leave_without_cry": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 80,
+          "section": ".text",
+          "value": 1852
+        },
+        "ble_evt_reserve_by_conflict": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 90,
+          "section": ".com_text.bb.leisr",
+          "value": 174
+        },
+        "ble_con_tell_by_advantage": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 44,
+          "section": ".com_text.bb.leisr",
+          "value": 264
+        },
+        "ble_evt_go_by_elevator": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 158,
+          "section": ".com_text.bb.leisr",
+          "value": 308
+        },
+        "ble_evt_cause_for_impress": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 170,
+          "section": ".com_text.bb.leisr",
+          "value": 466
+        },
+        "ll_go_into_variation": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 56,
+          "section": ".text",
+          "value": 1932
+        },
+        "ll_get_into_contribution": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 160,
+          "section": ".text",
+          "value": 1988
+        },
+        "ll_give_about_aspect": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 4,
+          "section": ".btmem.bb.ll",
+          "value": 0
+        }
+      },
+      "source": "bare/drivers/src/bt_ll_recovered.c",
+      "source_sha256": "d85485cf72b3b4430abd5471c3330df1e61df0f5aff41af4fc93ee1c087a5472",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "ll_cntl.o",
+      "sha256": "78161c4d227c5b3bebcf61141607765d2e3e278a206b9a365b1825c699a24fe1",
+      "functions": 36,
+      "exports": {
+        "ll_cntl_find_in_heat": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 114,
+          "section": ".text",
+          "value": 190
+        },
+        "ll_leave_inside_instruction": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 128,
+          "section": ".text",
+          "value": 304
+        },
+        "ll_cntl_show_of_interview": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 110,
+          "section": ".text",
+          "value": 432
+        },
+        "ll_cntl_tell_without_demand": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 134,
+          "section": ".text",
+          "value": 542
+        },
+        "ll_cntl_send_on_meaning": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 306,
+          "section": ".text",
+          "value": 676
+        },
+        "ll_cntl_leave_with_time": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 216,
+          "section": ".text",
+          "value": 982
+        },
+        "ll_cntl_pick_of_partner": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 96,
+          "section": ".text",
+          "value": 1198
+        },
+        "ll_cntl_sell_at_community": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 76,
+          "section": ".text",
+          "value": 1294
+        },
+        "ll_cntl_pass_about_spring": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 204,
+          "section": ".text",
+          "value": 1370
+        },
+        "ll_cntl_show_with_card": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 218,
+          "section": ".text",
+          "value": 1574
+        },
+        "ll_cntl_set_of_reward": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 202,
+          "section": ".text",
+          "value": 1792
+        },
+        "ll_cntl_go_about_stupid": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 118,
+          "section": ".text",
+          "value": 1994
+        },
+        "ll_cntl_set_to_farm": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 186,
+          "section": ".text",
+          "value": 2112
+        },
+        "ll_cntl_leave_in_objective": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 204,
+          "section": ".text",
+          "value": 2298
+        },
+        "ll_cntl_write_on_quiet": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 48,
+          "section": ".text",
+          "value": 2502
+        },
+        "ll_cntl_cause_within_recommendation": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 122,
+          "section": ".text",
+          "value": 2550
+        },
+        "ll_cntl_show_under_network": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 206,
+          "section": ".text",
+          "value": 2672
+        },
+        "ll_cntl_sell_into_beat": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 130,
+          "section": ".text",
+          "value": 2878
+        },
+        "ll_cntl_reserve_without_display": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 2,
+          "section": ".text",
+          "value": 3008
+        },
+        "ll_cntl_find_about_visual": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 238,
+          "section": ".text",
+          "value": 3010
+        },
+        "ll_cntl_take_without_hook": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 178,
+          "section": ".text",
+          "value": 3248
+        },
+        "ll_cntl_write_by_event": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 140,
+          "section": ".text",
+          "value": 3426
+        },
+        "ll_cntl_find_at_crazy": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 108,
+          "section": ".text",
+          "value": 3566
+        },
+        "ll_cntl_read_within_record": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 76,
+          "section": ".text",
+          "value": 3674
+        },
+        "ll_cntl_set_of_letter": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 2,
+          "section": ".text",
+          "value": 3750
+        },
+        "ll_cntl_fetch_at_football": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 8,
+          "section": ".text",
+          "value": 3752
+        },
+        "ll_cntl_get_in_conflict": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 2,
+          "section": ".text",
+          "value": 3760
+        },
+        "ll_cntl_save_under_outcome": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 90,
+          "section": ".text",
+          "value": 3762
+        },
+        "ll_cntl_pick_without_support": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 168,
+          "section": ".text",
+          "value": 3852
+        },
+        "ll_cntl_cause_with_high": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 230,
+          "section": ".text",
+          "value": 4020
+        },
+        "ll_cntl_reserve_of_football": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 236,
+          "section": ".text",
+          "value": 4250
+        },
+        "ll_cntl_pick_in_peak": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 114,
+          "section": ".text",
+          "value": 4486
+        },
+        "ll_cntl_tell_on_spend": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 218,
+          "section": ".text",
+          "value": 4600
+        },
+        "ll_cntl_show_for_phase": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 234,
+          "section": ".text",
+          "value": 4818
+        }
+      },
+      "source": "bare/drivers/src/bt_ll_cntl_recovered.c",
+      "source_sha256": "17219e08b055aed130010a2ff4ff8cdc12c9eb985e2b2bab71f0e0bfc6258a29",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "ll_proc.o",
+      "sha256": "8baa395b43f0430566a6241ab1bfb24654effa33b9fd4ebe78f2004b8cbed7af",
+      "functions": 36,
+      "exports": {
+        "ll_show_for_chest": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 1,
+          "section": ".btmem.bb.ll",
+          "value": 0
+        },
+        "ll_keep_to_hospital": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 8,
+          "section": ".rodata.ble.tbl",
+          "value": 0
+        },
+        "ll_send_within_collection": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 176,
+          "section": ".rodata.ble.tbl",
+          "value": 8
+        }
+      },
+      "source": "bare/drivers/src/bt_ll_proc_recovered.c",
+      "source_sha256": "8cdfd63e3006a1993469be8d85071c611da77eeac537631d4beb7f59925e5040",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "ll_util.o",
+      "sha256": "bddbab801290390d1645c25e127188efdbb3ff20a5a99d92857c8ce49a18d635",
+      "functions": 5,
+      "exports": {
+        "ll_util_give_to_credit": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 40,
+          "section": ".text",
+          "value": 0
+        },
+        "ll_cntl_pick_without_bid": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 82,
+          "section": ".text",
+          "value": 40
+        },
+        "ll_cntl_leave_about_cup": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 40,
+          "section": ".text",
+          "value": 122
+        },
+        "ll_util_fetch_to_staff": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 26,
+          "section": ".text",
+          "value": 162
+        },
+        "ll_util_write_inside_god": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 20,
+          "section": ".text",
+          "value": 188
+        }
+      },
+      "source": "bare/drivers/src/bt_ll_util_recovered.c",
+      "source_sha256": "231075cf0d16cc050f3331b5f421cc15c240b2ce88747581222726f926b832f2",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "mgr.o",
+      "sha256": "bafac8d790778d89c352ead9843840779b2979abcc8348f5639323bff3571f87",
+      "functions": 28,
+      "exports": {
+        "mgr_make_to_delivery": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 48,
+          "section": ".text",
+          "value": 96
+        },
+        "mgr_save_under_green": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 324,
+          "section": ".text",
+          "value": 144
+        },
+        "mgr_get_at_coffee": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 170,
+          "section": ".text",
+          "value": 468
+        },
+        "mgr_show_within_nobody": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 40,
+          "section": ".text",
+          "value": 638
+        },
+        "mgr_do_into_item": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 18,
+          "section": ".text",
+          "value": 678
+        },
+        "ll_proc_go_for_department": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 40,
+          "section": ".text",
+          "value": 696
+        },
+        "mgr_leave_by_roll": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 302,
+          "section": ".text",
+          "value": 736
+        },
+        "mgr_keep_by_commission": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 102,
+          "section": ".text",
+          "value": 1038
+        },
+        "mgr_get_to_town": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 358,
+          "section": ".text",
+          "value": 1140
+        },
+        "mgr_do_without_strength": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 242,
+          "section": ".text",
+          "value": 1498
+        },
+        "mgr_show_in_wife": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 100,
+          "section": ".com_text.bb.leisr",
+          "value": 0
+        },
+        "ble_con_do_by_fill": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 54,
+          "section": ".com_text.bb.leisr",
+          "value": 100
+        },
+        "mgr_send_without_alternative": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 68,
+          "section": ".text",
+          "value": 1740
+        },
+        "mgr_leave_on_night": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 148,
+          "section": ".text",
+          "value": 1808
+        },
+        "mgr_send_for_rate": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 172,
+          "section": ".text",
+          "value": 1956
+        },
+        "mgr_set_inside_one": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 104,
+          "section": ".text",
+          "value": 2128
+        },
+        "ble_take_for_screw": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 664,
+          "section": ".text",
+          "value": 2232
+        },
+        "mgr_write_inside_pay": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 202,
+          "section": ".text",
+          "value": 4310
+        },
+        "mgr_cause_in_go": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 124,
+          "section": ".text",
+          "value": 2896
+        },
+        "mgr_write_by_being": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 88,
+          "section": ".text",
+          "value": 3020
+        },
+        "mgr_pass_inside_top": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 554,
+          "section": ".text",
+          "value": 3108
+        },
+        "mgr_read_into_shock": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 208,
+          "section": ".text",
+          "value": 3662
+        },
+        "mgr_pick_of_answer": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 240,
+          "section": ".text",
+          "value": 3870
+        },
+        "mgr_make_by_hand": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 200,
+          "section": ".text",
+          "value": 4110
+        },
+        "ble_evt_find_without_school": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 10,
+          "section": ".com_text.bb.leisr",
+          "value": 154
+        },
+        "mgr_leave_inside_minute": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 392,
+          "section": ".text",
+          "value": 4512
+        },
+        "mgr_make_about_rise": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 8,
+          "section": ".btmem.bb.mgr",
+          "value": 148
+        },
+        "mgr_pick_into_politics": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 8,
+          "section": ".rodata.ble.tbl",
+          "value": 8
+        },
+        "mgr_take_with_try": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 8,
+          "section": ".rodata.ble.tbl",
+          "value": 16
+        },
+        "mgr_sell_within_eat": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 64,
+          "section": ".rodata.ble.tbl",
+          "value": 24
+        },
+        "mgr_cause_within_nobody": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 148,
+          "section": ".btmem.bb.mgr",
+          "value": 0
+        }
+      },
+      "source": "bare/drivers/src/bt_mgr_recovered.c",
+      "source_sha256": "a2e8087e7645460e472e803c3858378c8ae557775ec3a8e1bf4d0efe789b9d4b",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "mgr_proc.o",
+      "sha256": "bfa0eefcf8a1803c90f8c368a67c6da5f2d0323841b11a6f9ab293b7d1a1d220",
+      "functions": 27,
+      "exports": {
+        "mgr_keep_under_combine": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 1,
+          "section": ".btmem.bb.mgr",
+          "value": 0
+        },
+        "mgr_set_into_theory": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 8,
+          "section": ".rodata.ble.tbl",
+          "value": 0
+        },
+        "mgr_find_within_welcome": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 48,
+          "section": ".rodata.ble.tbl",
+          "value": 8
+        }
+      },
+      "source": "bare/drivers/src/bt_mgr_proc_recovered.c",
+      "source_sha256": "b4173cb79c0dfdd200e5de58f39ae136d045679a7a7f00f524c03f4ae608fc63",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "mgr_util.o",
+      "sha256": "ef331fb4667a9b795428630ae09cf408e2072bd3303488d41693ed82d175fa8c",
+      "functions": 11,
+      "exports": {
+        "mgr_write_in_difference": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 142,
+          "section": ".text",
+          "value": 0
+        },
+        "mgr_take_on_diamond": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 36,
+          "section": ".text",
+          "value": 142
+        },
+        "ble_con_do_without_notice": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 90,
+          "section": ".com_text.bb.util",
+          "value": 0
+        },
+        "mgr_make_within_entrance": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 36,
+          "section": ".text",
+          "value": 178
+        },
+        "mgr_util_pick_with_refrigerator": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 16,
+          "section": ".text",
+          "value": 214
+        },
+        "mgr_write_at_other": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 64,
+          "section": ".text",
+          "value": 230
+        },
+        "ll_save_under_decision": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 10,
+          "section": ".text",
+          "value": 294
+        },
+        "mgr_proc_fetch_at_novel": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 10,
+          "section": ".text",
+          "value": 304
+        },
+        "ll_reserve_without_bathroom": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 30,
+          "section": ".com_text.bb.leisr",
+          "value": 0
+        },
+        "ll_read_of_yellow": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 18,
+          "section": ".text",
+          "value": 314
+        },
+        "ll_take_into_culture": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 18,
+          "section": ".text",
+          "value": 332
+        },
+        "mgr_read_for_boy": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 2,
+          "section": ".rodata.bb.lm",
+          "value": 0
+        },
+        "mgr_take_inside_band": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 3,
+          "section": ".rodata.bb.lm",
+          "value": 4
+        }
+      },
+      "source": "bare/drivers/src/bt_mgr_util_recovered.c",
+      "source_sha256": "ec2c566800436f73086b6f5608c2197160f814f7a7677cb27683eb5ea567b5de",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "bt21.o",
+      "sha256": "f96c66085e8c5611510a50f7ecd00888bb4b347354a9f4d92d2b4f5c1fe725b2",
+      "functions": 3,
+      "exports": {
+        "bb_do_at_review": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 56,
+          "section": ".text",
+          "value": 0
+        },
+        "bb_tell_with_base": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 78,
+          "section": ".text",
+          "value": 56
+        },
+        "bb_pass_in_airport": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 102,
+          "section": ".com_text.bb.btisr",
+          "value": 0
+        }
+      },
+      "source": "bare/drivers/src/bt_bt21_recovered.c",
+      "source_sha256": "2772835aec4e1d87645b729c955aeca22ace7b929a657a5b31e5098728b36978",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "ext_init.o",
+      "sha256": "cd188bca5652a4add7699b38096543421f15e41c4c00d265415c3edc1d4609b0",
+      "functions": 5,
+      "exports": {
+        "bb_write_without_passenger": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 86,
+          "section": ".text",
+          "value": 0
+        },
+        "bt21_set_on_tennis": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 346,
+          "section": ".text",
+          "value": 86
+        },
+        "ext_init_reserve_to_word": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 208,
+          "section": ".text",
+          "value": 432
+        },
+        "ext_init_pick_of_edge": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 88,
+          "section": ".text",
+          "value": 640
+        },
+        "ext_init_pass_within_equivalent": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 64,
+          "section": ".text",
+          "value": 728
+        },
+        "ext_init_do_of_weather": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 1,
+          "section": ".btmem.bb.rf",
+          "value": 0
+        },
+        "ext_init_reserve_on_test": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 36,
+          "section": ".btmem.bb",
+          "value": 0
+        }
+      },
+      "source": "bare/drivers/src/bt_ext_init_recovered.c",
+      "source_sha256": "b6a448496fb49c8b9a73bd6db17f164f79ba1ded91253640d5ebce8f0942451e",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "ext_util.o",
+      "sha256": "815a94c7a071f33245efbbd30cd745736e6b62078211f33954d357ced473b0f0",
+      "functions": 8,
+      "exports": {
+        "ext_init_cause_within_lift": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 20,
+          "section": ".text",
+          "value": 0
+        },
+        "ext_util_save_of_ease": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 18,
+          "section": ".text",
+          "value": 20
+        },
+        "ext_util_read_without_raw": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 34,
+          "section": ".text",
+          "value": 38
+        },
+        "ext_util_leave_for_variety": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 76,
+          "section": ".text",
+          "value": 72
+        },
+        "ext_util_set_to_menu": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 24,
+          "section": ".text",
+          "value": 148
+        },
+        "ext_util_leave_about_wait": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 34,
+          "section": ".text",
+          "value": 172
+        },
+        "ext_util_write_within_brain": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 46,
+          "section": ".text",
+          "value": 206
+        },
+        "ext_util_show_on_finger": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 28,
+          "section": ".text",
+          "value": 252
+        }
+      },
+      "source": "bare/drivers/src/bt_ext_util_recovered.c",
+      "source_sha256": "c9ab07692c1cd4f68dd10ef7efd5eaa9f36c3744e9e88da5fd454bbfcf9aba7d",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "lm.o",
+      "sha256": "a8d47e5b57540e647c2a648c9781c2491618acef5a70de47880233974513fec6",
+      "functions": 3,
+      "exports": {
+        "bt21_keep_within_grocery": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 46,
+          "section": ".text",
+          "value": 0
+        },
+        "lm_leave_in_treat": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 44,
+          "section": ".text",
+          "value": 46
+        },
+        "lm_send_with_consequence": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 44,
+          "section": ".text",
+          "value": 90
+        }
+      },
+      "source": "bare/drivers/src/bt_lm_recovered.c",
+      "source_sha256": "70a7e814f02b268daa96457e09abff6a5cb76740a5c639fb5ce1462336431933",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "lm_proc.o",
+      "sha256": "c27f1f7a61f16a81f6475f2ba462e6641cb6b3919e1dfb12cb97735c26d9baec",
+      "functions": 12,
+      "exports": {
+        "lm_get_inside_thanks": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 1,
+          "section": ".btmem.bb.lc",
+          "value": 0
+        },
+        "lm_cause_by_subject": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 8,
+          "section": ".rodata.bb.tbl",
+          "value": 0
+        },
+        "lm_go_without_farmer": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 64,
+          "section": ".rodata.bb.tbl",
+          "value": 8
+        }
+      },
+      "source": "bare/drivers/src/bt_lm_proc_recovered.c",
+      "source_sha256": "6d3b17416952721835b6a89e13bcd6992c7f31e405ac9a0012f46994495d6f47",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "lm_sleep.o",
+      "sha256": "abfac9722a1036140590b5a33faacaf2d1ae3ed287196d581ec0a6443ca34592",
+      "functions": 5,
+      "exports": {
+        "ext_init_get_without_name": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 28,
+          "section": ".text",
+          "value": 0
+        },
+        "bb_send_to_mall": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 10,
+          "section": ".sleep_text.sleep",
+          "value": 0
+        },
+        "bb_send_without_line": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 26,
+          "section": ".sleep_text.sleep",
+          "value": 10
+        },
+        "bb_find_with_brush": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 70,
+          "section": ".com_text.bb.sleep",
+          "value": 0
+        },
+        "bb_read_within_homework": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 2,
+          "section": ".com_text.bb.sleep",
+          "value": 70
+        }
+      },
+      "source": "bare/drivers/src/bt_lm_sleep_recovered.c",
+      "source_sha256": "262b5ef2a22387cb04dca9d89bb57cc78c4a457d655a1756d724777151fa673b",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "bb_buf.o",
+      "sha256": "3c5cc564472b46e6ce0be4cea3b07458543d9bbe3e2d882fce53e0164f259761",
+      "functions": 2,
+      "exports": {
+        "bt21_find_on_you": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 236,
+          "section": ".text.buf.init",
+          "value": 0
+        },
+        "ll_sell_under_data": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 36,
+          "section": ".text",
+          "value": 0
+        },
+        "bb_buf_reserve_about_union": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 4,
+          "section": ".btmem.bb.util",
+          "value": 4
+        },
+        "bb_buf_fetch_about_money": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 72,
+          "section": ".btmem.bb.util",
+          "value": 8
+        },
+        "ble_con_keep_inside_cell": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 4,
+          "section": ".btmem.bb.util",
+          "value": 0
+        }
+      },
+      "source": "bare/drivers/src/bt_bb_buf_recovered.c",
+      "source_sha256": "534a6ea5b0b9ccd9869cbf7b5ada198dbb8ff492392376644d6bc14d289dcc29",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "bb_debug.o",
+      "sha256": "aeb4698087af85a025f04fea8770b3c33d3b745d5dbc846772c7a29a534dbeb5",
+      "functions": 3,
+      "exports": {
+        "bb_debug_keep_by_type": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 30,
+          "section": ".com_text.debug",
+          "value": 128
+        },
+        "bb_debug_reserve_for_unit": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 22,
+          "section": ".com_text.debug",
+          "value": 158
+        }
+      },
+      "source": "bare/drivers/src/bt_bb_debug_recovered.c",
+      "source_sha256": "d9d9997cdfe8aff6f6244778a16fe7798f5d58f68a48c7a2ed50dc3bcca317a0",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "bb_utils.o",
+      "sha256": "cbe20c8f76597083b386feada7e5b32c4ad04d631df1245803ac8ceeb737d7e2",
+      "functions": 7,
+      "exports": {
+        "bb_utils_keep_on_pain": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 22,
+          "section": ".text",
+          "value": 0
+        },
+        "mgr_find_at_writing": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 32,
+          "section": ".text",
+          "value": 22
+        },
+        "bt21_give_to_dust": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 18,
+          "section": ".text",
+          "value": 54
+        },
+        "bb_utils_pass_without_hole": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 106,
+          "section": ".text",
+          "value": 72
+        },
+        "bb_utils_save_about_joke": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 46,
+          "section": ".text",
+          "value": 178
+        },
+        "bb_utils_keep_of_age": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 26,
+          "section": ".text",
+          "value": 224
+        },
+        "bb_utils_go_by_promise": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 104,
+          "section": ".text",
+          "value": 250
+        },
+        "mgr_util_fetch_into_grandfather": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 6,
+          "section": ".rodata.bb.lm",
+          "value": 0
+        }
+      },
+      "source": "bare/drivers/src/bt_bb_utils_recovered.c",
+      "source_sha256": "e1c13bb177e1cbf761f748a1a31452ca8c97c5fda80d55d0d799463c0d077e8d",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "co_list.o",
+      "sha256": "3113fdf54bada7d221356c77b812374bd46dc6a22afb2dc051e570f26601ebff",
+      "functions": 0,
+      "exports": {},
+      "status": "empty member; no replacement needed"
+    },
+    {
+      "member": "complex.o",
+      "sha256": "3e37a084620d40c95d7efeab4d13e5c106be58c291c7a5ac200ed500c50b0dc5",
+      "functions": 4,
+      "exports": {
+        "complex_set_into_brave": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 10,
+          "section": ".text",
+          "value": 0
+        },
+        "bb_rf_fetch_without_dish": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 10,
+          "section": ".text",
+          "value": 10
+        },
+        "bb_rf_make_in_job": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 28,
+          "section": ".text",
+          "value": 20
+        },
+        "bb_rf_make_for_branch": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 108,
+          "section": ".text",
+          "value": 48
+        }
+      },
+      "source": "bare/drivers/src/bt_complex_recovered.c",
+      "source_sha256": "df5ec2423678cd0f01d3068c091065cf06b9ef7cfa876b5d04bf7f502194c069",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "nanos.o",
+      "sha256": "e8105a1f1899da0f61ca4122e7e8b006b97245f9ebd00f16af6775732bb28e46",
+      "functions": 6,
+      "exports": {
+        "nanos_save_to_draft": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 32,
+          "section": ".com_text.bb.nanos",
+          "value": 0
+        },
+        "bb_find_to_afternoon": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 50,
+          "section": ".com_text.bb.nanos",
+          "value": 32
+        },
+        "nanos_write_inside_process": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 48,
+          "section": ".com_text.bb.nanos",
+          "value": 82
+        },
+        "nanos_keep_inside_reach": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 4,
+          "section": ".text",
+          "value": 0
+        },
+        "lm_proc_do_on_kiss": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 4,
+          "section": ".text",
+          "value": 4
+        },
+        "bb_do_on_ordinary": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 56,
+          "section": ".text",
+          "value": 8
+        }
+      },
+      "source": "bare/drivers/src/bt_nanos_recovered.c",
+      "source_sha256": "8574085dcac9b8af71ffac3b18b4a62ebbe1b353d1d09a953992ba8d1cefbe92",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "hct.o",
+      "sha256": "f9f398f884f9e6527cf5ab44a9f40bb46101ac16ae39e15eda160cb998db206f",
+      "functions": 22,
+      "exports": {
+        "lm_proc_save_about_hearing": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 28,
+          "section": ".text",
+          "value": 600
+        },
+        "hct_set_to_method": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 122,
+          "section": ".text",
+          "value": 628
+        },
+        "hct_leave_in_bother": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 92,
+          "section": ".text",
+          "value": 750
+        },
+        "hct_reserve_within_physics": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 72,
+          "section": ".text",
+          "value": 842
+        },
+        "hct_write_at_month": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 64,
+          "section": ".text",
+          "value": 914
+        },
+        "hct_set_by_god": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 58,
+          "section": ".text",
+          "value": 978
+        },
+        "hct_get_inside_minimum": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 104,
+          "section": ".text",
+          "value": 1036
+        },
+        "hct_tx_done": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 10,
+          "section": ".text",
+          "value": 1140
+        },
+        "hct_leave_with_ability": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 350,
+          "section": ".text",
+          "value": 1150
+        },
+        "hct_take_into_brain": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 210,
+          "section": ".text",
+          "value": 1500
+        },
+        "hct_take_into_host": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 200,
+          "section": ".text",
+          "value": 1710
+        },
+        "hct_give_in_discount": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 38,
+          "section": ".text",
+          "value": 1910
+        },
+        "lm_proc_tell_to_complex": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 82,
+          "section": ".text",
+          "value": 1948
+        },
+        "bt21_go_about_pool": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 66,
+          "section": ".text",
+          "value": 2030
+        },
+        "bt21_save_under_dig": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 128,
+          "section": ".text",
+          "value": 2096
+        },
+        "hct_take_under_cook": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 24,
+          "section": ".text",
+          "value": 2224
+        },
+        "lm_proc_save_about_ruin": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 188,
+          "section": ".text",
+          "value": 2248
+        },
+        "hct_send_command": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 158,
+          "section": ".text",
+          "value": 2436
+        },
+        "hct_acl_segment": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 176,
+          "section": ".text",
+          "value": 2594
+        },
+        "hct_send_into_tea": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 80,
+          "section": ".rodata.bb.tbl",
+          "value": 0
+        },
+        "hct_send_without_serve": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 60,
+          "section": ".rodata.bb.tbl",
+          "value": 80
+        },
+        "hct_reserve_without_natural": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 128,
+          "section": ".rodata.bb.tbl",
+          "value": 176
+        },
+        "hct_save_by_union": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 20,
+          "section": ".rodata.bb.tbl",
+          "value": 304
+        },
+        "hct_take_with_designer": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 36,
+          "section": ".rodata.bb.tbl",
+          "value": 324
+        },
+        "hct_give_to_red": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 48,
+          "section": ".rodata.bb.tbl",
+          "value": 360
+        },
+        "hct_save_about_sand": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 440,
+          "section": ".rodata.bb.tbl",
+          "value": 408
+        },
+        "hct_leave_for_floor": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 48,
+          "section": ".rodata.bb.tbl",
+          "value": 848
+        },
+        "hct_leave_about_code": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 212,
+          "section": ".rodata.bb.tbl",
+          "value": 896
+        },
+        "hct_send_in_present": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 152,
+          "section": ".rodata.bb.tbl",
+          "value": 1108
+        },
+        "hct_give_within_test": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 184,
+          "section": ".rodata.bb.tbl",
+          "value": 1260
+        },
+        "hct_fetch_on_extreme": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 304,
+          "section": ".rodata.bb.tbl",
+          "value": 1444
+        },
+        "hct_go_inside_house": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 696,
+          "section": ".rodata.bb.tbl",
+          "value": 1748
+        },
+        "hct_go_of_garage": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 944,
+          "section": ".rodata.bb.tbl",
+          "value": 2444
+        },
+        "lm_proc_pass_to_knee": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 92,
+          "section": ".btmem.bb.hcic",
+          "value": 0
+        }
+      },
+      "source": "bare/drivers/src/bt_hct_transport_recovered.c",
+      "source_sha256": "c994097a94f15b9c0d6eb895107ff247265c29b557b84535a81aedcfc19880c4",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "hct_msg.o",
+      "sha256": "5623f932c53ada38917ab4679c42629b8faa3ca16c2ea81aca52891f97e67b07",
+      "functions": 7,
+      "exports": {
+        "hct_get_on_birth": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 10,
+          "section": ".text",
+          "value": 0
+        },
+        "hct_find_with_problem": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 70,
+          "section": ".text",
+          "value": 10
+        },
+        "hct_msg_do_in_vacation": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 32,
+          "section": ".text",
+          "value": 80
+        },
+        "hct_msg_cause_of_primary": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 14,
+          "section": ".text",
+          "value": 112
+        },
+        "hct_cause_to_ladder": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 100,
+          "section": ".text",
+          "value": 126
+        },
+        "hct_give_without_resolve": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 88,
+          "section": ".text",
+          "value": 226
+        },
+        "hct_save_within_tea": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 28,
+          "section": ".text",
+          "value": 314
+        }
+      },
+      "source": "bare/drivers/src/bt_hct_recovered.c",
+      "source_sha256": "b213d08a9f64226be7c3e8aac5b02e25fa423638c3f3a276c28be716abb4c0c0",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "hct_proc.o",
+      "sha256": "d3d6a7baec02b1c8c03dbfd4c12c60686c93f14db8e16361aa0931bd78b72ea8",
+      "functions": 3,
+      "exports": {
+        "hct_proc_send_on_network": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_FUNC",
+          "size": 132,
+          "section": ".text",
+          "value": 28
+        },
+        "hct_find_without_crack": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 1,
+          "section": ".btmem.bb.hcic",
+          "value": 0
+        },
+        "hct_cause_without_cup": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 8,
+          "section": ".rodata.bb.tbl",
+          "value": 0
+        },
+        "hct_proc_sell_to_horror": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_OBJECT",
+          "size": 16,
+          "section": ".rodata.bb.tbl",
+          "value": 8
+        }
+      },
+      "source": "bare/drivers/src/bt_hct_recovered.c",
+      "source_sha256": "b213d08a9f64226be7c3e8aac5b02e25fa423638c3f3a276c28be716abb4c0c0",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "baseband_platform.o",
+      "sha256": "739f64a176598a6a3ee87b234f36976308e4c1a6cbd535930d7f213f7bd26358",
+      "functions": 14,
+      "exports": {
+        "bb_rf_take_without_start": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 2,
+          "section": ".com_text.isr.txrx",
+          "value": 0
+        },
+        "bthw_isr_do_plus": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 36,
+          "section": ".com_text.bthw",
+          "value": 0
+        },
+        "bb_rf_reserve_into_strategy": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 4,
+          "section": ".text",
+          "value": 0
+        },
+        "bb_save_about_song": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 2,
+          "section": ".text",
+          "value": 4
+        },
+        "bb_pass_within_library": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 4,
+          "section": ".com_text.sleep",
+          "value": 0
+        },
+        "ll_get_on_spread": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 2,
+          "section": ".text",
+          "value": 6
+        },
+        "bt21_save_in_design": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 2,
+          "section": ".com_text.stack.ticks",
+          "value": 0
+        },
+        "register_isr": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 4,
+          "section": ".text",
+          "value": 8
+        },
+        "bthw_thread_post": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 2,
+          "section": ".com_text.irq",
+          "value": 0
+        },
+        "os_interrupt_enter": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 2,
+          "section": ".com_text.isr.txrx",
+          "value": 2
+        },
+        "os_interrupt_leave": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 2,
+          "section": ".com_text.isr.txrx",
+          "value": 4
+        },
+        "baseband_platform_pass_by_hello": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 58,
+          "section": ".text",
+          "value": 12
+        },
+        "bthw_irq_init": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 156,
+          "section": ".text",
+          "value": 70
+        },
+        "bb_rf_read_inside_upper": {
+          "binding": "STB_WEAK",
+          "type": "STT_OBJECT",
+          "size": 8,
+          "section": ".sbss",
+          "value": 0
+        }
+      },
+      "source": "bare/drivers/src/bt_platform_recovered.c",
+      "source_sha256": "8adf7f6c0e85dcab9d0f1f5f8f8992d9457689f3dc52feb348d0f3f97c242851",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "weak_symbol.o",
+      "sha256": "0dd31e9298ed42c188df8029f5557eaea93d1535f4df366afe2e425fa8148f11",
+      "functions": 4,
+      "exports": {
+        "bb_rf_get_about_importance": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 4,
+          "section": ".text",
+          "value": 0
+        },
+        "weak_symbol_give_to_preference": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 4,
+          "section": ".text",
+          "value": 4
+        },
+        "ble_get_local_bd_addr": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 38,
+          "section": ".text",
+          "value": 8
+        },
+        "mgr_fetch_on_savings": {
+          "binding": "STB_WEAK",
+          "type": "STT_FUNC",
+          "size": 4,
+          "section": ".text",
+          "value": 46
+        }
+      },
+      "source": "bare/drivers/src/bt_weak_symbol_recovered.c",
+      "source_sha256": "ada5273baccb30b55bb0404b0335e71f04b63b5c96cfb76a1ecb97f4bfc13220",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    },
+    {
+      "member": "platform_asm.o",
+      "sha256": "bd516ed0e7f39aef6f5b7c4798f44acfbafbbbdcca9a9585f1f0d12c36dbf078",
+      "functions": 0,
+      "exports": {
+        "nanos_env": {
+          "binding": "STB_GLOBAL",
+          "type": "STT_NOTYPE",
+          "size": 0,
+          "section": "SHN_ABS",
+          "value": 66788
+        }
+      },
+      "source": "bare/drivers/src/bt_rom_binding_recovered.c",
+      "source_sha256": "6d85af7297145f1fc98b7caaa94bf2deae033c07408d0ccd8568969668b46845",
+      "status": "source replacement",
+      "compilers": [
+        "clang",
+        "gcc"
+      ]
+    }
+  ],
+  "summary": {
+    "members": 32,
+    "empty_members": 2,
+    "functions": 374,
+    "source_files": 29
+  }
+}

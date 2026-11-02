@@ -125,13 +125,16 @@ if (drv_fm_init(&cfg)) {
 
 ## 蓝牙控制器恢复
 
-`drv_bluetooth` 提供 HCI 控制器接口，尚未提供可直接使用的 GAP/GATT 主机功能。两个 HCI 消息对象和部分中断适配已恢复为 C，可在 `bare/` 下选择：
+`drv_bluetooth` 提供 HCI 控制器接口，尚未提供可直接使用的 GAP/GATT 主机功能。
+`libbtctrl.a` 全部非空对象已恢复为 C，可在 `bare/` 下选择：
 
 ```sh
 make BT_SUPPORT_BACKEND=recovered
 ```
 
-输出在 `build/recovered-bt-support/`，也可与 SPI/FM 恢复选项组合。仍依赖原库的控制器、射频和芯片 ROM；这是部分支持层恢复。
+输出在 `build/recovered-bt-support/`，可与 SPI/FM 恢复选项组合。
+恢复模式不再链接 `libbtctrl.a`；32 个成员的审计和完整隔离链接覆盖全库。
+芯片 ROM、`libhal.a` 辅助实现以及板级运行条件仍是依赖。源码服务于统一 RTT 的后续集成。
 
 当前裸机骨架没有满足蓝牙固定 RAM、ROM 堆初始化及真实 IRQ 分发要求，因此 `drv_bt_init()` **默认返回 false**。板级实现需要覆盖 `drv_bt_platform_init()`，完成这些前提后才能返回 true。不能仅修改返回值跳过检查。平台依赖及已有 SDK 参考路径见 [蓝牙恢复记录](../docs/lib-analysis/BLUETOOTH_RECOVERY.md)。
 

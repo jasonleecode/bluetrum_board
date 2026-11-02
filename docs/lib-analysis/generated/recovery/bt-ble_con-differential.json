@@ -1,0 +1,572 @@
+{
+  "original_object_sha256": "7554fb960d688a25766fb60b724631e2302300bdf25789ce3725739b2a3b1eae",
+  "recovered_source_sha256": "4a7f6714116906cb2c686813f0de383a7b39f35e6bac60cf4741a61cbebb35ec",
+  "compilers": [
+    "clang",
+    "gcc"
+  ],
+  "exports": [
+    "bb_pick_under_strike",
+    "ble_con_cause_about_mud",
+    "ble_con_cause_within_youth",
+    "ble_con_do_by_wall",
+    "ble_con_find_inside_official",
+    "ble_con_find_inside_service",
+    "ble_con_find_of_blow",
+    "ble_con_get_of_shoe",
+    "ble_con_go_with_pen",
+    "ble_con_keep_within_broad",
+    "ble_con_make_on_burn",
+    "ble_con_make_on_street",
+    "ble_con_reserve_on_option",
+    "ble_con_sell_by_champion",
+    "ble_con_show_on_border",
+    "ble_con_take_by_join",
+    "ble_con_take_inside_pace",
+    "ble_con_write_under_state",
+    "ble_leave_about_television"
+  ],
+  "local_functions": [],
+  "unicorn_version": "2.1.4",
+  "model": "Original/recovered RV32 with external/ROM hooks and restore ABI shim; ordered MMIO, calls and memory.",
+  "cases": [
+    {
+      "name": "initialize-0",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "initialize-1",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "initialize-2",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "initialize-3",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "initialize-4",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "initialize-5",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "initialize-6",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "initialize-7",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "initialize-8",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "initialize-9",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "initialize-10",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "initialize-11",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "initialize-12",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "initialize-13",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "initialize-14",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "initialize-15",
+      "actions": 4,
+      "result": "pass"
+    },
+    {
+      "name": "create-0",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-1",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-2",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-3",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-4",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-5",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-6",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-7",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-8",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-9",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-10",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-11",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-12",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-13",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-14",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-15",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-16",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-17",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-18",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-19",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-20",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-21",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-22",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-23",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-24",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-25",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-26",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-27",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-28",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-29",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-30",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-31",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-32",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-33",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-34",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-35",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-36",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-37",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-38",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-39",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-40",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-41",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-42",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-43",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-44",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-45",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-46",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-47",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-48",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-49",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-50",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-51",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-52",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-53",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-54",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-55",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-56",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-57",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-58",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-59",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-60",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-61",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-62",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "create-63",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "link-0",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "link-1",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "link-2",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "link-3",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "link-4",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "link-5",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "link-6",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "link-7",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "link-8",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "link-9",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "link-10",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "link-11",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "link-12",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "link-13",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "link-14",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "link-15",
+      "actions": 11,
+      "result": "pass"
+    },
+    {
+      "name": "test-channel-0",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "test-channel-1",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "test-channel-11",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "test-channel-12",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "test-channel-13",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "test-channel-38",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "test-channel-39",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "test-channel-40",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "test-channel-255",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "test-channel-256",
+      "actions": 2,
+      "result": "pass"
+    },
+    {
+      "name": "test-channel-4294967295",
+      "actions": 2,
+      "result": "pass"
+    }
+  ],
+  "included_sources_sha256": {
+    "bare/drivers/inc/bt_recovered_internal.h": "098edac999400711aa0b55f7274a48e00441a635087b2375ba6b6d2db252af03"
+  }
+}

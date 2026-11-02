@@ -1,0 +1,173 @@
+{
+  "original_object_sha256": "abfac9722a1036140590b5a33faacaf2d1ae3ed287196d581ec0a6443ca34592",
+  "recovered_source_sha256": "262b5ef2a22387cb04dca9d89bb57cc78c4a457d655a1756d724777151fa673b",
+  "compilers": [
+    "clang",
+    "gcc"
+  ],
+  "exports": [
+    "bb_find_with_brush",
+    "bb_read_within_homework",
+    "bb_send_to_mall",
+    "bb_send_without_line",
+    "ext_init_get_without_name"
+  ],
+  "local_functions": [],
+  "unicorn_version": "2.1.4",
+  "model": "Original/recovered RV32 with external/ROM hooks and restore ABI shim; ordered MMIO, calls and memory.",
+  "cases": [
+    {
+      "name": "sleep-0-0",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-0-1",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-0-256",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-1-0",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-1-1",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-1-256",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-2-0",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-2-1",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-2-256",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-3-0",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-3-1",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-3-256",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-4-0",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-4-1",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-4-256",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-5-0",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-5-1",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-5-256",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-6-0",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-6-1",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-6-256",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-7-0",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-7-1",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-7-256",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-8-0",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-8-1",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-8-256",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-9-0",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-9-1",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "sleep-9-256",
+      "actions": 5,
+      "result": "pass"
+    }
+  ],
+  "included_sources_sha256": {
+    "bare/drivers/inc/bt_recovered_internal.h": "098edac999400711aa0b55f7274a48e00441a635087b2375ba6b6d2db252af03"
+  }
+}

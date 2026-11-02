@@ -1,0 +1,71 @@
+{
+  "recorded_at": "2026-11-02T13:57:59.578380+08:00",
+  "board": "AB32VG1 / CRWN",
+  "transport": "CH340 /dev/ttyUSB0, UART0 115200",
+  "sha256": {
+    "rtt/bsp/rtthread.bin": "c7fdb665ea6bce819631e91e0c0d47d5dec58da192173dffb3b50e7bc670dffc",
+    "rtt/bsp/rtthread.dcf": "f55e75894568b70b45ab3b88c6803f04f7ba933a01e96d30c914ef41b3fa472f",
+    "rtt/bsp/link_bt_ram.lds": "8a9b6883177f3ffd2cf3f690032c1ab3d167f6aefa27b4e305410ecaac259f16",
+    "rtt/bsp/board/ports/bluetooth/drv_btctrl.c": "4435a045dd2063a42c5f88d6d52c966563a216613ad1c4be82c3efe86d6b536c"
+  },
+  "vendor_bt_archive_linked": false,
+  "rom_hal_dependencies_remain": true,
+  "flash_verified_and_committed": true,
+  "hci_commands_passed": [
+    "Reset",
+    "Read Local Version",
+    "Read BD_ADDR",
+    "LE Read Buffer Size"
+  ],
+  "le_acl_buffer": {
+    "bytes": 27,
+    "packets": 5,
+    "data_transfer_tested": false
+  },
+  "external_advertisement_observation": {
+    "tool": "bluetoothctl --timeout 15 scan on",
+    "name": "AB32-RTT-TEST",
+    "random_address": "C2:00:AB:32:00:01",
+    "seen_on_final_firmware": true
+  },
+  "received_advertising_report_snapshots": [
+    534,
+    1578
+  ],
+  "lifecycle": {
+    "advertising_restart_passed": true,
+    "scan_restart_passed": true,
+    "fm_start_during_bt_result": -16,
+    "heap_before_after_equal": true
+  },
+  "rt_heap": {
+    "total": 29160,
+    "used": 25104,
+    "maximum": 25104,
+    "available": 4056
+  },
+  "bt_thread": {
+    "priority": 5,
+    "stack_bytes": 2048,
+    "observed_peak_percent": 25
+  },
+  "memory": {
+    "bt_fixed_base": "0x11000",
+    "bt_used_bytes": 6540,
+    "main_code_base": "0x13800",
+    "ram1_code_bytes": 30932,
+    "ram1_capacity_bytes": 31232
+  },
+  "on_board_final_state": "BLE non-connectable advertising active; FM stopped; reset releases RF claim",
+  "not_verified": [
+    "connections",
+    "ACL data transfer",
+    "NimBLE Host",
+    "GATT",
+    "encryption",
+    "classic/BLE coexistence",
+    "simultaneous FM/Bluetooth",
+    "long-duration stability"
+  ],
+  "uart_log": "bt-rtt-hardware.log"
+}

@@ -1,0 +1,1169 @@
+{
+  "original_object_sha256": "4e91629f3a41c49a9d81aef38a2667002186873eb4ad76934d8a2ade6baffb21",
+  "recovered_source_sha256": "4e83b5c17bcdf119fcb0f860d5d450125f969908b5876a5dad44a41381ab3963",
+  "compilers": [
+    "clang",
+    "gcc"
+  ],
+  "exports": [
+    "ble_con_cause_with_cold",
+    "ble_con_fetch_at_pressure",
+    "ble_con_give_at_black",
+    "ble_con_give_to_series",
+    "ble_con_give_within_suit",
+    "ble_con_keep_by_success",
+    "ble_con_keep_on_muscle",
+    "ble_con_leave_of_dance",
+    "ble_con_make_in_spirit",
+    "ble_con_send_at_age",
+    "ble_con_show_to_slip",
+    "ble_con_show_without_uncle",
+    "ble_evt_find_for_stock",
+    "ble_evt_give_for_drawing",
+    "ble_evt_read_within_distribution",
+    "ble_evt_sell_for_mortgage",
+    "ble_evt_show_under_paint"
+  ],
+  "local_functions": [
+    "ble_evt_cause_for_soil",
+    "ble_evt_give_without_worth",
+    "ble_evt_pass_within_time"
+  ],
+  "unicorn_version": "2.1.4",
+  "model": "Original/recovered RV32 with external/ROM hooks and restore ABI shim; ordered MMIO, calls and memory.",
+  "cases": [
+    {
+      "name": "isr-0",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-1",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-2",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-3",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-4",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-5",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-6",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-7",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-8",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-9",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-10",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-11",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-12",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-13",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-14",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-15",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-16",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-17",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-18",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-19",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-20",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-21",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-22",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-23",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-24",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-25",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-26",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-27",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-28",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-29",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-30",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "isr-31",
+      "actions": 7,
+      "result": "pass"
+    },
+    {
+      "name": "convert-0-0",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "convert-0-1",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "convert-1-0",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "convert-1-1",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "convert-4-0",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "convert-4-1",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "reset-0-0",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "reset-0-1",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "reset-1-0",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "reset-1-1",
+      "actions": 5,
+      "result": "pass"
+    },
+    {
+      "name": "create-0",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-1",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-2",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-3",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-4",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-5",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-6",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-7",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-8",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-9",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-10",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-11",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-12",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-13",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-14",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-15",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-16",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-17",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-18",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-19",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-20",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-21",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-22",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-23",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-24",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-25",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-26",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-27",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-28",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-29",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-30",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-31",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-32",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-33",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-34",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-35",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-36",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-37",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-38",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "create-39",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-0",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-1",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-2",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-3",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-4",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-5",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-6",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-7",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-8",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-9",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-10",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-11",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-12",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-13",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-14",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-15",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-16",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-17",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-18",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-19",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-20",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-21",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-22",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-23",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-24",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-25",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-26",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-27",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-28",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-29",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-30",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-31",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-32",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-33",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-34",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-35",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-36",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-37",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-38",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-39",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-40",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-41",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-42",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-43",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-44",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-45",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-46",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-47",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-48",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-49",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-50",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-51",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-52",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-53",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-54",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-55",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-56",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-57",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-58",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-59",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-60",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-61",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-62",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-63",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-64",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-65",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-66",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-67",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-68",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-69",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-70",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-71",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-72",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-73",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-74",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-75",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-76",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-77",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-78",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-79",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-80",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-81",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-82",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-83",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-84",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-85",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-86",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-87",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-88",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-89",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-90",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-91",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-92",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-93",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-94",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-95",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-96",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-97",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-98",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-99",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-100",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-101",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-102",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-103",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-104",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-105",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-106",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-107",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-108",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-109",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-110",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-111",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-112",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-113",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-114",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-115",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-116",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-117",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-118",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-119",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-120",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-121",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-122",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-123",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-124",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-125",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-126",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-127",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-128",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-129",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-130",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-131",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-132",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-133",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "schedule-134",
+      "actions": 3,
+      "result": "pass"
+    },
+    {
+      "name": "new-group-0",
+      "actions": 1,
+      "result": "pass"
+    },
+    {
+      "name": "new-group-1",
+      "actions": 1,
+      "result": "pass"
+    },
+    {
+      "name": "new-group-2",
+      "actions": 1,
+      "result": "pass"
+    },
+    {
+      "name": "new-group-3",
+      "actions": 1,
+      "result": "pass"
+    },
+    {
+      "name": "new-group-4",
+      "actions": 1,
+      "result": "pass"
+    },
+    {
+      "name": "empty-schedule",
+      "actions": 1,
+      "result": "pass"
+    },
+    {
+      "name": "update-1000",
+      "actions": 1,
+      "result": "pass"
+    },
+    {
+      "name": "update-1100",
+      "actions": 1,
+      "result": "pass"
+    },
+    {
+      "name": "update-134217712",
+      "actions": 1,
+      "result": "pass"
+    }
+  ],
+  "included_sources_sha256": {
+    "bare/drivers/inc/bt_recovered_internal.h": "098edac999400711aa0b55f7274a48e00441a635087b2375ba6b6d2db252af03"
+  }
+}

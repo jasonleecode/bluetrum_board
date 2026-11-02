@@ -1,0 +1,121 @@
+
+libbtctrl.a:nanos.o:	file format ELF32-riscv
+
+
+Disassembly of section .text:
+
+00000000 nanos_keep_inside_reach:
+       0: 01 45                        	mv	a0, zero
+       2: 82 80                        	ret
+
+00000004 lm_proc_do_on_kiss:
+       4: 09 45                        	addi	a0, zero, 2
+       6: 82 80                        	ret
+
+00000008 bb_do_on_ordinary:
+       8: 17 03 00 00                  	auipc	t1, 0
+			00000008:  R_RISCV_CALL	__riscv_save_1
+			00000008:  R_RISCV_RELAX	*ABS*
+       c: e7 02 03 00                  	jalr	t0, t1
+      10: 37 44 08 00                  	lui	s0, 132
+      14: b7 05 00 00                  	lui	a1, 0
+			00000014:  R_RISCV_HI20	nanos_write_inside_process
+			00000014:  R_RISCV_RELAX	*ABS*
+      18: 37 05 00 00                  	lui	a0, 0
+			00000018:  R_RISCV_HI20	nanos_save_to_draft
+			00000018:  R_RISCV_RELAX	*ABS*
+      1c: 93 07 04 39                  	addi	a5, s0, 912
+      20: 93 85 05 00                  	mv	a1, a1
+			00000020:  R_RISCV_LO12_I	nanos_write_inside_process
+			00000020:  R_RISCV_RELAX	*ABS*
+      24: 13 05 05 00                  	mv	a0, a0
+			00000024:  R_RISCV_LO12_I	nanos_save_to_draft
+			00000024:  R_RISCV_RELAX	*ABS*
+      28: 82 97                        	jalr	a5
+      2a: 37 05 00 00                  	lui	a0, 0
+			0000002a:  R_RISCV_HI20	bb_find_to_afternoon
+			0000002a:  R_RISCV_RELAX	*ABS*
+      2e: 13 04 c4 35                  	addi	s0, s0, 860
+      32: 13 05 05 00                  	mv	a0, a0
+			00000032:  R_RISCV_LO12_I	bb_find_to_afternoon
+			00000032:  R_RISCV_RELAX	*ABS*
+      36: 02 94                        	jalr	s0
+      38: 17 03 00 00                  	auipc	t1, 0
+			00000038:  R_RISCV_CALL	__riscv_restore_1
+			00000038:  R_RISCV_RELAX	*ABS*
+      3c: 67 00 03 00                  	jr	t1
+
+Disassembly of section .com_text.bb.nanos:
+
+00000000 nanos_save_to_draft:
+       0: 17 03 00 00                  	auipc	t1, 0
+			00000000:  R_RISCV_CALL	__riscv_save_0
+			00000000:  R_RISCV_RELAX	*ABS*
+       4: e7 02 03 00                  	jalr	t0, t1
+       8: b7 47 08 00                  	lui	a5, 132
+       c: 93 87 87 5b                  	addi	a5, a5, 1464
+      10: 82 97                        	jalr	a5
+      12: 11 81                        	srli	a0, a0, 4
+      14: 42 05                        	slli	a0, a0, 16
+      16: 41 81                        	srli	a0, a0, 16
+      18: 17 03 00 00                  	auipc	t1, 0
+			00000018:  R_RISCV_CALL	__riscv_restore_0
+			00000018:  R_RISCV_RELAX	*ABS*
+      1c: 67 00 03 00                  	jr	t1
+
+00000020 bb_find_to_afternoon:
+      20: 17 03 00 00                  	auipc	t1, 0
+			00000020:  R_RISCV_CALL	__riscv_save_0
+			00000020:  R_RISCV_RELAX	*ABS*
+      24: e7 02 03 00                  	jalr	t0, t1
+      28: 99 47                        	addi	a5, zero, 6
+      2a: 63 1e f5 00                  	bne	a0, a5, 28
+			0000002a:  R_RISCV_BRANCH	.L4
+      2e: 17 03 00 00                  	auipc	t1, 0
+			0000002e:  R_RISCV_CALL	bthw_soft_kick
+			0000002e:  R_RISCV_RELAX	*ABS*
+      32: e7 00 03 00                  	jalr	t1
+
+00000036 .L7:
+      36: 17 03 00 00                  	auipc	t1, 0
+			00000036:  R_RISCV_CALL	nanos_event_set_trigger
+			00000036:  R_RISCV_RELAX	*ABS*
+      3a: e7 00 03 00                  	jalr	t1
+      3e: 17 03 00 00                  	auipc	t1, 0
+			0000003e:  R_RISCV_CALL	__riscv_restore_0
+			0000003e:  R_RISCV_RELAX	*ABS*
+      42: 67 00 03 00                  	jr	t1
+
+00000046 .L4:
+      46: b7 47 08 00                  	lui	a5, 132
+      4a: 93 87 47 34                  	addi	a5, a5, 836
+      4e: 82 97                        	jalr	a5
+      50: dd b7                        	j	-26
+			00000050:  R_RISCV_RVC_JUMP	.L7
+
+00000052 nanos_write_inside_process:
+      52: 15 c1                        	beqz	a0, 36
+			00000052:  R_RISCV_RVC_BRANCH	.L9
+      54: 03 57 85 00                  	lhu	a4, 8(a0)
+      58: a1 67                        	lui	a5, 8
+      5a: 23 a0 e7 0e                  	sw	a4, 224(a5)
+      5e: d8 47                        	lw	a4, 12(a5)
+      60: 29 83                        	srli	a4, a4, 10
+      62: 05 8b                        	andi	a4, a4, 1
+      64: 11 ef                        	bnez	a4, 28
+			00000064:  R_RISCV_RVC_BRANCH	.L8
+      66: 13 07 00 40                  	addi	a4, zero, 1024
+      6a: 98 cf                        	sw	a4, 24(a5)
+      6c: d8 47                        	lw	a4, 12(a5)
+      6e: 13 67 07 40                  	ori	a4, a4, 1024
+      72: d8 c7                        	sw	a4, 12(a5)
+      74: 82 80                        	ret
+
+00000076 .L9:
+      76: 21 67                        	lui	a4, 8
+      78: 5c 47                        	lw	a5, 12(a4)
+      7a: 93 f7 f7 bf                  	andi	a5, a5, -1025
+      7e: 5c c7                        	sw	a5, 12(a4)
+
+00000080 .L8:
+      80: 82 80                        	ret

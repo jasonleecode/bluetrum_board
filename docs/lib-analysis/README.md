@@ -22,12 +22,16 @@ and connected to RT-Thread `sound0`, with 136 ordered-MMIO comparisons and three
 invalid-mapping checks. Chip compatibility remains experimental; RX and DMA are
 not enabled. The same SDK still uses GPIO software I2C.
 
-[Bluetooth recovery](BLUETOOTH_RECOVERY.md) replaces `hct_msg.o` and
-`hct_proc.o` plus three platform entry points, with 581 HCI and 62 platform
-differential groups and 82 probes of the original transport code. It also fixes
-wrapper ownership/IRQ handling and documents the fixed RAM, ROM heap and startup
-requirements. The bare platform now rejects Bluetooth initialization until a real
-board port provides those prerequisites; the radio/controller is still partial.
+[Bluetooth recovery](BLUETOOTH_RECOVERY.md) now replaces every nonempty member of
+`libbtctrl.a`: 374 original functions, the dispatch/data tables and absolute ROM binding.
+The 32-member inventory explicitly accounts for two empty objects. The complete
+recovered link omits `libbtctrl.a`, with differential checks against original RV32
+instructions and Clang/GCC replacements. The unified RTT now supplies fixed RAM,
+ROM heap, real interrupts and event scheduling. HCI commands, on-air BLE advertising
+and received advertising reports have passed board tests. ROM/HAL remain dependencies;
+NimBLE, connections, ACL/GATT and classic coexistence remain unverified. The bare
+wrapper still rejects initialization without a real platform hook. See `test_bt_all.py`
+for the recovery regression entry point.
 
 [USB recovery](USB_RECOVERY.md) replaces five objects / 33 functions covering
 controller detection, endpoints, EP0 transport and HID helpers, with 1066

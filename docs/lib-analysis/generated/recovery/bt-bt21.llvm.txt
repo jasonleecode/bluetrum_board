@@ -1,0 +1,131 @@
+
+libbtctrl.a:bt21.o:	file format ELF32-riscv
+
+
+Disassembly of section .text:
+
+00000000 bb_do_at_review:
+       0: 17 03 00 00                  	auipc	t1, 0
+			00000000:  R_RISCV_CALL	__riscv_save_0
+			00000000:  R_RISCV_RELAX	*ABS*
+       4: e7 02 03 00                  	jalr	t0, t1
+       8: 17 03 00 00                  	auipc	t1, 0
+			00000008:  R_RISCV_CALL	bt21_give_to_dust
+			00000008:  R_RISCV_RELAX	*ABS*
+       c: e7 00 03 00                  	jalr	t1
+      10: 17 03 00 00                  	auipc	t1, 0
+			00000010:  R_RISCV_CALL	bt21_find_on_you
+			00000010:  R_RISCV_RELAX	*ABS*
+      14: e7 00 03 00                  	jalr	t1
+      18: 17 03 00 00                  	auipc	t1, 0
+			00000018:  R_RISCV_CALL	bt21_save_under_dig
+			00000018:  R_RISCV_RELAX	*ABS*
+      1c: e7 00 03 00                  	jalr	t1
+      20: 17 03 00 00                  	auipc	t1, 0
+			00000020:  R_RISCV_CALL	bt21_set_on_tennis
+			00000020:  R_RISCV_RELAX	*ABS*
+      24: e7 00 03 00                  	jalr	t1
+      28: 17 03 00 00                  	auipc	t1, 0
+			00000028:  R_RISCV_CALL	bt21_keep_within_grocery
+			00000028:  R_RISCV_RELAX	*ABS*
+      2c: e7 00 03 00                  	jalr	t1
+      30: 17 03 00 00                  	auipc	t1, 0
+			00000030:  R_RISCV_CALL	__riscv_restore_0
+			00000030:  R_RISCV_RELAX	*ABS*
+      34: 67 00 03 00                  	jr	t1
+
+00000038 bb_tell_with_base:
+      38: 17 03 00 00                  	auipc	t1, 0
+			00000038:  R_RISCV_CALL	__riscv_save_1
+			00000038:  R_RISCV_RELAX	*ABS*
+      3c: e7 02 03 00                  	jalr	t0, t1
+      40: 03 24 40 54                  	lw	s0, 1348(zero)
+      44: 83 27 40 54                  	lw	a5, 1348(zero)
+      48: 93 f7 f7 e7                  	andi	a5, a5, -385
+      4c: 23 22 f0 54                  	sw	a5, 1348(zero)
+      50: 17 03 00 00                  	auipc	t1, 0
+			00000050:  R_RISCV_CALL	bt21_go_about_pool
+			00000050:  R_RISCV_RELAX	*ABS*
+      54: e7 00 03 00                  	jalr	t1
+      58: 17 03 00 00                  	auipc	t1, 0
+			00000058:  R_RISCV_CALL	bb_write_without_passenger
+			00000058:  R_RISCV_RELAX	*ABS*
+      5c: e7 00 03 00                  	jalr	t1
+      60: 17 03 00 00                  	auipc	t1, 0
+			00000060:  R_RISCV_CALL	bt21_set_on_tennis
+			00000060:  R_RISCV_RELAX	*ABS*
+      64: e7 00 03 00                  	jalr	t1
+      68: 17 03 00 00                  	auipc	t1, 0
+			00000068:  R_RISCV_CALL	bt21_keep_within_grocery
+			00000068:  R_RISCV_RELAX	*ABS*
+      6c: e7 00 03 00                  	jalr	t1
+      70: 03 27 40 54                  	lw	a4, 1348(zero)
+      74: 93 77 04 18                  	andi	a5, s0, 384
+      78: d9 8f                        	or	a5, a5, a4
+      7a: 23 22 f0 54                  	sw	a5, 1348(zero)
+      7e: 17 03 00 00                  	auipc	t1, 0
+			0000007e:  R_RISCV_CALL	__riscv_restore_1
+			0000007e:  R_RISCV_RELAX	*ABS*
+      82: 67 00 03 00                  	jr	t1
+
+Disassembly of section .com_text.bb.btisr:
+
+00000000 bb_pass_in_airport:
+       0: 17 03 00 00                  	auipc	t1, 0
+			00000000:  R_RISCV_CALL	__riscv_save_2
+			00000000:  R_RISCV_RELAX	*ABS*
+       4: e7 02 03 00                  	jalr	t0, t1
+       8: a1 64                        	lui	s1, 8
+       a: 80 48                        	lw	s0, 16(s1)
+       c: 93 77 14 00                  	andi	a5, s0, 1
+      10: 99 cb                        	beqz	a5, 22
+			00000010:  R_RISCV_RVC_BRANCH	.L6
+      12: 17 03 00 00                  	auipc	t1, 0
+			00000012:  R_RISCV_CALL	bb_get_at_clue
+			00000012:  R_RISCV_RELAX	*ABS*
+      16: e7 00 03 00                  	jalr	t1
+      1a: 85 47                        	addi	a5, zero, 1
+      1c: 9c cc                        	sw	a5, 24(s1)
+      1e: 17 03 00 00                  	auipc	t1, 0
+			0000001e:  R_RISCV_CALL	bt21_save_in_design
+			0000001e:  R_RISCV_RELAX	*ABS*
+      22: e7 00 03 00                  	jalr	t1
+
+00000026 .L6:
+      26: 93 77 24 00                  	andi	a5, s0, 2
+      2a: 81 c7                        	beqz	a5, 8
+			0000002a:  R_RISCV_RVC_BRANCH	.L7
+      2c: 09 47                        	addi	a4, zero, 2
+      2e: a1 67                        	lui	a5, 8
+      30: 98 cf                        	sw	a4, 24(a5)
+
+00000032 .L7:
+      32: 93 77 44 00                  	andi	a5, s0, 4
+      36: 81 cb                        	beqz	a5, 16
+			00000036:  R_RISCV_RVC_BRANCH	.L8
+      38: 11 47                        	addi	a4, zero, 4
+      3a: a1 67                        	lui	a5, 8
+      3c: 98 cf                        	sw	a4, 24(a5)
+      3e: 17 03 00 00                  	auipc	t1, 0
+			0000003e:  R_RISCV_CALL	bb_give_on_enthusiasm
+			0000003e:  R_RISCV_RELAX	*ABS*
+      42: e7 00 03 00                  	jalr	t1
+
+00000046 .L8:
+      46: 13 74 04 40                  	andi	s0, s0, 1024
+      4a: 11 c8                        	beqz	s0, 20
+			0000004a:  R_RISCV_RVC_BRANCH	.L5
+      4c: 13 07 00 40                  	addi	a4, zero, 1024
+      50: a1 67                        	lui	a5, 8
+      52: 98 cf                        	sw	a4, 24(a5)
+      54: 05 45                        	addi	a0, zero, 1
+      56: 17 03 00 00                  	auipc	t1, 0
+			00000056:  R_RISCV_CALL	bb_find_to_afternoon
+			00000056:  R_RISCV_RELAX	*ABS*
+      5a: e7 00 03 00                  	jalr	t1
+
+0000005e .L5:
+      5e: 17 03 00 00                  	auipc	t1, 0
+			0000005e:  R_RISCV_CALL	__riscv_restore_2
+			0000005e:  R_RISCV_RELAX	*ABS*
+      62: 67 00 03 00                  	jr	t1

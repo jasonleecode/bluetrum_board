@@ -413,3 +413,6 @@
 #define BOARD_BLUETRUM_EVB
 
 #endif
+
+/* Recovered controller: explicit btctl test starts hardware. */
+#define BSP_USING_BTCTRL

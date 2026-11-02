@@ -1,0 +1,76 @@
+
+libbtctrl.a:lm_sleep.o:	file format ELF32-riscv
+
+
+Disassembly of section .text:
+
+00000000 ext_init_get_without_name:
+       0: 37 37 40 01                  	lui	a4, 5123
+       4: a1 67                        	lui	a5, 8
+       6: 13 07 a7 80                  	addi	a4, a4, -2038
+       a: d8 df                        	sw	a4, 60(a5)
+       c: 98 5b                        	lw	a4, 48(a5)
+       e: b7 06 00 80                  	lui	a3, 524288
+      12: 93 c6 f6 ff                  	not	a3, a3
+      16: 75 8f                        	and	a4, a4, a3
+      18: 98 db                        	sw	a4, 48(a5)
+      1a: 82 80                        	ret
+
+Disassembly of section .sleep_text.sleep:
+
+00000000 bb_send_to_mall:
+       0: 37 43 08 00                  	lui	t1, 132
+       4: 13 03 43 4f                  	addi	t1, t1, 1268
+       8: 02 83                        	jr	t1
+
+0000000a bb_send_without_line:
+       a: a1 67                        	lui	a5, 8
+       c: c8 db                        	sw	a0, 52(a5)
+       e: 11 47                        	addi	a4, zero, 4
+      10: d8 c7                        	sw	a4, 12(a5)
+      12: 1d 47                        	addi	a4, zero, 7
+      14: 98 cf                        	sw	a4, 24(a5)
+      16: 91 e5                        	bnez	a1, 12
+			00000016:  R_RISCV_RVC_BRANCH	.L3
+      18: 98 5b                        	lw	a4, 48(a5)
+      1a: b7 06 00 80                  	lui	a3, 524288
+      1e: 55 8f                        	or	a4, a4, a3
+      20: 98 db                        	sw	a4, 48(a5)
+
+00000022 .L3:
+      22: 82 80                        	ret
+
+Disassembly of section .com_text.bb.sleep:
+
+00000000 bb_find_with_brush:
+       0: a1 67                        	lui	a5, 8
+       2: 94 5b                        	lw	a3, 48(a5)
+       4: 37 06 00 80                  	lui	a2, 524288
+       8: 93 45 f6 ff                  	not	a1, a2
+       c: ed 8e                        	and	a3, a3, a1
+       e: 94 db                        	sw	a3, 48(a5)
+      10: 94 5f                        	lw	a3, 56(a5)
+      12: 7d 47                        	addi	a4, zero, 31
+      14: 13 05 10 27                  	addi	a0, zero, 625
+      18: 33 87 e6 02                  	mul	a4, a3, a4
+      1c: 89 82                        	srli	a3, a3, 2
+      1e: 36 97                        	add	a4, a4, a3
+      20: b3 56 a7 02                  	divu	a3, a4, a0
+      24: 33 77 a7 02                  	remu	a4, a4, a0
+      28: 86 06                        	slli	a3, a3, 1
+      2a: f4 c3                        	sw	a3, 68(a5)
+      2c: b8 c3                        	sw	a4, 64(a5)
+      2e: f8 43                        	lw	a4, 68(a5)
+      30: 6d 8f                        	and	a4, a4, a1
+      32: 51 8f                        	or	a4, a4, a2
+      34: f8 c3                        	sw	a4, 68(a5)
+      36: 98 5b                        	lw	a4, 48(a5)
+      38: 13 67 87 00                  	ori	a4, a4, 8
+      3c: 98 db                        	sw	a4, 48(a5)
+      3e: 41 77                        	lui	a4, 1048560
+      40: 0d 07                        	addi	a4, a4, 3
+      42: d8 c7                        	sw	a4, 12(a5)
+      44: 82 80                        	ret
+
+00000046 bb_read_within_homework:
+      46: 82 80                        	ret
