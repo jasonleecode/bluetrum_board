@@ -5,6 +5,7 @@
 本目录是开发板的统一综合项目，FM、蓝牙、音频及后续外设均作为模块集成到
 同一 RT-Thread 工程和固件。共享资源由项目统一管理，并分别验证模块功能及共存行为。
 当前已接入 GPIO、UART0、DAC 音频、FM 和恢复源码的蓝牙控制器（见 [恢复记录](../docs/lib-analysis/BLUETOOTH_RECOVERY.md)）。综合 RTT 不链接 `libbtctrl.a`。NimBLE Host 已通过 `rtt/nimble` 子模块接入，BLE 连接、ACL 分片、GATT 读写和通知已在实板验证；构建、命令与使用边界见 [NimBLE 接入说明](NIMBLE.md)。
+原生 USB CDC 已完成软件适配、离线测试和编译，实机枚举及收发待独立数据线就绪后验证；见 [USB 接入说明](USB.md)。
 
 主要内容如下：
 
@@ -86,7 +87,7 @@ msh >
 ```
 ### 进阶使用
 
-当前配置开启了 GPIO、串口0、DAC 音频、FM、恢复源码的蓝牙控制器和 NimBLE Host，如果需使用 SD 卡、Flash 等更多高级功能，需要利用 ENV 工具对BSP 进行配置，步骤如下：
+当前配置开启了 GPIO、串口0、DAC 音频、FM、恢复源码的蓝牙控制器、NimBLE Host 和实验性 USB CDC，如果需使用 SD 卡、Flash 等更多高级功能，需要利用 ENV 工具对BSP 进行配置，步骤如下：
 
 1. 在 bsp 下打开 env 工具。
 
@@ -140,7 +141,7 @@ SCons 默认目标为完整固件，并跟踪链接脚本变化，避免继续�
 上述记录对应 FM 启用前的 GPIO/UART0 配置；FM 调试记录见下文。
 更多下载器说明见 [工具说明](../tools/linux/README.md)。
 
-当前 `rtconfig.h` 默认启用 GPIO、UART0、DAC 音频、FM、恢复源码的蓝牙控制器与 NimBLE Host。可选驱动通过 BSP 的
+当前 `rtconfig.h` 默认启用 GPIO、UART0、DAC 音频、FM、恢复源码的蓝牙控制器与 NimBLE Host，以及实验性 USB CDC。可选驱动通过 BSP 的
 `Hardware Drivers Config` 菜单配置，不能把所有选项同时开启：
 TIMER3/4/5 与对应 PWM 共用计数器，TIMER3 与红外共用中断；SPI 的组 2
 与 UART0、组 3 与 SD/UART2、组 1 与 UART1 有引脚冲突。
@@ -263,7 +264,7 @@ FM 的 38 kHz 路径不输出到 I2S，停止 FM 后可恢复 PCM/I2S 播放。
 新恢复代码、来源、差分记录及限制见 [I2S 分析](../docs/lib-analysis/I2S_RECOVERY.md)。
 
 硬件 I2C 仍缺少可确认的控制器定义或实现对象；新找到的 AB53XX SDK 也只提供
-GPIO 软件 I2C，因此没有将其当成硬件驱动接入。USB 暂缓；NimBLE Host 和控制器
+GPIO 软件 I2C，因此没有将其当成硬件驱动接入。原生 USB CDC 软件适配已完成、实机验证待进行；NimBLE Host 和控制器
 恢复源码均已接入本综合项目。
 控制器恢复期间，原 `.a` 只作为对照和明确标注的阶段性依赖；直接链接原库不作为集成完成标准。
 
@@ -293,7 +294,7 @@ free
 MTU 协商为 64，60 字节覆盖控制器 27 字节 ACL 的分片/重组；两种状态测试前后堆不下降，
 HCI 传输错误及 Host 重置均为零。八组离线驱动测试与 NimBLE、仅控制器、音频三种构建也已通过。
 
-当前总堆 **29736 字节**；NimBLE 运行且尚未使用 PCM 时可用 **11360 字节**，
+此处为接入 USB 前的实测：总堆 **29736 字节**；NimBLE 运行且尚未使用 PCM 时可用 **11360 字节**，
 保留 PCM 播放池时可用 **2864 字节**。FM 启停、PCM 播放及资源互斥回归通过，
 但 FM/蓝牙同时使用射频尚未支持，真实广播接收仍待换耳机验证。
 内存预算与测试边界见 [MEMORY.md](MEMORY.md#nimble-接入后)，
@@ -338,24 +339,42 @@ ROM 默认经典蓝牙冲突检查把空闲时隙判为忙；RTT 板级适配在
 `pcmcheck` 通过 `sound0` 播放约一秒静音，验证首次分配、播放和关闭；FM 正在运行时返回忙。
 PCM 缓冲池首次初始化后保留供复用，复位后重新按需分配。
 
+### 原生 USB CDC 软件适配
+
+`BSP_USING_USB_CDC` 默认编入综合工程，上电保持关闭。新控制器适配层使用
+已恢复的 AB32 寄存器/DMA 行为，上层采用仓库已有 CherryUSB 1.5.2 核心和 CDC 类，
+不链接厂家 USB 对象。通过 `usbcdc start`、`usbcdc status`、`usbcdc stop` 控制，
+当前应用为二进制原样回传，FinSH 继续使用 CH340/UART0。
+
+原生 USB 是独立数据接口，V02 板需短接 P5 的 1–2、3–4（PB3/PB4），
+旧手册对应 J15/J16；仅连接烧录 Type-C 无法验证该接口。
+**目前没有合适的数据线，未烧录 USB 版本、未枚举、未实机收发。**
+软件已通过包含真实协议栈的离线测试和综合构建，接线与后续测试步骤见 [USB.md](USB.md)。
+新增 USB 后原始堆区为 28320 字节，运行时 `free` 和与蓝牙/PCM 的组合需重新实测；
+前面的 NimBLE 硬件内存数据属于接入 USB 前的版本。
+
 ### 离线验证
 
 在仓库根目录执行：
 
 ```sh
 python3 tools/rtt/test_drivers.py
-python3 tools/rtt/check_builds.py nimble bluetooth audio
+python3 tools/rtt/test_usb.py
+python3 tools/rtt/check_builds.py usb nimble bluetooth audio
 # 更多外设配置：default peripherals pwm ir sd flash spi_fm spi_fm_i2s i2s_pa
 ```
 
-第一条用真实 RT-Thread 头文件与模拟寄存器运行 BSP 回调，覆盖 SPI 超时/tick 回绕/片选、
+`test_drivers.py` 用真实 RT-Thread 头文件与模拟寄存器运行 BSP 回调，覆盖 SPI 超时/tick 回绕/片选、
 ADC 错误、TIMER 共享中断和溢出、WDT 秒单位、RTC 时间范围、音频参数/PLL/停止、
 Flash 分页/返回值，以及 SD 命令和数据完成事件、超时/CRC/缓存边界。
 另覆盖 FM 状态机、音频入口互斥、超时释放/重启、I2S 输出启停与格式限制，
 以及 NimBLE NPL 队列/定时器和 HCI 传输缓冲的边界与失败路径。
 它不验证硬件时序、DMA 电气行为或真实卡片协议。
 
-第二条在 `/tmp/ab32-rtt-build-*` 的独立源码副本中执行指定配置的 GCC 完整构建，
+`test_usb.py` 以模拟寄存器/DMA 驱动真实 CherryUSB 核心、CDC 和 AB32 适配代码，
+覆盖控制传输、地址/配置、回传/背压、STALL、越界和复位，并启用地址/未定义行为检查。
+
+`check_builds.py` 在 `/tmp/ab32-rtt-build-*` 的独立源码副本中执行指定配置的 GCC 完整构建，
 保留各配置 ELF、map 和日志，并检查 FM 未链接回原库 FM 对象，不修改工作目录的 `rtconfig.h`，也不烧写设备。
 `peripherals` 包含 SPI1、SARADC、RTC、WDT 和 TIMER1..5；其他冲突外设分别构建。
 

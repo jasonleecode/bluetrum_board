@@ -417,4 +417,7 @@
 #define BSP_USING_BTCTRL
 #define BSP_USING_NIMBLE
 
+/* Native USB: explicit usbcdc start; physical enumeration pending. */
+#define BSP_USING_USB_CDC
+
 #endif

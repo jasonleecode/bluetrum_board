@@ -1,0 +1,9 @@
+from building import *
+cwd = GetCurrentDir()
+stack = os.path.abspath(os.path.join(cwd, '../../../../components/drivers/usb/cherryusb'))
+sources = Glob('*.c') + [os.path.join(stack, 'core/usbd_core.c'),
+                        os.path.join(stack, 'class/cdc/usbd_cdc_acm.c')]
+group = DefineGroup('AB32-USB-CDC', sources, depend=['BSP_USING_USB_CDC'],
+    LOCAL_CPPPATH=[cwd, os.path.join(stack, 'core'), os.path.join(stack, 'common'),
+                   os.path.join(stack, 'class/cdc')], LOCAL_CCFLAGS=' -fdata-sections')
+Return('group')

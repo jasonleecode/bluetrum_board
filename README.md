@@ -35,7 +35,7 @@
 | 硬件 I2C | 当前 SDK 中尚未找到可恢复的硬件实现，仍需寄存器资料或其他固件证据；现有 BSP 使用软件 I2C |
 | FM 收音机 | 已恢复模拟/数字通路 10 个函数，通过 332 项原库差分测试；RTT 的调谐、音量、启停和资源互斥已上板验证，DAC 测试音经听感确认清晰稳定。北京 97.4 MHz 仍只有杂音，待更换耳机/天线复测；搜台、RDS 未完成，见 [FM 分析](docs/lib-analysis/FM_RECOVERY.md) |
 | 蓝牙 | 已恢复 `libbtctrl.a` 全部非空成员，综合 RTT 不链接该归档。NimBLE 1.10.0 以 `rtt/nimble` 子模块接入；HCI、广播/扫描及六轮 BLE 连接、GATT 读写/通知/重连已实测，60 字节数据覆盖 ACL 分片；见 [控制器恢复](docs/lib-analysis/BLUETOOTH_RECOVERY.md) 与 [NimBLE 接入](rtt/NIMBLE.md) |
-| USB | 已恢复控制器、端点、EP0 和 HID 共 33 个函数，通过 1066 项原库差分测试；标准请求派发、板级接入与 Linux 枚举待完成，见 [USB 分析](docs/lib-analysis/USB_RECOVERY.md) |
+| USB | 已恢复 33 个底层函数、通过 1066 项原库差分测试；综合 RTT 新增 AB32 控制器适配和 CherryUSB CDC ACM 二进制回传，离线测试及编译通过。缺少独立 USB 数据线，尚未烧录本版、枚举或实机收发；见 [USB 接入](rtt/USB.md) |
 | SD 卡 | 已根据寄存器手册和公开 BSP 实现原生 SD0 一位总线、SDSC/SDHC/SDXC 512 字节块读写；板级时钟/DMA 接入及实卡验证待完成，见 [SD 分析](docs/lib-analysis/SD_RECOVERY.md) |
 | DCF 打包 | 已实现 Linux 工具，默认打包路径通过原版机器码逐字节对照 |
 | 串口下载 | 已在 CH340/CRWN 实机完成 loader 上传、Flash 擦写、CRC 校验及首块提交；裸机串口及 RT-Thread 5.2.2 启动和 shell 通信均已验证，见 [实机记录](tools/linux/README.md#2026-11-02-实机记录) |
@@ -97,9 +97,14 @@ iPhone 请在 nRF Connect 等 App 中扫描，不要以“设置 → 蓝牙”�
 
 保留 PCM 播放池和未分配 PCM 池的两种状态各完成三轮连接、读写/通知与重连，
 载荷为 1、20、60 字节，HCI 传输错误和 Host 重置均为零，测试前后堆使用量不变。
-当前总堆 **29736 字节**，蓝牙运行时可用 **11360 字节**；保留 PCM 播放池时可用
-**2864 字节**。内存未超出，但后一种状态余量较小，新增功能前需重新预算。
+接入 USB 前的已验证 NimBLE 版本总堆 **29736 字节**，蓝牙运行时可用 **11360 字节**；保留 PCM 播放池时可用
+**2864 字节**。新增 USB 后链接的原始堆区为 **28320 字节**，运行时余量尚待实测，
+不能沿用此前的可用堆数字。
 详见 [内存记录](rtt/MEMORY.md#nimble-接入后) 和 [实机报告](docs/lib-analysis/generated/recovery/nimble-rtt-hardware.json)。
+
+原生 USB CDC 已完成软件适配，上电关闭，通过 `usbcdc start/status/stop` 控制；
+它使用独立 USB 数据口及 PB3/PB4，不走烧录 Type-C 的 CH340。
+接线、待执行的 Linux 回传测试和内存限制见 [USB.md](rtt/USB.md)。
 
 FM 与蓝牙目前仍互斥使用射频。`ble start` 会先停止 FM；蓝牙启动后即使执行
 `ble stop` 停止广播，也需复位后才能重新运行 FM。`ble adv` 可恢复广播。
@@ -109,7 +114,7 @@ FM 与蓝牙目前仍互斥使用射频。`ble start` 会先停止 FM；蓝牙�
 
 - [ ] **FM 收音机**：更换已知符合 CTIA 接线的耳机/天线，在可接收环境验证真实广播；继续排查射频路径及初始化要求，恢复有效台判定、搜台与 RDS。控制命令成功和测试音正常不等于已收到广播。
 - [ ] **蓝牙**：在已通过的单连接 GATT 基础上验证 iPhone/Android 兼容性、长时间运行及吞吐；按需求接入配对/绑定/加密，并重新评估内存及 FM/蓝牙射频共存。
-- [ ] **USB 通信**：底层端点、EP0 状态机和 HID 辅助函数已恢复；补齐标准请求与描述符派发、板级初始化，验证 Linux 枚举及通信。现有描述符是单字节多媒体按键 HID，通用双向通信尚未实现。
+- [ ] **USB 通信**：CDC Device 软件适配与离线测试已完成；准备独立 USB 数据线和数据跳线，下载后验证 Linux 枚举、二进制回传、拔插/复位及资源共存。Host、USB 音频和 MSC 尚未接入。
 - [ ] **SD 卡读写**：硬件 SD0 初始化、容量识别与单块读写已实现；完成板级 DMA 接入、实卡验证及文件系统集成。
 - [ ] **音频接口**：模拟输入/SDADC 已恢复，硬件 DAC 播放与部分写入接口已实现；确认采集 DMA 格式/事件，完成实机录放、SD 连续供数；I2S 硬件输出已接入，继续恢复 RX/DMA 并验证同系列寄存器兼容性。
 
@@ -135,7 +140,7 @@ ab32vg1-prougen 是 中科蓝讯(Bluetrum) 推出的一款基于 RISC-V 内核�
 
 **并非所有外设都已在 `bare` 中实现，也不能全部标记为可用。** 以下区分裸机实现、RT-Thread BSP 源码与当前启用状态。“已有实现”只表示有对应代码；“部分实现”表示还有关键路径缺失；两者都不等于已通过实机验证。当前裸机工程已通过 GCC 编译和链接，完整启动、时钟、IRQ、真实 DMA 内存布局及外设实测仍待完成。
 
-本表依据仓库当前 [rtconfig.h](rtt/bsp/rtconfig.h)、[BSP 构建规则](rtt/bsp/libraries/hal_drivers/SConscript)、[板级配置选项](rtt/bsp/board/Kconfig)及 `bare/drivers/` 核对。当前 RT-Thread 配置启用了 GPIO、UART0、DAC 音频、FM、恢复源码的蓝牙控制器和 NimBLE Host；源码中可选的其他驱动不代表默认已编入固件。RT-Thread 的通用 USB/I2C 等框架也不能代替芯片控制器驱动。
+本表依据仓库当前 [rtconfig.h](rtt/bsp/rtconfig.h)、[BSP 构建规则](rtt/bsp/libraries/hal_drivers/SConscript)、[板级配置选项](rtt/bsp/board/Kconfig)及 `bare/drivers/` 核对。当前 RT-Thread 配置启用了 GPIO、UART0、DAC 音频、FM、恢复源码的蓝牙控制器、NimBLE Host 和实验性 USB CDC；源码中可选的其他驱动不代表默认已编入固件。RT-Thread 的通用 USB/I2C 等框架也不能代替芯片控制器驱动。
 
 | 板载外设/接口 | `bare` 当前状态 | RT-Thread BSP 当前状态 |
 | --- | --- | --- |
@@ -163,9 +168,9 @@ ab32vg1-prougen 是 中科蓝讯(Bluetrum) 推出的一款基于 RISC-V 内核�
 | FM | 初始化、调谐及部分 DMA 已恢复；搜台、完整收音链路待完成 | 已新增 `fm0`、`fmrx` 命令及 DAC 播放/互斥/超时处理；默认启用；控制、DAC 测试音已实测，广播接收仍只有杂音 |
 | 蓝牙 | 控制器归档已全部源码替代，仍调用芯片 ROM/HAL；裸机默认平台钩子拒绝启动 | 恢复控制器与 NimBLE Host 默认启用；`ble start` 提供单连接 GATT，读写/通知/重连实测通过；`btctl` 保留独立诊断模式，配对/加密未启用 |
 | I2S/IIS | 已恢复另一份 AB53XX SDK 的 I2S SRC 输出子集，136 组差分通过；RX/DMA 未恢复 | `BSP_USING_I2S` 将 PCM 送到硬件 I2S；16 位双声道、44.1/48 kHz；实验性、默认关闭、未实测 |
-| USB Device | 底层端点、EP0、HID 部分恢复；请求派发、枚举及通用通信尚未完成 | 未见已接入本芯片的 Device 控制器驱动 |
+| USB Device | 保留原恢复接口和默认拒绝初始化的裸机封装 | 新增 AB32 DCD＋CherryUSB CDC ACM，默认编入、显式启动；回传/控制请求离线测试通过，实机枚举与通信待验证 |
 | USB Host | 只有模式切换入口，主机枚举与传输驱动未实现 | 未见已接入本芯片的 Host 控制器驱动 |
 
-芯片硬件具备 USB Host/Device 能力，但当前软件尚未完成两种模式的可用接入；具体恢复范围见上方各专题文档。后续应逐项完成“实现 → 板级接入 → 实机验证”，再将对应项标记为已验证支持。
+芯片硬件具备 USB Host/Device 能力；Device 已有实验性 CDC 软件适配，Host 未接入，实机 USB 验证仍待完成；具体恢复范围见上方各专题文档。后续应逐项完成“实现 → 板级接入 → 实机验证”，再将对应项标记为已验证支持。
 
 RT-Thread 的驱动修复、配置限制和构建验证见 [BSP 维护说明](rtt/README.md#linux-构建与驱动维护)。

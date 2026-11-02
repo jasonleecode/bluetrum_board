@@ -70,6 +70,16 @@ menu "Onboard Peripheral Drivers"
             radio start. FM and Bluetooth RF operation are mutually exclusive
             during bring-up. This option does not enable a NimBLE host.
 
+    config BSP_USING_USB_CDC
+        bool "Experimental native USB CDC ACM device"
+        depends on !RT_USING_CHERRYUSB
+        default n
+        help
+            AB32 DMA controller port and bundled CherryUSB 1.5.2 core/CDC.
+            usbcdc start enables a binary echo device on PB3/PB4.
+            Uses the native USB connector, not the CH340 programming port.
+            Enumeration and physical transfers await board validation.
+
     config BSP_USING_NIMBLE
         bool "NimBLE Host from rtt/nimble submodule"
         select BSP_USING_BTCTRL

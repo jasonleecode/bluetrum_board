@@ -54,6 +54,11 @@ SECTIONS
         *nimble_port.o (.text* .rodata* .srodata*)
         *os_msys.o (.text* .rodata* .srodata*)
         *mem.o (.text.mem_malloc* .text.mem_init*)
+        /* USB is polled exclusively in thread context; no USB IRQ calls Flash. */
+        *usb_dc_ab32.o (.text* .rodata* .srodata*)
+        *app_usb_cdc.o (.text* .rodata* .srodata*)
+        *usbd_core.o (.text* .rodata* .srodata*)
+        *usbd_cdc_acm.o (.text* .rodata* .srodata*)
         . = ALIGN(512);
     } > flash
     __bank_size = SIZEOF(.flash);
@@ -118,6 +123,6 @@ SECTIONS
     __irq_stack_size = SIZEOF(.stack);
     ASSERT(bb_get_without_vehicle == 0x11000, "BT fixed RAM base is incorrect")
     ASSERT(__bt_end <= 0x13800, "BT controller RAM exceeds reservation")
-    ASSERT(__heap_end - __heap_start >= (DEFINED(ble_hs_init) ? 28K : 39K), "Unified image heap below budget")
+    ASSERT(__heap_end - __heap_start >= (DEFINED(ab32_usb_poll) ? 27K : (DEFINED(ble_hs_init) ? 28K : 39K)), "Unified image heap below budget")
     /DISCARD/ : { *(.comment .eh_frame*) }
 }

@@ -1,0 +1,223 @@
+{
+  "recorded_at": "2026-11-02T07:21:47.587009+00:00",
+  "base_commit": "d871d5d33c3325c4f70c7b773d853a195a235033",
+  "status": "software adaptation and offline validation complete; hardware validation pending",
+  "hardware_verified": false,
+  "flashed": false,
+  "blocker": "User has only CH340 programming Type-C connected and no native USB data cable; requested software work first.",
+  "stack": {
+    "name": "CherryUSB",
+    "version": "1.5.2",
+    "source": "existing rtt/components/drivers/usb/cherryusb",
+    "modified": false
+  },
+  "configuration": {
+    "mode": "Full-speed USB device CDC ACM binary echo",
+    "vid": "ffff",
+    "pid": "ab32",
+    "production_usb_id": false,
+    "endpoints": [
+      "0x00/0x80 control",
+      "0x81 bulk IN",
+      "0x02 bulk OUT",
+      "0x83 notification IN"
+    ],
+    "max_packet": 64,
+    "request_buffer_bytes": 128,
+    "worker_stack_bytes": 2048,
+    "worker_priority": 12,
+    "poll_interval_ms": 1,
+    "usb_cpu_irq_enabled": false,
+    "start_command": "usbcdc start",
+    "native_pins": "PB3 D+, PB4 D-",
+    "v02_jumpers": "P5 1-2 and 3-4",
+    "legacy_jumpers": "J15 and J16"
+  },
+  "memory": {
+    "sections": {
+      ".init": {
+        "bytes": 326,
+        "vma": 268435456,
+        "lma": 268435456
+      },
+      ".ram1": {
+        "bytes": 31208,
+        "vma": 327680,
+        "lma": 268435968
+      },
+      ".flash": {
+        "bytes": 64512,
+        "vma": 268467200,
+        "lma": 268467200
+      },
+      ".comm": {
+        "bytes": 73200,
+        "vma": 79872,
+        "lma": 268531712
+      },
+      ".bram": {
+        "bytes": 6540,
+        "vma": 69632,
+        "lma": 69632
+      },
+      ".bss": {
+        "bytes": 11120,
+        "vma": 153072,
+        "lma": 153072
+      },
+      ".heap": {
+        "bytes": 28320,
+        "vma": 164192,
+        "lma": 164192
+      },
+      ".stack": {
+        "bytes": 4096,
+        "vma": 192512,
+        "lma": 192512
+      },
+      ".riscv.attributes": {
+        "bytes": 42,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_info": {
+        "bytes": 222,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_abbrev": {
+        "bytes": 102,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_loc": {
+        "bytes": 184,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_aranges": {
+        "bytes": 32,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_line": {
+        "bytes": 257,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_str": {
+        "bytes": 576,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_frame": {
+        "bytes": 32,
+        "vma": 0,
+        "lma": 0
+      }
+    },
+    "placement_checks": {
+      "finsh_thread_entry": "0x10009e78",
+      "_audio_dev_init": "0x1000a5a6",
+      "pcmcheck": "0x1000b258",
+      "ble_hs_init": "0x10010f20",
+      "ble_gatts_init": "0x10010a36",
+      "ble_gap_adv_start": "0x1000dcf0",
+      "ab32_usb_poll": "0x10015994",
+      "usbd_initialize": "0x10017594",
+      "usb_worker": "0x1001606e",
+      "rt_schedule": "0x53d72",
+      "rt_sem_release": "0x51428",
+      "rt_hw_context_switch": "0x16cf2",
+      "os_cache_init": "0x15152",
+      "load_cache": "0x15212",
+      "__wrap_bthw_isr_do": "0x1f366",
+      "bb_run_loop": "0x140cc",
+      "hci_host_recv_packet": "0x1f424",
+      "audio_isr": "0x13ce4",
+      "uart_isr": "0x13da8",
+      "ble_npl_hw_enter_critical": "0x1f718",
+      "ble_npl_hw_exit_critical": "0x1f732",
+      "ble_npl_eventq_put": "0x1f78e",
+      "ble_mqueue_get": "0x1e05a",
+      "ble_mqueue_put": "0x1e07e",
+      "os_memblock_get": "0x1e9ce",
+      "os_memblock_put": "0x1ea30",
+      "alloc_acl": "0x14e2c",
+      "free_acl": "0x14e6e"
+    },
+    "nimble_enabled": true,
+    "usb_enabled": true,
+    "heap_region_bytes": 28320,
+    "note": "Heap region includes allocator metadata; use board free for runtime availability."
+  },
+  "tests": {
+    "usb_model": {
+      "passed": true,
+      "real_core_and_cdc": true,
+      "sanitizers": [
+        "AddressSanitizer",
+        "UndefinedBehaviorSanitizer"
+      ],
+      "coverage": [
+        "PLL mismatch rejection",
+        "descriptors and multi-packet EP0",
+        "unsupported qualifier STALL",
+        "deferred SET_ADDRESS including zero address",
+        "coalesced IN ACK and OUT status",
+        "configuration/unconfiguration",
+        "CDC line coding and invalid length/interface rejection",
+        "binary echo lengths 0 through 64",
+        "TX busy/backpressure",
+        "full-packet ZLP",
+        "oversize OUT rejection",
+        "CLEAR_FEATURE halt recovery",
+        "reset cancels active DMA state",
+        "stop/restart"
+      ]
+    },
+    "existing_driver_groups": 8,
+    "existing_driver_groups_passed": true,
+    "build_profiles_passed": [
+      "usb",
+      "nimble",
+      "bluetooth",
+      "audio"
+    ],
+    "placement_checks_passed": true,
+    "final_clean_usb_build": "/tmp/ab32-rtt-build-nhs5hv9u/usb.log"
+  },
+  "no_vendor_usb_archive_members": true,
+  "no_vendor_bt_archive": true,
+  "firmware_sha256": {
+    "rtt/bsp/rtthread.elf": "d063d48dd79e9de95b15cd0333c9767898487650c3e962ee5ee877cd5b2a577a",
+    "rtt/bsp/rtthread.bin": "dc4da9be70ea1269a6a0f6c1c81defddde7823d43e259468acdaa08856c106a6",
+    "rtt/bsp/rtthread.dcf": "01c6eb179a0e0af841056cf0aab498af99cdd1260480539e0e984580eeb06bea"
+  },
+  "source_sha256": {
+    "rtt/bsp/board/Kconfig": "97939efc6e8e8f40ee9a6e35a9d7a0d782fd778eeea19218a10a3e5b20bc8afa",
+    "rtt/bsp/board/SConscript": "528468293392d61993468fb8e8f66c2c00bb404d079e1f97a34f01431db87bf6",
+    "rtt/bsp/board/ports/usb/SConscript": "399bf9fd9079de7e01821228ee7a7b8c43b60c564593419c1ffed42e47184b4c",
+    "rtt/bsp/board/ports/usb/app_usb_cdc.c": "25543f0c8e67ebb9fe11aead8cc423bfe7c50467aa848c6ffc254a6c24276e90",
+    "rtt/bsp/board/ports/usb/usb_ab32.h": "64f78f27c68caf678d7c711b6df68f71a0eb520da71264a928802dd81607e725",
+    "rtt/bsp/board/ports/usb/usb_config.h": "1165dae8bdb6f957cfe0199a4c187e9ed63658300e44b8058099541306aa895e",
+    "rtt/bsp/board/ports/usb/usb_dc_ab32.c": "ac4fe68f07e02b6095088820aa6df9c3d4d52565020488ba1014e3fc4826515d",
+    "rtt/bsp/link_bt_ram.lds": "8ebf775513443e1aafc504fd5fd4a89e16939d992a42a34bbd34cc22ada7ca0e",
+    "rtt/bsp/rtconfig.h": "8d6ed312d511b9f3838928142a35fb564792ba11403aaa7bcd4a7090c54381fd",
+    "rtt/components/drivers/usb/cherryusb/class/cdc/usbd_cdc_acm.c": "5441ec8296c51b2ec56ccf5081a57205763c97aba72f4b7726614f4acd78a56d",
+    "rtt/components/drivers/usb/cherryusb/common/usb_version.h": "ab59540634dd023a3bd41960f335be953e3e5918da686ceadd7f89cecf4f56f6",
+    "rtt/components/drivers/usb/cherryusb/core/usbd_core.c": "8f4e193e345fd59f2affabdb5a49a4b760b09b1d7a7fac32c5324a83ad759ca2",
+    "tools/rtt/check_builds.py": "e23c3355ddc42e792d19758ac579760dcc254c1f5d9921045dea6f04f5bfb2cb",
+    "tools/rtt/memory_report.py": "30977236b296c331f7520f1a95352565fa03768c644cba1512a5b63400d9115a",
+    "tools/rtt/test_usb.py": "df3f54eab40d504219ce8bc68f434428047f22c8114b96e672b4a7d8ced12e21",
+    "tools/rtt/test_usb_cdc.py": "bb1db056453e2d191c3e4a8c08648dcc32cef2c54473492345364f9cb0f65890",
+    "tools/rtt/tests/usb_cdc.c": "632bdee8665edeb83f073d70d7c79ba39d48a9dd00361168811c71e4d1b188da"
+  },
+  "pending": [
+    "Real PHY/DMA timing and Linux enumeration",
+    "Native CDC binary echo script on real hardware",
+    "Physical unplug/replug and suspend/resume",
+    "Runtime heap/stack and BLE/FM/PCM combinations",
+    "Long duration stability and throughput"
+  ]
+}

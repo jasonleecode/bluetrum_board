@@ -32,6 +32,9 @@ if GetDepend(['BSP_USING_BTCTRL']):
 if GetDepend(['BSP_USING_NIMBLE']):
     objs += SConscript('ports/nimble/SConscript')
 
+if GetDepend(['BSP_USING_USB_CDC']):
+    objs += SConscript('ports/usb/SConscript')
+
 list = os.listdir(cwd)
 
 for item in list:

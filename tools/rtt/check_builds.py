@@ -50,6 +50,7 @@ PROFILES['i2s_pa'] = dict(PROFILES['audio'], BSP_USING_I2S=1, BSP_I2S_MAPPING=0)
 PROFILES['bluetooth'] = dict(PROFILES['audio'], BSP_USING_FMRX=1, BSP_USING_BTCTRL=1,
     RT_AUDIO_USING_LAZY_INIT=1)
 PROFILES['nimble'] = dict(PROFILES['bluetooth'], BSP_USING_NIMBLE=1)
+PROFILES['usb'] = dict(PROFILES['nimble'], BSP_USING_USB_CDC=1)
 
 def base_config(config):
     """Keep optional profiles independent of enabled workspace peripherals."""
@@ -105,6 +106,10 @@ def main():
                     re.search(r'^#define\s+BSP_USING_BTCTRL\b', config, re.M)):
                 assert 'libbtctrl.a' not in linkmap, 'vendor Bluetooth archive linked'
                 assert 'bt_core_recovered.o' in linkmap
+                if PROFILES[name].get('BSP_USING_USB_CDC') or (name == 'default' and
+                        re.search(r'^#define\s+BSP_USING_USB_CDC\b', config, re.M)):
+                    assert 'usb_dc_ab32.o' in linkmap
+                    assert not re.search(r'libhal\.a\(usb[^)]*\)', linkmap), 'vendor USB object linked'
                 assert re.search(r'0x0*11000\s+bb_get_without_vehicle\b', linkmap)
                 from memory_report import inspect
                 import json

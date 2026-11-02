@@ -1,7 +1,7 @@
 # 综合 RTT 内存记录（2026-11-02）
 
-当前默认配置已接入 NimBLE。下文“接入前内存优化”保留历史数据，
-当前用量以“NimBLE 接入后”一节为准。
+当前默认配置已加入实验性 USB CDC。下文保留各阶段的历史验证数据；
+最新链接用量见“USB CDC 软件适配后”，该版本尚无运行时内存实测。
 
 ## 接入前内存优化
 
@@ -130,3 +130,27 @@ FM 启停与 PCM 互斥回归通过；FM 开启时 `pcmcheck` 返回忙，停止
 蓝牙启用后 FM 启动返回忙。此次没有新增 FM 听感验收，广播接收仍待换耳机验证。
 源码、配置、命令与边界见 [NimBLE 接入说明](NIMBLE.md)，最终二进制摘要、连接报告
 和串口记录见 [nimble-rtt-hardware.json](../docs/lib-analysis/generated/recovery/nimble-rtt-hardware.json)。
+
+## USB CDC 软件适配后
+
+在 NimBLE 综合工程中加入实验性 USB CDC 后，链接结果如下；本版尚未烧录。
+
+| 段 | 字节 |
+| --- | ---: |
+| `.comm` | 73200 |
+| `.ram1` | 31208 / 31232 |
+| `.bss` | 11120 |
+| `.bram` | 6540 / 10240 |
+| `.heap` | 28320 |
+| `.stack` | 4096 |
+| `.flash` | 64512 |
+
+USB 代码及 CherryUSB 核心/CDC 放 Flash，由单个线程轮询，USB CPU 中断保持屏蔽。
+原始堆比接入 USB 前减少 1504 字节；USB 启动时另申请 2048 字节线程栈及线程对象。
+停止后保留工作线程，因此不能把 `usbcdc stop` 当作释放这笔堆内存。
+带 USB 的链接和检查器堆下限为 27 KiB，未带 USB 的 28/39 KiB 下限保持不变。
+
+上述是链接预算，不能据此报告运行时 `free`；USB/蓝牙/PCM 各组合须上板重新测量。
+尤其先前保留完整 PCM 池的 NimBLE 状态只余 2864 字节，不能假定再启动 USB 仍有足够余量。
+原控制器固定内存与栈未缩减，第二 SRAM 仍只余 24 字节。
+见 [USB 软件适配](USB.md) 和 [离线结果](../docs/lib-analysis/generated/recovery/usb-rtt-software.json)。
