@@ -145,6 +145,7 @@
 #define RT_USING_SERIAL_V1
 #define RT_SERIAL_RB_BUFSZ 64
 #define RT_USING_AUDIO
+#define RT_AUDIO_USING_LAZY_INIT
 #define RT_AUDIO_REPLAY_MP_BLOCK_COUNT 2
 #define RT_AUDIO_REPLAY_MP_BLOCK_SIZE 4096
 #define RT_AUDIO_RECORD_PIPE_SIZE 2048
@@ -412,7 +413,7 @@
 /* end of Hardware Drivers Config */
 #define BOARD_BLUETRUM_EVB
 
-#endif
-
 /* Recovered controller: explicit btctl test starts hardware. */
 #define BSP_USING_BTCTRL
+
+#endif

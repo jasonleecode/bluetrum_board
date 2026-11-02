@@ -1,4 +1,6 @@
 /* Unified RTT/FM/BT: reserve controller ABI RAM; use both executable SRAM banks.
+ * Shell and PCM framework run through the flash cache in thread context.
+ * Kernel, cache refill, controller, HAL and interrupt paths stay in SRAM.
  * No code or RT heap may overlap 0x11000..0x13800 or ROM 0x10000..0x11000. */
 ENTRY(_start)
 MEMORY
@@ -35,6 +37,20 @@ SECTIONS
     } > ram1 AT > flash
     __ram1_lma = LOADADDR(.ram1);
     __ram1_size = SIZEOF(.ram1);
+    .flash : ALIGN(512)
+    {
+        /* This BSP defers UART RX notifications to drv_thread_entry; FinSH
+         * callbacks therefore run in thread context. sound0 is playback-only
+         * and its framework completion also runs in the audio worker. A new
+         * IRQ-driven consumer must first move its callback/callees to SRAM.
+         */
+        *components*finsh*.o (.text* .rodata* .srodata*)
+        *dev_audio.o (.text* .rodata* .srodata*)
+        *dev_audio_pipe.o (.text* .rodata* .srodata*)
+        *drv_sound.o (.text.pcmcheck)
+        . = ALIGN(512);
+    } > flash
+    __bank_size = SIZEOF(.flash);
     .comm : ALIGN(512)
     {
         __comm_vma = .;
@@ -64,7 +80,6 @@ SECTIONS
     } > ram AT > flash
     __comm_lma = LOADADDR(.comm);
     __comm_size = SIZEOF(.comm);
-    __bank_size = 0;
     .bram (NOLOAD) : ALIGN(4)
     {
         __bt_start = .;
@@ -97,6 +112,6 @@ SECTIONS
     __irq_stack_size = SIZEOF(.stack);
     ASSERT(bb_get_without_vehicle == 0x11000, "BT fixed RAM base is incorrect")
     ASSERT(__bt_end <= 0x13800, "BT controller RAM exceeds reservation")
-    ASSERT(__heap_end - __heap_start >= 16K, "Unified BT image leaves less than 16 KiB heap")
+    ASSERT(__heap_end - __heap_start >= 40K, "Unified BT image leaves less than 40 KiB heap; review NimBLE budget")
     /DISCARD/ : { *(.comment .eh_frame*) }
 }

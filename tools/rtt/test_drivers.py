@@ -17,6 +17,8 @@ with tempfile.TemporaryDirectory(prefix='ab32-rtt-model-') as directory:
                 'rtt/bsp/board/ports', 'rtt/bsp/libcpu/cpu', 'bare/drivers/inc',
                 'rtt/components/dfs/dfs_v1/include', 'rtt/bsp/libraries/hal_drivers']
     for name, profile in [('peripherals', PROFILES['peripherals']), ('sd', PROFILES['sd']),
+                          ('uart_wake', dict(BSP_USING_UART1=1, BSP_USING_UART2=1)),
+                          ('audio_memory', dict(PROFILES['audio'], RT_AUDIO_USING_LAZY_INIT=1)),
                           ('fm', PROFILES['spi_fm_i2s']),
                           ('audio_rtc_flash', dict(PROFILES['audio'], **PROFILES['flash'],
                             RT_USING_RTC=1, BSP_USING_ONCHIP_RTC=1, RTC_USING_INTERNAL_CLK=1))]:

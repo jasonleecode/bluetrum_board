@@ -1,0 +1,216 @@
+{
+  "recorded_at": "2026-11-02T14:22:23.782883+08:00",
+  "baseline_commit": "51ec6bc",
+  "sha256": {
+    "rtt/bsp/rtthread.bin": "b94bee03919994a5b56951357f2de31ddf4682bead6523e0db5c6a1a29bfd7f8",
+    "rtt/bsp/rtthread.dcf": "3551b3537af9ee7efb661397138a832a92a500755d1f2d531f068491d96ec536",
+    "rtt/bsp/rtconfig.h": "3f380622ff4dfbdc4d8d259a384cb547303f89098e47f3fad834761198d08907",
+    "rtt/bsp/link_bt_ram.lds": "a0c6f30c2ac39df461e155d76eeb9e03f3974a013d3a1e28000f7c30b09fbe03",
+    "rtt/bsp/board/ports/audio/drv_sound.c": "5b514e2cb544e29344a5d4323a02cffd49c302fdb40d8a923fea589ec2523e7a",
+    "rtt/bsp/libraries/hal_drivers/drv_common.c": "e7d2e62fae2c47abe23a069fcbd28066c9e7216b17db75de8749dba8fa570e3a",
+    "rtt/components/drivers/audio/dev_audio.c": "f1c9f7bd3a212a36db37d8ace742314228a10a4f64339931aa14d9b4d3db4761",
+    "docs/ab32vg1_doc/test_program/ab32v110-ble-test.zip": "824aea40a813b210ce3d7ce009c6ed1ab08e6bbf3120189f99eee57002532d2d"
+  },
+  "flash_verified_and_committed": true,
+  "vendor_bt_archive_linked": false,
+  "rom_hal_dependencies_remain": true,
+  "memory": {
+    "sections": {
+      ".init": {
+        "bytes": 326,
+        "vma": 268435456,
+        "lma": 268435456
+      },
+      ".ram1": {
+        "bytes": 30972,
+        "vma": 327680,
+        "lma": 268435968
+      },
+      ".flash": {
+        "bytes": 14336,
+        "vma": 268467200,
+        "lma": 268467200
+      },
+      ".comm": {
+        "bytes": 67704,
+        "vma": 79872,
+        "lma": 268481536
+      },
+      ".bram": {
+        "bytes": 6540,
+        "vma": 69632,
+        "lma": 69632
+      },
+      ".bss": {
+        "bytes": 3968,
+        "vma": 147584,
+        "lma": 147584
+      },
+      ".heap": {
+        "bytes": 40960,
+        "vma": 151552,
+        "lma": 151552
+      },
+      ".stack": {
+        "bytes": 4096,
+        "vma": 192512,
+        "lma": 192512
+      },
+      ".riscv.attributes": {
+        "bytes": 42,
+        "vma": 0,
+        "lma": 0
+      }
+    },
+    "placement_checks": {
+      "finsh_thread_entry": "0x10009e78",
+      "_audio_dev_init": "0x1000a5a6",
+      "pcmcheck": "0x1000b25c",
+      "rt_schedule": "0x53d72",
+      "rt_sem_release": "0x51428",
+      "rt_hw_context_switch": "0x16c24",
+      "os_cache_init": "0x150e8",
+      "load_cache": "0x151a8",
+      "__wrap_bthw_isr_do": "0x1e6b2",
+      "bb_run_loop": "0x140cc",
+      "hci_host_recv_packet": "0x1e770",
+      "audio_isr": "0x13ce4",
+      "uart_isr": "0x13da8"
+    },
+    "heap_region_bytes": 40960,
+    "note": "Heap region includes allocator metadata; use board free for runtime availability."
+  },
+  "baseline_rt_heap": {
+    "total": 29160,
+    "used": 25104,
+    "available": 4056
+  },
+  "rt_heap": {
+    "fm": [
+      {
+        "total": 40872,
+        "used": 12224,
+        "maximum": 12224,
+        "available": 28648
+      },
+      {
+        "total": 40872,
+        "used": 12224,
+        "maximum": 12224,
+        "available": 28648
+      }
+    ],
+    "pcm": [
+      {
+        "total": 40872,
+        "used": 20720,
+        "maximum": 20720,
+        "available": 20152
+      },
+      {
+        "total": 40872,
+        "used": 20720,
+        "maximum": 20720,
+        "available": 20152
+      }
+    ],
+    "bt-pcm": [
+      {
+        "total": 40872,
+        "used": 22952,
+        "maximum": 22952,
+        "available": 17920
+      }
+    ],
+    "scan": [
+      {
+        "total": 40872,
+        "used": 22952,
+        "maximum": 22952,
+        "available": 17920
+      },
+      {
+        "total": 40872,
+        "used": 22952,
+        "maximum": 22952,
+        "available": 17920
+      }
+    ],
+    "final": [
+      {
+        "total": 40872,
+        "used": 12224,
+        "maximum": 12224,
+        "available": 28648
+      },
+      {
+        "total": 40872,
+        "used": 14456,
+        "maximum": 14456,
+        "available": 26416
+      },
+      {
+        "total": 40872,
+        "used": 14456,
+        "maximum": 14456,
+        "available": 26416
+      },
+      {
+        "total": 40872,
+        "used": 14456,
+        "maximum": 14456,
+        "available": 26416
+      }
+    ]
+  },
+  "available_gain_before_pcm_bytes": 22360,
+  "pcm_retained_allocation_bytes": 8496,
+  "nimble_buffers": {
+    "source": "ab32v110-ble-test.zip / bluetrum_nimble headers",
+    "method": "RV32 ilp32 compile-time arrays sized with SDK macros; nm -S",
+    "msys_bytes": 3504,
+    "hci_event_bytes": 1152,
+    "acl_bytes": 1200,
+    "command_bytes": 260,
+    "total_bytes": 6116,
+    "full_host_measured": false,
+    "probe_source": "#include <rtthread.h>\n#include \"os/os.h\"\n#include \"nimble/ble.h\"\n#include \"nimble/hci_common.h\"\n#include \"nimble/ble_hci_trans.h\"\nchar budget_msys[OS_MEMPOOL_BYTES(MYNEWT_VAL(MSYS_1_BLOCK_COUNT), MYNEWT_VAL(MSYS_1_BLOCK_SIZE))];\nchar budget_hci_events[OS_MEMPOOL_BYTES(MYNEWT_VAL(BLE_HCI_EVT_HI_BUF_COUNT) + MYNEWT_VAL(BLE_HCI_EVT_LO_BUF_COUNT), MYNEWT_VAL(BLE_HCI_EVT_BUF_SIZE))];\nchar budget_acl[OS_MEMPOOL_BYTES(MYNEWT_VAL(BLE_ACL_BUF_COUNT), OS_ALIGN(MYNEWT_VAL(BLE_ACL_BUF_SIZE) + BLE_MBUF_MEMBLOCK_OVERHEAD + BLE_HCI_DATA_HDR_SZ, OS_ALIGNMENT))];\nchar budget_cmd[BLE_HCI_TRANS_CMD_SZ];\n"
+  },
+  "checks": {
+    "host_test_groups": 6,
+    "build_profiles": [
+      "bluetooth",
+      "audio"
+    ],
+    "memory_placement": true,
+    "fm_start_stop": true,
+    "fm_pcm_exclusion": true,
+    "dac_tone_program_return": 0,
+    "pcm_replay_repeated": true,
+    "pcm_heap_stable": true,
+    "hci_four_commands": true,
+    "external_advertisement_name": "AB32-RTT-TEST",
+    "scan_report_snapshots_with_pcm": [
+      396,
+      1977
+    ],
+    "scan_report_snapshots_without_pcm": [
+      833
+    ],
+    "bt_heap_stable": true
+  },
+  "observed_stack_peak_percent": {
+    "btctrl": 24,
+    "tshell": 34,
+    "audio": 30
+  },
+  "on_board_final_state": "Same unified firmware, BLE non-connectable advertising; PCM uninitialized; FM stopped",
+  "not_verified": [
+    "NimBLE Host/GATT",
+    "connections/ACL data/encryption",
+    "FM broadcast reception with current earphones",
+    "FM and Bluetooth simultaneous operation",
+    "long-duration stability"
+  ],
+  "uart_log": "memory-rtt-hardware.log"
+}

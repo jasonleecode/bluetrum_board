@@ -3,6 +3,14 @@ config RT_USING_AUDIO
     default n
 
     if RT_USING_AUDIO
+        config RT_AUDIO_USING_LAZY_INIT
+            bool "Initialize audio buffers on first device open"
+            default n
+            help
+                Registration only publishes the device. rt_device_open() (or
+                an explicit rt_device_init()) allocates PCM buffers later.
+                Allocation failure is reported to the caller and can be retried.
+
         config RT_AUDIO_REPLAY_MP_BLOCK_SIZE
             int "Replay memory pool block size"
             default 4096

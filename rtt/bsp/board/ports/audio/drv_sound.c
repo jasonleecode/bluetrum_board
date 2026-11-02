@@ -848,3 +848,34 @@ fail:
     return result;
 }
 INIT_DEVICE_EXPORT(rt_hw_sound_init);
+
+#ifdef RT_USING_FINSH
+/* Exercise deferred PCM allocation and the real FIFO/worker/close path without
+ * asking the listener to judge a tone. Keep the full configured replay pool.
+ */
+static int pcmcheck(void)
+{
+    rt_uint32_t silence[64] = {0};
+    rt_device_t dev = &snd_dev.audio.parent;
+    rt_err_t ret = rt_device_open(dev, RT_DEVICE_OFLAG_WRONLY);
+    if (ret != RT_EOK)
+    {
+        rt_kprintf("PCM open failed: %d\n", (int)ret);
+        return ret;
+    }
+    /* 1 second of 48 kHz / stereo / 16-bit silence at the default format. */
+    for (unsigned i = 0; i < 750; ++i)
+    {
+        if (rt_device_write(dev, 0, silence, sizeof(silence)) != sizeof(silence))
+        {
+            ret = -RT_EIO;
+            break;
+        }
+    }
+    rt_err_t close_ret = rt_device_close(dev);
+    if (ret == RT_EOK) ret = close_ret;
+    rt_kprintf("PCM check: %d (replay buffers retained for reuse)\n", (int)ret);
+    return ret;
+}
+MSH_CMD_EXPORT(pcmcheck, Exercise silent PCM playback and deferred buffers);
+#endif

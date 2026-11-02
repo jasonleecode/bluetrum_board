@@ -314,7 +314,13 @@ static rt_err_t _audio_dev_init(struct rt_device *dev)
         }
 
         /* init queue for audio replay */
-        rt_data_queue_init(&replay->queue, CFG_AUDIO_REPLAY_QUEUE_COUNT, 0, RT_NULL);
+        result = rt_data_queue_init(&replay->queue, CFG_AUDIO_REPLAY_QUEUE_COUNT, 0, RT_NULL);
+        if (result != RT_EOK)
+        {
+            rt_mp_delete(replay->mp);
+            rt_free(replay);
+            return result;
+        }
 
         /* init mutex lock for audio replay */
         rt_mutex_init(&replay->lock, "replay", RT_IPC_FLAG_PRIO);
@@ -330,7 +336,10 @@ static rt_err_t _audio_dev_init(struct rt_device *dev)
         rt_uint8_t *buffer;
 
         if (record == RT_NULL)
-            return -RT_ENOMEM;
+        {
+            result = -RT_ENOMEM;
+            goto fail;
+        }
         rt_memset(record, 0, sizeof(struct rt_audio_record));
 
         /* init pipe for record*/
@@ -339,12 +348,19 @@ static rt_err_t _audio_dev_init(struct rt_device *dev)
         {
             rt_free(record);
             LOG_E("malloc memory for for record pipe failed");
-            return -RT_ENOMEM;
+            result = -RT_ENOMEM;
+            goto fail;
         }
-        rt_audio_pipe_init(&record->pipe, "record",
+        result = rt_audio_pipe_init(&record->pipe, "record",
                            (rt_int32_t)(RT_PIPE_FLAG_FORCE_WR | RT_PIPE_FLAG_BLOCK_RD),
                            buffer,
                            RT_AUDIO_RECORD_PIPE_SIZE);
+        if (result != RT_EOK)
+        {
+            rt_free(buffer);
+            rt_free(record);
+            goto fail;
+        }
 
         record->activated = RT_FALSE;
         audio->record = record;
@@ -352,12 +368,37 @@ static rt_err_t _audio_dev_init(struct rt_device *dev)
 
     /* initialize hardware configuration */
     if (audio->ops->init)
-        audio->ops->init(audio);
+    {
+        result = audio->ops->init(audio);
+        if (result != RT_EOK)
+            goto fail;
+    }
 
     /* get replay buffer information */
-    if (audio->ops->buffer_info)
+    if (audio->replay && audio->ops->buffer_info)
         audio->ops->buffer_info(audio, &audio->replay->buf_info);
 
+    return result;
+
+fail:
+    /* A deferred init can run under memory pressure. Leave no allocations
+     * behind, so rt_device_open() can safely retry after memory is released.
+     */
+    if (audio->record)
+    {
+        rt_audio_pipe_detach(&audio->record->pipe);
+        rt_free(audio->record->pipe.ringbuffer.buffer_ptr);
+        rt_free(audio->record);
+        audio->record = RT_NULL;
+    }
+    if (audio->replay)
+    {
+        rt_mutex_detach(&audio->replay->lock);
+        rt_data_queue_deinit(&audio->replay->queue);
+        rt_mp_delete(audio->replay->mp);
+        rt_free(audio->replay);
+        audio->replay = RT_NULL;
+    }
     return result;
 }
 
@@ -683,9 +724,13 @@ rt_err_t rt_audio_register(struct rt_audio_device *audio, const char *name, rt_u
     /* register a character device */
     result = rt_device_register(device, name, flag | RT_DEVICE_FLAG_REMOVABLE);
 
-    /* initialize audio device */
+    /* rt_device_open() performs this on demand in lazy mode. FM uses its
+     * own DAC path and does not need the PCM replay pool at all.
+     */
+#ifndef RT_AUDIO_USING_LAZY_INIT
     if (result == RT_EOK)
         result = rt_device_init(device);
+#endif
 
     return result;
 }

@@ -11,7 +11,32 @@ enum {
 };
 
 static rt_thread_t drv_tid = RT_NULL;
-static rt_mq_t drv_mq = RT_NULL;
+/* UART bytes live in each UART's RX ring. Notifications only mean "drain
+ * this ring", so repeated IRQs may share one event bit without losing data.
+ * Bits are cleared atomically before processing: an IRQ during the
+ * drain remains pending for the next iteration.
+ */
+static struct rt_semaphore drv_wake;
+static rt_uint32_t drv_pending;
+
+rt_section(".irq.uart")
+static void drv_notify(rt_uint32_t bit)
+{
+    rt_base_t level = rt_hw_interrupt_disable();
+    rt_bool_t wake = drv_pending == 0;
+    drv_pending |= bit;
+    if (wake) rt_sem_release(&drv_wake);
+    rt_hw_interrupt_enable(level);
+}
+
+static rt_uint32_t drv_take_pending(void)
+{
+    rt_base_t level = rt_hw_interrupt_disable();
+    rt_uint32_t events = drv_pending;
+    drv_pending = 0;
+    rt_hw_interrupt_enable(level);
+    return events;
+}
 
 void uart0_irq_process(void);
 void uart1_irq_process(void);
@@ -20,56 +45,47 @@ void uart2_irq_process(void);
 rt_section(".irq.uart")
 void uart0_irq_post(void)
 {
-    rt_uint8_t mq_msg = MSG_UART0_IRQ;
-    rt_mq_send(drv_mq, &mq_msg, 1);
+    drv_notify(1u << MSG_UART0_IRQ);
 }
 
 rt_section(".irq.uart")
 void uart1_irq_post(void)
 {
-    rt_uint8_t mq_msg = MSG_UART1_IRQ;
-    rt_mq_send(drv_mq, &mq_msg, 1);
+    drv_notify(1u << MSG_UART1_IRQ);
 }
 
 rt_section(".irq.uart")
 void uart2_irq_post(void)
 {
-    rt_uint8_t mq_msg = MSG_UART2_IRQ;
-    rt_mq_send(drv_mq, &mq_msg, 1);
+    drv_notify(1u << MSG_UART2_IRQ);
+}
+
+static void drv_process_events(rt_uint32_t events)
+{
+#ifdef BSP_USING_UART0
+    if (events & (1u << MSG_UART0_IRQ)) uart0_irq_process();
+#endif
+#ifdef BSP_USING_UART1
+    if (events & (1u << MSG_UART1_IRQ)) uart1_irq_process();
+#endif
+#ifdef BSP_USING_UART2
+    if (events & (1u << MSG_UART2_IRQ)) uart2_irq_process();
+#endif
 }
 
 static void drv_thread_entry(void *parameter)
 {
-    rt_uint8_t mq_msg = 0;
     while (1) {
-        rt_mq_recv(drv_mq, &mq_msg, 1, RT_WAITING_FOREVER);
-        switch (mq_msg) {
-#ifdef BSP_USING_UART0
-            case MSG_UART0_IRQ:
-                uart0_irq_process();
-                break;
-#endif
-#ifdef BSP_USING_UART1
-            case MSG_UART1_IRQ:
-                uart1_irq_process();
-                break;
-#endif
-#ifdef BSP_USING_UART2
-            case MSG_UART2_IRQ:
-                uart2_irq_process();
-                break;
-#endif
-            default:
-                break;
-        }
+        if (rt_sem_take(&drv_wake, RT_WAITING_FOREVER) == RT_EOK)
+            drv_process_events(drv_take_pending());
     }
 }
 
 static int drv_thread_init(void)
 {
-    drv_mq = rt_mq_create("drv", 1, 128, RT_IPC_FLAG_FIFO);
-    if (drv_mq == RT_NULL)
-        return -RT_ENOMEM;
+    rt_err_t ret = rt_sem_init(&drv_wake, "drv", 0, RT_IPC_FLAG_FIFO);
+    if (ret != RT_EOK)
+        return ret;
     drv_tid = rt_thread_create("drv",
             drv_thread_entry,
             RT_NULL,
@@ -79,8 +95,7 @@ static int drv_thread_init(void)
 
     if (drv_tid == RT_NULL)
     {
-        rt_mq_delete(drv_mq);
-        drv_mq = RT_NULL;
+        rt_sem_detach(&drv_wake);
         return -RT_ENOMEM;
     }
     return rt_thread_startup(drv_tid);
