@@ -1,219 +1,286 @@
 /*
  * Copyright (c) 2020-2021, Bluetrum Development Team
- *
  * SPDX-License-Identifier: Apache-2.0
- *
- * Change Logs:
- * Date           Author            Notes
- * 2021-04-12     greedyhao         first version
+ * Native NEC receiver on PE6 / IR_G7. See rtt/IR.md for evidence and limits.
+ * No worker, allocation, logging or application callback in the IRQ path.
  */
-
 #include <board.h>
+#include <rthw.h>
+#include <interrupt.h>
+#include "drv_irrx.h"
+#include <finsh.h>
+#include <stdlib.h>
+#include <string.h>
 
 #ifdef BSP_USING_IRRX
-
-//#define DRV_DEBUG
-#define LOG_TAG             "drv.irrx"
-#include <drv_log.h>
-
-#ifdef BSP_USING_TIM3
-#error "IRRX is conflict with hardware timer3!"
+#if defined(BSP_USING_TIM3) || defined(BSP_USING_T3_PWM)
+#error "IRRX and Timer3/PWM share IRQ 6; select only one owner"
+#endif
+#if defined(BSP_USING_SPI1) && BSP_SPI1_MAPPING == 4
+#error "IRRX PE6 conflicts with SPI1 G4 clock"
+#endif
+#ifdef BSP_USING_IRRX_SW
+#error "The old unvalidated software IR decoder is no longer supported"
 #endif
 
-#ifdef BSP_USING_IRRX_HW
-///硬件IR receiver参数
-#define IR32KSEL_EN         0                     //IR clock source select 32K
-#if IR32KSEL_EN
-    #define RPTERR_CNT      33                    //配置11.25ms ± (RPTERR_CNT + 1)*32K的repeat code允许范围
-    #define DATERR_CNT      33                    //配置13.5ms ± (DATERR_CNT + 1)*32K引导码允许范围
-    #define ONEERR_CNT      7                     //配置2.25ms ± (ONEERR_CNT + 1)*32K的logic "1"允许范围
-    #define ZEROERR_CNT     3                     //配置1.12ms ± (ONEERR_CNT + 1)*32K数logic "0"允许范围
-    #define TOPR_CNT        55                    //IR time out length = (TOPR + 1) * 64 *32K
+#define IR_RX BIT(16)
+#define IR_RELEASE BIT(17)
+#define IR_PENDING (IR_RX | IR_RELEASE)
+#define IR_PIN BIT(6)
+#define IR_GATE BIT(3) /* CLKGAT1: RCU_IRRX(29) - RCU_FMAMFDT(26) */
+#define IR_RAM rt_section(".irq.irrx") __attribute__((noinline))
+#ifdef AB32_IRRX_TEST
+extern void irrx_test_write(volatile rt_uint32_t *reg, rt_uint32_t value);
+#define IR_WRITE(reg, value) irrx_test_write(&(reg), (value))
 #else
-    #define RPTERR_CNT      1000                  //配置11.25ms ± (RPTERR_CNT + 1)us的repeat code允许范围
-    #define DATERR_CNT      1000                  //配置13.5ms ± (DATERR_CNT + 1)us引导码允许范围
-    #define ONEERR_CNT      250                   //配置2.25ms ± (ONEERR_CNT + 1)us的logic "1"允许范围
-    #define ZEROERR_CNT     125                   //配置1.12ms ± (ONEERR_CNT + 1)us数logic "0"允许范围
-    #define TOPR_CNT        1718                  //IR time out length = (TOPR + 1) * 64 us
-#endif // IR32KSEL_EN
-#endif // BSP_USING_IRRX_HW
+#define IR_WRITE(reg, value) ((reg) = (value))
+#endif
 
-#define NO_KEY      (0u)
-
-struct ab32_irrx_data{
-    rt_uint16_t cnt;                            //ir data bit counter
-    rt_uint16_t rpt_cnt;                        //ir repeat counter
-    rt_uint16_t addr;                           //address,  inverted address   Extended NEC: 16bits address
-    rt_uint16_t cmd;                            //command,  inverted command
+static struct rt_device ir_device;
+static struct rt_mutex ir_control_lock;
+static struct ab32_ir_event events[AB32_IR_QUEUE_SIZE];
+static struct ab32_ir_status state;
+static rt_uint8_t head, tail, saved_pins, saved_mapping, saved_gate;
+/* These addresses are read with interrupts masked: keep the table in SRAM. */
+rt_section(".irq.irrx.pins")
+static volatile rt_uint32_t *const irrx_pin_regs[] = {
+    &GPIOEDIR, &GPIOEDE, &GPIOEPU, &GPIOEFEN,
+    &GPIOEPD, &GPIOEPU200K, &GPIOEPU300, &GPIOEPD300
 };
-typedef struct ab32_irrx_data *ab32_irrx_data_t;
 
-static struct ab32_irrx_data _irrx = {0};
-
-/**
- * @brief A non-zero value is returned
- *        when IR key is detectedto be pressed.
- *
- * @param addr inverted address   Extended NEC: 16bits address
- * @param cmd  inverted command
- */
-rt_section(".irq.irrx")
-rt_uint8_t ab32_get_irkey(rt_uint16_t *addr, rt_uint16_t *cmd)
+/* Called in IRQ context or with global interrupts masked. Preserve the newest
+ * event (especially UP) on overflow, and expose loss explicitly in status. */
+IR_RAM static void irrx_push(rt_uint8_t kind)
 {
-    if (_irrx.cnt != 32) {
-        return NO_KEY;
+    struct ab32_ir_event *e;
+    if (state.queued == AB32_IR_QUEUE_SIZE)
+    {
+        tail = (tail + 1) % AB32_IR_QUEUE_SIZE;
+        state.dropped++;
     }
-    if (addr != RT_NULL) {
-        *addr = _irrx.addr;
-    }
-    if (cmd != RT_NULL) {
-        *cmd = _irrx.cmd;
-    }
-    return !NO_KEY;
+    else state.queued++;
+    e = &events[head];
+    e->raw = state.raw;
+    e->tick = (rt_uint32_t)rt_tick_get();
+    e->kind = kind;
+    e->reserved[0] = e->reserved[1] = e->reserved[2] = 0;
+    head = (head + 1) % AB32_IR_QUEUE_SIZE;
 }
-
-/**
- * @brief Invalid the current IR key.
- *
- */
-void ab32_clr_irkey(void)
+IR_RAM static void irrx_release(void)
 {
-    _irrx.cnt = 0;
+    if (state.pressed)
+    {
+        state.pressed = 0;
+        irrx_push(AB32_IR_UP);
+    }
 }
-
-#ifdef BSP_USING_IRRX_HW
-rt_section(".irq.irrx")
-static void irrx_isr(int vector, void *param)
+IR_RAM static void irrx_isr(int vector, void *param)
 {
+    rt_uint32_t pending, raw = 0;
+    (void)vector; (void)param;
     rt_interrupt_enter();
-
-    //IR RX data finish interrupt
-    if (IRRXCON & BIT(16)) {
-        IRRXCPND = BIT(16);
-        _irrx.addr = (rt_uint16_t)IRRXDAT;
-        _irrx.cmd = (rt_uint16_t)(IRRXDAT >> 16);
-        _irrx.cnt = 32;
+    pending = IRRXCON & IR_PENDING;
+    if (pending & IR_RX) raw = IRRXDAT;
+    /* Snapshot data before clearing W1C. Do not RMW status/command registers. */
+    if (pending) IR_WRITE(IRRXCPND, pending);
+    if (state.running)
+    {
+        if (pending & IR_RX)
+        {
+            if ((((raw >> 16) ^ (raw >> 24)) & 0xffu) != 0xffu)
+            {
+                state.invalid++;
+                irrx_release();
+            }
+            else
+            {
+                rt_uint8_t kind = AB32_IR_DOWN;
+                state.frames++;
+                if (state.pressed && state.raw == raw) kind = AB32_IR_REPEAT;
+                else irrx_release();
+                state.raw = raw;
+                state.pressed = 1;
+                irrx_push(kind);
+            }
+        }
+        /* If both flags accumulated, report the frame then release; never
+         * leave a key latched after hardware has reported release. */
+        if (pending & IR_RELEASE)
+        {
+            state.releases++;
+            irrx_release();
+        }
     }
-
-    //IR key release interrupt
-    if (IRRXCON & BIT(17)) {
-        IRRXCPND = BIT(17);
-        _irrx.cnt = 0;
-    }
-
     rt_interrupt_leave();
 }
 
-static void _irrx_hw_init(void)
+/* Entire critical section executes in SRAM, including pin/clock RMW and the
+ * ISR installation helper. The gate is restored; the shared GPIO clock stays on. */
+IR_RAM static void irrx_switch(rt_bool_t on)
 {
-    GPIOEDE |= BIT(6);
-    GPIOEPU |= BIT(6);
-    GPIOEDIR |= BIT(6);
-    FUNCMCON2 |= 0xf << 20;
-    FUNCMCON2 |= (7 << 20);                         //IR mapping to G6
-    rt_memset(&_irrx, 0, sizeof(_irrx));
-
-    IRRXERR0 = (RPTERR_CNT << 16) | DATERR_CNT;     //RPTERR[27:16], DATERR[11:0]
-    IRRXERR1 = (TOPR_CNT << 20) | (ONEERR_CNT << 10) | ZEROERR_CNT;    //TOPR[31:20], ONEERR[19:10], ZEROERR[9:0]
-
-#if IR32KSEL_EN
-    CLKCON1 &= ~BIT(5);
-    CLKCON1 |= BIT(4);                              //enable 26M分频32K
-    IRRXCON |= BIT(3);                              //ir clock source select 32K
-#endif // IR32KSEL_EN
-
-    rt_hw_interrupt_install(IRQ_IRRX_VECTOR, irrx_isr, RT_NULL, "irrx_isr");
-    IRRXCON = 0x03;
-
-    // LOG_D("IRRXCON:%08x", IRRXCON);
-}
-#endif
-
-#ifdef BSP_USING_IRRX_SW
-
-#define TMR3_RCLK               (1000u)            //xosc26m_div 1M
-
-rt_section(".irq.irrx")
-static void irrx_isr(int vector, void *param)
-{
-    rt_uint32_t tmrcnt;
-
-    if (TMR3CON & BIT(17)) {
-        //timer1 capture interrupt
-        TMR3CNT  = TMR3CNT - TMR3CPT;
-        tmrcnt = TMR3CPT;
-        TMR3CPND = BIT(17);
-        tmrcnt /= TMR3_RCLK;                //convert to ms
-    } else if (TMR3CON & BIT(16)){
-        //timer1 overflow interrupt
-        TMR3CPND = BIT(16);
-        tmrcnt = 110;                   //110ms overflow
-    } else {
-        return;
-    }
-
-    //processing repeat code
-    if (_irrx.cnt == 32) {
-        if ((tmrcnt >= 10) && (tmrcnt <= 12)) {
-            //repeat code is simply 9ms+2.25ms
-            _irrx.rpt_cnt = 0;
-        } else {
-            _irrx.rpt_cnt += tmrcnt;
-            if (_irrx.rpt_cnt > 108) {
-                _irrx.rpt_cnt = 0;
-                _irrx.cnt = 0;          //ir key release
-            }
+    rt_base_t level = rt_hw_interrupt_disable();
+    if (!!on == !!state.running) goto out;
+    rt_hw_irq_disable(IRQ_IRRX_VECTOR);
+    if (on)
+    {
+        saved_gate = !!(CLKGAT1 & IR_GATE);
+        CLKGAT0 |= BIT(17);
+        CLKGAT1 |= IR_GATE;
+        IR_WRITE(IRRXCON, 0);
+        IR_WRITE(IRRXCPND, IR_PENDING);
+        saved_pins = 0;
+        for (unsigned i = 0; i < sizeof(irrx_pin_regs) / sizeof(irrx_pin_regs[0]); ++i)
+        {
+            if (*irrx_pin_regs[i] & IR_PIN) saved_pins |= BIT(i);
+            if (i < 3) *irrx_pin_regs[i] |= IR_PIN; /* input, digital, pull-up */
+            else *irrx_pin_regs[i] &= ~IR_PIN;
         }
-        return;
-    } else if ((tmrcnt > 7) || (tmrcnt == 0)) {     //A message is started by a 9ms AGC burst
-        _irrx.rpt_cnt = 0;
-        _irrx.cnt = 0;                  //ir key message started
-        return;
+        saved_mapping = (FUNCMCON2 >> 20) & 0xf;
+        IR_WRITE(FUNCMCON2, 0xfu << 20);
+        IR_WRITE(FUNCMCON2, 7u << 20); /* DataSheet: PE6 = IR_G7 */
+        /* Vendor hardware profile: 1 MHz clock, 32 bits, ~110 ms release.
+         * DAT/RPT tolerance 1001 us, ONE 251 us, ZERO 126 us. */
+        IR_WRITE(IRRXERR0, (1000u << 16) | 1000u);
+        IR_WRITE(IRRXERR1, (1718u << 20) | (250u << 10) | 125u);
+        state = (struct ab32_ir_status){0};
+        head = tail = 0;
+        state.running = 1;
+        rt_hw_interrupt_install(IRQ_IRRX_VECTOR, irrx_isr, RT_NULL, RT_NULL);
+        IR_WRITE(IRRXCON, BIT(1) | BIT(0));
     }
-
-    _irrx.cmd >>= 1;
-    _irrx.cnt++;
-    if (tmrcnt == 2) {                  //Bit time of 1.125ms(0) or 2.25ms(1)
-        _irrx.cmd |= 0x8000;
-    }
-
-    if (_irrx.cnt == 16) {
-        _irrx.addr = _irrx.cmd;         //save address data
-    } else if (_irrx.cnt == 32) {
-        //got ir key message
-        if ((rt_uint8_t)_irrx.cmd > 96) {
-            _irrx.cmd = NO_KEY;
+    else
+    {
+        IR_WRITE(IRRXCON, 0);
+        IR_WRITE(IRRXCPND, IR_PENDING);
+        irrx_release();
+        state.running = 0;
+        IR_WRITE(FUNCMCON2, 0xfu << 20);
+        if (saved_mapping && saved_mapping != 0xf)
+            IR_WRITE(FUNCMCON2, (rt_uint32_t)saved_mapping << 20);
+        for (unsigned i = 0; i < sizeof(irrx_pin_regs) / sizeof(irrx_pin_regs[0]); ++i)
+        {
+            if (saved_pins & BIT(i)) *irrx_pin_regs[i] |= IR_PIN;
+            else *irrx_pin_regs[i] &= ~IR_PIN;
         }
+        if (!saved_gate) CLKGAT1 &= ~IR_GATE;
     }
+out:
+    rt_hw_interrupt_enable(level);
 }
-
-static void timer3_init(void)
+IR_RAM static rt_bool_t irrx_pop(struct ab32_ir_event *e)
 {
-    rt_hw_interrupt_install(IRQ_IRRX_VECTOR, irrx_isr, RT_NULL, "irrx_isr");
-    TMR3CNT  = 0;
-    TMR3PR   = TMR3_RCLK*110 - 1;                                //110ms Timer overflow interrupt
-    TMR3CON  = BIT(8) | BIT(7) | BIT(5) | BIT(2) | BIT(1) | BIT(0);   //capture & overflow interrupt enable, falling edge, Capture Mode
+    rt_base_t level = rt_hw_interrupt_disable();
+    rt_bool_t found = state.queued != 0;
+    if (found)
+    {
+        *e = events[tail];
+        tail = (tail + 1) % AB32_IR_QUEUE_SIZE;
+        state.queued--;
+    }
+    rt_hw_interrupt_enable(level);
+    return found;
 }
-
-static void _irrx_hw_init(void)
+IR_RAM static void irrx_snapshot(struct ab32_ir_status *s)
 {
-    GPIOEDE |= BIT(6);
-    GPIOEPU |= BIT(6);
-    GPIOEDIR |= BIT(6);
-    FUNCMCON2 |= 0xf << 4;
-    FUNCMCON2 |= (7 << 4);                              // timer3 G6 PE6 capture
-    rt_memset(&_irrx, 0, sizeof(_irrx));
-
-    timer3_init();
+    rt_base_t level = rt_hw_interrupt_disable();
+    *s = state;
+    rt_hw_interrupt_enable(level);
 }
-#endif
-
-static int ab32_irrx_init(void)
+static rt_ssize_t irrx_read(rt_device_t dev, rt_off_t pos, void *buffer, rt_size_t size)
 {
-    _irrx_hw_init();
-    LOG_D("irrx init success");
+    struct ab32_ir_event e;
+    rt_size_t n = 0;
+    (void)dev;
+    if (pos || (!buffer && size) || size % sizeof(e)) return -RT_EINVAL;
+    if (size > sizeof(events)) size = sizeof(events);
+    while (n < size && irrx_pop(&e))
+    {
+        rt_memcpy((rt_uint8_t *)buffer + n, &e, sizeof(e));
+        n += sizeof(e);
+    }
+    return n;
+}
+static rt_err_t irrx_control(rt_device_t dev, int cmd, void *arg)
+{
+    (void)dev;
+    if (cmd == AB32_IR_GET_STATUS)
+    {
+        struct ab32_ir_status s;
+        if (!arg) return -RT_EINVAL;
+        irrx_snapshot(&s);
+        rt_memcpy(arg, &s, sizeof(s));
+        return RT_EOK;
+    }
+    if (cmd != AB32_IR_START && cmd != AB32_IR_STOP) return -RT_ENOSYS;
+    rt_mutex_take(&ir_control_lock, RT_WAITING_FOREVER);
+    irrx_switch(cmd == AB32_IR_START);
+    rt_mutex_release(&ir_control_lock);
     return RT_EOK;
 }
-INIT_BOARD_EXPORT(ab32_irrx_init);
+static const struct rt_device_ops irrx_ops = {
+    .read = irrx_read, .control = irrx_control
+};
+/* Global init symbol also identifies this feature to the linker RAM budget. */
+int ab32_irrx_init(void)
+{
+    rt_err_t rc = rt_mutex_init(&ir_control_lock, "irrx", RT_IPC_FLAG_PRIO);
+    if (rc) return rc;
+    ir_device.type = RT_Device_Class_Miscellaneous;
+    ir_device.ops = &irrx_ops;
+    return rt_device_register(&ir_device, "ir0", RT_DEVICE_FLAG_RDONLY);
+}
+INIT_DEVICE_EXPORT(ab32_irrx_init);
 
+static void irrx_print_event(const struct ab32_ir_event *e)
+{
+    unsigned addr = e->raw & 0xffffu;
+    int standard = ((addr ^ (addr >> 8)) & 0xffu) == 0xffu;
+    rt_kprintf("IR %s %s addr=%04x cmd=%02x raw=%08x tick=%u\n",
+        e->kind == AB32_IR_UP ? "UP" : e->kind == AB32_IR_REPEAT ? "REPEAT" : "DOWN",
+        standard ? "NEC" : "NEC-ext", standard ? addr & 0xffu : addr,
+        (unsigned)((e->raw >> 16) & 0xff), (unsigned)e->raw, (unsigned)e->tick);
+}
+static int irrx(int argc, char **argv)
+{
+    struct ab32_ir_status s;
+    if (argc == 2 && (!strcmp(argv[1], "start") || !strcmp(argv[1], "stop")))
+        return irrx_control(&ir_device, !strcmp(argv[1], "start") ? AB32_IR_START : AB32_IR_STOP, RT_NULL);
+    if (argc == 2 && !strcmp(argv[1], "status"))
+    {
+        irrx_snapshot(&s);
+        rt_kprintf("ir0: running=%u pressed=%u raw=%08x queued=%u dropped=%u frames=%u invalid=%u releases=%u\n",
+            (unsigned)s.running, (unsigned)s.pressed, (unsigned)s.raw, (unsigned)s.queued,
+            (unsigned)s.dropped, (unsigned)s.frames, (unsigned)s.invalid, (unsigned)s.releases);
+        return RT_EOK;
+    }
+    if ((argc == 2 && !strcmp(argv[1], "read")) ||
+        ((argc == 2 || argc == 3) && !strcmp(argv[1], "watch")))
+    {
+        struct ab32_ir_event e;
+        unsigned long seconds = 10;
+        rt_tick_t begin;
+        rt_bool_t watch = !strcmp(argv[1], "watch");
+        if (argc == 3)
+        {
+            char *end;
+            seconds = strtoul(argv[2], &end, 10);
+            if (!*argv[2] || *end || seconds < 1 || seconds > 30) return -RT_EINVAL;
+        }
+        irrx_snapshot(&s);
+        if (watch && !s.running) return -RT_EIO;
+        begin = rt_tick_get();
+        do
+        {
+            /* Bound each batch even if a noisy input keeps producing data. */
+            for (unsigned i = 0; i < AB32_IR_QUEUE_SIZE && irrx_pop(&e); ++i)
+                irrx_print_event(&e);
+            if (!watch) break;
+            rt_thread_mdelay(20);
+        } while ((rt_tick_t)(rt_tick_get() - begin) < seconds * RT_TICK_PER_SECOND);
+        return RT_EOK;
+    }
+    rt_kprintf("irrx start|stop|status|read|watch [1..30 seconds]\n");
+    return -RT_EINVAL;
+}
+MSH_CMD_EXPORT(irrx, NEC infrared receiver on PE6);
 #endif

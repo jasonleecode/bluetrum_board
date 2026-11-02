@@ -121,6 +121,8 @@
 #define RT_USING_MSH
 #define RT_USING_FINSH
 #define FINSH_USING_MSH
+#define FINSH_USING_HARDWARE_ECHO
+#define FINSH_HARDWARE_ECHO_DEVICE "uart0"
 #define FINSH_THREAD_NAME "tshell"
 #define FINSH_THREAD_PRIORITY 20
 #define FINSH_THREAD_STACK_SIZE 2048
@@ -437,5 +439,10 @@
 
 /* Native SD0: explicit tf probe/mount; physical card testing pending. */
 #define BSP_USING_TFCARD
+
+/* IRDA header: NEC receiver PE6, explicit irrx start; remote test pending. */
+#define BSP_USING_IRRX
+#define BSP_USING_IRRX_HW
+#define BSP_USING_KEYS
 
 #endif

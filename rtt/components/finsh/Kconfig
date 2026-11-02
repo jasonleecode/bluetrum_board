@@ -68,6 +68,23 @@ if RT_USING_MSH
         bool "Disable the echo mode in default"
         default n
 
+    config FINSH_USING_HARDWARE_ECHO
+        bool "Console adapter echoes input electrically"
+        depends on RT_USING_DEVICE && !RT_USING_POSIX_STDIO
+        depends on !FINSH_USING_AUTH && !FINSH_ECHO_DISABLE_DEFAULT
+        depends on !FINSH_USING_WORD_OPERATION && !FINSH_USING_FUNC_EXT
+        default n
+        help
+            For a single-wire UART adapter that echoes host TX to host RX.
+            Suppress duplicate printable echo while retaining shell line editing.
+            Requires an ANSI terminal with local echo disabled. Password entry
+            cannot be hidden on this wiring. Extended/word editing is not supported.
+
+    config FINSH_HARDWARE_ECHO_DEVICE
+        string "Device with electrical input echo"
+        depends on FINSH_USING_HARDWARE_ECHO
+        default "uart0"
+
     config FINSH_USING_AUTH
         bool "shell support authentication"
         default n

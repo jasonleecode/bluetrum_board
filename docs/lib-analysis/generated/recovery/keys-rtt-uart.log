@@ -1,0 +1,31 @@
+
+msh />kkeeyyss  ssttaattuuss
+keys0: raw=0 pressed=0 queued=0 dropped=0 read_errors=0
+msh />
+msh />kkeeyyss  rreeaadd
+msh />
+msh />ffrreeee
+total    : 22440
+used     : 9376
+maximum  : 9376
+available: 13064
+msh />
+msh />iirrrrxx  ssttaattuuss
+ir0: running=0 pressed=0 raw=00000000 queued=0 dropped=0 frames=0 invalid=0 releases=0
+msh />
+msh />ttff  ssttaattuuss
+tf0: ready=0 open=0 sectors=0 clock=0 wp=0 error=0
+tf status: 0
+msh />
+msh />uussbbccddcc  ssttaattuuss
+USB running=0 configured=0 dtr=0 error=0 request=0
+USB reset=0 setup=0 in=0 out=0 errors=0 rx_bytes=0 tx_bytes=0
+msh />
+msh />bbllee  ssttaattuuss
+BLE synced=0 conn=65535 error=0 connections=0 disconnects=0 resets=0
+GATT reads=0 writes=0 bytes=15 value_handle=0
+HCI cmd=0 tx_acl=0 events=0 rx_acl=0 errors=0
+msh />
+msh />ffmmrrxx  ssttaattuuss
+FM off, 0 kHz, volume 55, last error 0
+msh />

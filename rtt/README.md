@@ -7,6 +7,8 @@
 当前已接入 GPIO、UART0、DAC 音频、FM 和恢复源码的蓝牙控制器（见 [恢复记录](../docs/lib-analysis/BLUETOOTH_RECOVERY.md)）。综合 RTT 不链接 `libbtctrl.a`。NimBLE Host 已通过 `rtt/nimble` 子模块接入，BLE 连接、ACL 分片、GATT 读写和通知已在实板验证；构建、命令与使用边界见 [NimBLE 接入说明](NIMBLE.md)。
 原生 USB CDC 已完成软件适配、离线测试和编译，实机枚举及收发待独立数据线就绪后验证；见 [USB 接入说明](USB.md)。
 TF 的原生 SD0、块设备 tf0 和 FAT12/16/32 已完成软件集成及离线测试，实卡验证待卡到位后进行；见 [TF 接入说明](TF.md)。
+板载 IRDA 接口的原生 NEC/扩展 NEC 红外接收已接入 ir0 和 irrx 命令，软件测试通过，实测待遥控器就绪；见 [红外接入说明](IR.md)。
+S2/PF1、S3/PF0、S4/PA2 三个功能键默认接入 keys0，支持消抖和长按，见 [按键说明](KEYS.md)。
 
 主要内容如下：
 
@@ -88,7 +90,7 @@ msh >
 ```
 ### 进阶使用
 
-当前配置开启了 GPIO、串口0、DAC 音频、FM、恢复源码的蓝牙控制器、NimBLE Host、实验性 USB CDC 和 TF/FAT，如果需使用 Flash 等更多高级功能，需要利用 ENV 工具对BSP 进行配置，步骤如下：
+当前配置开启了 GPIO、三个按键、串口0、DAC 音频、FM、恢复源码的蓝牙控制器、NimBLE Host、实验性 USB CDC、TF/FAT 和红外接收，如果需使用 Flash 等更多高级功能，需要利用 ENV 工具对BSP 进行配置，步骤如下：
 
 1. 在 bsp 下打开 env 工具。
 
@@ -119,8 +121,35 @@ tools/linux/downloader flash rtt/bsp/rtthread.dcf --port /dev/ttyUSB0 --connect-
 
 下载器等待连接时按 RESET（S1）。同一 CH340 串口用于运行期控制台，参数为
 **115200、8N1、无流控**；发送命令后以回车结束。单线连接有硬件回显，
-终端应关闭本地回显，脚本逐字符发送时建议间隔 20 ms，避免与 shell 回显冲突。
+当前 msh 已适配 UART0 的硬件回显，普通字母不会再被软件重复发送。
+终端应关闭本地回显：minicom 中按 `Ctrl-A` 后按 `E`，确认 Local echo 为 off。
+使用 VT100/VT102 兼容终端，脚本逐字符发送时建议间隔 20 ms，留出处理时间。
 可执行 `version`、`ps`、`free`、`list device`。
+
+#### 单线串口与 msh 回显
+
+板载 CH340 的 TX/RX 在单线下载口相连，电脑发出的字符会直接回到电脑；原 msh 默认
+又发送一次字符，因此即使关闭 minicom 本地回显，也会看到 `vveerrssiioonn`。
+当前默认配置开启 `FINSH_USING_HARDWARE_ECHO`，指定
+`FINSH_HARDWARE_ECHO_DEVICE="uart0"`，抑制行末普通字符的软件回显。
+保留回车换行，在退格、方向键、历史和行内编辑前通过 VT100 保存/恢复光标及重画当前行，
+避免硬件回显已经移动光标后再移动一次。其他串口仍使用普通 msh 回显。
+原始串口日志会包含 `ESC 7/8` 等终端控制字节，这是光标处理，不是重复输入。
+
+不能用 `FINSH_ECHO_DISABLE_DEFAULT` 代替此适配：它也会关闭换行和部分编辑输出。
+本模式支持基本 ASCII 单行编辑，不启用认证、扩展 Home/End/Insert/Delete 或 Ctrl 单词操作；
+切换到不同接线或控制台时需相应调整配置。USB CDC 当前仍是二进制回传，不是 msh 控制台。
+
+修复版已烧录并通过 Flash CRC 校验。真实 FinSH 的主机终端模型通过；实板逐字节确认
+每字母仅一次回显，并验证 BS/DEL 退格、行内插入、左右键、历史和 Tab 补全。
+复测命令如下（实板测试前先退出 minicom）：
+
+```sh
+python3 tools/rtt/test_msh_echo.py
+python3 tools/rtt/test_msh_uart.py --port /dev/ttyUSB0 --output /tmp/msh-echo.json
+```
+
+结果见 [msh 回显验证](../docs/lib-analysis/generated/recovery/msh-echo-hardware.json)。
 
 ### 2026-11-02 上板验证
 
@@ -142,14 +171,15 @@ SCons 默认目标为完整固件，并跟踪链接脚本变化，避免继续�
 上述记录对应 FM 启用前的 GPIO/UART0 配置；FM 调试记录见下文。
 更多下载器说明见 [工具说明](../tools/linux/README.md)。
 
-当前 `rtconfig.h` 默认启用 GPIO、UART0、DAC 音频、FM、恢复源码的蓝牙控制器与 NimBLE Host，以及实验性 USB CDC。可选驱动通过 BSP 的
+当前 `rtconfig.h` 默认启用 GPIO、三个按键、UART0、DAC 音频、FM、恢复源码的蓝牙控制器与 NimBLE Host，以及实验性 USB CDC、TF/FAT 和红外。可选驱动通过 BSP 的
 `Hardware Drivers Config` 菜单配置，不能把所有选项同时开启：
 TIMER3/4/5 与对应 PWM 共用计数器，TIMER3 与红外共用中断；SPI 的组 2
 与 UART0、组 3 与 SD/UART2、组 1 与 UART1 有引脚冲突。
 
 | 功能 / 配置项 | 本次完善内容及边界 |
 | --- | --- |
-| GPIO / `RT_USING_PIN` | 修正不存在的 PG 端口、非法引脚名和编号越界；LED/按键通过 PIN API 使用 |
+| GPIO / `RT_USING_PIN` | 修正非法引脚、复用恢复、SET/CLR、共享中断回调及清 pending；通用边沿回调通过 BSP_USING_PIN_IRQ 可选开启，默认关闭 |
+| 三个按键 / `BSP_USING_KEYS` | 默认 keys0，主线程 10 ms 扫描，30 ms 消抖、800 ms 长按；三个键的按下/松开及一次长按已实测，见 [KEYS.md](KEYS.md) |
 | SPI1 / `BSP_USING_SPI1` | 新增 `spi1` 硬件总线，支持主机 8 位 MSB、分阶段收发、GPIO 片选、向上取整分频和回绕安全的超时；不使用软件 SPI |
 | SARADC / `BSP_USING_ADC0` | 适配当前 RT-Thread 回调签名，校验 0..15 通道，传递转换超时，不再返回陈旧采样值 |
 | TIMER / `BSP_USING_TIM` | 区分 TIMER1/2 bit9 与 TIMER3/4/5 bit16 的溢出/清除位；共享 IRQ 只处理真实 pending；支持单次模式，检查计数溢出，开启时钟，并将 IRQ 调用的停止操作及函数表放入 RAM |
@@ -161,7 +191,8 @@ TIMER3/4/5 与对应 PWM 共用计数器，TIMER3 与红外共用中断；SPI �
 | FM / `BSP_USING_FMRX` | 直接编译 bare 已恢复的模拟/数字代码；`fm0` 和 `fmrx` 命令接入手动调谐、音量、DAC 播放、周期同步、停止、PLL 超时及音频互斥；控制与 DAC 测试音已实测，广播仍只有杂音，搜台/RDS 未完成 |
 | I2S / `BSP_USING_I2S` | 新增同系列硬件 SRC 输出子集，接 `sound0`；主机、标准 I2S、16 位双声道、MCLK=256fs、44.1/48 kHz；未接收/DMA，兼容性仍需上板验证 |
 | Flash / `BSP_USING_ON_CHIP_FLASH` | 自动选择 FAL；校验 1 MiB 地址范围和写擦对齐，读写分为 256 字节调用，返回实际请求字节数，避免把原库 CRC16 当成读取长度。仍依赖原库，写擦 API 没有错误返回，应用应读回校验；分区布局须与最终打包固件一致 |
-| PWM、红外 | 分别通过可选配置编译；红外是遥控接收，不是完整 IrDA。尚无波形/遥控器实测 |
+| 红外 / `BSP_USING_IRRX` | 默认编入原生 NEC/扩展 NEC 接收、8 项静态事件队列及 irrx 命令；显式启停，无后台线程；离线测试通过，实机待验证，见 [IR.md](IR.md) |
+| PWM | 通过可选配置编译；尚无波形实测 |
 
 SPI1 的 `BSP_SPI1_MAPPING` 取值为 1..5，默认 4：MISO=PE5、SCK=PE6、MOSI=PE7；
 片选由应用用 `ab32_spi1_attach()`（`drv_spi.h`）挂接外设时指定；该入口预置不选中电平、检查时钟及引脚冲突，并在配置失败时撤销挂接。
@@ -352,7 +383,7 @@ PCM 缓冲池首次初始化后保留供复用，复位后重新按需分配。
 旧手册对应 J15/J16；仅连接烧录 Type-C 无法验证该接口。
 **目前没有合适的数据线，未烧录 USB 版本、未枚举、未实机收发。**
 软件已通过包含真实协议栈的离线测试和综合构建，接线与后续测试步骤见 [USB.md](USB.md)。
-USB 初次接入时原始堆区为 28320 字节；当前再加入 TF/FAT 后为 24352 字节，
+USB 初次接入时原始堆区为 28320 字节；加入 TF/FAT 后为 24352 字节，当前含 IR 版为 23168 字节，
 运行时 `free` 和各模块组合需重新实测。前面的 NimBLE 硬件内存数据属于接入 USB 前的版本。
 
 ### TF/FAT 软件适配（2026-11-02）
@@ -362,10 +393,34 @@ USB 初次接入时原始堆区为 28320 字节；当前再加入 TF/FAT 后为 
 `tf probe` 成功后 `tf mount` 将已有 FAT12/16/32 卷挂到 `/`；
 关闭文件后 `tf umount`、`tf stop`，不自动格式化。
 
-TF/FAT + USB + NimBLE + FM 综合工程已编译并生成 DCF，原始堆为 24352 字节，
+TF/FAT 首次接入时的综合工程已编译并生成 DCF，原始堆为 24352 字节，
 SRAM1 余 32 字节。FAT 内存模拟卡读写、原生 SD0 模型和回归测试通过。
 目前没有 TF 卡，未烧录此版本，实卡及运行时内存仍待验证；
 支持范围、接线和下一步测试见 [TF.md](TF.md)，完整预算见 [MEMORY.md](MEMORY.md)。
+
+### 红外接收软件适配（2026-11-02）
+
+`BSP_USING_IRRX` 默认编入原生 NEC/扩展 NEC 接收器，注册 `ir0`，上电不启动硬件。
+V02 板短接 P1 的 1–2，将 IRDA 接收输出接至 PE6（IR_G7）；旧版为 J17。
+使用 `irrx start`、`irrx status`、`irrx read`、`irrx watch 10`、`irrx stop`。
+8 项静态队列报告 DOWN/UP 和重复完整帧；命令反码校验、丢失计数及启停恢复均已加入。
+短 NEC 重复码由硬件维护按住状态，不伪造其重复事件。此接口不实现 IrDA 数据链路。
+
+没有新增线程，中断和临界区路径保留 SRAM，普通设备入口和 shell 代码放 Flash。
+该次 IR 接入版原始堆区 23168 字节，SRAM1 余 32 字节；暂无遥控器，该阶段未烧录，
+物理接收和运行时内存待实测。接线、API、协议限制与验证记录见 [IR.md](IR.md)。
+
+### 三个板载按键
+
+当前综合项目默认使用 `BSP_USING_KEYS`，注册 keys0，在原主线程扫描 S2/PF1、S3/PF0、S4/PA2。
+串口执行 `keys watch 10` 后按键，可观察 DOWN、UP 和一次 LONG；`keys status` 查看三键状态
+及溢出计数。S1 保持复位用途。每键 30 ms 消抖，稳定按住 800 ms 产生长按事件，
+没有新增线程或绑定 FM/蓝牙操作。默认综合固件原始堆区为 22528 字节，SRAM1 余 32 字节。
+GPIO IRQ 改为可选、按需创建线程，因此早期实测的 gpioirq 线程列表不再代表当前默认配置。
+引脚冲突、设备 API、GPIO 修复及验证边界见 [KEYS.md](KEYS.md)。
+最新综合固件已经 CH340 下载并通过逐块 CRC 校验，RT-Thread 5.2.2 启动正常；
+实按三个键均收到 DOWN/UP，KEY2 在 800 ms 产生 LONG，1590 ms 松开。
+启动时总堆 22440 字节、可用 13064 字节；本轮没有验证 USB 枚举、TF 实卡或红外接收。
 
 ### 离线验证
 
@@ -375,9 +430,11 @@ SRAM1 余 32 字节。FAT 内存模拟卡读写、原生 SD0 模型和回归测�
 python3 tools/rtt/test_drivers.py
 python3 tools/rtt/test_usb.py
 python3 tools/rtt/test_tf.py
-python3 tools/rtt/check_builds.py tf usb nimble bluetooth audio sd
+python3 tools/rtt/test_ir.py
+python3 tools/rtt/test_keys.py
+python3 tools/rtt/check_builds.py default keys_irq ir_integrated ir tf usb nimble bluetooth audio sd
 python3 tools/rtt/memory_report.py
-# 更多外设配置：default peripherals pwm ir flash spi_fm spi_fm_i2s i2s_pa
+# 更多外设配置：default peripherals pwm flash spi_fm spi_fm_i2s i2s_pa
 ```
 
 `test_drivers.py` 用真实 RT-Thread 头文件与模拟寄存器运行 BSP 回调，覆盖 SPI 超时/tick 回绕/片选、
@@ -392,6 +449,12 @@ Flash 分页/返回值，以及 SD 命令和数据完成事件、超时/CRC/缓�
 
 `test_tf.py` 使用真实 TF 适配层、DFS disk glue 和 FatFs，在内存模拟卡上验证 FAT12/16/32
 读写、同步、重挂、日期及错误传播，并重跑 SD0 的 34 个场景、1217 个断言；不访问真实存储卡。
+
+`test_ir.py` 以模拟 MMIO/W1C/映射寄存器驱动真实红外接收代码，验证事件、校验、队列溢出、
+重复启停、引脚/时钟恢复、时限观察及冲突配置拒绝；没有遥控器或光学链路参与。
+
+`test_keys.py` 覆盖 GPIO/HAL 及三键真实代码，检查共享中断、正确恢复中断状态、回调期间的新中断、
+解除/重新挂接、W1C、消抖、长按、同时按键、队列溢出和 tick 回绕；使用模拟电平，无物理按键参与。
 
 `check_builds.py` 在 `/tmp/ab32-rtt-build-*` 的独立源码副本中执行指定配置的 GCC 完整构建，
 保留各配置 ELF、map 和日志，并检查 FM 未链接回原库 FM 对象，不修改工作目录的 `rtconfig.h`，也不烧写设备。

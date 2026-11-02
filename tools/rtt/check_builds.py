@@ -55,6 +55,9 @@ PROFILES['tf'] = dict(PROFILES['usb'], BSP_USING_TFCARD=1,
     **{k: v for k, v in PROFILES['sd'].items() if k.startswith(('DFS_', 'RT_USING_DFS', 'RT_DFS_'))})
 PROFILES['tf'].update(DFS_FD_MAX=4, DFS_FILESYSTEMS_MAX=1,
     DFS_FILESYSTEM_TYPES_MAX=1, RT_DFS_ELM_DRIVES=1)
+PROFILES['ir_integrated'] = dict(PROFILES['tf'], **PROFILES['ir'])
+PROFILES['keys'] = dict(PROFILES['ir_integrated'], BSP_USING_KEYS=1)
+PROFILES['keys_irq'] = dict(PROFILES['keys'], BSP_USING_PIN_IRQ=1)
 
 def base_config(config):
     """Keep optional profiles independent of enabled workspace peripherals."""
@@ -99,6 +102,13 @@ def main():
             print('\n'.join(log.read_text().splitlines()[-22:]), flush=True)
         else:
             linkmap = (work / 'rtt/bsp/rtthread.map').read_text()
+            if PROFILES[name].get('BSP_USING_KEYS') or (name == 'default' and
+                    re.search(r'^#define\s+BSP_USING_KEYS\b', config, re.M)):
+                assert 'board_keys_init' in linkmap and 'board_keys_poll' in linkmap
+            if PROFILES[name].get('BSP_USING_IRRX') or (name == 'default' and
+                    re.search(r'^#define\s+BSP_USING_IRRX\b', config, re.M)):
+                assert 'drv_irrx.o' in linkmap and 'ab32_irrx_init' in linkmap
+                assert not re.search(r'libhal\.a\(ir[^)]*\)', linkmap), 'vendor IR object linked'
             if PROFILES[name].get('BSP_USING_TFCARD') or (name == 'default' and
                     re.search(r'^#define\s+BSP_USING_TFCARD\b', config, re.M)):
                 assert 'drv_sdcard.o' in linkmap and 'drv_tf.o' in linkmap

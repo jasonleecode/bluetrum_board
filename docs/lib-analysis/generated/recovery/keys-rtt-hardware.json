@@ -1,0 +1,123 @@
+{
+  "kind": "Unified RTT download, startup and physical board-key validation",
+  "date": "2026-11-02",
+  "flashed": true,
+  "hardware_verified": true,
+  "verified_scope": [
+    "Flash write/readback CRC and commit",
+    "RT-Thread 5.2.2 boot and UART shell",
+    "keys0, fm0, tf0, ir0, sound0, uart0, pin registration",
+    "physical KEY1/KEY2/KEY3 DOWN and UP",
+    "physical KEY2 one LONG at 800 ms and UP at 1590 ms",
+    "post-test key status and stable heap"
+  ],
+  "port": "/dev/ttyUSB0",
+  "chip": "CRWN",
+  "flash_bytes": 1048576,
+  "image_body_bytes": 218624,
+  "flash_result": "Verified and committed rtt/bsp/rtthread.dcf to /dev/ttyUSB0.",
+  "command": "tools/linux/downloader flash rtt/bsp/rtthread.dcf --port /dev/ttyUSB0 --connect-timeout 120 --timeout 5",
+  "manual_reset_needed": false,
+  "build_outputs": {
+    "rtt/bsp/rtthread.elf": {
+      "bytes": 314912,
+      "sha256": "87431416babb3c2cf6456092aa2ee49f16544e88f8173b5fc57f8e18821248c9"
+    },
+    "rtt/bsp/rtthread.bin": {
+      "bytes": 209192,
+      "sha256": "9be6bfedf53ef081f2d16f3be3426c19f01e92d6ce1162c9432b69609b0a4ed0"
+    },
+    "rtt/bsp/rtthread.dcf": {
+      "bytes": 218712,
+      "sha256": "c69a5039eaca77ff229dbc1f24c338bbc24be94c3dc581f145a1093b9d2df795"
+    }
+  },
+  "source_record": "keys-rtt-software.json",
+  "key_event_source": "console.py keys watch 30 output captured during this task; user confirmed three short presses and one long press",
+  "key_events": [
+    {
+      "key": 3,
+      "kind": "DOWN",
+      "held_ms": 0,
+      "tick": 47488
+    },
+    {
+      "key": 3,
+      "kind": "UP",
+      "held_ms": 280,
+      "tick": 47768
+    },
+    {
+      "key": 2,
+      "kind": "DOWN",
+      "held_ms": 0,
+      "tick": 48298
+    },
+    {
+      "key": 2,
+      "kind": "UP",
+      "held_ms": 260,
+      "tick": 48558
+    },
+    {
+      "key": 1,
+      "kind": "DOWN",
+      "held_ms": 0,
+      "tick": 49158
+    },
+    {
+      "key": 1,
+      "kind": "UP",
+      "held_ms": 250,
+      "tick": 49408
+    },
+    {
+      "key": 2,
+      "kind": "DOWN",
+      "held_ms": 0,
+      "tick": 50538
+    },
+    {
+      "key": 2,
+      "kind": "LONG",
+      "held_ms": 800,
+      "tick": 51338
+    },
+    {
+      "key": 2,
+      "kind": "UP",
+      "held_ms": 1590,
+      "tick": 52128
+    }
+  ],
+  "final_keys": {
+    "raw": 0,
+    "pressed": 0,
+    "queued": 0,
+    "dropped": 0,
+    "read_errors": 0
+  },
+  "heap_before_and_after": {
+    "total": 22440,
+    "used": 9376,
+    "maximum": 9376,
+    "available": 13064
+  },
+  "threads": [
+    "main",
+    "tshell",
+    "fm_sync",
+    "audio",
+    "drv",
+    "timer",
+    "tidle0"
+  ],
+  "module_state": "FM/BLE/USB/IR stopped; TF not probed or mounted",
+  "final_uart_log": "keys-rtt-uart.log",
+  "final_uart_log_sha256": "722d55fc720a30b3794c061d303566ebe79b4f50e3813b51778b9908e056638e",
+  "limits": [
+    "Optional GPIO interrupt mode is not in this firmware and not hardware tested",
+    "No new BLE/GATT, FM reception, USB enumeration, TF media or IR remote test in this task",
+    "No simultaneous peripheral load or runtime stack peak validation"
+  ]
+}

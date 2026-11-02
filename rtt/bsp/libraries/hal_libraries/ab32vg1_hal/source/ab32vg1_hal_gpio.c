@@ -36,6 +36,11 @@ void gpio_afinit(hal_sfr_t gpiox, uint8_t pin, uint32_t alternate, uint32_t af_c
         FUNCMCONx(GPIO_GET_AFCON(af_con)) |= alternate;
         HAL_LOG("af_con=0x%X AFCON=%d alternate=%d\n", af_con, GPIO_GET_AFCON(af_con), (af_con & 0x1f));
     }
+    else
+    {
+        /* Returning a pin from a peripheral to GPIO must clear its mux gate. */
+        gpiox[GPIOxFEN] &= ~BIT(pin);
+    }
 }
 
 /**
@@ -131,9 +136,9 @@ uint8_t hal_gpio_read(hal_sfr_t gpiox, uint8_t pin)
 void hal_gpio_write(hal_sfr_t gpiox, uint8_t pin, uint8_t state)
 {
     if (state == GPIO_PIN_LOW) {
-        gpiox[GPIOx] &= ~BIT(pin);
+        gpiox[GPIOxCLR] = BIT(pin);
     } else {
-        gpiox[GPIOx] |= BIT(pin);
+        gpiox[GPIOxSET] = BIT(pin);
     }
 }
 

@@ -504,6 +504,29 @@ void finsh_thread_entry_sethook(void (*hook)(void))
 }
 #endif /* RT_USING_HOOK */
 
+#ifdef FINSH_USING_HARDWARE_ECHO
+#if defined(RT_USING_POSIX_STDIO) || !defined(RT_USING_DEVICE) || defined(FINSH_USING_AUTH) || \
+    defined(FINSH_USING_WORD_OPERATION) || defined(FINSH_USING_FUNC_EXT) || defined(FINSH_ECHO_DISABLE_DEFAULT)
+#error "Hardware echo requires the device-based basic ANSI editor with software echo enabled and no authentication"
+#endif
+static rt_bool_t finsh_hardware_echo(void)
+{
+    return shell->device && !rt_strcmp(shell->device->parent.name, FINSH_HARDWARE_ECHO_DEVICE);
+}
+
+/* The host has already displayed the received byte. Before editing, restore
+ * the current line/cursor so the ordinary editor sees its expected state.
+ * Do not transmit anything in the middle of an incoming escape sequence. */
+static void finsh_restore_input_line(void)
+{
+    /* Restoring a saved position also works when an echoed arrow was clamped
+     * at the terminal's top/bottom edge; an inverse arrow would not. */
+    rt_kprintf("\0338\r\033[2K%s%s", FINSH_PROMPT, shell->line);
+    if (shell->line_curpos < shell->line_position)
+        rt_kprintf("\033[%uD", shell->line_position - shell->line_curpos);
+}
+#endif
+
 static void finsh_thread_entry(void *parameter)
 {
     int ch;
@@ -546,11 +569,30 @@ static void finsh_thread_entry(void *parameter)
 
     while (1)
     {
+#ifdef FINSH_USING_HARDWARE_ECHO
+        if (shell->echo_mode && shell->stat == WAIT_NORMAL && finsh_hardware_echo())
+            rt_kprintf("\0337");
+#endif
         ch = (int)finsh_getchar();
         if (ch < 0)
         {
             continue;
         }
+
+        rt_bool_t echo_input = shell->echo_mode;
+#ifdef FINSH_USING_HARDWARE_ECHO
+        rt_bool_t hardware_echo = finsh_hardware_echo();
+        if (hardware_echo && shell->echo_mode)
+        {
+            if (shell->stat == WAIT_NORMAL && ch >= 0x20 && ch < 0x7f &&
+                shell->line_curpos == shell->line_position)
+                echo_input = RT_FALSE; /* Already visible from the adapter. */
+            else if (ch != '\r' && ch != '\n' && ch != 0x1b &&
+                     (shell->stat == WAIT_NORMAL ||
+                      (shell->stat == WAIT_FUNC_KEY && ch >= 'A' && ch <= 'D')))
+                finsh_restore_input_line();
+        }
+#endif
 
         /*
          * handle control key
@@ -839,7 +881,12 @@ static void finsh_thread_entry(void *parameter)
             shell_push_history(shell);
 #endif
             if (shell->echo_mode)
+#ifdef FINSH_USING_HARDWARE_ECHO
+                /* A received LF has already advanced the terminal's row. */
+                rt_kprintf(hardware_echo && ch == '\n' ? "\r" : "\n");
+#else
                 rt_kprintf("\n");
+#endif
             msh_exec(shell->line, shell->line_position);
 
             rt_kprintf(FINSH_PROMPT);
@@ -861,7 +908,7 @@ static void finsh_thread_entry(void *parameter)
             {
                 /* directly overwrite the character */
                 shell->line[shell->line_curpos] = ch;
-                if (shell->echo_mode)
+                if (echo_input)
                     rt_kprintf("%c", ch);
                 shell->line_curpos++;
             }
@@ -875,7 +922,7 @@ static void finsh_thread_entry(void *parameter)
                            shell->line_position - shell->line_curpos);
                 shell->line[shell->line_curpos] = ch;
 
-                if (shell->echo_mode)
+                if (echo_input)
                 {
                     rt_kprintf("%s", &shell->line[shell->line_curpos]);
                     /* move cursor back to correct position */
@@ -889,7 +936,7 @@ static void finsh_thread_entry(void *parameter)
         {
             /* append character at end of line */
             shell->line[shell->line_position] = ch;
-            if (shell->echo_mode)
+            if (echo_input)
                 rt_kprintf("%c", ch);
             shell->line_position++;
             shell->line_curpos++;

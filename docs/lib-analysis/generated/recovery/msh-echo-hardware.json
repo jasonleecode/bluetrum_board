@@ -1,0 +1,257 @@
+{
+  "kind": "Single-wire UART0 msh hardware-echo fix",
+  "date": "2026-11-02",
+  "source_state": "uncommitted unified RTT including IR and board keys",
+  "base_commit": "8c5cbea36d6f32cbcf14bb068ae7889e7c5482a5",
+  "root_cause": "CH340 TX/RX electrical echo plus FinSH software echo; prior keys-rtt-uart.log has doubled commands with host raw/no-local-echo",
+  "implementation": [
+    "FINSH_USING_HARDWARE_ECHO enabled for uart0 only",
+    "Suppress software echo for printable append; retain newline and line editing",
+    "VT100 cursor save/restore and redraw before edit; do not interleave escape sequences",
+    "Other devices and disabled feature keep ordinary FinSH behavior"
+  ],
+  "software_validation": {
+    "host": "PASS: actual FinSH loop with UBSan and VT100 model",
+    "cases": [
+      "one printable echo",
+      "CR and LF",
+      "BS and DEL backspace",
+      "middle insertion/deletion",
+      "cursor boundaries",
+      "history",
+      "tab",
+      "terminal top/bottom boundaries",
+      "UART1 unaffected",
+      "feature-disabled build unaffected"
+    ],
+    "keys_regression": "PASS",
+    "unified_build": "PASS",
+    "memory_placement": "PASS"
+  },
+  "hardware_validation": {
+    "flashed": true,
+    "port": "/dev/ttyUSB0",
+    "chip": "CRWN",
+    "crc_and_commit": "PASS",
+    "manual_reset_needed": false,
+    "uart_test": "PASS",
+    "record": "msh-echo-uart.json",
+    "uart_record_sha256": "c33479c12fd4c8ed27d272e4b8eb35b4954784064cefaa017282b5130bf4d8b6",
+    "minicom_visual_confirmation": "not separately requested; raw wire and modeled terminal verified"
+  },
+  "memory": {
+    "sections": {
+      ".init": {
+        "bytes": 326,
+        "vma": 268435456,
+        "lma": 268435456
+      },
+      ".ram1": {
+        "bytes": 31200,
+        "vma": 327680,
+        "lma": 268435968
+      },
+      ".flash": {
+        "bytes": 100864,
+        "vma": 268467200,
+        "lma": 268467200
+      },
+      ".comm": {
+        "bytes": 76584,
+        "vma": 79872,
+        "lma": 268568064
+      },
+      ".bram": {
+        "bytes": 6540,
+        "vma": 69632,
+        "lma": 69632
+      },
+      ".bss": {
+        "bytes": 13504,
+        "vma": 156480,
+        "lma": 156480
+      },
+      ".heap": {
+        "bytes": 22528,
+        "vma": 169984,
+        "lma": 169984
+      },
+      ".stack": {
+        "bytes": 4096,
+        "vma": 192512,
+        "lma": 192512
+      },
+      ".riscv.attributes": {
+        "bytes": 42,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_info": {
+        "bytes": 2877,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_abbrev": {
+        "bytes": 907,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_loc": {
+        "bytes": 3347,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_aranges": {
+        "bytes": 120,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_line": {
+        "bytes": 2512,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_str": {
+        "bytes": 953,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_frame": {
+        "bytes": 64,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_ranges": {
+        "bytes": 248,
+        "vma": 0,
+        "lma": 0
+      }
+    },
+    "placement_checks": {
+      "finsh_thread_entry": "0x1000b2b4",
+      "_audio_dev_init": "0x1000babe",
+      "pcmcheck": "0x1000c770",
+      "ble_hs_init": "0x10012440",
+      "ble_gatts_init": "0x10011f56",
+      "ble_gap_adv_start": "0x1000f20e",
+      "ab32_usb_poll": "0x10016e9c",
+      "usbd_initialize": "0x10018a9c",
+      "usb_worker": "0x10017576",
+      "drv_sdcard_init": "0x10019586",
+      "tf_read": "0x1001922c",
+      "f_read": "0x1001bbe6",
+      "dfs_mount": "0x1001e9e4",
+      "strstr": "0x1001f79c",
+      "irrx": "0x1001fc84",
+      "irrx_read": "0x1001fa50",
+      "irrx_control": "0x1001fc04",
+      "board_keys_init": "0x100200b8",
+      "board_keys_poll": "0x100203a8",
+      "keys": "0x10020212",
+      "keys_read": "0x10020160",
+      "keys_control": "0x1001ff88",
+      "rt_schedule": "0x53e12",
+      "rt_sem_release": "0x51428",
+      "rt_hw_context_switch": "0x1740e",
+      "os_cache_init": "0x15492",
+      "load_cache": "0x15552",
+      "__wrap_bthw_isr_do": "0x1f744",
+      "bb_run_loop": "0x14400",
+      "hci_host_recv_packet": "0x1f802",
+      "audio_isr": "0x13ce8",
+      "uart_isr": "0x140cc",
+      "ab32_pin_mode": "0x17786",
+      "hal_gpio_init": "0x21fb4",
+      "gpio_afinit": "0x21f4e",
+      "port_sfr": "0x23e18",
+      "port_table": "0x23e0c",
+      "ble_npl_hw_enter_critical": "0x1faf6",
+      "ble_npl_hw_exit_critical": "0x1fb10",
+      "ble_npl_eventq_put": "0x1fb6c",
+      "ble_mqueue_get": "0x1e438",
+      "ble_mqueue_put": "0x1e45c",
+      "os_memblock_get": "0x1edac",
+      "os_memblock_put": "0x1ee0e",
+      "alloc_acl": "0x1516c",
+      "free_acl": "0x151ae",
+      "irrx_isr": "0x14016",
+      "irrx_push": "0x13dcc",
+      "irrx_release": "0x13e3e",
+      "irrx_switch": "0x13e56",
+      "irrx_pop": "0x13d78",
+      "irrx_snapshot": "0x13d54",
+      "irrx_pin_regs": "0x140ac",
+      "rt_hw_irq_disable": "0x175d4",
+      "rt_hw_interrupt_install": "0x175f0",
+      "rt_hw_interrupt_disable": "0x173ba",
+      "rt_hw_interrupt_enable": "0x173c8",
+      "rt_interrupt_enter": "0x21b68",
+      "rt_interrupt_leave": "0x21b94",
+      "rt_tick_get": "0x54030",
+      "memcpy": "0x22604",
+      "memset": "0x22840",
+      "__riscv_restore_0": "0x13b5c",
+      "__riscv_restore_1": "0x13b58",
+      "__riscv_restore_10": "0x13b34",
+      "__riscv_restore_11": "0x13b30",
+      "__riscv_restore_12": "0x13b2c",
+      "__riscv_restore_2": "0x13b54",
+      "__riscv_restore_3": "0x13b50",
+      "__riscv_restore_4": "0x13b4c",
+      "__riscv_restore_5": "0x13b48",
+      "__riscv_restore_6": "0x13b44",
+      "__riscv_restore_7": "0x13b40",
+      "__riscv_restore_8": "0x13b3c",
+      "__riscv_restore_9": "0x13b38",
+      "__riscv_save_0": "0x13b26",
+      "__riscv_save_1": "0x13b1e",
+      "__riscv_save_10": "0x13a76",
+      "__riscv_save_11": "0x13a5a",
+      "__riscv_save_12": "0x13a3a",
+      "__riscv_save_2": "0x13b14",
+      "__riscv_save_3": "0x13b08",
+      "__riscv_save_4": "0x13afa",
+      "__riscv_save_5": "0x13aea",
+      "__riscv_save_6": "0x13ad8",
+      "__riscv_save_7": "0x13ac4",
+      "__riscv_save_8": "0x13aac",
+      "__riscv_save_9": "0x13a92"
+    },
+    "nimble_enabled": true,
+    "usb_enabled": true,
+    "tf_enabled": true,
+    "ir_enabled": true,
+    "keys_enabled": true,
+    "gpio_irq_enabled": false,
+    "heap_region_bytes": 22528,
+    "note": "Heap region includes allocator metadata; use board free for runtime availability."
+  },
+  "sha256": {
+    "rtt/components/finsh/shell.c": "143eb5d2cae862a45be3e7c4458a3b5707d287590f436f0c14f8213fb6451860",
+    "rtt/components/finsh/Kconfig": "289259e0d23bda433a929314e21cec0ac429dd37215da130cbc1958e8dd22137",
+    "rtt/bsp/rtconfig.h": "3b32598d920e2d3a1b6899398e40dcd71b489d1f114dd63ca53bf388ce5a4969",
+    "tools/rtt/test_msh_echo.py": "55d21c877ce721d9fc098994b1a20c977d9d130bcbec3a03a8c3d0e05f5c8b95",
+    "tools/rtt/tests/msh_echo.c": "f23d30473016bf5c8ea27c466846b84bb2886c1fac0cdbe6fddb55a71b6fffa4",
+    "tools/rtt/test_msh_uart.py": "12c1caa2dcc0bfecf8b7b9accca0da7980160bcbddfc98402525e0205a2a9d70"
+  },
+  "build_outputs": {
+    "rtt/bsp/rtthread.elf": {
+      "bytes": 314948,
+      "sha256": "40903592eeebdd2d1f2097f56d8b6490542411b2f99955938ee01b1885107391"
+    },
+    "rtt/bsp/rtthread.bin": {
+      "bytes": 209192,
+      "sha256": "ce4c3b6f6b6733f7f2d4b0a0af42f8f21ddbebfe70b5f5cb2fcc640fd9c57a56"
+    },
+    "rtt/bsp/rtthread.dcf": {
+      "bytes": 218712,
+      "sha256": "db9bfc2b0204c1709a8f44e2c8b5b6d326babe2af8ef471063f2af9267a0bc1e"
+    }
+  },
+  "limits": [
+    "Host terminal local echo must be disabled",
+    "Basic ASCII single-line editing in VT100/VT102 terminal",
+    "Authentication, POSIX stdio, extended function and word editing excluded by configuration",
+    "This task did not repeat peripheral or combined-load validation"
+  ]
+}

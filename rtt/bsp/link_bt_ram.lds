@@ -63,6 +63,13 @@ SECTIONS
         *components*dfs*.o (.text* .rodata* .srodata*)
         /* Linked only by FinSH file/script handling in this configuration. */
         *lib_a-strstr.o (.text* .rodata* .srodata*)
+        /* Only thread entry points here; .irq.irrx* (including pin addresses)
+         * and every IRQ-masked helper are collected into SRAM below. */
+        *drv_irrx.o (.text* .rodata* .srodata*)
+        *board_keys.o (.text* .rodata* .srodata*)
+        *drv_gpio.o (.text.ab32_pin_get .text.ab32_pin_attach_irq
+                     .text.ab32_pin_dettach_irq .text.ab32_pin_irq_enable
+                     .text.ab32_pin_irq_thread .text.gpio_dispatch .text.ab32_pin_irq_init)
         . = ALIGN(512);
     } > flash
     __bank_size = SIZEOF(.flash);
@@ -127,6 +134,10 @@ SECTIONS
     __irq_stack_size = SIZEOF(.stack);
     ASSERT(bb_get_without_vehicle == 0x11000, "BT fixed RAM base is incorrect")
     ASSERT(__bt_end <= 0x13800, "BT controller RAM exceeds reservation")
-    ASSERT(__heap_end - __heap_start >= (DEFINED(drv_sdcard_init) ? 23K : (DEFINED(ab32_usb_poll) ? 27K : (DEFINED(ble_hs_init) ? 28K : 39K))), "Unified image heap below budget")
+    /* Native IR adds SRAM IRQ/critical helpers and a static queue, no thread.
+     * Reserve its 1 KiB feature allowance in each optional build budget.
+     * Optional GPIO IRQ adds per-pin state and critical helpers (2 KiB).
+     * Its lazy worker is a separate runtime allocation from this heap. */
+    ASSERT(__heap_end - __heap_start >= (DEFINED(drv_sdcard_init) ? 23K : (DEFINED(ab32_usb_poll) ? 27K : (DEFINED(ble_hs_init) ? 28K : 39K))) - (DEFINED(ab32_irrx_init) ? 1K : 0) - (DEFINED(ab32_pin_irq_handler) ? 2K : 0), "Unified image heap below budget")
     /DISCARD/ : { *(.comment .eh_frame*) }
 }

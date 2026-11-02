@@ -1,0 +1,70 @@
+{
+  "port": "/dev/ttyUSB0",
+  "tests": [
+    {
+      "name": "each printable byte echoed once; version executes once",
+      "chars": [
+        {
+          "sent": "v",
+          "received_hex": "761b37"
+        },
+        {
+          "sent": "e",
+          "received_hex": "651b37"
+        },
+        {
+          "sent": "r",
+          "received_hex": "721b37"
+        },
+        {
+          "sent": "s",
+          "received_hex": "731b37"
+        },
+        {
+          "sent": "i",
+          "received_hex": "691b37"
+        },
+        {
+          "sent": "o",
+          "received_hex": "6f1b37"
+        },
+        {
+          "sent": "n",
+          "received_hex": "6e1b37"
+        }
+      ],
+      "response": "\r\r\n\r\n \\ | /\r\n- RT -     Thread Operating System\r\n / | \\     5.2.2 build Nov  2 2026 16:33:43\r\n 2006 - 2024 Copyright by RT-Thread team\r\nmsh />\u001b7"
+    },
+    {
+      "name": "DEL backspace",
+      "sent_hex": "76657273696f6e787f0d",
+      "response": "v\u001b7e\u001b7r\u001b7s\u001b7i\u001b7o\u001b7n\u001b7x\u001b7\u007f\u001b8\r\u001b[2Kmsh />versionx\b \b\u001b7\r\r\n\r\n \\ | /\r\n- RT -     Thread Operating System\r\n / | \\     5.2.2 build Nov  2 2026 16:33:43\r\n 2006 - 2024 Copyright by RT-Thread team\r\nmsh />\u001b7"
+    },
+    {
+      "name": "BS backspace",
+      "sent_hex": "76657273696f6e78080d",
+      "response": "v\u001b7e\u001b7r\u001b7s\u001b7i\u001b7o\u001b7n\u001b7x\u001b7\b\u001b8\r\u001b[2Kmsh />versionx\b \b\u001b7\r\r\n\r\n \\ | /\r\n- RT -     Thread Operating System\r\n / | \\     5.2.2 build Nov  2 2026 16:33:43\r\n 2006 - 2024 Copyright by RT-Thread team\r\nmsh />\u001b7"
+    },
+    {
+      "name": "middle insertion",
+      "sent_hex": "76657273696e1b5b446f0d",
+      "response": "v\u001b7e\u001b7r\u001b7s\u001b7i\u001b7n\u001b7\u001b[D\u001b8\r\u001b[2Kmsh />versin\b\u001b7o\u001b8\r\u001b[2Kmsh />versin\u001b[1Don\b\u001b7\r\r\n\r\n \\ | /\r\n- RT -     Thread Operating System\r\n / | \\     5.2.2 build Nov  2 2026 16:33:43\r\n 2006 - 2024 Copyright by RT-Thread team\r\nmsh />\u001b7"
+    },
+    {
+      "name": "left and right",
+      "sent_hex": "76657273696f6e1b5b441b5b430d",
+      "response": "v\u001b7e\u001b7r\u001b7s\u001b7i\u001b7o\u001b7n\u001b7\u001b[D\u001b8\r\u001b[2Kmsh />version\b\u001b7\u001b[C\u001b8\r\u001b[2Kmsh />version\u001b[1Dn\u001b7\r\r\n\r\n \\ | /\r\n- RT -     Thread Operating System\r\n / | \\     5.2.2 build Nov  2 2026 16:33:43\r\n 2006 - 2024 Copyright by RT-Thread team\r\nmsh />\u001b7"
+    },
+    {
+      "name": "history up",
+      "sent_hex": "1b5b410d",
+      "response": "\u001b[A\u001b8\r\u001b[2Kmsh />\u001b[2K\rmsh />version\u001b7\r\r\n\r\n \\ | /\r\n- RT -     Thread Operating System\r\n / | \\     5.2.2 build Nov  2 2026 16:33:43\r\n 2006 - 2024 Copyright by RT-Thread team\r\nmsh />\u001b7"
+    },
+    {
+      "name": "tab completion",
+      "sent_hex": "766572090d",
+      "response": "v\u001b7e\u001b7r\u001b7\t\u001b8\r\u001b[2Kmsh />ver\b\b\b\r\nversion\r\nmsh />version\u001b7\r\r\n\r\n \\ | /\r\n- RT -     Thread Operating System\r\n / | \\     5.2.2 build Nov  2 2026 16:33:43\r\n 2006 - 2024 Copyright by RT-Thread team\r\nmsh />\u001b7"
+    }
+  ],
+  "passed": true
+}

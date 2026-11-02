@@ -26,6 +26,9 @@ def inspect(elf):
     nimble = 'ble_hs_init' in symbols
     usb = 'ab32_usb_poll' in symbols
     tf = 'drv_sdcard_init' in symbols
+    ir = 'irrx_isr' in symbols
+    keys = 'board_keys_init' in symbols
+    gpio_irq = 'ab32_pin_irq_handler' in symbols
     flash_functions = ['finsh_thread_entry', '_audio_dev_init', 'pcmcheck']
     if nimble:
         flash_functions += ['ble_hs_init', 'ble_gatts_init', 'ble_gap_adv_start']
@@ -35,6 +38,15 @@ def inspect(elf):
         flash_functions += ['drv_sdcard_init', 'tf_read', 'f_read', 'dfs_mount', 'strstr']
         assert 0x13800 <= symbols['staging'] <= 0x2f000 - 512
         assert symbols['staging'] % 32 == 0
+    if ir:
+        flash_functions += ['irrx', 'irrx_read', 'irrx_control']
+    if keys:
+        flash_functions += ['board_keys_init', 'board_keys_poll', 'keys', 'keys_read', 'keys_control']
+    if gpio_irq:
+        flash_functions += ['ab32_pin_irq_thread', 'ab32_pin_irq_enable',
+                            'ab32_pin_attach_irq', 'ab32_pin_dettach_irq']
+        if 'gpio_dispatch' in symbols:  # May inline into the worker.
+            flash_functions += ['gpio_dispatch']
     for name in flash_functions:
         addr = symbols[name]
         assert 0x10000200 <= addr < 0x10100000, f'{name} is not in flash'
@@ -42,22 +54,39 @@ def inspect(elf):
     ram_functions = ['rt_schedule', 'rt_sem_release', 'rt_hw_context_switch',
                  'os_cache_init', 'load_cache', '__wrap_bthw_isr_do',
                  'bb_run_loop', 'hci_host_recv_packet', 'audio_isr', 'uart_isr']
+    ram_functions += ['ab32_pin_mode', 'hal_gpio_init', 'gpio_afinit', 'port_sfr', 'port_table']
+    if gpio_irq:
+        ram_functions += ['ab32_pin_irq_handler', 'get_wakeup_circuit', 'gpio_sample',
+                          'gpio_configure_irqs', 'gpio_take_pin', 'gpio_change_pin',
+                          'rt_hw_irq_enable', 'rt_hw_irq_disable', 'rt_hw_interrupt_install',
+                          'rt_hw_interrupt_disable', 'rt_hw_interrupt_enable',
+                          'rt_interrupt_enter', 'rt_interrupt_leave', 'pin_irq_table']
     if nimble:
         ram_functions += ['ble_npl_hw_enter_critical', 'ble_npl_hw_exit_critical',
                           'ble_npl_eventq_put', 'ble_mqueue_get', 'ble_mqueue_put',
                           'os_memblock_get', 'os_memblock_put', 'alloc_acl', 'free_acl']
+    if ir:
+        ram_functions += ['irrx_isr', 'irrx_push', 'irrx_release', 'irrx_switch',
+                          'irrx_pop', 'irrx_snapshot', 'irrx_pin_regs',
+                          'rt_hw_irq_disable', 'rt_hw_interrupt_install',
+                          'rt_hw_interrupt_disable', 'rt_hw_interrupt_enable',
+                          'rt_interrupt_enter', 'rt_interrupt_leave', 'rt_tick_get',
+                          'memcpy', 'memset']
+        ram_functions += sorted(name for name in symbols
+            if name.startswith(('__riscv_save_', '__riscv_restore_')))
     for name in ram_functions:
         addr = symbols[name]
         assert 0x13800 <= addr < 0x2f000 or 0x50000 <= addr < 0x57a00, f'{name} left SRAM'
         checks[name] = hex(addr)
     assert symbols['bb_get_without_vehicle'] == 0x11000
     assert sections['.bram']['bytes'] <= 10 * 1024
-    assert sections['.heap']['bytes'] >= (23 if tf else 27 if usb else 28 if nimble else 39) * 1024
+    assert sections['.heap']['bytes'] >= ((23 if tf else 27 if usb else 28 if nimble else 39) - ir - 2 * gpio_irq) * 1024
     assert sections['.ram1']['bytes'] <= 0x7a00
     assert symbols['__bank_size'] == sections['.flash']['bytes']
     assert sections['.flash']['vma'] % 512 == 0
     assert sections['.comm']['vma'] % 512 == 0
-    return dict(sections=sections, placement_checks=checks, nimble_enabled=nimble, usb_enabled=usb, tf_enabled=tf,
+    return dict(sections=sections, placement_checks=checks, nimble_enabled=nimble, usb_enabled=usb, tf_enabled=tf, ir_enabled=ir,
+                keys_enabled=keys, gpio_irq_enabled=gpio_irq,
                 heap_region_bytes=sections['.heap']['bytes'],
                 note='Heap region includes allocator metadata; use board free for runtime availability.')
 

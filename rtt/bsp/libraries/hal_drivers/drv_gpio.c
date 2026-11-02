@@ -10,6 +10,7 @@
  */
 
 #include "drv_gpio.h"
+#include <interrupt.h>
 
 #ifdef RT_USING_PIN
 
@@ -41,8 +42,27 @@ static const hal_sfr_t port_sfr[] =
     GPIOF_BASE,
 };
 
-static struct ab32_pin_irq pin_irq_table[8] = {0}; // For WAKEUP_CRICUIT_0 to _7
-static rt_mq_t gpio_irq_mq = RT_NULL;
+#ifdef BSP_USING_PIN_IRQ
+/* GPIO callbacks are per pin, never per shared wakeup circuit. */
+static struct ab32_pin_irq pin_irq_table[27];
+static struct rt_semaphore gpio_wake;
+static struct rt_mutex gpio_callback_lock;
+static rt_thread_t gpio_thread;
+static rt_bool_t gpio_ready;
+static rt_uint32_t gpio_enabled, gpio_pending, gpio_levels;
+#define GPIO_MANAGED_WAKE 0xdfu /* circuits 0..4, 6, 7; preserve RTC/WKO 5 */
+#define GPIO_RAM rt_section(".irq.gpio") __attribute__((noinline))
+#ifdef AB32_GPIO_TEST
+extern void gpio_test_ack(rt_uint32_t bits);
+extern void gpio_test_edges(rt_uint32_t bits);
+#define GPIO_ACK(bits) gpio_test_ack(bits)
+#define GPIO_EDGES(bits) gpio_test_edges(bits)
+#else
+#define GPIO_ACK(bits) (WKUPCPND = (bits))
+#define GPIO_EDGES(bits) (WKUPEDG = (bits))
+#endif
+
+#endif /* BSP_USING_PIN_IRQ */
 
 static rt_uint8_t _pin_port(rt_uint32_t pin)
 {
@@ -58,7 +78,6 @@ static rt_uint8_t _pin_port(rt_uint32_t pin)
 #define PIN_NUM(port, no)       ((rt_uint8_t)(port_table[port].total_pin + no - port_table[port].start_pin))
 #define PIN_PORT(pin)           _pin_port(pin)
 #define PORT_SFR(port)          (port_sfr[(port)])
-#define PIN_NO(pin)             (rt_uint8_t)((pin) & 0xFu)
 
 static rt_base_t ab32_pin_get(const char *name)
 {
@@ -160,26 +179,13 @@ static void ab32_pin_mode(rt_device_t dev, rt_base_t pin, rt_uint8_t mode)
         gpio_init.dir = GPIO_DIR_OUTPUT;
         break;
     }
+    rt_base_t level = rt_hw_interrupt_disable();
     hal_gpio_init(PORT_SFR(port), &gpio_init);
+    rt_hw_interrupt_enable(level);
 }
 
-static rt_err_t get_port_pin(rt_base_t pin, rt_uint8_t *port, rt_uint8_t *hw_pin)
-{
-    rt_uint8_t i;
-    for (i = 0; i < sizeof(port_table) / sizeof(port_table[0]); i++)
-    {
-        if (pin >= port_table[i].total_pin &&
-            pin < port_table[i].total_pin + port_table[i].delta_pin)
-        {
-            *port = i;
-            *hw_pin = pin - port_table[i].total_pin + port_table[i].start_pin;
-            return RT_EOK;
-        }
-    }
-    return -RT_EINVAL;
-}
-
-static rt_int32_t get_wakeup_circuit(rt_base_t pin)
+#ifdef BSP_USING_PIN_IRQ
+GPIO_RAM static rt_int32_t get_wakeup_circuit(rt_base_t pin)
 {
     /* Special interrupt pins */
     if (pin == PIN_NUM(0, 7)) return WAKEUP_CRICUIT_0; // PA7
@@ -189,207 +195,205 @@ static rt_int32_t get_wakeup_circuit(rt_base_t pin)
     if (pin == PIN_NUM(1, 4)) return WAKEUP_CRICUIT_4; // PB4
     /* WAKEUP_CRICUIT_5 is for RTC (WKO), assuming not a GPIO pin */
     /* Other pins use WAKEUP_CRICUIT_6 (falling) or WAKEUP_CRICUIT_7 (rising) */
-    return -1; // Will be handled in attach_irq based on mode
+    return -1; /* Shared PORT_INT circuit. */
 }
 
-static rt_uint32_t get_edge_select_bit(rt_uint8_t circuit)
+GPIO_RAM static rt_uint32_t gpio_sample(void)
 {
-    switch (circuit)
-    {
-        case WAKEUP_CRICUIT_0: return WAKEUP_EDGE_SELECT_0;
-        case WAKEUP_CRICUIT_1: return WAKEUP_EDGE_SELECT_1;
-        case WAKEUP_CRICUIT_2: return WAKEUP_EDGE_SELECT_2;
-        case WAKEUP_CRICUIT_3: return WAKEUP_EDGE_SELECT_3;
-        case WAKEUP_CRICUIT_4: return WAKEUP_EDGE_SELECT_4;
-        case WAKEUP_CRICUIT_5: return WAKEUP_EDGE_SELECT_5;
-        case WAKEUP_CRICUIT_6: return WAKEUP_EDGE_SELECT_6;
-        case WAKEUP_CRICUIT_7: return WAKEUP_EDGE_SELECT_7;
-        default: return 0;
-    }
+    return (GPIOA & 0xffu) | ((GPIOB & 0x1fu) << 8) |
+           ((GPIOE & 0xffu) << 13) | ((GPIOF & 0x3fu) << 21);
 }
 
-void __attribute__((section(".irq.gpio"))) ab32_pin_irq_handler(int vector, void *args)
+/* Called with IRQs masked. Hardware provides one edge selector per pin;
+ * generic pins are armed for the opposite level, so release is tracked even
+ * for a falling-only subscriber. This is not a high-speed edge counter. */
+GPIO_RAM static void gpio_configure_irqs(void)
 {
-    rt_interrupt_enter();
-    rt_uint32_t pending = WKUPEDG;
-    rt_uint8_t circuit = 0;
-
-    for (circuit = 0; circuit <= WAKEUP_CRICUIT_7; circuit++)
+    rt_uint32_t circuits = 0, generic = 0, edges = WKUPEDG & 0x20u;
+    for (unsigned pin = 0; pin < 27; pin++)
     {
-        if (pending & (BIT(circuit) << WAKEUP_INT_ENABLE))
+        if (!(gpio_enabled & BIT(pin))) continue;
+        int circuit = get_wakeup_circuit(pin);
+        if (circuit < 0) generic |= BIT(pin);
+        else
         {
-            /* clear pending interrupt */
-            WKUPCPND = (BIT(circuit) << WAKEUP_INT_ENABLE);
-            rt_mq_send(gpio_irq_mq, &circuit, sizeof(circuit));
+            circuits |= BIT(circuit);
+            if (pin_irq_table[pin].mode == PIN_IRQ_MODE_FALLING ||
+                (pin_irq_table[pin].mode == PIN_IRQ_MODE_RISING_FALLING && (gpio_levels & BIT(pin))))
+                edges |= BIT(circuit);
+        }
+    }
+    if (generic) { circuits |= BIT(6) | BIT(7); edges |= BIT(6); }
+    PORTINTEN = (PORTINTEN & ~0x07ffffffu) | generic;
+    PORTINTEDG = (PORTINTEDG & ~generic) | (gpio_levels & generic);
+    GPIO_EDGES(edges); /* low edge bits only, never write pending bits */
+    rt_uint32_t con = (WKUPCON & ~(GPIO_MANAGED_WAKE | BIT(16))) | circuits;
+    if (con & 0xffu) con |= BIT(16);
+    WKUPCON = con;
+}
+
+GPIO_RAM void ab32_pin_irq_handler(int vector, void *args)
+{
+    (void)vector; (void)args;
+    rt_interrupt_enter();
+    rt_uint32_t pending = (WKUPEDG >> 16) & GPIO_MANAGED_WAKE & WKUPCON;
+    if (pending)
+    {
+        GPIO_ACK(pending << 16);
+        rt_uint32_t levels = gpio_sample(), notify = 0;
+        for (unsigned pin = 0; pin < 27; pin++)
+        {
+            rt_uint32_t bit = BIT(pin);
+            if (!(gpio_enabled & bit)) continue;
+            int circuit = get_wakeup_circuit(pin);
+            if (circuit >= 0)
+            {
+                if (pending & BIT(circuit)) notify |= bit;
+            }
+            else if ((levels ^ gpio_levels) & bit)
+            {
+                rt_uint8_t mode = pin_irq_table[pin].mode;
+                if (mode == PIN_IRQ_MODE_RISING_FALLING ||
+                    ((levels & bit) ? mode == PIN_IRQ_MODE_RISING : mode == PIN_IRQ_MODE_FALLING))
+                    notify |= bit;
+            }
+        }
+        gpio_levels = levels;
+        gpio_configure_irqs();
+        if (notify)
+        {
+            gpio_pending |= notify;
+            /* Always leave a wake token: a new event may target a pin the
+             * worker already visited while other pending pins remain. */
+            rt_sem_release(&gpio_wake);
         }
     }
     rt_interrupt_leave();
 }
 
+GPIO_RAM static rt_bool_t gpio_take_pin(unsigned pin)
+{
+    rt_base_t level = rt_hw_interrupt_disable();
+    rt_bool_t take = !!(gpio_pending & BIT(pin));
+    gpio_pending &= ~BIT(pin);
+    rt_hw_interrupt_enable(level);
+    return take;
+}
+static void gpio_dispatch(void)
+{
+    for (unsigned pin = 0; pin < 27; pin++)
+    {
+        /* Detach/disable waits for an in-flight callback. RTT mutex recursion
+         * permits a callback to detach itself. No callback executes in ISR. */
+        rt_mutex_take(&gpio_callback_lock, RT_WAITING_FOREVER);
+        if (gpio_take_pin(pin) && (gpio_enabled & BIT(pin)) && pin_irq_table[pin].hdr)
+            pin_irq_table[pin].hdr(pin_irq_table[pin].args);
+        rt_mutex_release(&gpio_callback_lock);
+    }
+}
 static void ab32_pin_irq_thread(void *parameter)
 {
-    rt_uint8_t circuit;
+    (void)parameter;
     while (1)
-    {
-        if (rt_mq_recv(gpio_irq_mq, &circuit, sizeof(circuit), RT_WAITING_FOREVER) == RT_EOK)
-        {
-            if (circuit <= WAKEUP_CRICUIT_7 && pin_irq_table[circuit].hdr)
-            {
-                pin_irq_table[circuit].hdr(pin_irq_table[circuit].args);
-            }
-        }
-    }
+        if (rt_sem_take(&gpio_wake, RT_WAITING_FOREVER) == RT_EOK) gpio_dispatch();
 }
 
+GPIO_RAM static void gpio_change_pin(rt_base_t pin, rt_bool_t enable)
+{
+    rt_base_t level = rt_hw_interrupt_disable();
+    gpio_pending &= ~BIT(pin);
+    if (enable)
+    {
+        if (!gpio_enabled)
+        {
+            GPIO_ACK(GPIO_MANAGED_WAKE << 16);
+            rt_hw_interrupt_install(IRQ_GPIO_IRQ, ab32_pin_irq_handler, RT_NULL, RT_NULL);
+        }
+        gpio_levels = (gpio_levels & ~BIT(pin)) | (gpio_sample() & BIT(pin));
+        gpio_enabled |= BIT(pin);
+    }
+    else gpio_enabled &= ~BIT(pin);
+    gpio_configure_irqs();
+    /* Correct API: vector enable is not restoration of global IRQ flags. */
+    if (gpio_enabled) rt_hw_irq_enable(IRQ_GPIO_IRQ);
+    else if (!(WKUPCON & BIT(5))) rt_hw_irq_disable(IRQ_GPIO_IRQ);
+    rt_hw_interrupt_enable(level);
+}
 static rt_err_t ab32_pin_attach_irq(struct rt_device *device, rt_base_t pin,
-                                    rt_uint8_t mode, void (*hdr)(void *args), void *args)
+                                    rt_uint8_t mode, void (*hdr)(void *), void *args)
 {
-    rt_uint8_t port, hw_pin;
-    rt_int32_t circuit;
-    uint8_t pin_mode;
-
-    if (get_port_pin(pin, &port, &hw_pin) != RT_EOK)
-    {
-        return -RT_EINVAL;
-    }
-
-    circuit = get_wakeup_circuit(pin);
-    if(circuit == -1)
-    {
-        circuit = (mode == PIN_IRQ_MODE_FALLING) ? WAKEUP_CRICUIT_6 : WAKEUP_CRICUIT_7;
-    }
-
-    /* store handler and arguments */
-    pin_irq_table[circuit].hdr = hdr;
-    pin_irq_table[circuit].args = args;
-
-    /* The interrupt source in the port is: Port_intsrc = {PG[4:0], PF[5:0], PE[7:0], PB[4:0], PA[7:0]}. */
-    /* Such as:the interrupt source number of PA0 is 0, interrupt source number of PG4 is 31. */
-    PORTINTEN |= BIT(pin); // Enable interrupt
-    PORTINTEDG |= BIT(pin); // Edge trigger
-
-    return RT_EOK;
-}
-
-static rt_err_t ab32_pin_dettach_irq(struct rt_device *device, rt_int32_t pin)
-{
-    rt_uint8_t port, hw_pin;
-    rt_int32_t circuit;
-
-    if (get_port_pin(pin, &port, &hw_pin) != RT_EOK)
-    {
-        return -RT_EINVAL;
-    }
-
-    circuit = get_wakeup_circuit(pin);
-    if (circuit < 0)
-    {
-        /* assume previously assigned to WAKEUP_CRICUIT_6 or _7 */
-        /* check both circuits for handler */
-        if (pin_irq_table[WAKEUP_CRICUIT_6].hdr)
-            circuit = WAKEUP_CRICUIT_6;
-        else if (pin_irq_table[WAKEUP_CRICUIT_7].hdr)
-            circuit = WAKEUP_CRICUIT_7;
-        else
-            return RT_EOK;
-    }
-
-    PORTINTEN &= ~BIT(circuit);
-    WKUPCON &= ~BIT(circuit);
-    WKUPCPND = BIT(get_edge_select_bit(circuit));
-
-    /* clear handler */
-    pin_irq_table[circuit].hdr = RT_NULL;
-    pin_irq_table[circuit].args = RT_NULL;
-
-    return RT_EOK;
-}
-
-static rt_err_t ab32_pin_irq_enable(struct rt_device *device, rt_base_t pin,
-                                    rt_uint8_t enabled)
-{
-    rt_uint8_t port, hw_pin;
-    rt_int32_t circuit;
-
-    if (get_port_pin(pin, &port, &hw_pin) != RT_EOK)
-    {
-        return -RT_EINVAL;
-    }
-
-    circuit = get_wakeup_circuit(pin);
-    if (circuit < 0)
-    {
-        if (pin_irq_table[WAKEUP_CRICUIT_6].hdr)
-        {
-            circuit = WAKEUP_CRICUIT_6;
-        }
-        else if (pin_irq_table[WAKEUP_CRICUIT_7].hdr)
-        {
-            circuit = WAKEUP_CRICUIT_7;
-        }
-        else
-            return -RT_EINVAL;
-    }
-
-    rt_uint32_t edge_bit = get_edge_select_bit(circuit);
-
-    if (enabled == RT_TRUE)
-    {
-        WKUPEDG = BIT(circuit) | BIT(edge_bit);
-        WKUPCON = BIT(circuit) | BIT(WAKEUP_INT_ENABLE);
-
-        WKUPCPND = BIT(circuit);
-
-        /* install interrupt handler */
-        rt_hw_interrupt_install(IRQ_GPIO_IRQ, ab32_pin_irq_handler, RT_NULL, "gpio_isr");
-        rt_hw_interrupt_enable(IRQ_GPIO_IRQ);
-    }
+    (void)device;
+    if (pin < 0 || pin >= 27 || !hdr) return -RT_EINVAL;
+    if (mode != PIN_IRQ_MODE_FALLING && mode != PIN_IRQ_MODE_RISING &&
+        mode != PIN_IRQ_MODE_RISING_FALLING) return -RT_ENOSYS;
+    if (!gpio_ready) return -RT_EIO;
+    rt_mutex_take(&gpio_callback_lock, RT_WAITING_FOREVER);
+    rt_err_t rc = RT_EOK;
+    if (pin_irq_table[pin].hdr) rc = -RT_EBUSY;
     else
     {
-        /* disable interrupt */
-        WKUPCON &= ~BIT(circuit);
+        pin_irq_table[pin].hdr = hdr;
+        pin_irq_table[pin].args = args;
+        pin_irq_table[pin].mode = mode;
     }
-
+    rt_mutex_release(&gpio_callback_lock);
+    return rc;
+}
+static rt_err_t ab32_pin_dettach_irq(struct rt_device *device, rt_base_t pin)
+{
+    (void)device;
+    if (pin < 0 || pin >= 27) return -RT_EINVAL;
+    if (!gpio_ready) return -RT_EIO;
+    rt_mutex_take(&gpio_callback_lock, RT_WAITING_FOREVER);
+    gpio_change_pin(pin, RT_FALSE);
+    pin_irq_table[pin].hdr = RT_NULL;
+    pin_irq_table[pin].args = RT_NULL;
+    rt_mutex_release(&gpio_callback_lock);
     return RT_EOK;
 }
-
+static rt_err_t ab32_pin_irq_enable(struct rt_device *device, rt_base_t pin, rt_uint8_t enabled)
+{
+    (void)device;
+    if (pin < 0 || pin >= 27 || enabled > 1) return -RT_EINVAL;
+    if (!gpio_ready) return -RT_EIO;
+    rt_err_t rc = RT_EOK;
+    rt_mutex_take(&gpio_callback_lock, RT_WAITING_FOREVER);
+    if (!pin_irq_table[pin].hdr) { rc = -RT_EINVAL; goto out; }
+    if (enabled && !gpio_thread)
+    {
+        gpio_thread = rt_thread_create("gpioirq", ab32_pin_irq_thread, RT_NULL, 1024, 15, 5);
+        if (!gpio_thread) { rc = -RT_ENOMEM; goto out; }
+        rc = rt_thread_startup(gpio_thread);
+        if (rc) { rt_thread_delete(gpio_thread); gpio_thread = RT_NULL; goto out; }
+    }
+    gpio_change_pin(pin, enabled);
+out:
+    rt_mutex_release(&gpio_callback_lock);
+    return rc;
+}
 static int ab32_pin_irq_init(void)
 {
-    gpio_irq_mq = rt_mq_create("gpioirq", sizeof(rt_uint8_t), 128, RT_IPC_FLAG_FIFO);
-    if (gpio_irq_mq == RT_NULL)
-    {
-        return -RT_ENOMEM;
-    }
-
-    rt_thread_t tid = rt_thread_create("gpioirq",
-                                       ab32_pin_irq_thread,
-                                       RT_NULL,
-                                       512,
-                                       15,
-                                       5);
-    if (tid != RT_NULL)
-    {
-        rt_thread_startup(tid);
-    }
-    else
-    {
-        rt_mq_delete(gpio_irq_mq);
-        return -RT_ENOMEM;
-    }
-
+    rt_err_t rc = rt_sem_init(&gpio_wake, "gpioirq", 0, RT_IPC_FLAG_FIFO);
+    if (rc) return rc;
+    rc = rt_mutex_init(&gpio_callback_lock, "gpioirq", RT_IPC_FLAG_PRIO);
+    if (rc) { rt_sem_detach(&gpio_wake); return rc; }
+    gpio_ready = RT_TRUE;
     return RT_EOK;
 }
 INIT_PREV_EXPORT(ab32_pin_irq_init);
+#endif /* BSP_USING_PIN_IRQ */
 
-const static struct rt_pin_ops _ab32_pin_ops =
+static const struct rt_pin_ops _ab32_pin_ops =
 {
-    ab32_pin_mode,
-    ab32_pin_write,
-    ab32_pin_read,
-    ab32_pin_attach_irq,
-    ab32_pin_dettach_irq,
-    ab32_pin_irq_enable,
-    ab32_pin_get,
+    .pin_mode = ab32_pin_mode,
+    .pin_write = ab32_pin_write,
+    .pin_read = ab32_pin_read,
+    .pin_get = ab32_pin_get,
+#ifdef BSP_USING_PIN_IRQ
+    .pin_attach_irq = ab32_pin_attach_irq,
+    .pin_detach_irq = ab32_pin_dettach_irq,
+    .pin_irq_enable = ab32_pin_irq_enable,
+#endif
 };
 
 int rt_hw_pin_init(void)

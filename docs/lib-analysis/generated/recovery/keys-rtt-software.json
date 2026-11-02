@@ -1,0 +1,481 @@
+{
+  "kind": "Three board keys and GPIO fixes in unified RTT: pre-flash software validation",
+  "date": "2026-11-02",
+  "hardware_verified": false,
+  "flashed": false,
+  "source_state": "working tree including prior IR integration",
+  "base_commit": "8c5cbea36d6f32cbcf14bb068ae7889e7c5482a5",
+  "implementation": {
+    "pins": {
+      "KEY1": "S2/PF1/22",
+      "KEY2": "S3/PF0/21",
+      "KEY3": "S4/PA2/2"
+    },
+    "device": "keys0",
+    "active_low": true,
+    "poll_ms": 10,
+    "debounce_ms": 30,
+    "long_ms": 800,
+    "queue_records": 8,
+    "record_bytes": 12,
+    "new_key_threads": 0,
+    "gpio_irq_default": false
+  },
+  "validation": {
+    "host_model": "PASS: actual GPIO/HAL and keys code, modeled MMIO/RTOS, UBSan",
+    "coverage": [
+      "simultaneous keys",
+      "both-edge debounce",
+      "long once and held time",
+      "overflow and unaligned read",
+      "read errors and tick wrap",
+      "bounded watch",
+      "mux disable and SET/CLR",
+      "per-pin shared IRQ and dedicated edge",
+      "IRQ during dispatch retains wake",
+      "detach/reattach and self detach",
+      "W1C and RTC bit preservation",
+      "lazy worker allocation failure and retry",
+      "compile-time mux conflicts"
+    ],
+    "builds": {
+      "default": "PASS",
+      "keys_irq": "PASS",
+      "ir_integrated": "PASS",
+      "peripherals": "PASS",
+      "i2s_pa": "PASS"
+    },
+    "regressions": {
+      "ir": "PASS",
+      "driver_groups_8": "PASS",
+      "tf_fat12_16_32": "PASS",
+      "sd0_34_scenarios_1217_assertions": "PASS"
+    },
+    "packaging": "PASS: Linux DCF convert"
+  },
+  "memory": {
+    "sections": {
+      ".init": {
+        "bytes": 326,
+        "vma": 268435456,
+        "lma": 268435456
+      },
+      ".ram1": {
+        "bytes": 31200,
+        "vma": 327680,
+        "lma": 268435968
+      },
+      ".flash": {
+        "bytes": 100864,
+        "vma": 268467200,
+        "lma": 268467200
+      },
+      ".comm": {
+        "bytes": 76584,
+        "vma": 79872,
+        "lma": 268568064
+      },
+      ".bram": {
+        "bytes": 6540,
+        "vma": 69632,
+        "lma": 69632
+      },
+      ".bss": {
+        "bytes": 13504,
+        "vma": 156480,
+        "lma": 156480
+      },
+      ".heap": {
+        "bytes": 22528,
+        "vma": 169984,
+        "lma": 169984
+      },
+      ".stack": {
+        "bytes": 4096,
+        "vma": 192512,
+        "lma": 192512
+      },
+      ".riscv.attributes": {
+        "bytes": 42,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_info": {
+        "bytes": 2877,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_abbrev": {
+        "bytes": 907,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_loc": {
+        "bytes": 3347,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_aranges": {
+        "bytes": 120,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_line": {
+        "bytes": 2512,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_str": {
+        "bytes": 953,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_frame": {
+        "bytes": 64,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_ranges": {
+        "bytes": 248,
+        "vma": 0,
+        "lma": 0
+      }
+    },
+    "placement_checks": {
+      "finsh_thread_entry": "0x1000b25c",
+      "_audio_dev_init": "0x1000b986",
+      "pcmcheck": "0x1000c638",
+      "ble_hs_init": "0x10012308",
+      "ble_gatts_init": "0x10011e1e",
+      "ble_gap_adv_start": "0x1000f0d6",
+      "ab32_usb_poll": "0x10016d64",
+      "usbd_initialize": "0x10018964",
+      "usb_worker": "0x1001743e",
+      "drv_sdcard_init": "0x1001944e",
+      "tf_read": "0x100190f4",
+      "f_read": "0x1001baae",
+      "dfs_mount": "0x1001e8ac",
+      "strstr": "0x1001f664",
+      "irrx": "0x1001fb4c",
+      "irrx_read": "0x1001f918",
+      "irrx_control": "0x1001facc",
+      "board_keys_init": "0x1001ff80",
+      "board_keys_poll": "0x10020270",
+      "keys": "0x100200da",
+      "keys_read": "0x10020028",
+      "keys_control": "0x1001fe50",
+      "rt_schedule": "0x53e12",
+      "rt_sem_release": "0x51428",
+      "rt_hw_context_switch": "0x1740e",
+      "os_cache_init": "0x15492",
+      "load_cache": "0x15552",
+      "__wrap_bthw_isr_do": "0x1f744",
+      "bb_run_loop": "0x14400",
+      "hci_host_recv_packet": "0x1f802",
+      "audio_isr": "0x13ce8",
+      "uart_isr": "0x140cc",
+      "ab32_pin_mode": "0x17786",
+      "hal_gpio_init": "0x21fb4",
+      "gpio_afinit": "0x21f4e",
+      "port_sfr": "0x23e18",
+      "port_table": "0x23e0c",
+      "ble_npl_hw_enter_critical": "0x1faf6",
+      "ble_npl_hw_exit_critical": "0x1fb10",
+      "ble_npl_eventq_put": "0x1fb6c",
+      "ble_mqueue_get": "0x1e438",
+      "ble_mqueue_put": "0x1e45c",
+      "os_memblock_get": "0x1edac",
+      "os_memblock_put": "0x1ee0e",
+      "alloc_acl": "0x1516c",
+      "free_acl": "0x151ae",
+      "irrx_isr": "0x14016",
+      "irrx_push": "0x13dcc",
+      "irrx_release": "0x13e3e",
+      "irrx_switch": "0x13e56",
+      "irrx_pop": "0x13d78",
+      "irrx_snapshot": "0x13d54",
+      "irrx_pin_regs": "0x140ac",
+      "rt_hw_irq_disable": "0x175d4",
+      "rt_hw_interrupt_install": "0x175f0",
+      "rt_hw_interrupt_disable": "0x173ba",
+      "rt_hw_interrupt_enable": "0x173c8",
+      "rt_interrupt_enter": "0x21b68",
+      "rt_interrupt_leave": "0x21b94",
+      "rt_tick_get": "0x54030",
+      "memcpy": "0x22604",
+      "memset": "0x22840",
+      "__riscv_restore_0": "0x13b5c",
+      "__riscv_restore_1": "0x13b58",
+      "__riscv_restore_10": "0x13b34",
+      "__riscv_restore_11": "0x13b30",
+      "__riscv_restore_12": "0x13b2c",
+      "__riscv_restore_2": "0x13b54",
+      "__riscv_restore_3": "0x13b50",
+      "__riscv_restore_4": "0x13b4c",
+      "__riscv_restore_5": "0x13b48",
+      "__riscv_restore_6": "0x13b44",
+      "__riscv_restore_7": "0x13b40",
+      "__riscv_restore_8": "0x13b3c",
+      "__riscv_restore_9": "0x13b38",
+      "__riscv_save_0": "0x13b26",
+      "__riscv_save_1": "0x13b1e",
+      "__riscv_save_10": "0x13a76",
+      "__riscv_save_11": "0x13a5a",
+      "__riscv_save_12": "0x13a3a",
+      "__riscv_save_2": "0x13b14",
+      "__riscv_save_3": "0x13b08",
+      "__riscv_save_4": "0x13afa",
+      "__riscv_save_5": "0x13aea",
+      "__riscv_save_6": "0x13ad8",
+      "__riscv_save_7": "0x13ac4",
+      "__riscv_save_8": "0x13aac",
+      "__riscv_save_9": "0x13a92"
+    },
+    "nimble_enabled": true,
+    "usb_enabled": true,
+    "tf_enabled": true,
+    "ir_enabled": true,
+    "keys_enabled": true,
+    "gpio_irq_enabled": false,
+    "heap_region_bytes": 22528,
+    "note": "Heap region includes allocator metadata; use board free for runtime availability."
+  },
+  "optional_gpio_irq_memory": {
+    "sections": {
+      ".init": {
+        "bytes": 326,
+        "vma": 268435456,
+        "lma": 268435456
+      },
+      ".ram1": {
+        "bytes": 31200,
+        "vma": 327680,
+        "lma": 268435968
+      },
+      ".flash": {
+        "bytes": 101376,
+        "vma": 268467200,
+        "lma": 268467200
+      },
+      ".comm": {
+        "bytes": 77320,
+        "vma": 79872,
+        "lma": 268568576
+      },
+      ".bram": {
+        "bytes": 6540,
+        "vma": 69632,
+        "lma": 69632
+      },
+      ".bss": {
+        "bytes": 13920,
+        "vma": 157216,
+        "lma": 157216
+      },
+      ".heap": {
+        "bytes": 21376,
+        "vma": 171136,
+        "lma": 171136
+      },
+      ".stack": {
+        "bytes": 4096,
+        "vma": 192512,
+        "lma": 192512
+      },
+      ".riscv.attributes": {
+        "bytes": 42,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_info": {
+        "bytes": 2877,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_abbrev": {
+        "bytes": 907,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_loc": {
+        "bytes": 3347,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_aranges": {
+        "bytes": 120,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_line": {
+        "bytes": 2512,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_str": {
+        "bytes": 953,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_frame": {
+        "bytes": 64,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_ranges": {
+        "bytes": 248,
+        "vma": 0,
+        "lma": 0
+      }
+    },
+    "placement_checks": {
+      "finsh_thread_entry": "0x1000b25c",
+      "_audio_dev_init": "0x1000b986",
+      "pcmcheck": "0x1000c638",
+      "ble_hs_init": "0x10012308",
+      "ble_gatts_init": "0x10011e1e",
+      "ble_gap_adv_start": "0x1000f0d6",
+      "ab32_usb_poll": "0x10016d64",
+      "usbd_initialize": "0x10018964",
+      "usb_worker": "0x1001743e",
+      "drv_sdcard_init": "0x1001944e",
+      "tf_read": "0x100190f4",
+      "f_read": "0x1001baae",
+      "dfs_mount": "0x1001e8ac",
+      "strstr": "0x1001f664",
+      "irrx": "0x1001fb4c",
+      "irrx_read": "0x1001f918",
+      "irrx_control": "0x1001facc",
+      "board_keys_init": "0x1001ff80",
+      "board_keys_poll": "0x10020270",
+      "keys": "0x100200da",
+      "keys_read": "0x10020028",
+      "keys_control": "0x1001fe50",
+      "ab32_pin_irq_thread": "0x1002053e",
+      "ab32_pin_irq_enable": "0x100205b8",
+      "ab32_pin_attach_irq": "0x100204be",
+      "ab32_pin_dettach_irq": "0x1002068c",
+      "rt_schedule": "0x53e12",
+      "rt_sem_release": "0x51428",
+      "rt_hw_context_switch": "0x176d2",
+      "os_cache_init": "0x15752",
+      "load_cache": "0x15812",
+      "__wrap_bthw_isr_do": "0x1fa20",
+      "bb_run_loop": "0x146bc",
+      "hci_host_recv_packet": "0x1fade",
+      "audio_isr": "0x13ce8",
+      "uart_isr": "0x14388",
+      "ab32_pin_mode": "0x17a62",
+      "hal_gpio_init": "0x22290",
+      "gpio_afinit": "0x2222a",
+      "port_sfr": "0x240f8",
+      "port_table": "0x240ec",
+      "ab32_pin_irq_handler": "0x13e82",
+      "get_wakeup_circuit": "0x13d54",
+      "gpio_sample": "0x13d84",
+      "gpio_configure_irqs": "0x13dba",
+      "gpio_take_pin": "0x13f3e",
+      "gpio_change_pin": "0x13f6c",
+      "rt_hw_irq_enable": "0x17898",
+      "rt_hw_irq_disable": "0x178b0",
+      "rt_hw_interrupt_install": "0x178cc",
+      "rt_hw_interrupt_disable": "0x1767e",
+      "rt_hw_interrupt_enable": "0x1768c",
+      "rt_interrupt_enter": "0x21e44",
+      "rt_interrupt_leave": "0x21e70",
+      "pin_irq_table": "0x269cc",
+      "ble_npl_hw_enter_critical": "0x1fdd2",
+      "ble_npl_hw_exit_critical": "0x1fdec",
+      "ble_npl_eventq_put": "0x1fe48",
+      "ble_mqueue_get": "0x1e714",
+      "ble_mqueue_put": "0x1e738",
+      "os_memblock_get": "0x1f088",
+      "os_memblock_put": "0x1f0ea",
+      "alloc_acl": "0x1542c",
+      "free_acl": "0x1546e",
+      "irrx_isr": "0x142d4",
+      "irrx_push": "0x14086",
+      "irrx_release": "0x140fa",
+      "irrx_switch": "0x14112",
+      "irrx_pop": "0x14030",
+      "irrx_snapshot": "0x1400a",
+      "irrx_pin_regs": "0x14368",
+      "rt_tick_get": "0x54030",
+      "memcpy": "0x228e0",
+      "memset": "0x22b1c",
+      "__riscv_restore_0": "0x13b5c",
+      "__riscv_restore_1": "0x13b58",
+      "__riscv_restore_10": "0x13b34",
+      "__riscv_restore_11": "0x13b30",
+      "__riscv_restore_12": "0x13b2c",
+      "__riscv_restore_2": "0x13b54",
+      "__riscv_restore_3": "0x13b50",
+      "__riscv_restore_4": "0x13b4c",
+      "__riscv_restore_5": "0x13b48",
+      "__riscv_restore_6": "0x13b44",
+      "__riscv_restore_7": "0x13b40",
+      "__riscv_restore_8": "0x13b3c",
+      "__riscv_restore_9": "0x13b38",
+      "__riscv_save_0": "0x13b26",
+      "__riscv_save_1": "0x13b1e",
+      "__riscv_save_10": "0x13a76",
+      "__riscv_save_11": "0x13a5a",
+      "__riscv_save_12": "0x13a3a",
+      "__riscv_save_2": "0x13b14",
+      "__riscv_save_3": "0x13b08",
+      "__riscv_save_4": "0x13afa",
+      "__riscv_save_5": "0x13aea",
+      "__riscv_save_6": "0x13ad8",
+      "__riscv_save_7": "0x13ac4",
+      "__riscv_save_8": "0x13aac",
+      "__riscv_save_9": "0x13a92"
+    },
+    "nimble_enabled": true,
+    "usb_enabled": true,
+    "tf_enabled": true,
+    "ir_enabled": true,
+    "keys_enabled": true,
+    "gpio_irq_enabled": true,
+    "heap_region_bytes": 21376,
+    "note": "Heap region includes allocator metadata; use board free for runtime availability."
+  },
+  "sha256": {
+    "rtt/bsp/app/board_keys.c": "2d0d06d5c5394d40885203bf25d0b98f08b410ad3ce54bdc8100b8a2565bc1e6",
+    "rtt/bsp/app/board_keys.h": "90f660257ec09743684bc2b5422cc399a4393a2d0a11c46788c3bbeaab52522c",
+    "rtt/bsp/app/main.c": "7c2d6197650595cb966e3c9cf5d1b58ecdd25939aff347c2f8b0f3438e627610",
+    "rtt/bsp/libraries/hal_drivers/drv_gpio.c": "4b4583583e0cda4fc438cf4eb5276b7c0947c4a235373b7a03e5bc856a49d592",
+    "rtt/bsp/libraries/hal_drivers/drv_gpio.h": "f1422ca38ecb9a48f2c42a6a873fa054da3a4787a1f35d79942d0190a78912f9",
+    "rtt/bsp/libraries/hal_libraries/ab32vg1_hal/source/ab32vg1_hal_gpio.c": "5eb90e748e3df837673d97038af32e44fff160b985d05d50e08858af76111176",
+    "rtt/bsp/board/Kconfig": "72f832e3ec1a0d2f566d3065c31743ac59fb13b528451c57aefd9438c1ee2f6a",
+    "rtt/bsp/rtconfig.h": "2a804f0552cd1b1c531988a6cfe7fec668858572d1e9ac91096193b6997d7a51",
+    "rtt/bsp/link_bt_ram.lds": "511139158dac3a1c1bc77afa50edcc9a5e2e680e6898565d11317ea54926b640",
+    "tools/rtt/test_keys.py": "ed2127bf128a99eff7c336b3862f10fe925e645eeaf2e7376d93d94c748eb87c",
+    "tools/rtt/tests/keys_gpio.c": "aff3c8dc7c398c606c230c7f9d9337d781f4bbd94c1df4699ca475f5cb9946cc",
+    "tools/rtt/tests/gpio_board/board.h": "b0e5d8d28e04016765cb767a51ada9473c4c5e249c56089469c48fe117883558",
+    "tools/rtt/check_builds.py": "596dfb8142a07f965a4e81a691b8b47a3d311540decc72f47148e71fb02465be",
+    "tools/rtt/memory_report.py": "b20084e5e857f340aabaeb56adb8acff1a1dedc4ab7a08fad1a290f904818089",
+    "docs/ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf": "290b6352506af8d7f1c5f565d2cf0927d935c9f30faa1fa352ae88bcf9b14ee7",
+    "docs/ab32vg1_doc/AB32VG1_Register.pdf": "4f7700d499f6b38ffd19e9eb5f23638692ca5e24305d8f245dbd0c8ff22d81fc"
+  },
+  "build_outputs": {
+    "rtt/bsp/rtthread.elf": {
+      "bytes": 314912,
+      "sha256": "87431416babb3c2cf6456092aa2ee49f16544e88f8173b5fc57f8e18821248c9"
+    },
+    "rtt/bsp/rtthread.bin": {
+      "bytes": 209192,
+      "sha256": "9be6bfedf53ef081f2d16f3be3426c19f01e92d6ce1162c9432b69609b0a4ed0"
+    },
+    "rtt/bsp/rtthread.dcf": {
+      "bytes": 218712,
+      "sha256": "c69a5039eaca77ff229dbc1f24c338bbc24be94c3dc581f145a1093b9d2df795"
+    }
+  },
+  "limits": [
+    "Model is not physical GPIO timing validation",
+    "GPIO IRQ remains untested on board; generic notifications coalesce",
+    "No RTC/WKO IRQ dispatch or low-power wake support",
+    "No simultaneous BLE/USB/TF/PCM runtime budget claim"
+  ],
+  "subsequent_hardware_record": "keys-rtt-hardware.json"
+}

@@ -16,6 +16,7 @@
 
 #include <rtthread.h>
 #include "board.h"
+#include "board_keys.h"
 
 int main(void)
 {
@@ -23,16 +24,26 @@ int main(void)
     uint8_t pin = rt_pin_get("PE.1");
 
     rt_pin_mode(pin, PIN_MODE_OUTPUT);
+    rt_tick_t blink = rt_tick_get();
+    rt_uint8_t led = PIN_HIGH;
 #endif
     rt_kprintf("Hello, world\n");
 
     while (1)
     {
 #if !defined(BSP_USING_I2S) || (defined(BSP_I2S_MAPPING) && BSP_I2S_MAPPING == 0)
-        rt_pin_write(pin, PIN_LOW);
-        rt_thread_mdelay(500);
-        rt_pin_write(pin, PIN_HIGH);
+        if ((rt_tick_t)(rt_tick_get() - blink) >= RT_TICK_PER_SECOND / 2)
+        {
+            blink = rt_tick_get();
+            led = !led;
+            rt_pin_write(pin, led);
+        }
 #endif
+#ifdef BSP_USING_KEYS
+        board_keys_poll();
+        rt_thread_mdelay(10);
+#else
         rt_thread_mdelay(500);
+#endif
     }
 }

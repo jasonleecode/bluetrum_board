@@ -7,6 +7,19 @@ menuconfig SOC_AB32VG1
 
 menu "Onboard Peripheral Drivers"
 
+    config BSP_USING_KEYS
+        bool "Three board keys: PF1, PF0, PA2"
+        select RT_USING_PIN
+        select RT_USING_DEVICE_OPS
+        select RT_USING_MUTEX
+        depends on !BSP_USING_SPI1 || (BSP_SPI1_MAPPING != 1 && BSP_SPI1_MAPPING != 5)
+        depends on !BSP_USING_I2S || BSP_I2S_MAPPING != 0
+        depends on !BSP_USING_LPWM2_G3
+        default n
+        help
+            keys0 event stream with 30 ms debounce and 800 ms long press.
+            Scanned by the existing main thread; no extra key thread or IRQ.
+
     menuconfig BSP_USING_AUDIO
         bool "Enable Audio Device"
         select RT_USING_AUDIO
@@ -105,6 +118,17 @@ menu "Onboard Peripheral Drivers"
 endmenu
 
 menu "On-chip Peripheral Drivers"
+    config BSP_USING_PIN_IRQ
+        bool "GPIO edge callbacks (optional, deferred to thread)"
+        depends on RT_USING_PIN
+        select RT_USING_SEMAPHORE
+        select RT_USING_MUTEX
+        default n
+        help
+            Per-pin callbacks, shared wakeup circuit demultiplexing and both-edge
+            rearming. Allocates the worker on first enable. Board keys use polling
+            and do not need this option. Not a high-speed pulse counter.
+
     menuconfig BSP_USING_SPI1
         bool "Enable hardware SPI1 (experimental, fixed reset timing)"
         select RT_USING_SPI
@@ -309,15 +333,19 @@ menu "On-chip Peripheral Drivers"
         endif
 
     menuconfig BSP_USING_IRRX
-        bool "Enable IRRX(HW or SW)"
+        bool "Enable native NEC infrared receiver on PE6"
+        depends on !BSP_USING_T3_PWM
+        depends on !BSP_USING_SPI1 || BSP_SPI1_MAPPING != 4
+        select RT_USING_DEVICE_OPS
         default n
+        help
+            Registers ir0 and irrx start/stop/status/read/watch. Explicit start,
+            static event queue, no worker. NEC/extended NEC hardware decoding;
+            physical reception still requires validation with a remote.
         if BSP_USING_IRRX
             config BSP_USING_IRRX_HW
-                bool "Enable hardware IRRX"
+                bool
                 default y
-            config BSP_USING_IRRX_SW
-                bool "Enable software IRRX"
-                default n
         endif
 
     config BSP_USING_ON_CHIP_FLASH

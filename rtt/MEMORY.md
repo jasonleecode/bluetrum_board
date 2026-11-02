@@ -1,7 +1,7 @@
 # 综合 RTT 内存记录（2026-11-02）
 
-当前默认配置已加入实验性 USB CDC 和 TF/FAT。下文保留各阶段的历史验证数据；
-最新链接用量见“TF/FAT 软件适配后”，该版本尚无运行时内存实测。
+当前默认配置已加入实验性 USB CDC、TF/FAT 和原生红外接收。下文保留各阶段的历史验证数据；
+最新链接用量见“红外接收软件适配后”，该版本尚无运行时内存实测。
 
 ## 接入前内存优化
 
@@ -185,3 +185,64 @@ USB 另需线程栈，PCM 的 8496 字节懒分配仍保留；不能保证这些
 默认、TF 综合、USB、NimBLE、旧 SDIO 配置编译通过；TF 适配/FAT 模拟卡、原 SD0 模型、
 八组驱动和 USB 离线回归通过。详见 [TF.md](TF.md) 和
 [软件验证记录](../docs/lib-analysis/generated/recovery/tf-rtt-software.json)。
+
+## 红外接收软件适配后
+
+同一综合固件加入 ir0 原生 NEC/扩展 NEC 接收器。本版没有遥控器，未烧录。
+
+| 段 | 字节 |
+| --- | ---: |
+| `.comm` | 76144 |
+| `.ram1` | 31200 / 31232 |
+| `.bss` | 13312 |
+| `.bram` | 6540 / 10240 |
+| `.heap` | 23168 |
+| `.stack` | 4096 |
+| `.flash` | 98816 |
+
+相对 TF 接入版，原始堆减少 1184 字节（代码/静态对象及对齐变化）。IR 不新增线程或动态队列，
+事件队列 8 × 12 字节；新增静态设备、互斥锁、统计和引脚恢复状态。
+启停不申请堆。普通设备方法和 shell 在 Flash；ISR、IRQ 屏蔽期间的辅助函数、pin 指针表和
+编译器生成的内存拷贝/清零、save/restore 调用都在 SRAM，并由检查器核对地址。
+蓝牙固定 ABI 区、已有线程栈、IRQ 栈均未缩减，SRAM1 仍余 32 字节。
+
+带 IR 的配置在原有堆下限上减去 1 KiB 作为功能预算，因此当前 TF+IR 下限是 22 KiB；
+不带 IR 的各配置下限保持不变。原始堆比此下限多 640 字节，不代表系统运行时只余 640 字节。
+实际空闲堆、IRQ 栈峰值、与 BLE/USB/TF/PCM 的组合仍要上板测量，不能沿用旧固件的 free 数值。
+
+默认综合、ir_integrated、独立 ir、tf 和 peripherals 构建通过；IR 模型及编译冲突测试、
+八组现有驱动测试、TF/FAT 与 34 场景 SD0 回归通过。验证范围见 [IR.md](IR.md)，
+结果记录见 [ir-rtt-software.json](../docs/lib-analysis/generated/recovery/ir-rtt-software.json)。
+
+## 三个板载按键接入后
+
+默认综合配置新增 `BSP_USING_KEYS`，主线程每 10 ms 扫描三个键，复用静态事件队列，
+没有额外按键线程或动态分配。GPIO 边沿回调改为可选 `BSP_USING_PIN_IRQ`，默认关闭。
+
+| 段 | 默认综合版字节 | 额外开启 GPIO IRQ 字节 |
+| --- | ---: | ---: |
+| `.comm` | 76584 | 77320 |
+| `.ram1` | 31200 / 31232 | 31200 / 31232 |
+| `.bss` | 13504 | 13920 |
+| `.bram` | 6540 / 10240 | 6540 / 10240 |
+| `.heap` | 22528 | 21376 |
+| `.stack` | 4096 | 4096 |
+| `.flash` | 100864 | 101376 |
+
+相对 IR 接入时，默认原始堆区减少 640 字节，仍满足 TF+IR 的 22 KiB 下限。
+主线程扫描和 shell 代码放 Flash，GPIO 模式配置及中断屏蔽路径保留 SRAM。
+默认不再在启动时分配旧 GPIO 消息队列/线程，所以不能仅由原始堆区变化推算运行时空闲量。
+
+可选 GPIO IRQ 使用逐引脚静态回调表、信号量和互斥锁；链接预算额外预留 2 KiB，
+因此该配置堆区下限为 20 KiB。首次启用 GPIO IRQ 时另从堆分配 1024 字节工作线程栈及对象，
+后续禁用保留线程。这不影响默认按键扫描。未减少蓝牙 ABI 区或已有业务线程栈，SRAM1 仍余 32 字节。
+链接区大小不等于运行时可用堆，组合开启 BLE、USB、TF、PCM 仍需逐项测量。
+
+默认综合、keys_irq、ir_integrated、peripherals、i2s_pa 构建及放置检查通过；
+按键/GPIO 模型、IR、八组驱动和 TF/FAT/SD0 回归通过。见 [KEYS.md](KEYS.md) 及
+[软件验证记录](../docs/lib-analysis/generated/recovery/keys-rtt-software.json)。
+
+该综合固件随后已烧录并完成三键/长按验证。启动和按键测试后的 `free` 均为 total 22440、
+used/maximum 9376、available 13064 字节，测试没有增加堆占用。该状态下 BLE、FM、USB、IR
+均未启动，TF 未挂载，不能作为全模块运行时的余量。见
+[实机记录](../docs/lib-analysis/generated/recovery/keys-rtt-hardware.json)。

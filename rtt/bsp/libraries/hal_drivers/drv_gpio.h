@@ -29,20 +29,12 @@
 #define WAKEUP_CRICUIT_5    5  // WKO (RTC)
 #define WAKEUP_CRICUIT_6    6  // Falling edge for other GPIOs
 #define WAKEUP_CRICUIT_7    7  // Rising edge for other GPIOs
-#define WAKEUP_EDGE_SELECT_0 16
-#define WAKEUP_EDGE_SELECT_1 17
-#define WAKEUP_EDGE_SELECT_2 18
-#define WAKEUP_EDGE_SELECT_3 19
-#define WAKEUP_EDGE_SELECT_4 20
-#define WAKEUP_EDGE_SELECT_5 21
-#define WAKEUP_EDGE_SELECT_6 22
-#define WAKEUP_EDGE_SELECT_7 23
-
 /* structure to store IRQ handler and arguments per pin */
 struct ab32_pin_irq
 {
     void (*hdr)(void *args);
     void *args;
+    rt_uint8_t mode;
 };
 
 int rt_hw_pin_init(void);

@@ -1,0 +1,260 @@
+{
+  "kind": "native NEC IR receiver in unified RTT: software-only integration",
+  "date": "2026-11-02",
+  "hardware_verified": false,
+  "flashed": false,
+  "base_commit": "8c5cbea36d6f32cbcf14bb068ae7889e7c5482a5",
+  "source_state": "working tree changes on top of base_commit",
+  "implementation": {
+    "pin": "PE6 / IR_G7, V02 P1 pins 1-2; old board J17",
+    "device": "ir0",
+    "commands": "irrx start/stop/status/read/watch [1..30 seconds]",
+    "queue_records": 8,
+    "record_bytes": 12,
+    "new_threads": 0,
+    "dynamic_allocations": 0,
+    "events": "DOWN/UP and repeated complete-frame REPEAT; no fabricated short-repeat interrupts",
+    "conflicts": [
+      "Timer3",
+      "Timer3 PWM",
+      "SPI1 mapping 4 (PE6)"
+    ],
+    "origin": "extends the existing open-source BSP driver using local chip/board documentation; no new archive dependency"
+  },
+  "validation": {
+    "host_model": "PASS: native driver with modeled W1C/map MMIO and RTOS/IRQ; UBSan enabled",
+    "coverage": [
+      "boot without hardware access",
+      "idempotent start/stop and gate/pin/map restoration",
+      "NEC/extended NEC, command zero/high values, complement rejection",
+      "repeated frames, key change, release, simultaneous RX/release",
+      "data snapshot before clear and next frame arriving during W1C",
+      "queue overflow/drop count and current-key state",
+      "unaligned event buffer and invalid read/status arguments",
+      "late stopped IRQ, restart stats, tick wrap, bounded watch",
+      "compile-time rejection of Timer3/PWM/SPI1-G4/legacy software decoder"
+    ],
+    "builds": {
+      "default": "PASS",
+      "ir_integrated": "PASS",
+      "ir": "PASS",
+      "tf": "PASS",
+      "peripherals": "PASS"
+    },
+    "regressions": {
+      "existing_driver_groups": 8,
+      "result": "PASS",
+      "tf_fatfs": "PASS: FAT12/16/32 RAM media roundtrips and fault propagation",
+      "sd0_model": "PASS: 34 scenarios / 1217 assertions"
+    },
+    "placement": "PASS: IRQ, masked helpers, pin-address table, IRQ/RTOS callees, memcpy/memset and compiler save/restore in SRAM; thread-only entries in Flash",
+    "packaging": "PASS: Linux DCF convert"
+  },
+  "limits": [
+    "No remote or hardware reception; no firmware download in this task",
+    "Model supplies hardware-decoded frames, release flags and register semantics; it does not decode optical waveforms",
+    "IR mapping field, 1 MHz clock, receiver carrier compatibility, bit order, repeat hold/release timing and IRQ behavior need physical validation",
+    "No IrDA data link, IR transmission, RC5/RC6 or air-conditioner long frames",
+    "No standalone short-NEC-repeat event register is documented; REPEAT represents complete frames only",
+    "Runtime heap/stack peaks and coexistence with BLE/USB/TF/FM/PCM remain unmeasured"
+  ],
+  "memory": {
+    "sections": {
+      ".init": {
+        "bytes": 326,
+        "vma": 268435456,
+        "lma": 268435456
+      },
+      ".ram1": {
+        "bytes": 31200,
+        "vma": 327680,
+        "lma": 268435968
+      },
+      ".flash": {
+        "bytes": 98816,
+        "vma": 268467200,
+        "lma": 268467200
+      },
+      ".comm": {
+        "bytes": 76144,
+        "vma": 79872,
+        "lma": 268566016
+      },
+      ".bram": {
+        "bytes": 6540,
+        "vma": 69632,
+        "lma": 69632
+      },
+      ".bss": {
+        "bytes": 13312,
+        "vma": 156032,
+        "lma": 156032
+      },
+      ".heap": {
+        "bytes": 23168,
+        "vma": 169344,
+        "lma": 169344
+      },
+      ".stack": {
+        "bytes": 4096,
+        "vma": 192512,
+        "lma": 192512
+      },
+      ".riscv.attributes": {
+        "bytes": 42,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_info": {
+        "bytes": 664,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_abbrev": {
+        "bytes": 382,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_loc": {
+        "bytes": 310,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_aranges": {
+        "bytes": 64,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_line": {
+        "bytes": 556,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_str": {
+        "bytes": 640,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_frame": {
+        "bytes": 64,
+        "vma": 0,
+        "lma": 0
+      }
+    },
+    "placement_checks": {
+      "finsh_thread_entry": "0x1000b25c",
+      "_audio_dev_init": "0x1000b986",
+      "pcmcheck": "0x1000c638",
+      "ble_hs_init": "0x10012308",
+      "ble_gatts_init": "0x10011e1e",
+      "ble_gap_adv_start": "0x1000f0d6",
+      "ab32_usb_poll": "0x10016d64",
+      "usbd_initialize": "0x10018964",
+      "usb_worker": "0x1001743e",
+      "drv_sdcard_init": "0x1001944e",
+      "tf_read": "0x100190f4",
+      "f_read": "0x1001baae",
+      "dfs_mount": "0x1001e8ac",
+      "strstr": "0x1001f664",
+      "irrx": "0x1001fb70",
+      "irrx_read": "0x1001f918",
+      "irrx_control": "0x1001faf0",
+      "rt_schedule": "0x53e12",
+      "rt_sem_release": "0x51428",
+      "rt_hw_context_switch": "0x17428",
+      "os_cache_init": "0x154d2",
+      "load_cache": "0x15592",
+      "__wrap_bthw_isr_do": "0x1fab8",
+      "bb_run_loop": "0x14458",
+      "hci_host_recv_packet": "0x1fb76",
+      "audio_isr": "0x13ce8",
+      "uart_isr": "0x14124",
+      "ble_npl_hw_enter_critical": "0x1fe6a",
+      "ble_npl_hw_exit_critical": "0x1fe84",
+      "ble_npl_eventq_put": "0x1fee0",
+      "ble_mqueue_get": "0x1e7ac",
+      "ble_mqueue_put": "0x1e7d0",
+      "os_memblock_get": "0x1f120",
+      "os_memblock_put": "0x1f182",
+      "alloc_acl": "0x151ac",
+      "free_acl": "0x151ee",
+      "irrx_isr": "0x1406e",
+      "irrx_push": "0x13e24",
+      "irrx_release": "0x13e96",
+      "irrx_switch": "0x13eae",
+      "irrx_pop": "0x13dd0",
+      "irrx_snapshot": "0x13dac",
+      "irrx_pin_regs": "0x14104",
+      "rt_hw_irq_disable": "0x175ee",
+      "rt_hw_interrupt_install": "0x1760a",
+      "rt_hw_interrupt_disable": "0x173d4",
+      "rt_hw_interrupt_enable": "0x173e2",
+      "rt_interrupt_enter": "0x21edc",
+      "rt_interrupt_leave": "0x21f08",
+      "rt_tick_get": "0x54030",
+      "memcpy": "0x22974",
+      "memset": "0x22bb0",
+      "__riscv_restore_0": "0x13b5c",
+      "__riscv_restore_1": "0x13b58",
+      "__riscv_restore_10": "0x13b34",
+      "__riscv_restore_11": "0x13b30",
+      "__riscv_restore_12": "0x13b2c",
+      "__riscv_restore_2": "0x13b54",
+      "__riscv_restore_3": "0x13b50",
+      "__riscv_restore_4": "0x13b4c",
+      "__riscv_restore_5": "0x13b48",
+      "__riscv_restore_6": "0x13b44",
+      "__riscv_restore_7": "0x13b40",
+      "__riscv_restore_8": "0x13b3c",
+      "__riscv_restore_9": "0x13b38",
+      "__riscv_save_0": "0x13b26",
+      "__riscv_save_1": "0x13b1e",
+      "__riscv_save_10": "0x13a76",
+      "__riscv_save_11": "0x13a5a",
+      "__riscv_save_12": "0x13a3a",
+      "__riscv_save_2": "0x13b14",
+      "__riscv_save_3": "0x13b08",
+      "__riscv_save_4": "0x13afa",
+      "__riscv_save_5": "0x13aea",
+      "__riscv_save_6": "0x13ad8",
+      "__riscv_save_7": "0x13ac4",
+      "__riscv_save_8": "0x13aac",
+      "__riscv_save_9": "0x13a92"
+    },
+    "nimble_enabled": true,
+    "usb_enabled": true,
+    "tf_enabled": true,
+    "ir_enabled": true,
+    "heap_region_bytes": 23168,
+    "note": "Heap region includes allocator metadata; use board free for runtime availability."
+  },
+  "sha256": {
+    "rtt/bsp/libraries/hal_drivers/drv_irrx.c": "4329bb43afc1e6b2562f4295ac9873ee01efecd84b0ef4ffb57a49015652de12",
+    "rtt/bsp/libraries/hal_drivers/drv_irrx.h": "8a2b0fb35581f20ae09f2b000fcb9b39821cc068f61246c4e06fcc96fe7d3ff7",
+    "rtt/bsp/board/Kconfig": "a77641a787a2cf107877b159b2edf84f9aa9c600da7d64b46c316e99d2531077",
+    "rtt/bsp/rtconfig.h": "994b3480434f324b5b468a241ac9b9ae50ac4106a9f9f5b19cc43cfc0c2aef17",
+    "rtt/bsp/link_bt_ram.lds": "d1e31c7b5aa57e1bdb86a0815093ee98d65914f81832f0055371e300fa40f799",
+    "rtt/bsp/libcpu/cpu/interrupt.c": "3c3f3091ad25b45be452364d9ff5d0ea5a4a015648230a10260004d1afa79537",
+    "tools/rtt/test_ir.py": "adefc4e1783b0ce1607f416243b9d88a3d36be39d3c813bac28d7fa9a5c23e42",
+    "tools/rtt/tests/irrx.c": "b2e174574a3136edc668f3a7f69dca6f22883afba621a3748207e509c6cb7d29",
+    "tools/rtt/check_builds.py": "b377b2ec728f6341a679a456a49855e79fe6c6250463c078058eb42ce4af2c17",
+    "tools/rtt/memory_report.py": "f4914f905cdacc71d152ccee37fb6ad7a5146e0081c41bf212848ea01b188e99",
+    "docs/ab32vg1_doc/AB32VG1_Register.pdf": "4f7700d499f6b38ffd19e9eb5f23638692ca5e24305d8f245dbd0c8ff22d81fc",
+    "docs/ab32vg1_doc/AB32VG1_DataSheet.pdf": "00aa5f23feb8cf80eaf4f96dcefb4bb429f4b5af3b075fd9bd6fbf4b8a17f1ad",
+    "docs/ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf": "290b6352506af8d7f1c5f565d2cf0927d935c9f30faa1fa352ae88bcf9b14ee7"
+  },
+  "build_outputs": {
+    "rtt/bsp/rtthread.elf": {
+      "bytes": 305832,
+      "sha256": "a25fef956e82b85d298be69cd8c157563023073ec7d46f288828ee022684f666"
+    },
+    "rtt/bsp/rtthread.bin": {
+      "bytes": 206704,
+      "sha256": "1b0c70cfee61906cf24a52a451b2783d11e0971f789eb71d3e4c9826ad97d27f"
+    },
+    "rtt/bsp/rtthread.dcf": {
+      "bytes": 216152,
+      "sha256": "7ca715a480f08a15bec4505f5d1ddf2cd3747eda08e74e5184df62b7c5543e52"
+    }
+  }
+}
