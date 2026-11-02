@@ -1,0 +1,141 @@
+{
+  "kind": "Native RTC unified RTT firmware: V2.0 hardware verification",
+  "date": "2026-11-02",
+  "base_commit": "ec0082d5129fd0e71b281d01c63de47a6fd3cf09",
+  "source_state": "working tree; includes prior USB wiring documentation corrections",
+  "board": "AB32VG1 V2.0",
+  "port": "/dev/ttyUSB0",
+  "flashed": true,
+  "download": {
+    "flash_bytes": 1048576,
+    "image_body_bytes": 223232,
+    "write_and_crc": "PASS",
+    "manual_reset_required": false
+  },
+  "diagnosis": {
+    "initial_revision": "Reads/writes worked, but counter advanced 0 seconds over 5.51 host seconds; software-only clock selection assumption was incorrect.",
+    "controlled_probe": "Temporary diagnostic command changed only CON0 bit6 from 0 to 1: CON0 0x21 -> 0x61, CON2 remained 0xca; successive 3-second-spaced reads were 1793611666 and 1793611669.",
+    "final_fix": "Default internal route sets bit6 as original BSP; neutral RTC_CON0_32K_SOURCE_SELECT name. Optional external build clears bit6 as original BSP, not hardware tested.",
+    "diagnostic_route_command_removed": true,
+    "readonly_status_retained": true
+  },
+  "validation": {
+    "uart_passed": true,
+    "uart_report": "rtc-rtt-uart.json",
+    "read_write_byte_order": "PASS: zero, 0x12345678, time_t maximum minus 15",
+    "invalid_inputs": "PASS: post-2038, negative, uint32 overflow and malformed values rejected without changing current time",
+    "time_t_bits": 32,
+    "time_t_max_seconds": 2147483647,
+    "sample_count": 12,
+    "rtc_elapsed_seconds": 61,
+    "host_monotonic_elapsed_seconds": 60.51220403285697,
+    "per_sample_tolerance_seconds": 2,
+    "repeated_libc_date": "PASS; counter not reset",
+    "final_host_utc_set": 1793612010,
+    "final_date": "date\r\r\nlocal time: Mon Nov  2 17:33:30 2026\r\ntimestamps: 1793612010\r\ntimezone: UTC+08:00:00\r\nmsh />",
+    "final_status": "rtcctl status\r\r\nRTC CON0=61 CON2=ca count=1793612011 valid=1 time_t_bits=32\r\nmsh />",
+    "keys_status": "keys status\r\r\nkeys0: raw=0 pressed=0 queued=0 dropped=0 read_errors=0\r\nmsh />",
+    "final_builds": [
+      "default: PASS",
+      "rtc_integrated: PASS",
+      "rtc_external: PASS"
+    ],
+    "final_host_models": "internal/external RTC: PASS; status is read-only",
+    "earlier_regressions": "See historical rtc-rtt-software.json; tests there precede hardware clock correction"
+  },
+  "memory": {
+    "sections": {
+      ".ram1": {
+        "bytes": 31200,
+        "vma": 327680,
+        "lma": 268435968
+      },
+      ".flash": {
+        "bytes": 105984,
+        "vma": 268467200,
+        "lma": 268467200
+      },
+      ".comm": {
+        "bytes": 76048,
+        "vma": 79872,
+        "lma": 268573184
+      },
+      ".bram": {
+        "bytes": 6540,
+        "vma": 69632,
+        "lma": 69632
+      },
+      ".bss": {
+        "bytes": 13728,
+        "vma": 155936,
+        "lma": 155936
+      },
+      ".heap": {
+        "bytes": 22848,
+        "vma": 169664,
+        "lma": 169664
+      },
+      ".stack": {
+        "bytes": 4096,
+        "vma": 192512,
+        "lma": 192512
+      }
+    },
+    "placement_checks": "PASS: RTC critical helpers in SRAM, callbacks/core/calendar in Flash",
+    "runtime_before": "free\r\r\ntotal    : 22760\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 13384\r\nmsh />",
+    "runtime_after": "free\r\r\ntotal    : 22760\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 13384\r\nmsh />",
+    "runtime_total_bytes": 22760,
+    "runtime_used_bytes": 9376,
+    "runtime_available_bytes": 13384
+  },
+  "artifacts": {
+    "rtt/bsp/rtthread.elf": {
+      "bytes": 324112,
+      "sha256": "5978c90d18857ff0033c2c89f810236448410d5451b150324857cd260d04751d"
+    },
+    "rtt/bsp/rtthread.bin": {
+      "bytes": 213776,
+      "sha256": "1b1c21c3caecda4e885628eb5fdcfd9e0d1d3863f34a9ec476a2a3eb5167518c"
+    },
+    "rtt/bsp/rtthread.dcf": {
+      "bytes": 223320,
+      "sha256": "7fa9545afab10bc3601ff7739cc049a845de08d99891292635dedde5b303b237"
+    },
+    "rtt/bsp/libraries/hal_drivers/drv_rtc.c": {
+      "bytes": 8854,
+      "sha256": "031f1b45d13528ff1174e1f319d7ee2358caa65bdaa59e72a6016b307c3bb2fd"
+    },
+    "rtt/bsp/libraries/hal_libraries/ab32vg1_hal/include/ab32vg1_hal_rtc.h": {
+      "bytes": 2887,
+      "sha256": "26c3166dd8a7f766dc87b6e0569eeeb21100b6b865fc528b47367690e7ce3058"
+    },
+    "rtt/bsp/rtconfig.h": {
+      "bytes": 9224,
+      "sha256": "506c27a49202063e4b14ad4f85e052aec13024c1ba4b7c1b21d80fdd0e39b616"
+    },
+    "rtt/bsp/link_bt_ram.lds": {
+      "bytes": 6075,
+      "sha256": "b7da1bd96f30cd55dbf343a8135bc25003673850e622e4856aaa92340663e16c"
+    },
+    "tools/rtt/test_rtc_uart.py": {
+      "bytes": 6399,
+      "sha256": "d046e1dfe259880015bd03221b92049b236e1a311d3c3417219636d4b5f74760"
+    },
+    "tools/rtt/tests/rtc.c": {
+      "bytes": 8947,
+      "sha256": "334f9a063390ee1c42eabbc5fe1eec85a096ff2683a2437fddee56e85ef43c74"
+    },
+    "docs/lib-analysis/generated/recovery/rtc-rtt-uart.json": {
+      "bytes": 23748,
+      "sha256": "b51889df1b7628ceca7540668db82c0d60e247c9ae74386b5761f615898b2e1b"
+    }
+  },
+  "limits": [
+    "Short-term second-resolution cadence only, not precision or temperature calibration.",
+    "No manual RESET or complete-power-removal retention test.",
+    "No backup battery claim or external crystal hardware test.",
+    "No combined Bluetooth/audio/USB runtime stress test in this RTC validation.",
+    "Alarm, second IRQ, low-power wake, subsecond time and automatic time sync not implemented.",
+    "Current signed 32-bit time_t supports UTC dates only through 2038-01-19 03:14:07."
+  ]
+}

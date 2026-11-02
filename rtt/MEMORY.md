@@ -1,6 +1,6 @@
 # 综合 RTT 内存记录（2026-11-02）
 
-当前默认配置已加入实验性 USB CDC、TF/FAT 和原生红外接收。下文保留各阶段的历史验证数据；
+当前默认配置已加入实验性 USB CDC、TF/FAT、原生红外、按键和 RTC。下文保留各阶段的历史验证数据；
 最新链接用量见“红外接收软件适配后”，该版本尚无运行时内存实测。
 
 ## 接入前内存优化
@@ -246,3 +246,39 @@ USB 另需线程栈，PCM 的 8496 字节懒分配仍保留；不能保证这些
 used/maximum 9376、available 13064 字节，测试没有增加堆占用。该状态下 BLE、FM、USB、IR
 均未启动，TF 未挂载，不能作为全模块运行时的余量。见
 [实机记录](../docs/lib-analysis/generated/recovery/keys-rtt-hardware.json)。
+
+## RTC 修复与接入后
+
+默认综合配置新增原生 RTC 秒计数设备，首次访问才初始化。无新线程或动态缓冲，
+静态设备和互斥锁串行化操作。已烧录验证，以下为包含 `rtcctl status` 的最终版链接结果。
+
+| 段 | 字节 |
+| --- | ---: |
+| `.comm` | 76048 |
+| `.ram1` | 31200 / 31232 |
+| `.bss` | 13728 |
+| `.bram` | 6540 / 10240 |
+| `.heap` | 22848 |
+| `.stack` | 4096 |
+| `.flash` | 105984 |
+
+RTC 事务、忙轮询和桥配置使用 `.irq.rtc` 留在 SRAM，普通设备入口、RTC 框架和
+libc 的日历/时间访问放 Flash。时间访问使用互斥锁，仅允许线程上下文，不能从 ISR 调用。
+迁移日历代码后，原始堆比按键接入版增加 320 字节；仍保持 22 KiB 下限，没有压缩已有线程栈、
+IRQ 栈或蓝牙固定区。SRAM1 仍余 32 字节。
+
+`memory_report.py` 增加 RTC 临界区、编译器 save/restore 及 Flash 回调位置检查；
+默认综合、rtc_integrated、rtc、rtc_external、peripherals 和不带 RTC 的 keys 构建通过。
+RTC 内外时钟模型、既有驱动和 TF/FAT/SD0 回归通过。最终时钟修正后重新通过默认综合、
+rtc_integrated、rtc_external 构建和内外时钟模型。实板约 60 秒走时、范围与 libc 访问测试前后均为：
+
+```text
+total    : 22760
+used     : 9376
+maximum  : 9376
+available: 13384
+```
+
+该数字为启动后和 RTC 测试状态，不代表蓝牙、音频、USB 同时运行的余量。
+长期精度及断电保持尚未验证。见 [RTC.md](RTC.md) 和
+[实板记录](../docs/lib-analysis/generated/recovery/rtc-rtt-hardware.json)。

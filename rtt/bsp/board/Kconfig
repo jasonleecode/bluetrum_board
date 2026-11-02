@@ -315,11 +315,20 @@ menu "On-chip Peripheral Drivers"
     menuconfig BSP_USING_ONCHIP_RTC
         bool "Enable RTC"
         select RT_USING_RTC
+        select RT_USING_MUTEX
         default n
+        help
+            Native 32-bit IRTC seconds, with bounded bridge transactions.
+            First power-up time is unset until rtcctl set or set_timestamp().
+            Alarm/second IRQs and power-down wakeup are not implemented.
         if BSP_USING_ONCHIP_RTC
             config RTC_USING_INTERNAL_CLK
                 bool "Using internal clock RTC"
                 default y
+                help
+                    Use the RTC internal RC oscillator (untrimmed accuracy).
+                    Disable only with an appropriate external 32.768 kHz source;
+                    V02 schematic does not populate a 32.768 kHz crystal.
         endif
 
     menuconfig BSP_USING_ADC

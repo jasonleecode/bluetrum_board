@@ -36,3 +36,4 @@ with tempfile.TemporaryDirectory(prefix='ab32-rtt-model-') as directory:
                         str(ROOT / f'tools/rtt/tests/{name}.c'), '-Wl,--gc-sections',
                         '-o', str(temp / name)], check=True)
         subprocess.run([temp / name], check=True)
+    subprocess.run(['python3', str(ROOT / 'tools/rtt/test_rtc.py')], check=True)

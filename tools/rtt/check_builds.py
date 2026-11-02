@@ -58,6 +58,9 @@ PROFILES['tf'].update(DFS_FD_MAX=4, DFS_FILESYSTEMS_MAX=1,
 PROFILES['ir_integrated'] = dict(PROFILES['tf'], **PROFILES['ir'])
 PROFILES['keys'] = dict(PROFILES['ir_integrated'], BSP_USING_KEYS=1)
 PROFILES['keys_irq'] = dict(PROFILES['keys'], BSP_USING_PIN_IRQ=1)
+PROFILES['rtc'] = dict(RT_USING_RTC=1, BSP_USING_ONCHIP_RTC=1, RTC_USING_INTERNAL_CLK=1)
+PROFILES['rtc_external'] = dict(RT_USING_RTC=1, BSP_USING_ONCHIP_RTC=1)
+PROFILES['rtc_integrated'] = dict(PROFILES['keys'], **PROFILES['rtc'])
 
 def base_config(config):
     """Keep optional profiles independent of enabled workspace peripherals."""
@@ -102,6 +105,10 @@ def main():
             print('\n'.join(log.read_text().splitlines()[-22:]), flush=True)
         else:
             linkmap = (work / 'rtt/bsp/rtthread.map').read_text()
+            if PROFILES[name].get('BSP_USING_ONCHIP_RTC') or (name == 'default' and
+                    re.search(r'^#define\s+BSP_USING_ONCHIP_RTC\b', config, re.M)):
+                assert '.irq.rtc' in linkmap and 'rt_hw_rtc_register' in linkmap
+                assert not re.search(r'libhal\.a\([^)]*rtc[^)]*\)', linkmap), 'vendor RTC object linked'
             if PROFILES[name].get('BSP_USING_KEYS') or (name == 'default' and
                     re.search(r'^#define\s+BSP_USING_KEYS\b', config, re.M)):
                 assert 'board_keys_init' in linkmap and 'board_keys_poll' in linkmap

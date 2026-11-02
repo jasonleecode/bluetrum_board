@@ -167,6 +167,7 @@
 #define RT_AUDIO_REPLAY_MP_BLOCK_SIZE 4096
 #define RT_AUDIO_RECORD_PIPE_SIZE 2048
 #define RT_USING_PIN
+#define RT_USING_RTC
 /* end of Device Drivers */
 
 /* C/C++ and POSIX layer */
@@ -444,5 +445,9 @@
 #define BSP_USING_IRRX
 #define BSP_USING_IRRX_HW
 #define BSP_USING_KEYS
+
+/* Native IRTC, internal RC; first power-up requires explicit time setting. */
+#define BSP_USING_ONCHIP_RTC
+#define RTC_USING_INTERNAL_CLK
 
 #endif

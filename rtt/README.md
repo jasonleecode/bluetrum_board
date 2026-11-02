@@ -5,10 +5,11 @@
 本目录是开发板的统一综合项目，FM、蓝牙、音频及后续外设均作为模块集成到
 同一 RT-Thread 工程和固件。共享资源由项目统一管理，并分别验证模块功能及共存行为。
 当前已接入 GPIO、UART0、DAC 音频、FM 和恢复源码的蓝牙控制器（见 [恢复记录](../docs/lib-analysis/BLUETOOTH_RECOVERY.md)）。综合 RTT 不链接 `libbtctrl.a`。NimBLE Host 已通过 `rtt/nimble` 子模块接入，BLE 连接、ACL 分片、GATT 读写和通知已在实板验证；构建、命令与使用边界见 [NimBLE 接入说明](NIMBLE.md)。
-原生 USB CDC 已完成软件适配、离线测试和编译，实机枚举及收发待独立数据线就绪后验证；见 [USB 接入说明](USB.md)。
+原生 USB CDC 已完成软件适配、离线测试和编译；V2.0 的原生数据线接 Host 用 USB-A，实机枚举及收发待 Device 接口及供电适配后验证；见 [USB 接入说明](USB.md)。
 TF 的原生 SD0、块设备 tf0 和 FAT12/16/32 已完成软件集成及离线测试，实卡验证待卡到位后进行；见 [TF 接入说明](TF.md)。
 板载 IRDA 接口的原生 NEC/扩展 NEC 红外接收已接入 ir0 和 irrx 命令，软件测试通过，实测待遥控器就绪；见 [红外接入说明](IR.md)。
 S2/PF1、S3/PF0、S4/PA2 三个功能键默认接入 keys0，支持消抖和长按，见 [按键说明](KEYS.md)。
+原生 RTC 秒计数读写已修复并默认注册 rtc，使用内部 RC 时钟；已烧录验证读写及约 60 秒连续走时，见 [RTC 说明](RTC.md)。
 
 主要内容如下：
 
@@ -90,7 +91,7 @@ msh >
 ```
 ### 进阶使用
 
-当前配置开启了 GPIO、三个按键、串口0、DAC 音频、FM、恢复源码的蓝牙控制器、NimBLE Host、实验性 USB CDC、TF/FAT 和红外接收，如果需使用 Flash 等更多高级功能，需要利用 ENV 工具对BSP 进行配置，步骤如下：
+当前配置开启了 GPIO、三个按键、串口0、DAC 音频、FM、恢复源码的蓝牙控制器、NimBLE Host、实验性 USB CDC、TF/FAT、红外接收和 RTC，如果需使用 Flash 等更多高级功能，需要利用 ENV 工具对BSP 进行配置，步骤如下：
 
 1. 在 bsp 下打开 env 工具。
 
@@ -171,7 +172,7 @@ SCons 默认目标为完整固件，并跟踪链接脚本变化，避免继续�
 上述记录对应 FM 启用前的 GPIO/UART0 配置；FM 调试记录见下文。
 更多下载器说明见 [工具说明](../tools/linux/README.md)。
 
-当前 `rtconfig.h` 默认启用 GPIO、三个按键、UART0、DAC 音频、FM、恢复源码的蓝牙控制器与 NimBLE Host，以及实验性 USB CDC、TF/FAT 和红外。可选驱动通过 BSP 的
+当前 `rtconfig.h` 默认启用 GPIO、三个按键、UART0、DAC 音频、FM、恢复源码的蓝牙控制器与 NimBLE Host，以及实验性 USB CDC、TF/FAT、红外和 RTC。可选驱动通过 BSP 的
 `Hardware Drivers Config` 菜单配置，不能把所有选项同时开启：
 TIMER3/4/5 与对应 PWM 共用计数器，TIMER3 与红外共用中断；SPI 的组 2
 与 UART0、组 3 与 SD/UART2、组 1 与 UART1 有引脚冲突。
@@ -183,7 +184,7 @@ TIMER3/4/5 与对应 PWM 共用计数器，TIMER3 与红外共用中断；SPI �
 | SPI1 / `BSP_USING_SPI1` | 新增 `spi1` 硬件总线，支持主机 8 位 MSB、分阶段收发、GPIO 片选、向上取整分频和回绕安全的超时；不使用软件 SPI |
 | SARADC / `BSP_USING_ADC0` | 适配当前 RT-Thread 回调签名，校验 0..15 通道，传递转换超时，不再返回陈旧采样值 |
 | TIMER / `BSP_USING_TIM` | 区分 TIMER1/2 bit9 与 TIMER3/4/5 bit16 的溢出/清除位；共享 IRQ 只处理真实 pending；支持单次模式，检查计数溢出，开启时钟，并将 IRQ 调用的停止操作及函数表放入 RAM |
-| RTC / `BSP_USING_ONCHIP_RTC` | 修复时钟选择赋值及 `time_t` 回调，拒绝负值和超过 32 位计数范围的时间；未完成的闹钟/秒中断不再作为可用操作暴露 |
+| RTC / `BSP_USING_ONCHIP_RTC` | 默认启用；修正时钟选择、寄存器返回、无限等待和中断恢复；保留计数，首次校时用 rtcctl set；软件验证及实板读写、范围拒绝、约 60 秒走时通过；当前 time_t 支持至 2038 年，闹钟/秒中断/唤醒未实现，见 [RTC.md](RTC.md) |
 | WDT / `BSP_USING_WDT` | SET/GET_TIMEOUT 使用 RT-Thread 的秒单位，输入 1..16 秒向上选择 1/2/4/8/16 档，实际硬件约为 1.024/2.048/4.096/8.192/16.384 秒；支持停止，拒绝空参数。旧 `AB32_WDT_TIMEOUT_*` 是寄存器编码，不能作为秒值传入 |
 | TF / `BSP_USING_TFCARD` | 当前默认：复用原生 SD0，静态 DMA 中转区、串行块 I/O、显式探测和 FAT 挂载；无卡启动不探测，离线测试通过，实卡待验证，见 [TF.md](TF.md) |
 | 旧 SD / `BSP_USING_SDCARD` | 原生 SD0 一位总线；修复命令/数据事件等待、CRC/超时传递、时钟分频、缓存边界、写入长度和 host 初始化竞态；单请求上限 1024 字节（两个 512 字节块），已编译 SD＋FAT 配置 |
@@ -379,12 +380,15 @@ PCM 缓冲池首次初始化后保留供复用，复位后重新按需分配。
 不链接厂家 USB 对象。通过 `usbcdc start`、`usbcdc status`、`usbcdc stop` 控制，
 当前应用为二进制原样回传，FinSH 继续使用 CH340/UART0。
 
-原生 USB 是独立数据接口，V02 板需短接 P5 的 1–2、3–4（PB3/PB4），
-旧手册对应 J15/J16；仅连接烧录 Type-C 无法验证该接口。
-**目前没有合适的数据线，未烧录 USB 版本、未枚举、未实机收发。**
+V2.0 的原生 USB 经 P5 接 Host 用 USB-A：1–2 接通 PB4/D−，3–4 接通 PB3/D+；
+Type-C 的 D+/D− 经 R13/R11 接 CH340E。P5 不是模式切换器，不能把原生 USB 接到 Type-C。
+USB-A 的 VBUS 直接接板上 +5V，不能用普通 USB-A 双公线直接连电脑测试 Device；
+需要另行确定 PB3/PB4 的 Device 接口引出、共地与供电方案。
+**综合固件已烧录，Device 硬件适配及实机枚举、收发仍待完成。**
 软件已通过包含真实协议栈的离线测试和综合构建，接线与后续测试步骤见 [USB.md](USB.md)。
-USB 初次接入时原始堆区为 28320 字节；加入 TF/FAT 后为 24352 字节，当前含 IR 版为 23168 字节，
-运行时 `free` 和各模块组合需重新实测。前面的 NimBLE 硬件内存数据属于接入 USB 前的版本。
+USB 初次接入时原始堆区为 28320 字节；加入 TF/FAT 后为 24352 字节，加入 IR 后为 23168 字节，
+按键接入时为 22528 字节，当前 RTC 修复版为 22848 字节。USB 启动及各模块组合的运行时余量仍需实测，见 [MEMORY.md](MEMORY.md)。
+前面的 NimBLE 硬件内存数据属于接入 USB 前的版本。
 
 ### TF/FAT 软件适配（2026-11-02）
 
@@ -415,7 +419,7 @@ V02 板短接 P1 的 1–2，将 IRDA 接收输出接至 PE6（IR_G7）；旧版
 当前综合项目默认使用 `BSP_USING_KEYS`，注册 keys0，在原主线程扫描 S2/PF1、S3/PF0、S4/PA2。
 串口执行 `keys watch 10` 后按键，可观察 DOWN、UP 和一次 LONG；`keys status` 查看三键状态
 及溢出计数。S1 保持复位用途。每键 30 ms 消抖，稳定按住 800 ms 产生长按事件，
-没有新增线程或绑定 FM/蓝牙操作。默认综合固件原始堆区为 22528 字节，SRAM1 余 32 字节。
+没有新增线程或绑定 FM/蓝牙操作。该次按键接入版原始堆区为 22528 字节，SRAM1 余 32 字节。
 GPIO IRQ 改为可选、按需创建线程，因此早期实测的 gpioirq 线程列表不再代表当前默认配置。
 引脚冲突、设备 API、GPIO 修复及验证边界见 [KEYS.md](KEYS.md)。
 最新综合固件已经 CH340 下载并通过逐块 CRC 校验，RT-Thread 5.2.2 启动正常；
@@ -432,7 +436,8 @@ python3 tools/rtt/test_usb.py
 python3 tools/rtt/test_tf.py
 python3 tools/rtt/test_ir.py
 python3 tools/rtt/test_keys.py
-python3 tools/rtt/check_builds.py default keys_irq ir_integrated ir tf usb nimble bluetooth audio sd
+python3 tools/rtt/test_rtc.py
+python3 tools/rtt/check_builds.py default rtc_integrated rtc rtc_external keys_irq ir_integrated ir tf usb nimble bluetooth audio sd
 python3 tools/rtt/memory_report.py
 # 更多外设配置：default peripherals pwm flash spi_fm spi_fm_i2s i2s_pa
 ```
@@ -455,6 +460,9 @@ Flash 分页/返回值，以及 SD 命令和数据完成事件、超时/CRC/缓�
 
 `test_keys.py` 覆盖 GPIO/HAL 及三键真实代码，检查共享中断、正确恢复中断状态、回调期间的新中断、
 解除/重新挂接、W1C、消抖、长按、同时按键、队列溢出和 tick 回绕；使用模拟电平，无物理按键参与。
+
+`test_rtc.py` 使用真实 RTC 命令编码和模拟传输桥，验证时钟选择、首次校时、计数保留、跨秒读取、
+逐字节故障注入与中断/互斥恢复；`test_drivers.py` 也会调用该测试。没有实际振荡器或备电保持参与。
 
 `check_builds.py` 在 `/tmp/ab32-rtt-build-*` 的独立源码副本中执行指定配置的 GCC 完整构建，
 保留各配置 ELF、map 和日志，并检查 FM 未链接回原库 FM 对象，不修改工作目录的 `rtconfig.h`，也不烧写设备。

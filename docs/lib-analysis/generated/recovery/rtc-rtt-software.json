@@ -1,0 +1,302 @@
+{
+  "kind": "Native RTC seconds repair and unified RTT integration: software validation",
+  "date": "2026-11-02",
+  "flashed": false,
+  "hardware_verified": false,
+  "base_commit": "ec0082d5129fd0e71b281d01c63de47a6fd3cf09",
+  "source_state": "working tree including prior USB wiring documentation corrections",
+  "hardware_support": "AB32VG1 Register manual chapter 5: 32-bit independently powered counter, alarm and second IRQ; DataSheet lists IRTC",
+  "implemented": [
+    "rtc device with UTC seconds get/set",
+    "internal RC default; optional external 32.768 kHz build",
+    "lazy initialization preserves count/RTC RAM/power and reserved bits",
+    "first-power flag indicates unset; explicit rtcctl set or set_timestamp first",
+    "native command encoding and MSB-first data",
+    "bounded polls, CS cleanup and saved IRQ restoration",
+    "thread mutex, rejects ISR/no-thread use",
+    "consecutive counter samples reject rollover-torn reads",
+    "mark time unset before write and clear only on successful completion"
+  ],
+  "not_implemented": [
+    "alarm and second interrupt handling",
+    "low-power wake",
+    "subsecond timestamps",
+    "clock calibration",
+    "RTC RAM user API",
+    "automatic time synchronization",
+    "counter epoch extension after 32-bit wrap"
+  ],
+  "validation": {
+    "host_model": "PASS with real chip headers, actual driver, UBSan and return-type errors",
+    "coverage": [
+      "internal/external selection and reserved bits",
+      "no boot MMIO, registration failure cleanup",
+      "first-power unset and preserved count",
+      "big-endian count bytes and torn rollover retry",
+      "all initialization/get/set byte failures",
+      "busy entry poll bound and timeout",
+      "partial writes leave time invalid",
+      "IRQ/mutex/CS cleanup and retry",
+      "NULL/negative/32-bit overflow/CLI rejection",
+      "mutex failure and ISR/no-thread rejection"
+    ],
+    "builds": {
+      "default": "PASS",
+      "rtc_integrated": "PASS",
+      "rtc": "PASS",
+      "rtc_external": "PASS",
+      "peripherals": "PASS",
+      "keys_without_rtc": "PASS"
+    },
+    "regressions": {
+      "existing_driver_groups_8": "PASS",
+      "tf_fat12_16_32": "PASS",
+      "sd0_34_scenarios_1217_assertions": "PASS"
+    },
+    "placement": "RTC masked bridge helpers and save/restore in SRAM; callbacks/core/calendar in Flash",
+    "packaging": "PASS: Linux DCF convert"
+  },
+  "memory": {
+    "sections": {
+      ".init": {
+        "bytes": 326,
+        "vma": 268435456,
+        "lma": 268435456
+      },
+      ".ram1": {
+        "bytes": 31200,
+        "vma": 327680,
+        "lma": 268435968
+      },
+      ".flash": {
+        "bytes": 105472,
+        "vma": 268467200,
+        "lma": 268467200
+      },
+      ".comm": {
+        "bytes": 76048,
+        "vma": 79872,
+        "lma": 268572672
+      },
+      ".bram": {
+        "bytes": 6540,
+        "vma": 69632,
+        "lma": 69632
+      },
+      ".bss": {
+        "bytes": 13728,
+        "vma": 155936,
+        "lma": 155936
+      },
+      ".heap": {
+        "bytes": 22848,
+        "vma": 169664,
+        "lma": 169664
+      },
+      ".stack": {
+        "bytes": 4096,
+        "vma": 192512,
+        "lma": 192512
+      },
+      ".riscv.attributes": {
+        "bytes": 42,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_info": {
+        "bytes": 2877,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_abbrev": {
+        "bytes": 907,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_loc": {
+        "bytes": 3347,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_aranges": {
+        "bytes": 120,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_line": {
+        "bytes": 2512,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_str": {
+        "bytes": 953,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_frame": {
+        "bytes": 64,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_ranges": {
+        "bytes": 248,
+        "vma": 0,
+        "lma": 0
+      }
+    },
+    "placement_checks": {
+      "finsh_thread_entry": "0x1000b2b4",
+      "_audio_dev_init": "0x1000babe",
+      "pcmcheck": "0x1000c770",
+      "ble_hs_init": "0x10012440",
+      "ble_gatts_init": "0x10011f56",
+      "ble_gap_adv_start": "0x1000f20e",
+      "ab32_usb_poll": "0x10016e9c",
+      "usbd_initialize": "0x10018a9c",
+      "usb_worker": "0x10017576",
+      "drv_sdcard_init": "0x10019586",
+      "tf_read": "0x1001922c",
+      "f_read": "0x1001bbda",
+      "dfs_mount": "0x1001e9d0",
+      "strstr": "0x1001f788",
+      "irrx": "0x1001fc70",
+      "irrx_read": "0x1001fa3c",
+      "irrx_control": "0x1001fbf0",
+      "board_keys_init": "0x1002126c",
+      "board_keys_poll": "0x1002155c",
+      "keys": "0x100213c6",
+      "keys_read": "0x10021314",
+      "keys_control": "0x1002113c",
+      "ab32_rtc_init": "0x10020150",
+      "ab32_rtc_get_secs": "0x10020180",
+      "ab32_rtc_set_secs": "0x1002009a",
+      "rt_hw_rtc_register": "0x1002063c",
+      "rtcctl": "0x10020232",
+      "time": "0x10020ddc",
+      "gmtime_r": "0x10020ae8",
+      "localtime_r": "0x10020bc8",
+      "mktime": "0x10020fa4",
+      "rt_schedule": "0x53e12",
+      "rt_sem_release": "0x51428",
+      "rt_hw_context_switch": "0x17268",
+      "os_cache_init": "0x15552",
+      "load_cache": "0x15612",
+      "__wrap_bthw_isr_do": "0x1f59e",
+      "bb_run_loop": "0x144d8",
+      "hci_host_recv_packet": "0x1f65c",
+      "audio_isr": "0x13ce8",
+      "uart_isr": "0x141a4",
+      "ab32_pin_mode": "0x175e0",
+      "hal_gpio_init": "0x21e0e",
+      "gpio_afinit": "0x21da8",
+      "port_sfr": "0x23bfc",
+      "port_table": "0x23bf0",
+      "rtc_transfer": "0x1410c",
+      "rtc_byte": "0x140e8",
+      "rtc_wait_idle": "0x140cc",
+      "rtc_bridge_init": "0x140ee",
+      "rt_hw_interrupt_disable": "0x17214",
+      "rt_hw_interrupt_enable": "0x17222",
+      "ble_npl_hw_enter_critical": "0x1f950",
+      "ble_npl_hw_exit_critical": "0x1f96a",
+      "ble_npl_eventq_put": "0x1f9c6",
+      "ble_mqueue_get": "0x1e292",
+      "ble_mqueue_put": "0x1e2b6",
+      "os_memblock_get": "0x1ec06",
+      "os_memblock_put": "0x1ec68",
+      "alloc_acl": "0x1522c",
+      "free_acl": "0x1526e",
+      "irrx_isr": "0x14016",
+      "irrx_push": "0x13dcc",
+      "irrx_release": "0x13e3e",
+      "irrx_switch": "0x13e56",
+      "irrx_pop": "0x13d78",
+      "irrx_snapshot": "0x13d54",
+      "irrx_pin_regs": "0x140ac",
+      "rt_hw_irq_disable": "0x1742e",
+      "rt_hw_interrupt_install": "0x1744a",
+      "rt_interrupt_enter": "0x219c2",
+      "rt_interrupt_leave": "0x219ee",
+      "rt_tick_get": "0x54030",
+      "memcpy": "0x22460",
+      "memset": "0x2269c",
+      "__riscv_restore_0": "0x13b5c",
+      "__riscv_restore_1": "0x13b58",
+      "__riscv_restore_10": "0x13b34",
+      "__riscv_restore_11": "0x13b30",
+      "__riscv_restore_12": "0x13b2c",
+      "__riscv_restore_2": "0x13b54",
+      "__riscv_restore_3": "0x13b50",
+      "__riscv_restore_4": "0x13b4c",
+      "__riscv_restore_5": "0x13b48",
+      "__riscv_restore_6": "0x13b44",
+      "__riscv_restore_7": "0x13b40",
+      "__riscv_restore_8": "0x13b3c",
+      "__riscv_restore_9": "0x13b38",
+      "__riscv_save_0": "0x13b26",
+      "__riscv_save_1": "0x13b1e",
+      "__riscv_save_10": "0x13a76",
+      "__riscv_save_11": "0x13a5a",
+      "__riscv_save_12": "0x13a3a",
+      "__riscv_save_2": "0x13b14",
+      "__riscv_save_3": "0x13b08",
+      "__riscv_save_4": "0x13afa",
+      "__riscv_save_5": "0x13aea",
+      "__riscv_save_6": "0x13ad8",
+      "__riscv_save_7": "0x13ac4",
+      "__riscv_save_8": "0x13aac",
+      "__riscv_save_9": "0x13a92"
+    },
+    "nimble_enabled": true,
+    "usb_enabled": true,
+    "tf_enabled": true,
+    "ir_enabled": true,
+    "keys_enabled": true,
+    "gpio_irq_enabled": false,
+    "rtc_enabled": true,
+    "heap_region_bytes": 22848,
+    "note": "Heap region includes allocator metadata; use board free for runtime availability."
+  },
+  "sha256": {
+    "rtt/bsp/libraries/hal_drivers/drv_rtc.c": "ddcaa7a3c7bc13ba2b771ed75c62571cb725e9a4616b96d61bafb170418ed303",
+    "rtt/bsp/libraries/hal_libraries/ab32vg1_hal/include/ab32vg1_hal_rtc.h": "103e26e12265a5f5f38d93995a5b28c9a23784622f772b9f4b14fbb3b5615860",
+    "rtt/bsp/board/Kconfig": "9c149fa7b59a4e216be3ef38c64d83d37de22c38964c0570a2a55c7f730e7aa6",
+    "rtt/bsp/rtconfig.h": "506c27a49202063e4b14ad4f85e052aec13024c1ba4b7c1b21d80fdd0e39b616",
+    "rtt/bsp/link_bt_ram.lds": "b7da1bd96f30cd55dbf343a8135bc25003673850e622e4856aaa92340663e16c",
+    "tools/rtt/check_builds.py": "8da2279121b6b367bad7db67f912d2acdd878e8832bc61c879400c7992e595e2",
+    "tools/rtt/memory_report.py": "c84215c7ced891e8cec67cc48fdb4a47534b93453d705a9e0541350d3906e744",
+    "tools/rtt/test_rtc.py": "ba9f09e1905c4857354b0d42a4e6f84f40c291cd6d9c9dacc2ddbaadd2ff8606",
+    "tools/rtt/tests/rtc.c": "fc2b36cb1269d2f471fcec73f635ccb473a3be6e233451d7634d5794a79fe1fb",
+    "tools/rtt/tests/rtc_board/board.h": "dc1ee81fd6e800b5c6a1d8ac9ae2c0b0dbe913a355565dc28dea0dc9b4e29d16",
+    "tools/rtt/test_drivers.py": "91ff0d05fa6ee4df17caf1127e189d7d40d2a88d8778c1fbfac7769af3854656",
+    "tools/rtt/tests/audio_rtc_flash.c": "70b30f0d15cd81b3bb25bd33e513b5462d3c2227b7a899d38c0afa9ebc577dc5",
+    "tools/rtt/tests/include/board.h": "a36ddc81fb8737e7a2173e9dbfccde1a2f07cead50db9132bec66bef4d26e21f",
+    "docs/ab32vg1_doc/AB32VG1_Register.pdf": "4f7700d499f6b38ffd19e9eb5f23638692ca5e24305d8f245dbd0c8ff22d81fc",
+    "docs/ab32vg1_doc/AB32VG1_DataSheet.pdf": "00aa5f23feb8cf80eaf4f96dcefb4bb429f4b5af3b075fd9bd6fbf4b8a17f1ad",
+    "docs/ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf": "290b6352506af8d7f1c5f565d2cf0927d935c9f30faa1fa352ae88bcf9b14ee7"
+  },
+  "build_outputs": {
+    "rtt/bsp/rtthread.elf": {
+      "bytes": 319984,
+      "sha256": "f8f21f6f9fbebf2593467eac0a3c72476163c3d9f823b5b8c25ffecab11aae63"
+    },
+    "rtt/bsp/rtthread.bin": {
+      "bytes": 213264,
+      "sha256": "cbf975fda627a75a9517f1e3d6f48ee28fd111dbeb30dd11f509669e5a42650e"
+    },
+    "rtt/bsp/rtthread.dcf": {
+      "bytes": 222808,
+      "sha256": "da0f72d59d3d641eeca311d6eb11e557fa2ef52dcfc372976e6272d640fc793d"
+    }
+  },
+  "limits": [
+    "No firmware download or serial access in this RTC task",
+    "No real oscillator cadence/accuracy/temperature validation",
+    "No retention validation across reset or power removal",
+    "No board RTC backup battery claim",
+    "Runtime heap/stack and peripheral coexistence remain unmeasured for this build",
+    "Current default uses internal uncalibrated RC; external clock hardware absent in V02 schematic"
+  ],
+  "historical_scope": "Snapshot before hardware testing. The clock-selection assumption failed on the board and was corrected later; hashes/build outputs below are historical, not the final tested firmware.",
+  "superseded_by": "rtc-rtt-hardware.json"
+}

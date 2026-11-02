@@ -66,6 +66,11 @@ SECTIONS
         /* Only thread entry points here; .irq.irrx* (including pin addresses)
          * and every IRQ-masked helper are collected into SRAM below. */
         *drv_irrx.o (.text* .rodata* .srodata*)
+        /* RTC is thread-only; its IRQ-masked bridge helpers use .irq.rtc. */
+        *drv_rtc.o (.text* .rodata* .srodata*)
+        *dev_rtc.o (.text* .rodata* .srodata*)
+        /* Calendar conversion / libc RTC access runs in thread context only. */
+        *ctime.o (.text* .rodata* .srodata*)
         *board_keys.o (.text* .rodata* .srodata*)
         *drv_gpio.o (.text.ab32_pin_get .text.ab32_pin_attach_irq
                      .text.ab32_pin_dettach_irq .text.ab32_pin_irq_enable

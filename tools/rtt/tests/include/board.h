@@ -83,11 +83,6 @@ extern volatile uint32_t extra_regs[32];
 #define PICCONCLR extra_regs[18]
 #define DMA_ADR(p) ((rt_ubase_t)(p))
 #define IRQ_AUBUF0_1_VECTOR 9
-#define RTC_WR 0x80
-#define RTC_RD 0
-#define RTCCNT_CMD 0x40
-#define RTCCON0_CMD 0x00
-#define RTCCON2_CMD 0x02
 void hal_mdelay(uint32_t ms);
 #include "ab32vg1_hal_rtc.h"
 extern volatile uint32_t test_sd[10];

@@ -29,6 +29,7 @@ def inspect(elf):
     ir = 'irrx_isr' in symbols
     keys = 'board_keys_init' in symbols
     gpio_irq = 'ab32_pin_irq_handler' in symbols
+    rtc = 'rtc_transfer' in symbols
     flash_functions = ['finsh_thread_entry', '_audio_dev_init', 'pcmcheck']
     if nimble:
         flash_functions += ['ble_hs_init', 'ble_gatts_init', 'ble_gap_adv_start']
@@ -42,6 +43,9 @@ def inspect(elf):
         flash_functions += ['irrx', 'irrx_read', 'irrx_control']
     if keys:
         flash_functions += ['board_keys_init', 'board_keys_poll', 'keys', 'keys_read', 'keys_control']
+    if rtc:
+        flash_functions += ['ab32_rtc_init', 'ab32_rtc_get_secs', 'ab32_rtc_set_secs',
+                            'rt_hw_rtc_register', 'rtcctl', 'time', 'gmtime_r', 'localtime_r', 'mktime']
     if gpio_irq:
         flash_functions += ['ab32_pin_irq_thread', 'ab32_pin_irq_enable',
                             'ab32_pin_attach_irq', 'ab32_pin_dettach_irq']
@@ -55,6 +59,9 @@ def inspect(elf):
                  'os_cache_init', 'load_cache', '__wrap_bthw_isr_do',
                  'bb_run_loop', 'hci_host_recv_packet', 'audio_isr', 'uart_isr']
     ram_functions += ['ab32_pin_mode', 'hal_gpio_init', 'gpio_afinit', 'port_sfr', 'port_table']
+    if rtc:
+        ram_functions += ['rtc_transfer', 'rtc_byte', 'rtc_wait_idle', 'rtc_bridge_init',
+                          'rt_hw_interrupt_disable', 'rt_hw_interrupt_enable']
     if gpio_irq:
         ram_functions += ['ab32_pin_irq_handler', 'get_wakeup_circuit', 'gpio_sample',
                           'gpio_configure_irqs', 'gpio_take_pin', 'gpio_change_pin',
@@ -72,6 +79,7 @@ def inspect(elf):
                           'rt_hw_interrupt_disable', 'rt_hw_interrupt_enable',
                           'rt_interrupt_enter', 'rt_interrupt_leave', 'rt_tick_get',
                           'memcpy', 'memset']
+    if ir or rtc:
         ram_functions += sorted(name for name in symbols
             if name.startswith(('__riscv_save_', '__riscv_restore_')))
     for name in ram_functions:
@@ -87,6 +95,7 @@ def inspect(elf):
     assert sections['.comm']['vma'] % 512 == 0
     return dict(sections=sections, placement_checks=checks, nimble_enabled=nimble, usb_enabled=usb, tf_enabled=tf, ir_enabled=ir,
                 keys_enabled=keys, gpio_irq_enabled=gpio_irq,
+                rtc_enabled=rtc,
                 heap_region_bytes=sections['.heap']['bytes'],
                 note='Heap region includes allocator metadata; use board free for runtime availability.')
 
