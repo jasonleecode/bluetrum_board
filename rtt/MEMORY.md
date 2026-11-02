@@ -1,6 +1,11 @@
-# 综合 RTT 内存优化（2026-11-02）
+# 综合 RTT 内存记录（2026-11-02）
 
-FM、恢复源码的蓝牙控制器、PCM、串口和 LED 保留在同一固件中。此次没有接入 NimBLE，
+当前默认配置已接入 NimBLE。下文“接入前内存优化”保留历史数据，
+当前用量以“NimBLE 接入后”一节为准。
+
+## 接入前内存优化
+
+FM、恢复源码的蓝牙控制器、PCM、串口和 LED 保留在同一固件中。此阶段（提交 `5ffc6ab`）尚未接入 NimBLE，
 没有修改控制器恢复算法，也没有重新链接 `libbtctrl.a`。
 
 ## 实机内存
@@ -46,7 +51,7 @@ FM、恢复源码的蓝牙控制器、PCM、串口和 LED 保留在同一固件�
 | `.stack` | 4096 | 启动/IRQ 栈 |
 | `.flash` | 14336 | 普通线程代码与只读数据 |
 
-## NimBLE 后续预算
+## 接入前的 NimBLE 预算估算
 
 检查了仓库 `docs/ab32vg1_doc/test_program/ab32v110-ble-test.zip` 的源码和配置，
 并用当前 RV32 工具链编译头文件尺寸探针。原包默认单连接；以下只是缓冲区本体：
@@ -84,4 +89,44 @@ Host 静态池落地后，需要根据静态占用重新设置当前 40 KiB 堆�
 结构化结果与串口记录见
 [memory-rtt-hardware.json](../docs/lib-analysis/generated/recovery/memory-rtt-hardware.json) 和
 [memory-rtt-hardware.log](../docs/lib-analysis/generated/recovery/memory-rtt-hardware.log)。
-NimBLE/GATT、连接与 ACL 数据传输、FM/蓝牙同时运行和长时间稳定性尚未验证。
+以上是接入前的验证范围。NimBLE/GATT 和 ACL 的后续验证见下一节；
+FM/蓝牙同时运行和长时间稳定性仍未验证。
+
+## NimBLE 接入后
+
+默认综合配置加入 Apache NimBLE 1.10.0 Host，单连接、MTU 64、无加密测试服务。
+控制器固定区与 IRQ 栈没有缩减，Host 栈 3072 字节、控制器栈 2048 字节。
+普通 Host 代码放 Flash；NPL、mbuf 队列/池及临界区继续在 SRAM 运行。
+这是新功能引入后的完整实测值，不能沿用前面接入前的 40872 字节总堆。
+
+| 段 | 字节 | 说明 |
+| --- | ---: | --- |
+| `.comm` | 73144 | 主 SRAM 代码与初始化数据 |
+| `.ram1` | 31208 / 31232 | 余 24 字节，后续新增内核路径需重新分配段 |
+| `.bss` | 9664 | 包含 NimBLE 静态池及状态 |
+| `.bram` | 6540 / 10240 | 恢复控制器的固定 ABI 区 |
+| `.heap` | 29824 | 原始堆区，扣元数据后 total 为 29736 |
+| `.stack` | 4096 | 启动/IRQ 栈 |
+| `.flash` | 54784 | shell、PCM 框架、Host/GATT 等线程代码 |
+
+| 运行状态 | 已用堆 | 可用堆 |
+| --- | ---: | ---: |
+| 上电，蓝牙未启动 | 12224 | 17512 |
+| NimBLE 启动，尚未使用 PCM | 18376 | 11360 |
+| 已播放 PCM、保留播放池，蓝牙未启动 | 20720 | 9016 |
+| NimBLE 启动且保留 PCM 播放池 | 26872 | 2864 |
+
+带 PCM 池和不带 PCM 池的状态各完成三轮真实连接、GATT 读写/通知及重连；
+载荷为 1、20、60 字节，MTU 协商到 64。测试前后已用堆一致，HCI errors 和 Host resets
+均为零。Host 线程栈峰值 26%，控制器线程 25%。这些是短程功能验证，不代表长期运行证明。
+完整 PCM 池保留时可用仅 2864 字节，后续新增协议、安全功能或服务前需要重新预算。
+
+链接脚本和 `memory_report.py` 将带 NimBLE 的原始堆下限设为 28 KiB；
+不带 Host 的控制器配置下限为 39 KiB。第二 SRAM 接近满载，原控制器 complex 对象
+移到主 SRAM 以容纳 Host 所需的 RT-Thread 内核函数。检查器同时约束 Host Flash 放置，
+以及中断、临界区、NPL、mbuf 队列和池函数的 SRAM 地址。
+
+FM 启停与 PCM 互斥回归通过；FM 开启时 `pcmcheck` 返回忙，停止 FM 后播放成功，
+蓝牙启用后 FM 启动返回忙。此次没有新增 FM 听感验收，广播接收仍待换耳机验证。
+源码、配置、命令与边界见 [NimBLE 接入说明](NIMBLE.md)，最终二进制摘要、连接报告
+和串口记录见 [nimble-rtt-hardware.json](../docs/lib-analysis/generated/recovery/nimble-rtt-hardware.json)。

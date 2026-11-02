@@ -23,24 +23,33 @@ def inspect(elf):
     symbols = {name: int(addr, 16) for addr, name in re.findall(
         r'^([0-9a-f]+)\s+\S\s+(\S+)$', output, re.M)}
     checks = {}
-    for name in ('finsh_thread_entry', '_audio_dev_init', 'pcmcheck'):
+    nimble = 'ble_hs_init' in symbols
+    flash_functions = ['finsh_thread_entry', '_audio_dev_init', 'pcmcheck']
+    if nimble:
+        flash_functions += ['ble_hs_init', 'ble_gatts_init', 'ble_gap_adv_start']
+    for name in flash_functions:
         addr = symbols[name]
         assert 0x10000200 <= addr < 0x10100000, f'{name} is not in flash'
         checks[name] = hex(addr)
-    for name in ('rt_schedule', 'rt_sem_release', 'rt_hw_context_switch',
+    ram_functions = ['rt_schedule', 'rt_sem_release', 'rt_hw_context_switch',
                  'os_cache_init', 'load_cache', '__wrap_bthw_isr_do',
-                 'bb_run_loop', 'hci_host_recv_packet', 'audio_isr', 'uart_isr'):
+                 'bb_run_loop', 'hci_host_recv_packet', 'audio_isr', 'uart_isr']
+    if nimble:
+        ram_functions += ['ble_npl_hw_enter_critical', 'ble_npl_hw_exit_critical',
+                          'ble_npl_eventq_put', 'ble_mqueue_get', 'ble_mqueue_put',
+                          'os_memblock_get', 'os_memblock_put', 'alloc_acl', 'free_acl']
+    for name in ram_functions:
         addr = symbols[name]
         assert 0x13800 <= addr < 0x2f000 or 0x50000 <= addr < 0x57a00, f'{name} left SRAM'
         checks[name] = hex(addr)
     assert symbols['bb_get_without_vehicle'] == 0x11000
     assert sections['.bram']['bytes'] <= 10 * 1024
-    assert sections['.heap']['bytes'] >= 40 * 1024
+    assert sections['.heap']['bytes'] >= (28 if nimble else 39) * 1024
     assert sections['.ram1']['bytes'] <= 0x7a00
     assert symbols['__bank_size'] == sections['.flash']['bytes']
     assert sections['.flash']['vma'] % 512 == 0
     assert sections['.comm']['vma'] % 512 == 0
-    return dict(sections=sections, placement_checks=checks,
+    return dict(sections=sections, placement_checks=checks, nimble_enabled=nimble,
                 heap_region_bytes=sections['.heap']['bytes'],
                 note='Heap region includes allocator metadata; use board free for runtime availability.')
 

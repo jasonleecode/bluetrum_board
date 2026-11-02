@@ -49,6 +49,7 @@ PROFILES['spi_fm_i2s'] = dict(PROFILES['spi_fm'], BSP_USING_I2S=1, BSP_I2S_MAPPI
 PROFILES['i2s_pa'] = dict(PROFILES['audio'], BSP_USING_I2S=1, BSP_I2S_MAPPING=0)
 PROFILES['bluetooth'] = dict(PROFILES['audio'], BSP_USING_FMRX=1, BSP_USING_BTCTRL=1,
     RT_AUDIO_USING_LAZY_INIT=1)
+PROFILES['nimble'] = dict(PROFILES['bluetooth'], BSP_USING_NIMBLE=1)
 
 def base_config(config):
     """Keep optional profiles independent of enabled workspace peripherals."""
@@ -66,7 +67,7 @@ def main():
     work = Path(tempfile.mkdtemp(prefix='ab32-rtt-build-'))
     print(f'Build workspace/logs: {work}', flush=True)
     shutil.copytree(ROOT / 'rtt', work / 'rtt', ignore=shutil.ignore_patterns(
-        'build', '*.o', '.sconsign.dblite', '__pycache__', 'rtthread.elf',
+        'build', '*.o', '.git', '.sconsign.dblite', '__pycache__', 'rtthread.elf',
         'rtthread.bin', 'rtthread.map', 'cconfig.h'))
     (work / 'bare').mkdir()
     (work / 'bare/lib').symlink_to(ROOT / 'bare/lib', target_is_directory=True)

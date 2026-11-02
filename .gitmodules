@@ -1,0 +1,3 @@
+[submodule "rtt/nimble"]
+	path = rtt/nimble
+	url = https://github.com/apache/mynewt-nimble.git

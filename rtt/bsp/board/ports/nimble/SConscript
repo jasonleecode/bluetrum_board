@@ -1,0 +1,20 @@
+from building import *
+cwd = GetCurrentDir()
+upstream = os.path.abspath(os.path.join(cwd, '../../../../nimble'))
+if not os.path.isfile(os.path.join(upstream, 'porting/nimble/src/nimble_port.c')):
+    print('NimBLE missing: run git submodule update --init rtt/nimble')
+    Exit(1)
+paths = ['nimble/include', 'nimble/host/include', 'nimble/host/src',
+         'nimble/host/services/gap/include', 'nimble/host/services/gatt/include',
+         'nimble/host/util/include', 'nimble/transport/include', 'porting/nimble/include']
+sources = Glob('*.c')
+for path in ['nimble/host/src', 'nimble/host/util/src',
+             'nimble/host/services/gap/src', 'nimble/host/services/gatt/src']:
+    sources += Glob(os.path.join(upstream, path, '*.c'))
+for name in ['endian', 'mem', 'nimble_port', 'os_mbuf', 'os_mempool', 'os_msys']:
+    sources += [os.path.join(upstream, 'porting/nimble/src', name + '.c')]
+sources += [os.path.join(upstream, 'nimble/transport/src/transport.c')]
+group = DefineGroup('NimBLE-Host', sources, depend=['BSP_USING_NIMBLE'],
+    LOCAL_CPPPATH=[os.path.join(cwd, 'include')] + [os.path.join(upstream, p) for p in paths],
+    LOCAL_CCFLAGS=' -include ' + os.path.join(cwd, 'nimble_config.h') + ' -fdata-sections')
+Return('group')

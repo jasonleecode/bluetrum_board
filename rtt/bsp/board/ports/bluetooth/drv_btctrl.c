@@ -5,12 +5,19 @@
 #include "drv_bluetooth.h"
 #include "btctrl_hal.h"
 #include "bt_core_recovered.h"
+#include "drv_btctrl_port.h"
 #ifdef BSP_USING_FMRX
 #include "../audio/drv_fmrx.h"
 #endif
 
 static struct rt_semaphore wake;
 static rt_thread_t worker;
+#ifdef BSP_USING_NIMBLE
+static drv_bt_hci_rx_cb_t host_receive;
+static struct rt_semaphore started;
+struct host_job { void (*run)(void *); void *arg; };
+static rt_mq_t host_jobs;
+#endif
 static volatile rt_uint32_t irq_count, loops, events;
 static volatile rt_uint32_t classic_irqs, le_irqs, radio_irqs;
 static rt_uint32_t last_classic, last_le;
@@ -240,7 +247,13 @@ static void bt_worker_entry(void *unused)
     (void)unused;
     rt_memcpy(cfg.public_addr, address, 6);
     cfg.hci_rx = receive;
+#ifdef BSP_USING_NIMBLE
+    if (host_receive) cfg.hci_rx = host_receive;
+#endif
     ready = drv_bt_init(&cfg);
+#ifdef BSP_USING_NIMBLE
+    if (host_receive) rt_sem_release(&started);
+#endif
     if (!ready)
     {
         stage = "platform rejected";
@@ -248,6 +261,19 @@ static void bt_worker_entry(void *unused)
         rt_kprintf("BT FAIL: platform prerequisites; reboot before retry\n");
         return;
     }
+#ifdef BSP_USING_NIMBLE
+    if (host_receive) {
+        finished = RT_TRUE;
+        stage = "NimBLE owns HCI";
+        for (;;) {
+            struct host_job job;
+            /* Pump after each packet, so radio work cannot be starved. */
+            if (rt_mq_recv(host_jobs, &job, sizeof(job), 0) == sizeof(job)) job.run(job.arg);
+            pump(); ++loops;
+            if (!host_jobs->entry) rt_sem_take(&wake, 1);
+        }
+    }
+#endif
     pass = command(0x0c03, "HCI Reset") &&
            command(0x1001, "Read Local Version") &&
            command(0x1009, "Read BD_ADDR") &&
@@ -269,6 +295,39 @@ static void bt_worker_entry(void *unused)
         rt_sem_take(&wake, 1);
     }
 }
+
+#ifdef BSP_USING_NIMBLE
+rt_bool_t ab32_btctrl_available(void) { return worker == RT_NULL; }
+rt_err_t ab32_btctrl_start_host(drv_bt_hci_rx_cb_t receive_cb)
+{
+    if (worker || !receive_cb) return -RT_EBUSY;
+#ifdef BSP_USING_FMRX
+    rt_device_t fm = rt_device_find("fm0");
+    if (fm && rt_device_control(fm, AB32_FMRX_STOP, RT_NULL) != RT_EOK) return -RT_EBUSY;
+#endif
+    rt_sem_init(&wake, "btwake", 0, RT_IPC_FLAG_PRIO);
+    rt_sem_init(&started, "btrdy", 0, RT_IPC_FLAG_PRIO);
+    host_jobs = rt_mq_create("bthci", sizeof(struct host_job), 8, RT_IPC_FLAG_FIFO);
+    if (!host_jobs) { rt_sem_detach(&started); rt_sem_detach(&wake); return -RT_ENOMEM; }
+    host_receive = receive_cb;
+    worker = rt_thread_create("btctrl", bt_worker_entry, RT_NULL, 2048, 5, 1);
+    if (!worker) {
+        host_receive = RT_NULL; rt_mq_delete(host_jobs); host_jobs = RT_NULL;
+        rt_sem_detach(&started); rt_sem_detach(&wake); return -RT_ENOMEM;
+    }
+    rt_thread_startup(worker);
+    if (rt_sem_take(&started, rt_tick_from_millisecond(5000)) != RT_EOK) return -RT_ETIMEOUT;
+    return ready ? RT_EOK : -RT_ERROR;
+}
+rt_err_t ab32_btctrl_submit(void (*run)(void *), void *arg)
+{
+    struct host_job job = {run, arg};
+    if (!host_receive || !ready) return -RT_EIO;
+    rt_err_t rc = rt_mq_send(host_jobs, &job, sizeof(job));
+    if (rc == RT_EOK) rt_sem_release(&wake);
+    return rc;
+}
+#endif
 
 static void btctl(int argc, char **argv)
 {

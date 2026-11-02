@@ -1,0 +1,250 @@
+NimBLE 1.10.0 integrated RTT hardware verification, 2026-11-02
+Raw UART capture; electrical character echo retained.
+
+--- PCM retained: FM/PCM/Host startup ---
+
+ \ | /
+- RT -     Thread Operating System
+ / | \     5.2.2 b
+
+msh >ffrreeee
+
+total    : 29736
+used     : 12224
+maximum  : 12224
+available: 17512
+msh >
+
+msh >ffmmrrxx  vvoolluummee  2200
+
+msh >
+
+msh >ffmmrrxx  ssttaarrtt  9977440000
+
+msh >
+
+msh >ffmmrrxx  ssttaattuuss
+
+FM running, 97400 kHz, volume 20, last error 0
+msh >
+
+msh >ppccmmcchheecckk
+
+[31m[E/kernel.device] To initialize device:sound0 failed. The error code is -16[0m
+PCM open failed: -16
+pcmcheck: command failed -16.
+msh >
+
+msh >ffmmrrxx  ssttoopp
+
+msh >
+
+msh >ppccmmcchheecckk
+
+PCM check: 0 (replay buffers retained for reuse)
+msh >
+
+msh >ffrreeee
+
+total    : 29736
+used     : 20720
+maximum  : 20720
+available: 9016
+msh >
+
+msh >bbllee  ssttaarrtt
+
+BT: fixed RAM 0x00011000..0x0001298c, ROM heap ready
+BT: RF init begin
+BT: RF init done
+BT: classic init begin
+BT: classic init done
+BT: LE init begin
+BT: LE init done
+BLE Host running (one connection, MTU 64, unencrypted test service)
+BLE sync: 0, static address C2:00:AB:32:00:02
+BLE advertising: 0 name=AB32-NIMBLE
+msh >
+
+msh >bbllee  ssttaattuuss
+
+BLE synced=1 conn=65535 error=0 connections=0 disconnects=0 resets=0
+GATT reads=0 writes=0 bytes=15 value_handle=16
+HCI cmd=15 tx_acl=0 events=15 rx_acl=0 errors=0
+msh >
+
+msh >ffrreeee
+
+total    : 29736
+used     : 26872
+maximum  : 26904
+available: 2864
+msh >
+
+msh >ppss
+
+thread   pri  status      sp     stack size max used left tick   error  tcb addr   usage
+-------- ---  ------- ---------- ----------  ------  ---------- ------- ---------- -----
+btctrl     5  suspend 0x00000120 0x00000800    20%   0x00000001 EINTRPT 0x0002da98  N/A
+nimble     9  suspend 0x00000104 0x00000c00    19%   0x00000001 EINTRPT 0x0002ccb8  N/A
+tshell    20  running 0x00000220 0x00000800    34%   0x00000002 OK      0x0002a270  N/A
+fm_sync   21  ready   0x000000e4 0x00000400    25%   0x00000008 ETIMOUT 0x00029b88  N/A
+audio     20  suspend 0x000000e8 0x00000400    30%   0x00000001 EINTRPT 0x000296d0  N/A
+gpioirq   15  suspend 0x00000124 0x00000200    57%   0x00000004 EINTRPT 0x00028bc0  N/A
+drv       18  suspend 0x000000ec 0x00000200    53%   0x00000005 EINTRPT 0x000280a0  N/A
+tidle0    31  ready   0x00000094 0x00000200    35%   0x00000003 OK      0x00027398  N/A
+timer      4  suspend 0x000000ec 0x00000400    23%   0x00000009 EINTRPT 0x00027a78  N/A
+main      10  suspend 0x000000e0 0x00000400    28%   0x00000011 EINTRPT 0x00027be8  N/A
+msh >
+--- PCM retained: after three GATT cycles ---
+BLE connect: status=0 handle=0
+BLE MTU: 64
+BLE disconnect: rea
+
+msh >bbllee  ssttaattuuss
+
+BLE synced=1 conn=65535 error=0 connections=3 disconnects=3 resets=0
+GATT reads=21 writes=9 bytes=60 value_handle=16
+HCI cmd=30 tx_acl=91 events=127 rx_acl=72 errors=0
+msh >
+
+msh >ffrreeee
+
+total    : 29736
+used     : 26872
+maximum  : 26904
+available: 2864
+msh >
+
+msh >ppss
+
+thread   pri  status      sp     stack size max used left tick   error  tcb addr   usage
+-------- ---  ------- ---------- ----------  ------  ---------- ------- ---------- -----
+btctrl     5  suspend 0x00000120 0x00000800    25%   0x00000001 EINTRPT 0x0002da98  N/A
+nimble     9  suspend 0x00000104 0x00000c00    26%   0x00000004 EINTRPT 0x0002ccb8  N/A
+tshell    20  running 0x0000019c 0x00000800    34%   0x00000008 OK      0x0002a270  N/A
+fm_sync   21  ready   0x000000e4 0x00000400    25%   0x00000008 ETIMOUT 0x00029b88  N/A
+audio     20  suspend 0x000000e8 0x00000400    30%   0x00000001 EINTRPT 0x000296d0  N/A
+gpioirq   15  suspend 0x00000124 0x00000200    57%   0x00000004 EINTRPT 0x00028bc0  N/A
+drv       18  suspend 0x000000ec 0x00000200    53%   0x00000002 EINTRPT 0x000280a0  N/A
+tidle0    31  ready   0x000000b8 0x00000200    35%   0x00000009 OK      0x00027398  N/A
+timer      4  suspend 0x000000ec 0x00000400    23%   0x00000009 EINTRPT 0x00027a78  N/A
+main      10  suspend 0x000000e0 0x00000400    28%   0x00000011 EINTRPT 0x00027be8  N/A
+msh >
+
+msh >ffmmrrxx  ssttaarrtt  9977440000
+
+FM error -16
+fmrx: command failed -16.
+msh >
+
+msh >bbllee  ssttoopp
+
+msh >
+
+msh >bbllee  ssttaattuuss
+
+BLE synced=1 conn=65535 error=0 connections=3 disconnects=3 resets=0
+GATT reads=21 writes=9 bytes=60 value_handle=16
+HCI cmd=31 tx_acl=91 events=128 rx_acl=72 errors=0
+msh >
+--- Fresh boot: Host startup ---
+
+ \ | /
+- RT -     Thread Operating System
+ / | \     5.2.2 b
+
+msh >ffrreeee
+
+total    : 29736
+used     : 12224
+maximum  : 12224
+available: 17512
+msh >
+
+msh >bbllee  ssttaarrtt
+
+BT: fixed RAM 0x00011000..0x0001298c, ROM heap ready
+BT: RF init begin
+BT: RF init done
+BT: classic init begin
+BT: classic init done
+BT: LE init begin
+BT: LE init done
+BLE Host running (one connection, MTU 64, unencrypted test service)
+BLE sync: 0, static address C2:00:AB:32:00:02
+BLE advertising: 0 name=AB32-NIMBLE
+msh >
+
+msh >bbllee  ssttaattuuss
+
+BLE synced=1 conn=65535 error=0 connections=0 disconnects=0 resets=0
+GATT reads=0 writes=0 bytes=15 value_handle=16
+HCI cmd=15 tx_acl=0 events=15 rx_acl=0 errors=0
+msh >
+
+msh >ffrreeee
+
+total    : 29736
+used     : 18376
+maximum  : 18408
+available: 11360
+msh >
+--- Fresh boot: after three GATT cycles, advertising resumed ---
+BLE connect: status=0 handle=0
+BLE MTU: 64
+BLE disconnect: rea
+
+msh >bbllee  ssttaattuuss
+
+BLE synced=1 conn=65535 error=0 connections=3 disconnects=3 resets=0
+GATT reads=21 writes=9 bytes=60 value_handle=16
+HCI cmd=30 tx_acl=91 events=127 rx_acl=72 errors=0
+msh >
+
+msh >ffrreeee
+
+total    : 29736
+used     : 18376
+maximum  : 18408
+available: 11360
+msh >
+
+msh >ppss
+
+thread   pri  status      sp     stack size max used left tick   error  tcb addr   usage
+-------- ---  ------- ---------- ----------  ------  ---------- ------- ---------- -----
+btctrl     5  suspend 0x00000120 0x00000800    21%   0x00000001 EINTRPT 0x0002b968  N/A
+nimble     9  suspend 0x00000104 0x00000c00    26%   0x00000002 EINTRPT 0x0002ab88  N/A
+tshell    20  running 0x0000019c 0x00000800    28%   0x00000009 OK      0x0002a270  N/A
+fm_sync   21  ready   0x000000e4 0x00000400    25%   0x00000009 ETIMOUT 0x00029b88  N/A
+audio     20  suspend 0x000000e8 0x00000400    23%   0x00000001 EINTRPT 0x000296d0  N/A
+gpioirq   15  suspend 0x00000124 0x00000200    57%   0x00000004 EINTRPT 0x00028bc0  N/A
+drv       18  suspend 0x000000ec 0x00000200    52%   0x00000003 EINTRPT 0x000280a0  N/A
+tidle0    31  ready   0x000000b8 0x00000200    35%   0x00000009 OK      0x00027398  N/A
+timer      4  suspend 0x000000ec 0x00000400    23%   0x00000009 EINTRPT 0x00027a78  N/A
+main      10  suspend 0x000000e0 0x00000400    28%   0x00000011 EINTRPT 0x00027be8  N/A
+msh >
+
+msh >bbllee  ssttoopp
+
+msh >
+
+msh >bbllee  ssttaattuuss
+
+BLE synced=1 conn=65535 error=0 connections=3 disconnects=3 resets=0
+GATT reads=21 writes=9 bytes=60 value_handle=16
+HCI cmd=31 tx_acl=91 events=128 rx_acl=72 errors=0
+msh >
+
+msh >bbllee  aaddvv
+
+BLE advertising: 0 name=AB32-NIMBLE
+msh >
+
+msh >bbllee  ssttaattuuss
+
+BLE synced=1 conn=65535 error=0 connections=3 disconnects=3 resets=0
+GATT reads=21 writes=9 bytes=60 value_handle=16
+HCI cmd=35 tx_acl=91 events=132 rx_acl=72 errors=0
+msh >

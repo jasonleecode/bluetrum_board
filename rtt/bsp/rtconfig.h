@@ -413,7 +413,8 @@
 /* end of Hardware Drivers Config */
 #define BOARD_BLUETRUM_EVB
 
-/* Recovered controller: explicit btctl test starts hardware. */
+/* Explicit ble start (Host) or btctl test (diagnostics) starts hardware. */
 #define BSP_USING_BTCTRL
+#define BSP_USING_NIMBLE
 
 #endif

@@ -5,10 +5,6 @@ menuconfig SOC_AB32VG1
     select PKG_USING_BLUETRUM_SDK
     default y
 
-menuconfig PKG_USING_BLUETRUM_NIMBLE
-    bool "PKG_USING_BLUETRUM_NIMBLE"
-    default n
-
 menu "Onboard Peripheral Drivers"
 
     menuconfig BSP_USING_AUDIO
@@ -75,9 +71,12 @@ menu "Onboard Peripheral Drivers"
             during bring-up. This option does not enable a NimBLE host.
 
     config BSP_USING_NIMBLE
-        bool "use nimble stack(iot)"
-        select PKG_USING_BLUETRUM_NIMBLE
+        bool "NimBLE Host from rtt/nimble submodule"
+        select BSP_USING_BTCTRL
         default n
+        help
+            RT-Thread NPL and HCI transport to the recovered controller.
+            Explicit ble start enables the one-connection test peripheral.
 
 endmenu
 

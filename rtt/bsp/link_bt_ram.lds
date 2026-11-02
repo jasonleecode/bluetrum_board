@@ -26,13 +26,12 @@ SECTIONS
         *src*scheduler*.o (.text* .rodata*)
         *src*clock.o (.text* .rodata*)
         *src*kservice.o (.text* .rodata*)
-        *src*mem.o (.text* .rodata*)
+        *kernel*src*mem.o (.text* .rodata*)
         *src*klibc*.o (.text* .rodata*)
         *src*device.o (.text* .rodata*)
         *src*idle.o (.text* .rodata*)
         *src*components.o (.text* .rodata*)
         *bt_hct*_recovered.o (.text* .rodata*)
-        *bt_complex_recovered.o (.text* .rodata*)
         . = ALIGN(4);
     } > ram1 AT > flash
     __ram1_lma = LOADADDR(.ram1);
@@ -48,6 +47,13 @@ SECTIONS
         *dev_audio.o (.text* .rodata* .srodata*)
         *dev_audio_pipe.o (.text* .rodata* .srodata*)
         *drv_sound.o (.text.pcmcheck)
+        /* Host mbuf queue operations mask IRQs and stay in SRAM below. */
+        EXCLUDE_FILE(*ble_hs_mqueue.o) *nimble*host*.o (.text* .rodata* .srodata*)
+        *nimble*transport*.o (.text* .rodata* .srodata*)
+        *app_nimble.o (.text* .rodata* .srodata*)
+        *nimble_port.o (.text* .rodata* .srodata*)
+        *os_msys.o (.text* .rodata* .srodata*)
+        *mem.o (.text.mem_malloc* .text.mem_init*)
         . = ALIGN(512);
     } > flash
     __bank_size = SIZEOF(.flash);
@@ -112,6 +118,6 @@ SECTIONS
     __irq_stack_size = SIZEOF(.stack);
     ASSERT(bb_get_without_vehicle == 0x11000, "BT fixed RAM base is incorrect")
     ASSERT(__bt_end <= 0x13800, "BT controller RAM exceeds reservation")
-    ASSERT(__heap_end - __heap_start >= 40K, "Unified BT image leaves less than 40 KiB heap; review NimBLE budget")
+    ASSERT(__heap_end - __heap_start >= (DEFINED(ble_hs_init) ? 28K : 39K), "Unified image heap below budget")
     /DISCARD/ : { *(.comment .eh_frame*) }
 }

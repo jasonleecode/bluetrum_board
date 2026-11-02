@@ -4,7 +4,7 @@
 
 本目录是开发板的统一综合项目，FM、蓝牙、音频及后续外设均作为模块集成到
 同一 RT-Thread 工程和固件。共享资源由项目统一管理，并分别验证模块功能及共存行为。
-当前已接入 GPIO、UART0、DAC 音频、FM 和恢复源码的蓝牙控制器（见 [恢复记录](../docs/lib-analysis/BLUETOOTH_RECOVERY.md)）。综合 RTT 不链接 `libbtctrl.a`；HCI、BLE 广播发送和扫描接收已在实板验证，NimBLE、连接、ACL 与 GATT 尚未验证。
+当前已接入 GPIO、UART0、DAC 音频、FM 和恢复源码的蓝牙控制器（见 [恢复记录](../docs/lib-analysis/BLUETOOTH_RECOVERY.md)）。综合 RTT 不链接 `libbtctrl.a`。NimBLE Host 已通过 `rtt/nimble` 子模块接入，BLE 连接、ACL 分片、GATT 读写和通知已在实板验证；构建、命令与使用边界见 [NimBLE 接入说明](NIMBLE.md)。
 
 主要内容如下：
 
@@ -102,6 +102,7 @@ msh >
 并链接已有的 `bare/lib/libhal.a`。在已安装 SCons 的 Linux 环境执行：
 
 ```sh
+git submodule update --init rtt/nimble
 cd rtt/bsp
 scons -j4
 ```
@@ -139,7 +140,7 @@ SCons 默认目标为完整固件，并跟踪链接脚本变化，避免继续�
 上述记录对应 FM 启用前的 GPIO/UART0 配置；FM 调试记录见下文。
 更多下载器说明见 [工具说明](../tools/linux/README.md)。
 
-当前 `rtconfig.h` 默认启用 GPIO、UART0、DAC 音频和 FM。可选驱动通过 BSP 的
+当前 `rtconfig.h` 默认启用 GPIO、UART0、DAC 音频、FM、恢复源码的蓝牙控制器与 NimBLE Host。可选驱动通过 BSP 的
 `Hardware Drivers Config` 菜单配置，不能把所有选项同时开启：
 TIMER3/4/5 与对应 PWM 共用计数器，TIMER3 与红外共用中断；SPI 的组 2
 与 UART0、组 3 与 SD/UART2、组 1 与 UART1 有引脚冲突。
@@ -261,8 +262,8 @@ FM 的 38 kHz 路径不输出到 I2S，停止 FM 后可恢复 PCM/I2S 播放。
 新恢复代码、来源、差分记录及限制见 [I2S 分析](../docs/lib-analysis/I2S_RECOVERY.md)。
 
 硬件 I2C 仍缺少可确认的控制器定义或实现对象；新找到的 AB53XX SDK 也只提供
-GPIO 软件 I2C，因此没有将其当成硬件驱动接入。USB 暂缓；蓝牙将基于 NimBLE
-主机栈继续完善上层连接与 GATT，控制器恢复源码已接入本综合项目。
+GPIO 软件 I2C，因此没有将其当成硬件驱动接入。USB 暂缓；NimBLE Host 和控制器
+恢复源码均已接入本综合项目。
 控制器恢复期间，原 `.a` 只作为对照和明确标注的阶段性依赖；直接链接原库不作为集成完成标准。
 
 ### 蓝牙控制器实机测试（2026-11-02）
@@ -283,7 +284,8 @@ free
 `test` 停止 FM、初始化 ROM 堆和控制器，并依次检查 HCI Reset、版本、地址及 BLE 缓冲区。
 `adv` 发送名为 `AB32-RTT-TEST` 的不可连接广播，静态随机测试地址 `C2:00:AB:32:00:01`；
 电脑 BlueZ 已实际收到。`scan` 自动停止广播，进行被动扫描；`status` 显示收到的广播报告数量。
-扫描报告只计数，不输出周围设备的地址。当前不提供手机连接或 GATT 服务。
+扫描报告只计数，不输出周围设备的地址。以上是控制器独立诊断模式；
+使用可连接广播与 GATT 时，复位后改用 `ble start`，不要先执行 `btctl test`。
 
 ROM 默认经典蓝牙冲突检查把空闲时隙判为忙；RTT 板级适配在两种经典连接计数均为零时
 允许 BLE 调度，在初始化及 Reset 时通过 ROM 回调注册接口安装此策略。
@@ -291,9 +293,9 @@ ROM 默认经典蓝牙冲突检查把空闲时隙判为忙；RTT 板级适配在
 
 固定控制器内存保留 `0x11000..0x137ff`，内核、控制器和中断路径从 `0x13800`
 及第二块 SRAM `0x50000` 运行。shell 和 PCM 框架的普通线程代码放在 Flash。
-内存优化后的总堆为 40872 字节；蓝牙启动且尚未打开 PCM 时可用 26416 字节，
+接入 NimBLE 前的内存优化版本总堆为 40872 字节；蓝牙启动且尚未打开 PCM 时可用 26416 字节，
 首次播放 PCM、保留完整播放池后可用 17920 字节。广播/扫描重复启停后未下降。
-详细预算、验证范围及 NimBLE 接入约束见 [内存优化记录](MEMORY.md)。
+这些历史数据不代表当前默认配置；NimBLE 接入后的实际预算见 [内存记录](MEMORY.md)。
 蓝牙测试取得射频使用权后，FM 启动/调谐返回忙；广播或扫描停止后仍需复位才能重新运行 FM。
 这是同一综合固件内的临时互斥策略，FM/蓝牙同时工作尚未支持。
 
@@ -309,13 +311,15 @@ PCM 缓冲池首次初始化后保留供复用，复位后重新按需分配。
 
 ```sh
 python3 tools/rtt/test_drivers.py
-python3 tools/rtt/check_builds.py default peripherals audio pwm ir sd flash spi_fm spi_fm_i2s i2s_pa
+python3 tools/rtt/check_builds.py nimble bluetooth audio
+# 更多外设配置：default peripherals pwm ir sd flash spi_fm spi_fm_i2s i2s_pa
 ```
 
 第一条用真实 RT-Thread 头文件与模拟寄存器运行 BSP 回调，覆盖 SPI 超时/tick 回绕/片选、
 ADC 错误、TIMER 共享中断和溢出、WDT 秒单位、RTC 时间范围、音频参数/PLL/停止、
 Flash 分页/返回值，以及 SD 命令和数据完成事件、超时/CRC/缓存边界。
-新增 FM 状态机、音频入口互斥、超时释放/重启、I2S 输出启停与格式限制检查。
+另覆盖 FM 状态机、音频入口互斥、超时释放/重启、I2S 输出启停与格式限制，
+以及 NimBLE NPL 队列/定时器和 HCI 传输缓冲的边界与失败路径。
 它不验证硬件时序、DMA 电气行为或真实卡片协议。
 
 第二条在 `/tmp/ab32-rtt-build-*` 的独立源码副本中执行指定配置的 GCC 完整构建，

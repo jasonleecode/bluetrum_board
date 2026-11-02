@@ -1,0 +1,298 @@
+{
+  "recorded_at": "2026-11-02T06:52:43.549698+00:00",
+  "base_commit": "5ffc6abb72a609a91cd9ddcc13bd668ff81313a1",
+  "upstream": {
+    "url": "https://github.com/apache/mynewt-nimble.git",
+    "path": "rtt/nimble",
+    "tag": "nimble_1_10_0_tag",
+    "commit": "a7a156f28954819e158b62dd613008f22f9cf73b",
+    "modified": false
+  },
+  "firmware_sha256": {
+    "rtt/bsp/rtthread.elf": "be46fcc24400b3f4245abc0f476970e13a369acaac2983c88d88f4860adfba56",
+    "rtt/bsp/rtthread.bin": "b3fa1ac514b2c2704342d22d3d2a78c1d7eead7e3b2e63761f4c0e68672290df",
+    "rtt/bsp/rtthread.dcf": "2428fbf61912904949dc83287638c0252175f3b2c91d3b2c5af03bcf8f7cf9e8"
+  },
+  "local_source_sha256": {
+    "rtt/bsp/board/ports/nimble/nimble_config.h": "85c19c312e3f29496e0d6fe14646ac03ac4f11b6937fee55830078eed071e1c4",
+    "rtt/bsp/board/ports/nimble/app_nimble.c": "655f877c8ecc38beeab125ced88ac1309609773ed7e532d31d982ed6f35b606d",
+    "rtt/bsp/board/ports/nimble/npl_rtthread.c": "91d6c181e001d1d622789518e163403574348018be48cb7c4ea66141103ed3e1",
+    "rtt/bsp/board/ports/nimble/SConscript": "5da1cf35678b1ba718b1d33a3d40c22ab4c55d7c242d19d6f385117a764d5814",
+    "rtt/bsp/board/ports/nimble/transport_ab32.c": "85a89ac5e224e0ca22d8f40f7ca1762181695556a9ca285ed4245c4708563b70",
+    "rtt/bsp/board/ports/nimble/include/assert.h": "338e61c69e4067ae4343c00cc38f414d728538bde5eed260eb68c8d3cd08b35c",
+    "rtt/bsp/board/ports/nimble/include/console/console.h": "c400ab0c459b1f227164ea23ed0dc889dff47700a1452eb24d214b380c187da0",
+    "rtt/bsp/board/ports/nimble/include/nimble/nimble_npl_os_log.h": "a0836bf5bcaa0dadba868fe29cb4f9d5bb99e16e4a5eabf071cb111339c6e967",
+    "rtt/bsp/board/ports/nimble/include/nimble/nimble_npl_os.h": "f9f5292b68930ae35e7aecabec5620fb82ff1a1d2d36213309d22ec623bebdcb",
+    "rtt/bsp/board/ports/bluetooth/drv_btctrl.c": "889ff4b3df5999d4e5240e0819b784d7e9d39c3618767161cdcc855a678cfe75",
+    "rtt/bsp/board/ports/bluetooth/drv_btctrl_port.h": "73d7bc19d9537b1a1d3313f8c9f174c21bae2a3d551fa5fbb4f1f04ca586676b",
+    "rtt/bsp/rtconfig.h": "43d2b9a9e9ffcdbe2878f8a5cc3a76d2e682368f90e97a7dda0a08a3a880c564",
+    "rtt/bsp/link_bt_ram.lds": "ac1b64586d36b0a40399f3c71af96e24ba9ef57f89f830f8d440c9ef0e1414a5",
+    "rtt/bsp/board/SConscript": "b691cea17c5d61b418cc86ec81b5851aba1caf19a316a822a341c875342aba1a",
+    "rtt/bsp/board/Kconfig": "a24519614f56e3708168cc9af6ee5e0fb04c519e37afd815e1db7e9e6925e732",
+    "tools/rtt/test_nimble_gatt.py": "581c2b9da6959f46d80bf59035f422c4774dcc8b6bca3e9a38c696d477908275",
+    "tools/rtt/tests/nimble_npl.c": "93235569d8a2ae1d659242579b2e41b4c0a87cca5b7e37d5c66c70526f8c310d",
+    "tools/rtt/tests/nimble_transport.c": "b404cf8e4097488909fea5d9f5d2c99d6e4e28a63b1ea915ab381c5742f67c4f"
+  },
+  "flash": {
+    "port": "/dev/ttyUSB0",
+    "device": "CRWN",
+    "flash_bytes": 1048576,
+    "body_bytes": 168960,
+    "readback_crc_verified": true
+  },
+  "profile": {
+    "connections": 1,
+    "att_mtu": 64,
+    "security": "unencrypted test service; pairing/bonding disabled",
+    "host_stack_bytes": 3072,
+    "controller_stack_bytes": 2048
+  },
+  "memory": {
+    "sections": {
+      ".init": {
+        "bytes": 326,
+        "vma": 268435456,
+        "lma": 268435456
+      },
+      ".ram1": {
+        "bytes": 31208,
+        "vma": 327680,
+        "lma": 268435968
+      },
+      ".flash": {
+        "bytes": 54784,
+        "vma": 268467200,
+        "lma": 268467200
+      },
+      ".comm": {
+        "bytes": 73144,
+        "vma": 79872,
+        "lma": 268521984
+      },
+      ".bram": {
+        "bytes": 6540,
+        "vma": 69632,
+        "lma": 69632
+      },
+      ".bss": {
+        "bytes": 9664,
+        "vma": 153024,
+        "lma": 153024
+      },
+      ".heap": {
+        "bytes": 29824,
+        "vma": 162688,
+        "lma": 162688
+      },
+      ".stack": {
+        "bytes": 4096,
+        "vma": 192512,
+        "lma": 192512
+      },
+      ".riscv.attributes": {
+        "bytes": 42,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_info": {
+        "bytes": 222,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_abbrev": {
+        "bytes": 102,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_loc": {
+        "bytes": 184,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_aranges": {
+        "bytes": 32,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_line": {
+        "bytes": 257,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_str": {
+        "bytes": 576,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_frame": {
+        "bytes": 32,
+        "vma": 0,
+        "lma": 0
+      }
+    },
+    "placement_checks": {
+      "finsh_thread_entry": "0x10009e78",
+      "_audio_dev_init": "0x1000a5a6",
+      "pcmcheck": "0x1000b258",
+      "ble_hs_init": "0x10010f20",
+      "ble_gatts_init": "0x10010a36",
+      "ble_gap_adv_start": "0x1000dcf0",
+      "rt_schedule": "0x53d72",
+      "rt_sem_release": "0x51428",
+      "rt_hw_context_switch": "0x16cd2",
+      "os_cache_init": "0x15152",
+      "load_cache": "0x15212",
+      "__wrap_bthw_isr_do": "0x1f346",
+      "bb_run_loop": "0x140cc",
+      "hci_host_recv_packet": "0x1f404",
+      "audio_isr": "0x13ce4",
+      "uart_isr": "0x13da8",
+      "ble_npl_hw_enter_critical": "0x1f6f8",
+      "ble_npl_hw_exit_critical": "0x1f712",
+      "ble_npl_eventq_put": "0x1f76e",
+      "ble_mqueue_get": "0x1e03a",
+      "ble_mqueue_put": "0x1e05e",
+      "os_memblock_get": "0x1e9ae",
+      "os_memblock_put": "0x1ea10",
+      "alloc_acl": "0x14e2c",
+      "free_acl": "0x14e6e"
+    },
+    "nimble_enabled": true,
+    "heap_region_bytes": 29824,
+    "note": "Heap region includes allocator metadata; use board free for runtime availability."
+  },
+  "runtime": {
+    "heap_total_bytes": 29736,
+    "boot_used_bytes": 12224,
+    "boot_free_bytes": 17512,
+    "host_without_pcm": {
+      "used_bytes": 18376,
+      "free_bytes": 11360,
+      "maximum_used_bytes": 18408,
+      "unchanged_after_gatt": true,
+      "host_stack_peak_percent": 26,
+      "controller_stack_peak_percent": 21
+    },
+    "host_with_pcm": {
+      "used_bytes": 26872,
+      "free_bytes": 2864,
+      "maximum_used_bytes": 26904,
+      "unchanged_after_gatt": true,
+      "host_stack_peak_percent": 26,
+      "controller_stack_peak_percent": 25
+    }
+  },
+  "gatt": {
+    "without_pcm_pool": {
+      "recorded_at": "2026-11-02T06:51:47.732281+00:00",
+      "address": "C2:00:AB:32:00:02",
+      "service_uuid": "ab320001-5e7f-4c9a-9b7b-75ba2a2f0001",
+      "characteristic_uuid": "ab320001-5e7f-4c9a-9b7b-75ba2a2f0002",
+      "cycles": [
+        {
+          "cycle": 1,
+          "initial_hex": "4142333220525454204e696d424c45",
+          "read_write_notify_sizes": [
+            1,
+            20,
+            60
+          ]
+        },
+        {
+          "cycle": 2,
+          "initial_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b",
+          "read_write_notify_sizes": [
+            1,
+            20,
+            60
+          ]
+        },
+        {
+          "cycle": 3,
+          "initial_hex": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c",
+          "read_write_notify_sizes": [
+            1,
+            20,
+            60
+          ]
+        }
+      ]
+    },
+    "with_pcm_pool": {
+      "recorded_at": "2026-11-02T06:49:40.785629+00:00",
+      "address": "C2:00:AB:32:00:02",
+      "service_uuid": "ab320001-5e7f-4c9a-9b7b-75ba2a2f0001",
+      "characteristic_uuid": "ab320001-5e7f-4c9a-9b7b-75ba2a2f0002",
+      "cycles": [
+        {
+          "cycle": 1,
+          "initial_hex": "4142333220525454204e696d424c45",
+          "read_write_notify_sizes": [
+            1,
+            20,
+            60
+          ]
+        },
+        {
+          "cycle": 2,
+          "initial_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b",
+          "read_write_notify_sizes": [
+            1,
+            20,
+            60
+          ]
+        },
+        {
+          "cycle": 3,
+          "initial_hex": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c",
+          "read_write_notify_sizes": [
+            1,
+            20,
+            60
+          ]
+        }
+      ]
+    }
+  },
+  "after_three_cycles": {
+    "connections": 3,
+    "disconnects": 3,
+    "resets": 0,
+    "gatt_reads": 21,
+    "gatt_writes": 9,
+    "hci_commands": 30,
+    "hci_tx_acl": 91,
+    "hci_events": 127,
+    "hci_rx_acl": 72,
+    "hci_errors": 0
+  },
+  "regression": {
+    "fm_tune_khz": 97400,
+    "fm_volume": 20,
+    "fm_last_error": 0,
+    "pcm_during_fm_error": -16,
+    "pcm_after_fm_stop": 0,
+    "fm_after_ble_error": -16,
+    "advertising_stop_resume_error": 0,
+    "vendor_bt_archive_linked": false
+  },
+  "offline_tests": {
+    "driver_groups": 8,
+    "all_passed": true,
+    "build_profiles": [
+      "nimble",
+      "bluetooth",
+      "audio"
+    ],
+    "placement_and_heap_checks_passed": true
+  },
+  "limitations": [
+    "One peripheral connection only; no security/pairing/central role enabled.",
+    "FM and Bluetooth RF remain exclusive until reboot.",
+    "FM broadcast reception still awaits a different earphone/antenna test.",
+    "Long-duration stability, phone compatibility, long writes and throughput are unverified.",
+    "RAM1 has only 24 bytes of headroom; retained PCM pool leaves 2864 bytes free heap."
+  ],
+  "final_state": "Host synchronized, disconnected, advertising AB32-NIMBLE; PCM pool not allocated.",
+  "serial_log_sha256": "91178c3fb0dba126f7e4550d3311f882c4f95307c79e0f29691810884f76a04e"
+}
