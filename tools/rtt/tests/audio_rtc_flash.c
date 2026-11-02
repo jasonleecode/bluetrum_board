@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include "board.h"
 volatile uint32_t extra_regs[32];
-static int page_calls, read_calls, erase_calls;
+static int page_calls, read_calls, erase_calls, dac_clock_on;
+void hal_rcu_periph_clk_enable(uint32_t c) { assert(c == RCU_DAC); dac_clock_on = 1; }
 static uint32_t last_address;
 void rt_assert_handler(const char *ex, const char *func, rt_size_t line) {
     fprintf(stderr, "%s:%lu %s\n", func, (unsigned long)line, ex); abort();
@@ -49,6 +50,10 @@ int main(void) {
     assert(sound_stop(&audio, AUDIO_STREAM_REPLAY) == RT_EOK);
     assert(!snd_dev.running && !(DACDIGCON0 & (BIT(0) | BIT(10))) && !(AUBUFCON & BIT(4)));
     sound_init(&audio);
+    assert(dac_clock_on && (DACDIGCON0 & BIT(1)));
+    adpll_init(0);
+    assert(!(DACDIGCON0 & BIT(1)));
+    adpll_init(1);
     assert(PLL1DIV == (uint32_t)((245.76 * 65536) / 26)); /* correct 48k PLL */
 
     time_t stamp = (time_t)-1;

@@ -23,4 +23,6 @@ struct ab32_fmrx_status {
 rt_err_t ab32_sound_fm_acquire(rt_uint32_t *buffer_words);
 void ab32_sound_fm_release(void);
 void ab32_sound_fm_volume(rt_uint8_t volume);
+void ab32_sound_fm_diagnose(void);
+rt_err_t ab32_sound_fm_test_tone(void);
 #endif

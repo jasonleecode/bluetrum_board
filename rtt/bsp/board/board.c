@@ -229,10 +229,15 @@ void cache_init(void)
     rt_mutex_init(&mutex_cache, "cache", RT_IPC_FLAG_PRIO);
 }
 
+/* Cache misses may occur while the uniprocessor scheduler is locked. In
+ * that context no other thread can compete, and blocking mutexes are illegal.
+ * Keep the same condition for each lock/unlock pair.
+ */
 rt_section(".irq.cache")
 void os_spiflash_lock(void)
 {
-    if ((rt_thread_self() != RT_NULL) && (rt_interrupt_nest == 0))
+    if ((rt_thread_self() != RT_NULL) && (rt_interrupt_nest == 0) &&
+        (rt_critical_level() == 0))
     {
         rt_mutex_take(&mutex_spiflash, RT_WAITING_FOREVER);
     }
@@ -241,7 +246,8 @@ void os_spiflash_lock(void)
 rt_section(".irq.cache")
 void os_spiflash_unlock(void)
 {
-    if ((rt_thread_self() != RT_NULL) && (rt_interrupt_nest == 0))
+    if ((rt_thread_self() != RT_NULL) && (rt_interrupt_nest == 0) &&
+        (rt_critical_level() == 0))
     {
         rt_mutex_release(&mutex_spiflash);
     }
@@ -250,7 +256,8 @@ void os_spiflash_unlock(void)
 rt_section(".irq.cache")
 void os_cache_lock(void)
 {
-    if ((rt_thread_self() != RT_NULL) && (rt_interrupt_nest == 0))
+    if ((rt_thread_self() != RT_NULL) && (rt_interrupt_nest == 0) &&
+        (rt_critical_level() == 0))
     {
         rt_mutex_take(&mutex_cache, RT_WAITING_FOREVER);
     }
@@ -259,7 +266,8 @@ void os_cache_lock(void)
 rt_section(".irq.cache")
 void os_cache_unlock(void)
 {
-    if ((rt_thread_self() != RT_NULL) && (rt_interrupt_nest == 0))
+    if ((rt_thread_self() != RT_NULL) && (rt_interrupt_nest == 0) &&
+        (rt_critical_level() == 0))
     {
         rt_mutex_release(&mutex_cache);
     }

@@ -59,6 +59,10 @@ SECTIONS
 
         . = ALIGN(4);
         *save-restore.o (.text* .rodata*)
+        /* Cache fill and kernel critical paths must not fault into flash. */
+        *lib_a-memcpy.o (.text* .rodata*)
+        *lib_a-memset.o (.text* .rodata*)
+        *lib_a-memmove.o (.text* .rodata*)
         *libcpu*cpu*context_gcc.o (.text* .rodata*)
         *libcpu*cpu*interrupt.o (.text* .rodata*)
         *libcpu**.o (.rodata*)

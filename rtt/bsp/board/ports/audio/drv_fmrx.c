@@ -187,6 +187,67 @@ static int fmrx(int argc, char **argv)
     unsigned long parsed;
     if (!dev)
     { rt_kprintf("fm0 unavailable\n"); return -RT_ENOSYS; }
+    if (argc == 2 && !rt_strcmp(argv[1], "tone"))
+    {
+        rt_mutex_take(&fm_lock, RT_WAITING_FOREVER);
+        if (fm_status.running) fm_shutdown();
+        rt_kprintf("DAC test tone: 10 seconds, volume 20%%\n");
+        ret = ab32_sound_fm_test_tone();
+        rt_mutex_release(&fm_lock);
+        rt_kprintf("DAC test finished: %d; FM is off\n", (int)ret);
+        return ret;
+    }
+    if (argc == 2 && !rt_strcmp(argv[1], "rssi"))
+    {
+        /* AB53XX SDK libplatform.a:fmrx_get_rssi uses this sequence.
+         * Expose the raw signed value, not an unverified dB calibration.
+         */
+        volatile rt_uint32_t *control = (volatile rt_uint32_t *)0x440;
+        volatile rt_uint32_t *command_reg = (volatile rt_uint32_t *)0x444;
+        volatile rt_uint32_t *pending = (volatile rt_uint32_t *)0x448;
+        rt_tick_t start;
+        rt_uint32_t saved;
+        rt_mutex_take(&fm_lock, RT_WAITING_FOREVER);
+        if (!fm_status.running)
+        {
+            rt_mutex_release(&fm_lock);
+            rt_kprintf("FM is off\n");
+            return -RT_EIO;
+        }
+        saved = *control;
+        *control = saved | 0x6000u;
+        *command_reg |= 2u;
+        start = rt_tick_get();
+        while (!(*pending & 2u))
+        {
+            if ((rt_tick_t)(rt_tick_get() - start) >= rt_tick_from_millisecond(100))
+            {
+                *control = saved;
+                rt_mutex_release(&fm_lock);
+                rt_kprintf("FM RSSI timeout\n");
+                return -RT_ETIMEOUT;
+            }
+            rt_thread_mdelay(1);
+        }
+        rt_int16_t raw = (rt_int16_t)*(volatile rt_uint32_t *)0x450;
+        rt_uint32_t level = *(volatile rt_uint32_t *)0x454;
+        *pending = 2u;
+        *control = saved;
+        rt_mutex_release(&fm_lock);
+        rt_kprintf("FM rssi_raw=%d level_raw=%08x\n", (int)raw, level);
+        return RT_EOK;
+    }
+    if (argc == 2 && !rt_strcmp(argv[1], "diag"))
+    {
+        rt_mutex_take(&fm_lock, RT_WAITING_FOREVER);
+        rt_kprintf("FM pll_status=%08x pll_word=%08x digital=%08x\n",
+                   *(volatile rt_uint32_t *)0x42c,
+                   *(volatile rt_uint32_t *)0x428,
+                   *(volatile rt_uint32_t *)0x440);
+        ab32_sound_fm_diagnose();
+        rt_mutex_release(&fm_lock);
+        return RT_EOK;
+    }
     if (argc == 2 && !rt_strcmp(argv[1], "status"))
     {
         struct ab32_fmrx_status status;
@@ -217,7 +278,7 @@ static int fmrx(int argc, char **argv)
     return ret;
 usage:
     rt_kprintf("fmrx start|tune <76000..108000 kHz, step 10>\n"
-               "fmrx volume <0..100> | stop | status\n");
+               "fmrx volume <0..100> | stop | status | diag | rssi | tone\n");
     return -RT_EINVAL;
 }
 MSH_CMD_EXPORT(fmrx, FM receiver manual tuning and DAC playback);

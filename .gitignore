@@ -15,3 +15,7 @@ rtt/**/__pycache__/
 # RT-Thread packaged firmware and hardware verification output
 rtt/bsp/rtthread.dcf
 rtt/bsp/uart-verify.log
+
+# Recovered FM objects built by the RT-Thread BSP
+bare/drivers/src/*.o
+rtt/bsp/fm-verify.log

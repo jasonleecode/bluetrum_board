@@ -82,7 +82,7 @@ msh >
 ```
 ### 进阶使用
 
-此 BSP 默认只开启了 GPIO 和 串口0 的功能，如果需使用 SD 卡、Flash 等更多高级功能，需要利用 ENV 工具对BSP 进行配置，步骤如下：
+当前配置开启了 GPIO、串口0、DAC 音频和 FM 的功能，如果需使用 SD 卡、Flash 等更多高级功能，需要利用 ENV 工具对BSP 进行配置，步骤如下：
 
 1. 在 bsp 下打开 env 工具。
 
@@ -132,10 +132,10 @@ tools/linux/downloader flash rtt/bsp/rtthread.dcf --port /dev/ttyUSB0 --connect-
 继承的 UART；缩短超出 RT_NAME_MAX 的互斥锁和 GPIO 线程/队列名称。
 SCons 默认目标为完整固件，并跟踪链接脚本变化，避免继续使用旧链接结果。
 
-本次实机验证覆盖默认 GPIO/UART0 配置；可选外设的边界仍见下表。
+上述记录对应 FM 启用前的 GPIO/UART0 配置；FM 调试记录见下文。
 更多下载器说明见 [工具说明](../tools/linux/README.md)。
 
-当前 `rtconfig.h` 默认仍只启用 GPIO 和 UART0。可选驱动通过 BSP 的
+当前 `rtconfig.h` 默认启用 GPIO、UART0、DAC 音频和 FM。可选驱动通过 BSP 的
 `Hardware Drivers Config` 菜单配置，不能把所有选项同时开启：
 TIMER3/4/5 与对应 PWM 共用计数器，TIMER3 与红外共用中断；SPI 的组 2
 与 UART0、组 3 与 SD/UART2、组 1 与 UART1 有引脚冲突。
@@ -166,7 +166,7 @@ CPOL/CPHA 波形**；其他模式、LSB、从机、3-wire 被拒绝。上板前�
 ### SPI、FM 与 I2S 接入
 
 用 `scons --menuconfig` 在 BSP 的 `Hardware Drivers Config` 中启用所需功能，
-再执行 `scons -j4`。这些选项默认关闭，当前默认固件仍只有 GPIO/UART0。
+再执行 `scons -j4`。当前默认启用音频和 FM，SPI 与 I2S 仍关闭。
 同时使用时建议 SPI mapping 4（PE5/6/7）、I2S mapping 1（PE0..4）；
 启用 I2S PE 组会停用 `main.c` 的 PE1 LED 闪烁。板载 LED 负载、外部 codec
 及其它 PWM/UART 占用仍需检查，不能以编译通过代替电气验证。
@@ -186,10 +186,12 @@ if (err == RT_EOK) {
 FM 启用 `BSP_USING_FMRX` 后，在 FinSH 中使用：
 
 ```text
-fmrx start 101100
+fmrx volume 20
+fmrx start 97400
 fmrx tune 87500
-fmrx volume 30
 fmrx status
+fmrx rssi
+fmrx diag
 fmrx stop
 ```
 
@@ -199,7 +201,53 @@ fmrx stop
 启动前须关闭已打开的 `sound0`；FM 运行时 PCM open/write/control 会返回忙，
 避免混用音源。调谐 PLL 100 ms 超时后关闭 RF/DMA，释放 DAC；之后可重新启动。
 FM 不申请 PCM 播放队列，工作线程每 100 ms 调用恢复的同步函数。
-自动搜台、RSSI、RDS、原始采集 DMA 的完成事件尚未恢复。
+自动搜台、RSSI 标定、RDS、原始采集 DMA 的完成事件尚未恢复。
+
+### FM 实机调试记录（2026-11-02）
+
+**尚未完成广播接收验证。** 已编译并经 Flash CRC 校验下载，`fmrx start/tune/stop`
+和音量控制可以运行；用户确认 `fmrx tone` 的 10 秒低音量测试音清晰、稳定。
+恢复 97.4 MHz 后仍只有沙沙声，不能将命令返回成功视为收到电台。
+
+- 已启用 DAC 时钟，修正音频 PLL 稳定后再选择时钟族的顺序；FM 固定使用
+  48 kHz 时钟族的 38 kHz 输出档，释放 DAC 时恢复原 PCM 设置。
+- FM 配置使用 `bsp/link_fm_ram.lds` 将代码和数据放入 SRAM，避免调试期间
+  Flash 缓存重入调度器。保留 ROM 区与 4 KiB 中断栈，链接时要求至少 16 KiB 堆。
+  当前运行时总堆 51656 字节，可用 28784 字节（后续代码大小变化会影响此值）。
+- `fmrx diag` 读取 PLL、DAC 和 FIFO 状态；`fmrx rssi` 在 100 ms 超时内读取
+  接收原始值，不提供已校准的 dB 单位，也不据此宣称检测到电台。
+- `fmrx tone` 停止 FM，播放 10 秒低音量测试音后释放 DAC，并保持 FM 关闭；
+  要恢复广播，执行 `fmrx volume 20`、`fmrx start 97400`。
+- 87.5–108 MHz、100 kHz 步进的扫描未找到明确的信号峰。两份 SDK 中
+  `0x414[10:9]` 的不同预设及 RF 电容 0–31 档对比未见明确改善；临时控制命令已删除。
+- 用户确认四段耳机插头已插到底、耳机线已展开；暂时无法移至窗边或更换耳机。
+  接收环境、耳机天线接线、板上射频路径与未覆盖的初始化要求仍未区分。
+  后续应使用已知可接收的环境/天线，或测量射频路径，不应继续用“驱动无错误”代替收音验收。
+
+最终版本通过默认、audio、SPI＋FM＋I2S 三种完整构建和四组主机驱动测试；
+上板重复启停、调谐后堆使用量不变。当前设备保持 97.4 MHz、音量 0，避免持续杂音。
+原始上板输出保存在本地 `bsp/fm-verify.log`（不提交）。
+
+### 换耳机后继续测试
+
+当前 FM 调试代码已纳入 BSP 默认配置，重启后注册 `fm0`，不会自动播放。
+插入 CTIA 标准有线耳机并展开耳机线，使用烧录所用串口（115200、8N1）执行：
+
+```text
+fmrx stop
+fmrx tone
+fmrx volume 20
+fmrx start 97400
+fmrx status
+fmrx rssi
+fmrx diag
+```
+
+`fmrx tone` 需要等待约 10 秒，听到清晰测试音后再执行后续命令。
+最后以能辨认广播人声或音乐作为接收验收依据；若仍是杂音，保留 `rssi`、`diag`
+输出用于对照，执行 `fmrx stop` 结束测试。
+
+### I2S 使用
 
 I2S 启用 `BSP_USING_I2S` 后，PCM 仍写 `sound0`，与片内 DAC 同时输出。
 仅接受 44.1/48 kHz、16 位、双声道；PE 组 DO=PE1、BCLK=PE2、LRCLK=PE3、

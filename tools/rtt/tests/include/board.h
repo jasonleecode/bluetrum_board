@@ -28,6 +28,7 @@ typedef int irq_type;
 #define HAL_EOK 0
 #define HAL_ETIMEOUT 2
 #define RCU_SPI1 1
+#define RCU_DAC 12
 #define RCU_FMRX 15
 #define RCU_IIS 30
 uint32_t get_sysclk_nhz(void);
@@ -74,6 +75,8 @@ extern volatile uint32_t extra_regs[32];
 #define AUBUFSTARTADDR extra_regs[12]
 #define AUBUFCON extra_regs[13]
 #define AUBUFDATA extra_regs[14]
+#define AUBUFFIFOCNT extra_regs[29]
+#define CLKGAT0 extra_regs[30]
 #define RTCCON extra_regs[15]
 #define RTCDAT extra_regs[16]
 #define PICCON extra_regs[17]

@@ -81,16 +81,19 @@ void adpll_init(uint8_t out_spr)
     if (out_spr) {
         CLKCON2  |= BIT(4) | BIT(7);                //adpll_div = 10
         PLL1DIV = (245.76 * 65536) / 26;            //245.76Mhz for 48K
-        // sys.aupll_type = 1;
+
     } else {
         CLKCON2  |= BIT(5) | BIT(7);                //adpll_div = 11
         PLL1DIV = (248.3712 * 65536) / 26;          //248.3712MHz for 44.1k
-        // sys.aupll_type = 0;
+
     }
     hal_mdelay(1);
     PLL1CON |= BIT(20);                             //update pll1div
     PLL1CON |= BIT(6);                              //enable analog pll1
     hal_mdelay(1);                                  //wait pll1 stable
+    /* Select the clock family only after the new PLL is running. */
+    if (out_spr) DACDIGCON0 |= BIT(1);
+    else DACDIGCON0 &= ~BIT(1);
 }
 
 void dac_start(void)
@@ -417,7 +420,8 @@ static rt_err_t sound_init_unlocked(struct rt_audio_device *audio)
     RT_ASSERT(audio != RT_NULL);
     snd_dev = (struct sound_device *)audio->parent.user_data;
 
-    adpll_init(snd_dev->replay_config.samplerate == 48000);
+    hal_rcu_periph_clk_enable(RCU_DAC);
+    adpll_init(snd_dev->dma_to_aubuf || snd_dev->replay_config.samplerate == 48000);
     dac_start();
 
     /* set default params */
@@ -595,6 +599,8 @@ void ab32_sound_fm_release(void)
         saia_volume_set(0);
         sound_stop_unlocked(&snd_dev.audio, AUDIO_STREAM_REPLAY);
         fmrx_dac_sync_reset();
+        if (snd_dev.replay_config.samplerate != 48000)
+            adpll_init(0);
         saia_frequency_set(snd_dev.replay_config.samplerate);
         saia_channels_set(snd_dev.replay_config.channels);
         saia_volume_set(snd_dev.volume);
@@ -608,6 +614,76 @@ void ab32_sound_fm_volume(rt_uint8_t volume)
     rt_mutex_take(&sound_lock, RT_WAITING_FOREVER);
     if (snd_dev.dma_to_aubuf)
         saia_volume_set(volume);
+    rt_mutex_release(&sound_lock);
+}
+
+/* Diagnostic PCM source through the same 38 kHz DAC path as FM. Call only
+ * after RF/DMA has stopped. A bounded FIFO wait keeps a clock fault from
+ * trapping the shell. Peak amplitude and gain are intentionally limited.
+ */
+rt_err_t ab32_sound_fm_test_tone(void)
+{
+    static const rt_int16_t sine[32] = {
+        0, 1598, 3135, 4551, 5793, 6811, 7568, 8035,
+        8192, 8035, 7568, 6811, 5793, 4551, 3135, 1598,
+        0, -1598, -3135, -4551, -5793, -6811, -7568, -8035,
+        -8192, -8035, -7568, -6811, -5793, -4551, -3135, -1598
+    };
+    rt_uint32_t words;
+    rt_err_t ret = ab32_sound_fm_acquire(&words);
+    if (ret != RT_EOK) return ret;
+    ab32_sound_fm_volume(20);
+    rt_tick_t start = rt_tick_get();
+    unsigned sample = 0;
+    while ((rt_tick_t)(rt_tick_get() - start) < rt_tick_from_millisecond(10000))
+    {
+        rt_tick_t waiting = rt_tick_get();
+        while (AUBUFCON & BIT(8))
+        {
+            if ((rt_tick_t)(rt_tick_get() - waiting) >= rt_tick_from_millisecond(100))
+            { ret = -RT_ETIMEOUT; goto done; }
+            rt_thread_mdelay(1);
+        }
+        rt_uint32_t value = (rt_uint16_t)sine[sample++ & 31];
+        AUBUFDATA = value | (value << 16);
+    }
+done:
+    ab32_sound_fm_release();
+    return ret;
+}
+
+/* Read-only diagnostics; the DMA may update the buffer during this snapshot. */
+void ab32_sound_fm_diagnose(void)
+{
+    rt_uint32_t low = 0xffffffffu, high = 0, nonzero = 0, hash = 0;
+    rt_mutex_take(&sound_lock, RT_WAITING_FOREVER);
+    for (unsigned i = 0; i < 100; ++i)
+    {
+        rt_uint32_t count = AUBUFFIFOCNT;
+        if (count < low) low = count;
+        if (count > high) high = count;
+        rt_thread_mdelay(1);
+    }
+    if (snd_dev.rx_fifo)
+    {
+        volatile rt_uint32_t *buf = (volatile rt_uint32_t *)snd_dev.rx_fifo;
+        for (unsigned i = 0; i < TX_FIFO_SIZE / 4; ++i)
+        {
+            rt_uint32_t word = buf[i];
+            nonzero += word != 0;
+            hash = (hash << 5) ^ (hash >> 27) ^ word;
+        }
+    }
+    rt_kprintf("AUDIO fifo=%u..%u/256 nonzero=%u hash=%08x\n", low, high, nonzero, hash);
+    rt_kprintf("AUDIO dac=%08x volume=%08x analog=%08x/%08x clock=%08x\n",
+               DACDIGCON0, DACVOLCON, AUANGCON0, AUANGCON1, CLKGAT0);
+    if (snd_dev.rx_fifo)
+    {
+        volatile rt_uint32_t *buf = (volatile rt_uint32_t *)snd_dev.rx_fifo;
+        rt_kprintf("AUDIO data=%08x %08x %08x %08x\n", buf[0], buf[1], buf[2], buf[3]);
+    }
+    rt_kprintf("AUDIO pll=%08x div=%08x clkdiv=%08x buf=%08x/%08x\n",
+               PLL1CON, PLL1DIV, CLKCON2, AUBUFCON, AUBUFSTARTADDR);
     rt_mutex_release(&sound_lock);
 }
 

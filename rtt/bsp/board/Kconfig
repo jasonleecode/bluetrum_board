@@ -49,7 +49,9 @@ menu "Onboard Peripheral Drivers"
             Registers fm0 and the fmrx shell command. Manual tuning,
             volume, stop and a 100 ms DAC synchronization worker.
             Exclusively shares the DAC with sound0. No automatic scan/RDS.
-            Requires an antenna and hardware validation.
+            Includes a DAC test tone and raw RSSI/register diagnostics.
+            Uses the SRAM linker layout. Requires CTIA earphones as antenna;
+            broadcast reception remains unverified on the current board.
 
     config BSP_USING_SDCARD
         bool "Enable SDCARD"

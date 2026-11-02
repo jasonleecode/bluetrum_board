@@ -63,7 +63,7 @@ ab32vg1-prougen 是 中科蓝讯(Bluetrum) 推出的一款基于 RISC-V 内核�
 
 **并非所有外设都已在 `bare` 中实现，也不能全部标记为可用。** 以下区分裸机实现、RT-Thread BSP 源码与当前启用状态。“已有实现”只表示有对应代码；“部分实现”表示还有关键路径缺失；两者都不等于已通过实机验证。当前裸机工程已通过 GCC 编译和链接，完整启动、时钟、IRQ、真实 DMA 内存布局及外设实测仍待完成。
 
-本表依据仓库当前 [rtconfig.h](rtt/bsp/rtconfig.h)、[BSP 构建规则](rtt/bsp/libraries/hal_drivers/SConscript)、[板级配置选项](rtt/bsp/board/Kconfig)及 `bare/drivers/` 核对。当前 RT-Thread 配置启用了 GPIO 和 UART0；源码中可选的其他驱动不代表默认已编入固件。RT-Thread 的通用 USB/I2C 等框架也不能代替芯片控制器驱动。
+本表依据仓库当前 [rtconfig.h](rtt/bsp/rtconfig.h)、[BSP 构建规则](rtt/bsp/libraries/hal_drivers/SConscript)、[板级配置选项](rtt/bsp/board/Kconfig)及 `bare/drivers/` 核对。当前 RT-Thread 配置启用了 GPIO、UART0、DAC 音频和 FM；源码中可选的其他驱动不代表默认已编入固件。RT-Thread 的通用 USB/I2C 等框架也不能代替芯片控制器驱动。
 
 | 板载外设/接口 | `bare` 当前状态 | RT-Thread BSP 当前状态 |
 | --- | --- | --- |
@@ -88,7 +88,7 @@ ab32vg1-prougen 是 中科蓝讯(Bluetrum) 推出的一款基于 RISC-V 内核�
 | FLASH | 有原库读写/擦除封装，尚未独立恢复，错误结果传播及实测待补 | 有片内 Flash/FAL 接入代码，当前未启用 |
 | TIMER | 未实现，`drv_timer.c/.h` 为空文件 | 已修复溢出位/共享 IRQ/单次模式，当前未启用 |
 | PWM | 尚未移植 | 有 `drv_pwm.c`，当前未启用；复用引脚/通道需按配置选择 |
-| FM | 初始化、调谐及部分 DMA 已恢复；搜台、完整收音链路待完成 | 已新增 `fm0`、`fmrx` 命令及 DAC 播放/互斥/超时处理；可选、未实测 |
+| FM | 初始化、调谐及部分 DMA 已恢复；搜台、完整收音链路待完成 | 已新增 `fm0`、`fmrx` 命令及 DAC 播放/互斥/超时处理；默认启用；控制、DAC 测试音已实测，广播接收仍只有杂音 |
 | 蓝牙 | HCI 支持层部分恢复；控制器/RF 仍依赖原库，平台默认拒绝启动 | 有 NimBLE 配置入口，当前未启用；入口存在不代表链路已验证 |
 | I2S/IIS | 已恢复另一份 AB53XX SDK 的 I2S SRC 输出子集，136 组差分通过；RX/DMA 未恢复 | `BSP_USING_I2S` 将 PCM 送到硬件 I2S；16 位双声道、44.1/48 kHz；实验性、默认关闭、未实测 |
 | USB Device | 底层端点、EP0、HID 部分恢复；请求派发、枚举及通用通信尚未完成 | 未见已接入本芯片的 Device 控制器驱动 |

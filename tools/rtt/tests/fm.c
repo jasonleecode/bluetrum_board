@@ -9,7 +9,7 @@ static rt_tick_t tick;
 static int locks, clock_on, power_on_calls, power_off_calls, sync_calls;
 static int route, force_timeout, reset_calls, pcm_calls;
 static uint32_t tuned;
-static int i2s_on, i2s_calls;
+static int i2s_on, i2s_calls, dac_clock_on;
 int ab32_fmrx_wait_pll(volatile uint32_t *status);
 void rt_assert_handler(const char *e, const char *f, rt_size_t l)
 { fprintf(stderr, "%s:%lu %s\n", f, (unsigned long)l, e); abort(); }
@@ -25,7 +25,7 @@ rt_err_t rt_sem_release(rt_sem_t s) { (void)s; return RT_EOK; }
 rt_err_t rt_sem_take(rt_sem_t s, rt_int32_t t) { (void)s; (void)t; return RT_EOK; }
 void *rt_memset(void *s, int c, rt_ubase_t n) { return memset(s, c, n); }
 int rt_kprintf(const char *f, ...) { (void)f; return 0; }
-void hal_rcu_periph_clk_enable(uint32_t c) { if (c == RCU_IIS) return; assert(c == RCU_FMRX); clock_on = 1; }
+void hal_rcu_periph_clk_enable(uint32_t c) { if (c == RCU_DAC) { dac_clock_on = 1; return; } if (c == RCU_IIS) return; assert(c == RCU_FMRX); clock_on = 1; }
 void hal_rcu_periph_clk_disable(uint32_t c) { if (c == RCU_IIS) return; assert(c == RCU_FMRX); clock_on = 0; }
 int i2s_src_init(uint32_t mapping) { assert(mapping == 1 && !clock_on); i2s_on = 1; i2s_calls++; return 0; }
 void i2s_src_exit(uint32_t mapping) { assert(mapping == 1); i2s_on = 0; }
@@ -74,8 +74,9 @@ int main(void) {
     assert(fm_control(NULL, AB32_FMRX_START, &v) == -RT_EBUSY);
     assert(sound_device_close(&snd_dev.audio.parent) == RT_EOK);
     assert(fm_control(NULL, AB32_FMRX_START, &v) == RT_EOK);
-    assert(fm_status.running && snd_dev.running && snd_dev.dma_to_aubuf);
+    assert(fm_status.running && snd_dev.running && snd_dev.dma_to_aubuf && dac_clock_on);
     assert(tuned == 10110 && route && clock_on && (DACDIGCON0 & 0x3c) == 8);
+    assert(DACDIGCON0 & BIT(1)); /* FM must use the 48 kHz PLL family. */
     assert(ab32_sound_fm_acquire(&words) == -RT_EBUSY);
     assert(fm_control(NULL, AB32_FMRX_START, &v) == -RT_EBUSY);
     int before = pcm_calls;
@@ -96,6 +97,7 @@ int main(void) {
     assert(!fm_status.running && !snd_dev.running && !snd_dev.dma_to_aubuf && !route && !clock_on);
     assert(reset_calls == 1 && power_off_calls == 1);
     assert(snd_dev.replay_config.samplerate == 44100 && (DACDIGCON0 & 0x3c) == 4);
+    assert(!(DACDIGCON0 & BIT(1))); /* Restore the previous PCM clock. */
     assert((DACVOLCON & 0xffff) == 42*327);
     assert(fm_control(NULL, AB32_FMRX_STATUS, &state) == RT_EOK && state.last_error == -RT_ETIMEOUT);
     fm_sync_once(); assert(sync_calls == 1);
@@ -112,5 +114,12 @@ int main(void) {
     assert(sound_start(&snd_dev.audio, AUDIO_STREAM_REPLAY) == RT_EOK && i2s_on);
     assert(sound_stop(&snd_dev.audio, AUDIO_STREAM_REPLAY) == RT_EOK && !i2s_on);
     assert(!locks && i2s_calls == 1);
+    AUBUFCON = 0;
+    assert(ab32_sound_fm_test_tone() == RT_EOK);
+    assert(!snd_dev.running && !snd_dev.dma_to_aubuf && !locks);
+    AUBUFCON = BIT(8); /* Stuck FIFO must time out and release DAC ownership. */
+    assert(ab32_sound_fm_test_tone() == -RT_ETIMEOUT);
+    assert(!snd_dev.running && !snd_dev.dma_to_aubuf && !locks);
+    AUBUFCON = 0;
     puts("PASS: FM tune/volume/sync, DAC/PCM ownership, timeout/unwind/restart, I2S stereo/gating");
 }

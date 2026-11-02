@@ -144,6 +144,10 @@
 #define RT_USING_SERIAL
 #define RT_USING_SERIAL_V1
 #define RT_SERIAL_RB_BUFSZ 64
+#define RT_USING_AUDIO
+#define RT_AUDIO_REPLAY_MP_BLOCK_COUNT 2
+#define RT_AUDIO_REPLAY_MP_BLOCK_SIZE 4096
+#define RT_AUDIO_RECORD_PIPE_SIZE 2048
 #define RT_USING_PIN
 /* end of Device Drivers */
 
@@ -394,6 +398,9 @@
 
 /* Onboard Peripheral Drivers */
 
+#define BSP_USING_AUDIO
+#define BSP_USING_AUDIO_PLAY
+#define BSP_USING_FMRX
 /* end of Onboard Peripheral Drivers */
 
 /* On-chip Peripheral Drivers */

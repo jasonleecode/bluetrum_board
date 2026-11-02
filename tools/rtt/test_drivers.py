@@ -3,10 +3,12 @@
 from pathlib import Path
 import subprocess
 import tempfile
-from check_builds import ROOT, PROFILES
+from check_builds import ROOT, PROFILES, base_config
 
 with tempfile.TemporaryDirectory(prefix='ab32-rtt-model-') as directory:
     temp = Path(directory)
+    config = base_config((ROOT / 'rtt/bsp/rtconfig.h').read_text())
+    (temp / 'rtconfig.h').write_text(config)
     defines = [f'-D{k}={v}' for k, v in PROFILES['peripherals'].items()]
     includes = ['tools/rtt/tests/include', 'rtt/bsp', 'rtt/include', 'rtt/components/finsh', 'rtt/components/drivers/audio',
                 'rtt/components/drivers/include', 'rtt/components/drivers/include/drivers',
@@ -21,7 +23,7 @@ with tempfile.TemporaryDirectory(prefix='ab32-rtt-model-') as directory:
         defines = [f'-D{k}={v}' for k, v in profile.items()]
         subprocess.run(['cc', '-std=c11', '-O2', '-g', '-ffunction-sections',
                         '-fdata-sections', '-Werror=incompatible-pointer-types',
-                        *defines, *['-I'+str(ROOT / p) for p in includes],
+                        *defines, '-I'+str(temp), *['-I'+str(ROOT / p) for p in includes],
                         str(ROOT / f'tools/rtt/tests/{name}.c'), '-Wl,--gc-sections',
                         '-o', str(temp / name)], check=True)
         subprocess.run([temp / name], check=True)

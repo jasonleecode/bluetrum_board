@@ -2,6 +2,7 @@
 """Compile optional BSP drivers in a disposable copy; never edits user config."""
 import argparse
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -47,6 +48,12 @@ PROFILES['spi_fm'] = dict(PROFILES['audio'], BSP_USING_FMRX=1,
 PROFILES['spi_fm_i2s'] = dict(PROFILES['spi_fm'], BSP_USING_I2S=1, BSP_I2S_MAPPING=1)
 PROFILES['i2s_pa'] = dict(PROFILES['audio'], BSP_USING_I2S=1, BSP_I2S_MAPPING=0)
 
+def base_config(config):
+    """Keep optional profiles independent of enabled workspace peripherals."""
+    for key in set().union(*(p.keys() for p in PROFILES.values())):
+        config = re.sub(r'^#define\s+' + key + r'\b[^\n]*', '', config, flags=re.M)
+    return config
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('profiles', nargs='*', metavar='PROFILE',
@@ -72,7 +79,8 @@ def main():
     for name in args.profiles or PROFILES:
         additions = ''.join(f'\n#undef {key}\n#define {key} {val}\n'
                             for key, val in PROFILES[name].items())
-        (work / 'rtt/bsp/rtconfig.h').write_text(config + additions)
+        profile_config = config if name == 'default' else base_config(config)
+        (work / 'rtt/bsp/rtconfig.h').write_text(profile_config + additions)
         log = work / f'{name}.log'
         with log.open('w') as out:
             result = subprocess.run(['scons', '-j4'], cwd=work / 'rtt/bsp',

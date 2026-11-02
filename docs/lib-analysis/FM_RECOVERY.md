@@ -2,7 +2,7 @@
 
 本次恢复了 `bare/lib/libhal.a` 中 `fmrx_ang.o`、`fmrx.o` 的全部 10 个 FM 导出函数，并修正裸机封装的调谐 ABI。恢复的是片上硬件 FM 控制代码，不是软件解调器。
 
-当前已完成原库机器码差分、封装回归和独立 RV32 链接检查；尚未验证实际接收、音频输出或自动搜台。这里的“恢复”表示在所测输入和模拟寄存器条件下保持原库行为，不表示已完成整机收音。
+当前已完成原库机器码差分、封装回归和独立 RV32 链接检查；RT-Thread 已上板验证控制命令和清晰的 DAC 测试音，但 FM 广播仍只有杂音，实际接收和自动搜台未完成。这里的“恢复”表示在所测输入和模拟寄存器条件下保持原库行为，不表示已完成整机收音。
 
 ## 证据与实现
 
@@ -126,3 +126,13 @@ DataSheet 宣称支持自动搜台、RSSI 与 50/75 µs 去加重。当前 `libh
 ## RT-Thread 接入更新
 
 已直接复用两份恢复 C，新增 `BSP_USING_FMRX`、`fm0` 及 `fmrx` 命令，支持手动调谐、音量、片内 DAC 播放、周期同步和停止；与普通 PCM 互斥。RT-Thread 单独启用 PLL 等待钩子，100 ms 超时后关闭并释放资源；bare 默认仍保留原对象等待行为。另新增 `fmrx_dac_sync_reset()` 用于 FM→PCM 交接，它是接入辅助函数，不是原 SDK 恢复符号。使用、验证及尚未完成的硬件实测见 [RT-Thread 说明](../../rtt/README.md#spi-fm-与-i2s-接入)。
+
+## RT-Thread 接收诊断补充
+
+2026-11-02 的上板测试与限制见 [BSP 调试记录](../../rtt/README.md#fm-实机调试记录2026-11-02)。
+新增 `fmrx rssi` 参考同系列 [AB53XX SDK libplatform.a](https://github.com/ZhiqingLi/Sdk_Refresh/blob/aa0fc8f993bd0c2a6982bf0a95b3461ad7e7aa6d/AB53XX_SDK/app/platform/libs/libplatform.a)
+中的 `fmrx_get_rssi` / `fmrx_rssi_dbu_get`：临时设置 `0x440` 的 `0x6000` 位，
+触发 `0x444` bit 1，等待 `0x448` bit 1，读取 `0x450` 的有符号 16 位原始值及 `0x454`，
+清 pending 并恢复控制寄存器。RT-Thread 包装增加 100 ms 超时和 FM 互斥。
+同系列实现不构成本芯片测量精度验证，因此仅输出原始值，不采用其未经验证的 dBu 换算。
+该归档 SHA-256：`6165f17c6c25d58f23fb4732206fedacc085861c993d0607469c0368fb649409`。

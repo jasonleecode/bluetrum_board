@@ -67,7 +67,9 @@ _start:
     la      a0, __ram1_vma
     la      a1, __ram1_lma
     la      a2, __ram1_size
+    beqz    a2, 4f
     call    _memcpy
+4:
 
     lui	    a5, 0x1
     sw	    zero, -1920(a5)
