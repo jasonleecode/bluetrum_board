@@ -45,8 +45,9 @@ static void key_push(unsigned i, rt_uint8_t kind, rt_tick_t now)
     head = (head + 1) % AB32_KEYS_QUEUE;
 }
 /* Caller holds keys_lock; separated from pin reads for deterministic tests. */
-static void keys_sample(const rt_ssize_t levels[AB32_KEYS_COUNT], rt_tick_t now)
+static rt_uint8_t keys_sample(const rt_ssize_t levels[AB32_KEYS_COUNT], rt_tick_t now)
 {
+    rt_uint8_t downs = 0;
     for (unsigned i = 0; i < AB32_KEYS_COUNT; i++)
     {
         unsigned bit = 1u << i;
@@ -74,6 +75,7 @@ static void keys_sample(const rt_ssize_t levels[AB32_KEYS_COUNT], rt_tick_t now)
                 key_state[i].long_sent = 0;
                 status.pressed_mask |= bit;
                 key_push(i, AB32_KEY_DOWN, now);
+                downs |= bit;
             }
             else
             {
@@ -88,15 +90,17 @@ static void keys_sample(const rt_ssize_t levels[AB32_KEYS_COUNT], rt_tick_t now)
             key_push(i, AB32_KEY_LONG, now);
         }
     }
+    return downs;
 }
-void board_keys_poll(void)
+rt_uint8_t board_keys_poll(void)
 {
     rt_ssize_t levels[AB32_KEYS_COUNT];
-    if (!keys_ready) return;
+    if (!keys_ready) return 0;
     for (unsigned i = 0; i < AB32_KEYS_COUNT; i++) levels[i] = rt_pin_read(key_pins[i]);
     rt_mutex_take(&keys_lock, RT_WAITING_FOREVER);
-    keys_sample(levels, rt_tick_get());
+    rt_uint8_t downs = keys_sample(levels, rt_tick_get());
     rt_mutex_release(&keys_lock);
+    return downs;
 }
 static rt_ssize_t keys_read(rt_device_t dev, rt_off_t pos, void *buffer, rt_size_t size)
 {

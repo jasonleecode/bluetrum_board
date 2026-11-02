@@ -30,6 +30,7 @@ def inspect(elf):
     keys = 'board_keys_init' in symbols
     gpio_irq = 'ab32_pin_irq_handler' in symbols
     rtc = 'rtc_transfer' in symbols
+    led = 'board_led_poll' in symbols
     flash_functions = ['finsh_thread_entry', '_audio_dev_init', 'pcmcheck']
     if nimble:
         flash_functions += ['ble_hs_init', 'ble_gatts_init', 'ble_gap_adv_start']
@@ -43,6 +44,9 @@ def inspect(elf):
         flash_functions += ['irrx', 'irrx_read', 'irrx_control']
     if keys:
         flash_functions += ['board_keys_init', 'board_keys_poll', 'keys', 'keys_read', 'keys_control']
+    if led:
+        flash_functions += ['main', 'board_led_init', 'board_led_poll', 'drv_pwm_control',
+                            'rt_pwm_set', 'rt_pwm_enable', 'rt_pwm_disable']
     if rtc:
         flash_functions += ['ab32_rtc_init', 'ab32_rtc_get_secs', 'ab32_rtc_set_secs',
                             'rt_hw_rtc_register', 'rtcctl', 'time', 'gmtime_r', 'localtime_r', 'mktime']
@@ -95,7 +99,7 @@ def inspect(elf):
     assert sections['.comm']['vma'] % 512 == 0
     return dict(sections=sections, placement_checks=checks, nimble_enabled=nimble, usb_enabled=usb, tf_enabled=tf, ir_enabled=ir,
                 keys_enabled=keys, gpio_irq_enabled=gpio_irq,
-                rtc_enabled=rtc,
+                rtc_enabled=rtc, led_breath_enabled=led,
                 heap_region_bytes=sections['.heap']['bytes'],
                 note='Heap region includes allocator metadata; use board free for runtime availability.')
 

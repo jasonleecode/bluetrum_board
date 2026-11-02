@@ -1,0 +1,349 @@
+{
+  "kind": "Unified RTT: native PWM repair and S2-triggered breathing red LED",
+  "date": "2026-11-02",
+  "base_commit": "157d370",
+  "source_state": "working tree",
+  "board": "AB32VG1 V2.0",
+  "flashed": true,
+  "download": {
+    "port": "/dev/ttyUSB0",
+    "image_body_bytes": 228352,
+    "write_and_crc": "PASS",
+    "log": "Connecting to /dev/ttyUSB0; reset the board to enter its bootloader.\nConnected: CRWN; uploading RAM loader.\nFlash: 1048576 bytes; image body: 228352 bytes.\nerase: 65536/229376\nerase: 131072/229376\nerase: 196608/229376\nerase: 208896/229376\nerase: 229376/229376\nwrite: 1024/228352\nwrite: 23040/228352\nwrite: 46080/228352\nwrite: 68608/228352\nwrite: 91648/228352\nwrite: 114176/228352\nwrite: 137216/228352\nwrite: 160256/228352\nwrite: 182784/228352\nwrite: 205824/228352\nwrite: 228352/228352\nverify: 9216/228352\nverify: 74752/228352\nverify: 140288/228352\nverify: 205824/228352\nverify: 228352/228352\nverify: 9216/228352\ncommit: 228352/228352\nVerified and committed rtt/bsp/rtthread.dcf to /dev/ttyUSB0.\n"
+  },
+  "behavior": {
+    "boot": "off",
+    "trigger": "S2/PF1 debounced DOWN toggles breathing; release/LONG ignored",
+    "pin": "PE1 active low, P1 pins 3-4",
+    "pwm": "Timer5 PWM0 (t5pwm channel 1)",
+    "configured_period_ns": 250000,
+    "envelope_ms": 3000,
+    "worker": "existing main, 10 ms; no added thread",
+    "endpoints": "GPIO high=off, low=full brightness"
+  },
+  "user_observations": [
+    {
+      "question": "红灯是否在平滑地逐渐变亮、再逐渐变暗？",
+      "answer": "是，正在平滑呼吸"
+    },
+    {
+      "question": "再短按一次 S2 后是否停止并完全熄灭？",
+      "answer": "已按，红灯完全熄灭"
+    }
+  ],
+  "uart_validation": {
+    "snapshots": {
+      "running": {
+        "text": "\r\n \\ | /\r\n- RT -     Thread Operating System\r\n / | \\     5.2.2 b\r\r\nmsh />version\r\r\n\r\n \\ | /\r\n- RT -     Thread Operating System\r\n / | \\     5.2.2 build Nov  2 2026 17:49:44\r\n 2006 - 2024 Copyright by RT-Thread team\r\nmsh />\r\r\nmsh />led status\r\r\nLED ready=1 active=1 level=230/1000 toggles=3 error=0\r\nmsh />\r\r\nmsh />free\r\r\ntotal    : 22536\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 13160\r\nmsh />\r\r\nmsh />keys status\r\r\nkeys0: raw=0 pressed=0 queued=6 dropped=0 read_errors=0\r\nmsh />\r\r\nmsh />rtcctl get\r\r\nRTC UTC seconds=1793613278\r\nmsh />",
+        "raw_hex": "0d0a205c207c202f0d0a2d205254202d2020202020546872656164204f7065726174696e672053797374656d0d0a202f207c205c2020202020352e322e3220620d0d0a6d7368202f3e1b37761b37651b37721b37731b37691b376f1b376e1b370d0d0a0d0a205c207c202f0d0a2d205254202d2020202020546872656164204f7065726174696e672053797374656d0d0a202f207c205c2020202020352e322e32206275696c64204e6f7620203220323032362031373a34393a34340d0a2032303036202d203230323420436f707972696768742062792052542d546872656164207465616d0d0a6d7368202f3e1b370d0d0a6d7368202f3e1b376c1b37651b37641b37201b37731b37741b37611b37741b37751b37731b370d0d0a4c45442072656164793d31206163746976653d31206c6576656c3d3233302f3130303020746f67676c65733d33206572726f723d300d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37661b37721b37651b37651b370d0d0a746f74616c202020203a2032323533360d0a7573656420202020203a20393337360d0a6d6178696d756d20203a20393337360d0a617661696c61626c653a2031333136300d0a6d7368202f3e1b370d0d0a6d7368202f3e1b376b1b37651b37791b37731b37201b37731b37741b37611b37741b37751b37731b370d0d0a6b657973303a207261773d3020707265737365643d30207175657565643d362064726f707065643d3020726561645f6572726f72733d300d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37721b37741b37631b37631b37741b376c1b37201b37671b37651b37741b370d0d0a52544320555443207365636f6e64733d313739333631333237380d0a6d7368202f3e1b37"
+      },
+      "after_user_toggle_checks": {
+        "text": "\r\r\nmsh />led status\r\r\nLED ready=1 active=1 level=870/1000 toggles=5 error=0\r\nmsh />\r\r\nmsh />keys read\r\r\nKEY1 DOWN held=0 ms tick=27280\r\nKEY1 UP held=160 ms tick=27440\r\nKEY1 DOWN held=0 ms tick=29980\r\nKEY1 UP held=190 ms tick=30170\r\nKEY1 DOWN held=0 ms tick=93120\r\nKEY1 UP held=190 ms tick=93310\r\nKEY1 DOWN held=0 ms tick=3984920\r\nKEY1 UP held=240 ms tick=3985160\r\nmsh />\r\r\nmsh />keys status\r\r\nkeys0: raw=0 pressed=0 queued=0 dropped=2 read_errors=0\r\nmsh />\r\r\nmsh />pwm probe t5pwm\r\r\nprobe t5pwm success\r\nmsh />\r\r\nmsh />pwm get\r\r\npwm: command failed -22.\r\nmsh />\r\r\nmsh />pwm get 1\r\r\nInfo of device [t5pwm] channel [1]:\r\nperiod      : 250000\r\npulse       : 249750\r\nDuty cycle  : 99%\r\nmsh />\r\r\nmsh />free\r\r\ntotal    : 22536\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 13160\r\nmsh />\r\r\nmsh />rtcctl get\r\r\nRTC UTC seconds=1793617238\r\nmsh />",
+        "raw_hex": "0d0d0a6d7368202f3e1b376c1b37651b37641b37201b37731b37741b37611b37741b37751b37731b370d0d0a4c45442072656164793d31206163746976653d31206c6576656c3d3837302f3130303020746f67676c65733d35206572726f723d300d0a6d7368202f3e1b370d0d0a6d7368202f3e1b376b1b37651b37791b37731b37201b37721b37651b37611b37641b370d0d0a4b45593120444f574e2068656c643d30206d73207469636b3d32373238300d0a4b4559312055502068656c643d313630206d73207469636b3d32373434300d0a4b45593120444f574e2068656c643d30206d73207469636b3d32393938300d0a4b4559312055502068656c643d313930206d73207469636b3d33303137300d0a4b45593120444f574e2068656c643d30206d73207469636b3d39333132300d0a4b4559312055502068656c643d313930206d73207469636b3d39333331300d0a4b45593120444f574e2068656c643d30206d73207469636b3d333938343932300d0a4b4559312055502068656c643d323430206d73207469636b3d333938353136300d0a6d7368202f3e1b370d0d0a6d7368202f3e1b376b1b37651b37791b37731b37201b37731b37741b37611b37741b37751b37731b370d0d0a6b657973303a207261773d3020707265737365643d30207175657565643d302064726f707065643d3220726561645f6572726f72733d300d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37701b37771b376d1b37201b37701b37721b376f1b37621b37651b37201b37741b37351b37701b37771b376d1b370d0d0a70726f626520743570776d20737563636573730d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37701b37771b376d1b37201b37671b37651b37741b370d0d0a70776d3a20636f6d6d616e64206661696c6564202d32322e0d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37701b37771b376d1b37201b37671b37651b37741b37201b37311b370d0d0a496e666f206f6620646576696365205b743570776d5d206368616e6e656c205b315d3a0d0a706572696f642020202020203a203235303030300d0a70756c7365202020202020203a203234393735300d0a44757479206379636c6520203a203939250d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37661b37721b37651b37651b370d0d0a746f74616c202020203a2032323533360d0a7573656420202020203a20393337360d0a6d6178696d756d20203a20393337360d0a617661696c61626c653a2031333136300d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37721b37741b37631b37631b37741b376c1b37201b37671b37651b37741b370d0d0a52544320555443207365636f6e64733d313739333631373233380d0a6d7368202f3e1b37"
+      }
+    },
+    "pwm_get_missing_arg": "returns -22; no shell crash",
+    "pwm_get": "t5pwm channel 1 reports 250000 ns; high time varies with envelope",
+    "rtc_seconds": [
+      1793613278,
+      1793617238
+    ],
+    "last_led_state": "ready=1 active=1 level=870/1000 toggles=5 error=0",
+    "note": "User confirmed off visually; later serial snapshot was active again with 5 toggles. Do not interpret that later snapshot as off.",
+    "key_event_queue": "DOWN/UP preserved; late read overflowed 8-record queue by 2; read_errors=0",
+    "heap_before_after": {
+      "total": 22536,
+      "used": 9376,
+      "maximum": 9376,
+      "available": 13160
+    }
+  },
+  "software_validation": {
+    "pwm_model": "PASS: real PWM API, clock/mux, timer start/stop, duty polarity, invalid/overflow no-write, per-channel/shared period, packed LPWM, context errors\nPASS: S2 debounce/start/stop, hold once, untouched event queue, S3 ignored, gamma envelope, DC endpoints, tick wrap and fault shutdown\nPASS: PWM timer/pin ownership conflict guards\n",
+    "keys_model": "PASS: GPIO mux return, atomic SET/CLR, per-pin shared IRQs, both edges, detach/disable isolation, IRQ during dispatch, recursive detach, W1C/RTC preservation, lazy worker failure/retry\nPASS: three keys, bounce on both edges, simultaneous presses, long once, held duration, overflow, unaligned reads, read failure, wrap and bounded watch\nPASS: key pin conflicts with SPI1 G1/G5, I2S G1 and LPWM2 G3 rejected\n",
+    "build_profiles": "Build workspace/logs: /tmp/ab32-rtt-build-lf551gzu\nled: PASS (/tmp/ab32-rtt-build-lf551gzu/led.log)\npwm: PASS (/tmp/ab32-rtt-build-lf551gzu/pwm.log)\nrtc_integrated: PASS (/tmp/ab32-rtt-build-lf551gzu/rtc_integrated.log)\ni2s_pa: PASS (/tmp/ab32-rtt-build-lf551gzu/i2s_pa.log)\nspi_fm_i2s: PASS (/tmp/ab32-rtt-build-lf551gzu/spi_fm_i2s.log)\n",
+    "final_lpwm_mux_profile": "Build workspace/logs: /tmp/ab32-rtt-build-nnhvn0iq\npwm: PASS (/tmp/ab32-rtt-build-nnhvn0iq/pwm.log)\n",
+    "default_build": "PASS, flashed artifact below",
+    "memory": {
+      "sections": {
+        ".init": {
+          "bytes": 326,
+          "vma": 268435456,
+          "lma": 268435456
+        },
+        ".ram1": {
+          "bytes": 31200,
+          "vma": 327680,
+          "lma": 268435968
+        },
+        ".flash": {
+          "bytes": 111104,
+          "vma": 268467200,
+          "lma": 268467200
+        },
+        ".comm": {
+          "bytes": 76192,
+          "vma": 79872,
+          "lma": 268578304
+        },
+        ".bram": {
+          "bytes": 6540,
+          "vma": 69632,
+          "lma": 69632
+        },
+        ".bss": {
+          "bytes": 13824,
+          "vma": 156064,
+          "lma": 156064
+        },
+        ".heap": {
+          "bytes": 22624,
+          "vma": 169888,
+          "lma": 169888
+        },
+        ".stack": {
+          "bytes": 4096,
+          "vma": 192512,
+          "lma": 192512
+        },
+        ".riscv.attributes": {
+          "bytes": 42,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_info": {
+          "bytes": 2877,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_abbrev": {
+          "bytes": 907,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_loc": {
+          "bytes": 3347,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_aranges": {
+          "bytes": 120,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_line": {
+          "bytes": 2512,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_str": {
+          "bytes": 953,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_frame": {
+          "bytes": 64,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_ranges": {
+          "bytes": 248,
+          "vma": 0,
+          "lma": 0
+        }
+      },
+      "placement_checks": {
+        "finsh_thread_entry": "0x1000b2b4",
+        "_audio_dev_init": "0x1000babe",
+        "pcmcheck": "0x1000c770",
+        "ble_hs_init": "0x10012440",
+        "ble_gatts_init": "0x10011f56",
+        "ble_gap_adv_start": "0x1000f20e",
+        "ab32_usb_poll": "0x10016e9c",
+        "usbd_initialize": "0x10018a9c",
+        "usb_worker": "0x10017576",
+        "drv_sdcard_init": "0x10019586",
+        "tf_read": "0x1001922c",
+        "f_read": "0x1001bbda",
+        "dfs_mount": "0x1001e9d0",
+        "strstr": "0x1001f788",
+        "irrx": "0x1001fc70",
+        "irrx_read": "0x1001fa3c",
+        "irrx_control": "0x1001fbf0",
+        "board_keys_init": "0x10021374",
+        "board_keys_poll": "0x10021664",
+        "keys": "0x100214ce",
+        "keys_read": "0x1002141c",
+        "keys_control": "0x10021244",
+        "main": "0x10021b62",
+        "board_led_init": "0x10021962",
+        "board_led_poll": "0x100219d0",
+        "drv_pwm_control": "0x10021b92",
+        "rt_pwm_set": "0x10022204",
+        "rt_pwm_enable": "0x1002213c",
+        "rt_pwm_disable": "0x100221a0",
+        "ab32_rtc_init": "0x100201f0",
+        "ab32_rtc_get_secs": "0x10020220",
+        "ab32_rtc_set_secs": "0x1002013a",
+        "rt_hw_rtc_register": "0x10020744",
+        "rtcctl": "0x1002029a",
+        "time": "0x10020ee4",
+        "gmtime_r": "0x10020bf0",
+        "localtime_r": "0x10020cd0",
+        "mktime": "0x100210ac",
+        "rt_schedule": "0x53e12",
+        "rt_sem_release": "0x51428",
+        "rt_hw_context_switch": "0x17252",
+        "os_cache_init": "0x15552",
+        "load_cache": "0x15612",
+        "__wrap_bthw_isr_do": "0x1f588",
+        "bb_run_loop": "0x144d8",
+        "hci_host_recv_packet": "0x1f646",
+        "audio_isr": "0x13ce8",
+        "uart_isr": "0x141a4",
+        "ab32_pin_mode": "0x175ca",
+        "hal_gpio_init": "0x21dfc",
+        "gpio_afinit": "0x21d96",
+        "port_sfr": "0x23bd0",
+        "port_table": "0x23bc4",
+        "rtc_transfer": "0x1410c",
+        "rtc_byte": "0x140e8",
+        "rtc_wait_idle": "0x140cc",
+        "rtc_bridge_init": "0x140ee",
+        "rt_hw_interrupt_disable": "0x171fe",
+        "rt_hw_interrupt_enable": "0x1720c",
+        "ble_npl_hw_enter_critical": "0x1f93a",
+        "ble_npl_hw_exit_critical": "0x1f954",
+        "ble_npl_eventq_put": "0x1f9b0",
+        "ble_mqueue_get": "0x1e27c",
+        "ble_mqueue_put": "0x1e2a0",
+        "os_memblock_get": "0x1ebf0",
+        "os_memblock_put": "0x1ec52",
+        "alloc_acl": "0x1522c",
+        "free_acl": "0x1526e",
+        "irrx_isr": "0x14016",
+        "irrx_push": "0x13dcc",
+        "irrx_release": "0x13e3e",
+        "irrx_switch": "0x13e56",
+        "irrx_pop": "0x13d78",
+        "irrx_snapshot": "0x13d54",
+        "irrx_pin_regs": "0x140ac",
+        "rt_hw_irq_disable": "0x17418",
+        "rt_hw_interrupt_install": "0x17434",
+        "rt_interrupt_enter": "0x219b0",
+        "rt_interrupt_leave": "0x219dc",
+        "rt_tick_get": "0x54030",
+        "memcpy": "0x2244c",
+        "memset": "0x22688",
+        "__riscv_restore_0": "0x13b5c",
+        "__riscv_restore_1": "0x13b58",
+        "__riscv_restore_10": "0x13b34",
+        "__riscv_restore_11": "0x13b30",
+        "__riscv_restore_12": "0x13b2c",
+        "__riscv_restore_2": "0x13b54",
+        "__riscv_restore_3": "0x13b50",
+        "__riscv_restore_4": "0x13b4c",
+        "__riscv_restore_5": "0x13b48",
+        "__riscv_restore_6": "0x13b44",
+        "__riscv_restore_7": "0x13b40",
+        "__riscv_restore_8": "0x13b3c",
+        "__riscv_restore_9": "0x13b38",
+        "__riscv_save_0": "0x13b26",
+        "__riscv_save_1": "0x13b1e",
+        "__riscv_save_10": "0x13a76",
+        "__riscv_save_11": "0x13a5a",
+        "__riscv_save_12": "0x13a3a",
+        "__riscv_save_2": "0x13b14",
+        "__riscv_save_3": "0x13b08",
+        "__riscv_save_4": "0x13afa",
+        "__riscv_save_5": "0x13aea",
+        "__riscv_save_6": "0x13ad8",
+        "__riscv_save_7": "0x13ac4",
+        "__riscv_save_8": "0x13aac",
+        "__riscv_save_9": "0x13a92"
+      },
+      "nimble_enabled": true,
+      "usb_enabled": true,
+      "tf_enabled": true,
+      "ir_enabled": true,
+      "keys_enabled": true,
+      "gpio_irq_enabled": false,
+      "rtc_enabled": true,
+      "led_breath_enabled": true,
+      "heap_region_bytes": 22624,
+      "note": "Heap region includes allocator metadata; use board free for runtime availability."
+    }
+  },
+  "artifacts": {
+    "rtt/bsp/rtthread.elf": {
+      "bytes": 329520,
+      "sha256": "dea42271f9d8e3bad1fb2208849073b82d6a28b41dccd4970206e7e1ff92c5c1"
+    },
+    "rtt/bsp/rtthread.bin": {
+      "bytes": 219040,
+      "sha256": "446619f5c78ebc8bce312058b3ee827c8c1a6928a908e0b78ceb587ce42ff280"
+    },
+    "rtt/bsp/rtthread.dcf": {
+      "bytes": 228440,
+      "sha256": "96303d19dac609ce6ede27c2410389992c0935461a16cc31d95d151e361702df"
+    },
+    "rtt/bsp/libraries/hal_drivers/drv_pwm.c": {
+      "bytes": 8821,
+      "sha256": "ff4e140a20cff84227e34e439fa050098733cf8f3c2957266f84eeb96cd2719b"
+    },
+    "rtt/bsp/board/ab32vg1_hal_msp.c": {
+      "bytes": 4840,
+      "sha256": "2329dafb4a449427659b8a66b12e28c4f46dcb4dcbcf020282bb008f8602e60c"
+    },
+    "rtt/bsp/app/board_led.c": {
+      "bytes": 3611,
+      "sha256": "de682ba953d206bfd01dc53bb9fe4abae1d7a917027f7622e324e34d82f6e123"
+    },
+    "rtt/bsp/app/board_led.h": {
+      "bytes": 191,
+      "sha256": "96845e75159e5dbb4c978be4834bffe2835ad7196949c67bd620680600c635d2"
+    },
+    "rtt/bsp/app/board_keys.c": {
+      "bytes": 6866,
+      "sha256": "7201db333fbd4127c2b0b396ce6a00af44e803adc1b88344b243561263dcb113"
+    },
+    "rtt/bsp/app/board_keys.h": {
+      "bytes": 829,
+      "sha256": "5853d1fb8bd2b960946e92480e0898ad6021d9faf7a4590859975a7ed514f1e0"
+    },
+    "rtt/bsp/app/main.c": {
+      "bytes": 1374,
+      "sha256": "b7c1e40e1d6ca7a728657e3808420a5d80802e8e910b87f19a896524e66da14e"
+    },
+    "rtt/bsp/rtconfig.h": {
+      "bytes": 9347,
+      "sha256": "abab777781bcc84a3cfe456b2c31186a740558374654211dd18b17feb1c080fb"
+    },
+    "rtt/bsp/link_bt_ram.lds": {
+      "bytes": 6345,
+      "sha256": "c042427043c5a581c8e1306cb92e4ca1315af463336218407c159b7f1c4e5316"
+    },
+    "rtt/components/drivers/misc/rt_drv_pwm.c": {
+      "bytes": 13676,
+      "sha256": "305713354c29ecbccf1afe553861c8320fc0c1ffa9a07de00843f6a7f501ae70"
+    },
+    "tools/rtt/test_pwm.py": {
+      "bytes": 2047,
+      "sha256": "3677118c1541fca43ada33fc7c6f23e3e593928cf71d0be174afec35aef14035"
+    },
+    "tools/rtt/tests/pwm_led.c": {
+      "bytes": 7699,
+      "sha256": "6bd2fa5e01c2799dda2a1a7b1e03a995e05bdaf5f4499b18a7d0380deb4b3cb5"
+    },
+    "tools/rtt/tests/pwm_board/board.h": {
+      "bytes": 405,
+      "sha256": "e26aca55fc47d24e53d405e1c31716beb119373ec286a21d31d453e24965ddaa"
+    }
+  },
+  "limits": [
+    "Carrier frequency is configured, not oscilloscope measured.",
+    "Non-LED Timer and LPWM outputs verified only by models/builds.",
+    "No combined Bluetooth/audio/USB stress test for this firmware.",
+    "Long-press single-toggle and tick wrap covered by model, not this hardware session."
+  ]
+}

@@ -282,3 +282,24 @@ available: 13384
 该数字为启动后和 RTC 测试状态，不代表蓝牙、音频、USB 同时运行的余量。
 长期精度及断电保持尚未验证。见 [RTC.md](RTC.md) 和
 [实板记录](../docs/lib-analysis/generated/recovery/rtc-rtt-hardware.json)。
+
+## S2 呼吸灯接入后
+
+默认增加 Timer5 PWM0 和红灯亮度控制，复用 main 的 10 ms 按键扫描周期。
+没有新增线程、栈或动态缓冲；PWM 静态设备、状态及互斥锁占用少量 RAM。
+PWM 框架、驱动、呼吸灯和 main 线程正文放 Flash，GPIO 临界代码仍在 SRAM。
+
+| 段 | 字节 |
+| --- | ---: |
+| `.comm` | 76192 |
+| `.ram1` | 31200 / 31232 |
+| `.bss` | 13824 |
+| `.bram` | 6540 / 10240 |
+| `.heap` | 22624 |
+| `.stack` | 4096 |
+| `.flash` | 111104 |
+
+原始堆比 RTC 版减少 224 字节，仍通过 22 KiB 下限，未修改既有栈和蓝牙固定区。
+实板呼吸运行时 `free` 为 total=22536、used=9376、maximum=9376、available=13160。
+此数据不代表蓝牙、音频和 USB 同时运行时余量。
+功能与验证见 [PWM.md](PWM.md) 和 [实机记录](../docs/lib-analysis/generated/recovery/pwm-led-rtt-hardware.json)。

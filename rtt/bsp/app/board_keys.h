@@ -16,5 +16,6 @@ struct ab32_keys_status {
 };
 /* Called by main every 10 ms. keys0 read sizes/results are bytes, whole records
  * only; one logical consumer. Queue overflow drops the oldest event. */
-void board_keys_poll(void);
+/* Returns newly debounced DOWN bits (bit0=S2), without draining keys0. */
+rt_uint8_t board_keys_poll(void);
 #endif

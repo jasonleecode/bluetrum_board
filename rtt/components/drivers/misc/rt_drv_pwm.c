@@ -374,18 +374,20 @@ static int pwm_list(int argc, char **argv)
             break;
 
         case PWM_LIST_GET:
+            if (argc != 3) return -RT_EINVAL;
             cfg.channel = atoi(argv[2]);
             result = rt_pwm_get(pwm_device, &cfg);
             if (result == RT_EOK)
             {
-                rt_kprintf("Info of device [%s] channel [%d]:\n", pwm_device, atoi(argv[2]));
+                rt_kprintf("Info of device [%s] channel [%d]:\n", pwm_device->parent.parent.name, cfg.channel);
                 rt_kprintf("period      : %d\n", cfg.period);
                 rt_kprintf("pulse       : %d\n", cfg.pulse);
-                rt_kprintf("Duty cycle  : %d%%\n", (int)(((double)(cfg.pulse) / (cfg.period)) * 100));
+                rt_kprintf("Duty cycle  : %u%%\n", cfg.period ?
+                    (unsigned)((rt_uint64_t)cfg.pulse * 100 / cfg.period) : 0u);
             }
             else
             {
-                rt_kprintf("Get info of device: [%s] error.\n", pwm_device);
+                rt_kprintf("Get info of device: [%s] error.\n", pwm_device->parent.parent.name);
             }
             break;
 
@@ -397,7 +399,7 @@ static int pwm_list(int argc, char **argv)
             }
             else
             {
-                rt_kprintf("Set info of device: [%s] error\n", pwm_device);
+                rt_kprintf("Set info of device: [%s] error\n", pwm_device->parent.parent.name);
                 rt_kprintf("Usage: pwm set <channel> <period> <pulse>\n");
             }
             break;

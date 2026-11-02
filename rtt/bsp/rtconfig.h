@@ -445,6 +445,11 @@
 #define BSP_USING_IRRX
 #define BSP_USING_IRRX_HW
 #define BSP_USING_KEYS
+#define BSP_USING_LED_BREATH
+#define BSP_USING_PWM
+#define RT_USING_PWM
+#define BSP_USING_T5_PWM
+#define BSP_USING_T5_PWM0
 
 /* Native IRTC, internal RC; first power-up requires explicit time setting. */
 #define BSP_USING_ONCHIP_RTC

@@ -61,6 +61,8 @@ PROFILES['keys_irq'] = dict(PROFILES['keys'], BSP_USING_PIN_IRQ=1)
 PROFILES['rtc'] = dict(RT_USING_RTC=1, BSP_USING_ONCHIP_RTC=1, RTC_USING_INTERNAL_CLK=1)
 PROFILES['rtc_external'] = dict(RT_USING_RTC=1, BSP_USING_ONCHIP_RTC=1)
 PROFILES['rtc_integrated'] = dict(PROFILES['keys'], **PROFILES['rtc'])
+PROFILES['led'] = dict(PROFILES['rtc_integrated'], BSP_USING_LED_BREATH=1,
+    BSP_USING_PWM=1, RT_USING_PWM=1, BSP_USING_T5_PWM=1, BSP_USING_T5_PWM0=1)
 
 def base_config(config):
     """Keep optional profiles independent of enabled workspace peripherals."""

@@ -72,6 +72,11 @@ SECTIONS
         /* Calendar conversion / libc RTC access runs in thread context only. */
         *ctime.o (.text* .rodata* .srodata*)
         *board_keys.o (.text* .rodata* .srodata*)
+        /* PWM/envelope operations take a mutex and only run in threads. */
+        *board_led.o (.text* .rodata* .srodata*)
+        *app*main.o (.text* .rodata* .srodata*)
+        *drv_pwm.o (.text* .rodata* .srodata*)
+        *rt_drv_pwm.o (.text* .rodata* .srodata*)
         *drv_gpio.o (.text.ab32_pin_get .text.ab32_pin_attach_irq
                      .text.ab32_pin_dettach_irq .text.ab32_pin_irq_enable
                      .text.ab32_pin_irq_thread .text.gpio_dispatch .text.ab32_pin_irq_init)

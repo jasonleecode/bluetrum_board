@@ -17,10 +17,19 @@
 #include <rtthread.h>
 #include "board.h"
 #include "board_keys.h"
+#include "board_led.h"
+
+#if !defined(BSP_USING_LED_BREATH) && !defined(BSP_USING_T5_PWM0) && \
+    (!defined(BSP_USING_I2S) || (defined(BSP_I2S_MAPPING) && BSP_I2S_MAPPING == 0))
+#define LEGACY_LED_BLINK
+#endif
 
 int main(void)
 {
-#if !defined(BSP_USING_I2S) || (defined(BSP_I2S_MAPPING) && BSP_I2S_MAPPING == 0)
+#ifdef BSP_USING_LED_BREATH
+    board_led_init();
+#endif
+#ifdef LEGACY_LED_BLINK
     uint8_t pin = rt_pin_get("PE.1");
 
     rt_pin_mode(pin, PIN_MODE_OUTPUT);
@@ -31,7 +40,7 @@ int main(void)
 
     while (1)
     {
-#if !defined(BSP_USING_I2S) || (defined(BSP_I2S_MAPPING) && BSP_I2S_MAPPING == 0)
+#ifdef LEGACY_LED_BLINK
         if ((rt_tick_t)(rt_tick_get() - blink) >= RT_TICK_PER_SECOND / 2)
         {
             blink = rt_tick_get();
@@ -40,7 +49,11 @@ int main(void)
         }
 #endif
 #ifdef BSP_USING_KEYS
+#ifdef BSP_USING_LED_BREATH
+        board_led_poll(board_keys_poll());
+#else
         board_keys_poll();
+#endif
         rt_thread_mdelay(10);
 #else
         rt_thread_mdelay(500);

@@ -78,7 +78,7 @@ void example_isr(void)
 
 #### 运行结果
 
-下载程序成功之后，系统会自动运行，观察开发板上 LED 的运行效果，红色 LED 会周期性闪烁。
+下载程序成功之后，系统会自动运行。当前默认红灯上电熄灭，按 S2 开启周期性呼吸、再按停止，见 [PWM 说明](PWM.md)。
 
 连接开发板对应串口到 PC , 在终端工具里打开相应的串口（115200-8-1-N），复位设备后，可以看到 RT-Thread 的输出信息:
 
@@ -193,7 +193,7 @@ TIMER3/4/5 与对应 PWM 共用计数器，TIMER3 与红外共用中断；SPI �
 | I2S / `BSP_USING_I2S` | 新增同系列硬件 SRC 输出子集，接 `sound0`；主机、标准 I2S、16 位双声道、MCLK=256fs、44.1/48 kHz；未接收/DMA，兼容性仍需上板验证 |
 | Flash / `BSP_USING_ON_CHIP_FLASH` | 自动选择 FAL；校验 1 MiB 地址范围和写擦对齐，读写分为 256 字节调用，返回实际请求字节数，避免把原库 CRC16 当成读取长度。仍依赖原库，写擦 API 没有错误返回，应用应读回校验；分区布局须与最终打包固件一致 |
 | 红外 / `BSP_USING_IRRX` | 默认编入原生 NEC/扩展 NEC 接收、8 项静态事件队列及 irrx 命令；显式启停，无后台线程；离线测试通过，实机待验证，见 [IR.md](IR.md) |
-| PWM | 通过可选配置编译；尚无波形实测 |
+| PWM | 默认启用 Timer5 PWM0/PE1，由 S2 切换呼吸灯；驱动修复及边界测试见 [PWM.md](PWM.md) |
 
 SPI1 的 `BSP_SPI1_MAPPING` 取值为 1..5，默认 4：MISO=PE5、SCK=PE6、MOSI=PE7；
 片选由应用用 `ab32_spi1_attach()`（`drv_spi.h`）挂接外设时指定；该入口预置不选中电平、检查时钟及引脚冲突，并在配置失败时撤销挂接。
@@ -208,7 +208,7 @@ CPOL/CPHA 波形**；其他模式、LSB、从机、3-wire 被拒绝。上板前�
 用 `scons --menuconfig` 在 BSP 的 `Hardware Drivers Config` 中启用所需功能，
 再执行 `scons -j4`。当前默认启用音频和 FM，SPI 与 I2S 仍关闭。
 同时使用时建议 SPI mapping 4（PE5/6/7）、I2S mapping 1（PE0..4）；
-启用 I2S PE 组会停用 `main.c` 的 PE1 LED 闪烁。板载 LED 负载、外部 codec
+启用 I2S PE 组须关闭 `BSP_USING_LED_BREATH` 和 `BSP_USING_T5_PWM0`，同时停用旧 PE1 LED 闪烁。板载 LED 负载、外部 codec
 及其它 PWM/UART 占用仍需检查，不能以编译通过代替电气验证。
 
 SPI 使用示例（`sensor` 必须有静态或更长生命周期，CS 根据实际接线选择）：
@@ -387,7 +387,8 @@ USB-A 的 VBUS 直接接板上 +5V，不能用普通 USB-A 双公线直接连电
 **综合固件已烧录，Device 硬件适配及实机枚举、收发仍待完成。**
 软件已通过包含真实协议栈的离线测试和综合构建，接线与后续测试步骤见 [USB.md](USB.md)。
 USB 初次接入时原始堆区为 28320 字节；加入 TF/FAT 后为 24352 字节，加入 IR 后为 23168 字节，
-按键接入时为 22528 字节，当前 RTC 修复版为 22848 字节。USB 启动及各模块组合的运行时余量仍需实测，见 [MEMORY.md](MEMORY.md)。
+按键接入时为 22528 字节，RTC 修复时为 22848 字节，当前加入 S2 呼吸灯后为 22624 字节；
+该版实测可用堆 13160 字节。USB 启动及各模块组合的运行时余量仍需实测，见 [MEMORY.md](MEMORY.md)。
 前面的 NimBLE 硬件内存数据属于接入 USB 前的版本。
 
 ### TF/FAT 软件适配（2026-11-02）
