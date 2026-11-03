@@ -18,6 +18,9 @@
 #include "board.h"
 #include "board_keys.h"
 #include "board_led.h"
+#ifdef BSP_USING_RADIO_APP
+#include "app_radio.h"
+#endif
 #ifdef BSP_USING_IRRX
 #include "drv_irrx.h"
 #endif
@@ -31,6 +34,9 @@ int main(void)
 {
 #ifdef BSP_USING_LED_BREATH
     board_led_init();
+#endif
+#ifdef BSP_USING_RADIO_APP
+    app_radio_init();
 #endif
 #ifdef LEGACY_LED_BLINK
     uint8_t pin = rt_pin_get("PE.1");
@@ -52,7 +58,10 @@ int main(void)
         }
 #endif
 #ifdef BSP_USING_KEYS
-#ifdef BSP_USING_LED_BREATH
+#ifdef BSP_USING_RADIO_APP
+        app_radio_poll(board_keys_poll());
+        board_led_poll(0); /* application owns the S2 toggle */
+#elif defined(BSP_USING_LED_BREATH)
         board_led_poll(board_keys_poll());
 #else
         board_keys_poll();

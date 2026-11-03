@@ -15,6 +15,9 @@ S2/PF1、S3/PF0、S4/PA2 三个功能键默认接入 keys0，支持消抖和长�
 AUDEC 的 MP3 硬件后端默认注册 `audec0`，支持 44.1 kHz 单声道、独立双声道及 M/S 联合立体声，提供独占会话、同步 PCM 输出和超时恢复；
 已迁移与其固定工作 RAM 重叠的内核/HCI 代码，可与蓝牙编译在同一综合固件中。
 完整 MP3 软件前端尚未接入，见 [MP3.md](../docs/rtt/MP3.md) 和 [内存预算](../docs/rtt/MEMORY.md)。
+默认收音机应用将 S2 与 FM/呼吸灯联动：97.4 MHz、音量 15%，再按关闭；
+红外上下键调音量、左右键以 0.1 MHz 步进调频，见 [RADIO.md](../docs/rtt/RADIO.md)。
+应用控制已上板验证；FM 广播仍有脉冲异常声，低音量 DAC 固定音正常，收音听感尚未验收。
 
 主要内容如下：
 
@@ -83,7 +86,7 @@ void example_isr(void)
 
 #### 运行结果
 
-下载程序成功之后，系统会自动运行。当前默认红灯上电熄灭，按 S2 开启周期性呼吸、再按停止，见 [PWM 说明](../docs/rtt/PWM.md)。
+下载程序成功之后，系统会自动运行。默认红灯上电熄灭，按 S2 同时启动周期性呼吸和 FM、再按同时停止，见 [收音机应用](../docs/rtt/RADIO.md) 与 [PWM 说明](../docs/rtt/PWM.md)。
 
 连接开发板对应串口到 PC , 在终端工具里打开相应的串口（115200-8-1-N），复位设备后，可以看到 RT-Thread 的输出信息:
 
@@ -189,7 +192,7 @@ TIMER3/4/5 与对应 PWM 共用计数器，TIMER3 与红外共用中断；SPI �
 | SPI1 / `BSP_USING_SPI1` | 默认注册 `spi1`，G6 PE4/PE3/PE2，主机 8 位 MSB、分阶段收发、GPIO 片选；实板完成上下拉接收、多分频发送自检；外设和波形待验证，见 [SPI_I2C.md](../docs/rtt/SPI_I2C.md) |
 | SARADC / `BSP_USING_ADC0` | 适配当前 RT-Thread 回调签名，校验 0..15 通道，传递转换超时，不再返回陈旧采样值 |
 | TIMER / `BSP_USING_TIM` | 区分 TIMER1/2 bit9 与 TIMER3/4/5 bit16 的溢出/清除位；共享 IRQ 只处理真实 pending；支持单次模式，检查计数溢出，开启时钟，并将 IRQ 调用的停止操作及函数表放入 RAM |
-| RTC / `BSP_USING_ONCHIP_RTC` | 默认启用；修正时钟选择、寄存器返回、无限等待和中断恢复；保留计数，首次校时用 rtcctl set；软件验证及实板读写、范围拒绝、约 60 秒走时通过；当前 time_t 支持至 2038 年，闹钟及秒中断设备接口未实现；电源驱动已验证 RTC 秒唤醒，见 [RTC.md](../docs/rtt/RTC.md) |
+| RTC / `BSP_USING_ONCHIP_RTC` | 默认启用；修正时钟选择、寄存器返回、无限等待和中断恢复；保留计数，首次校时支持 date 或 rtcctl set；软件验证及实板读写、范围拒绝、约 60 秒走时通过；当前 time_t 支持至 2038 年，闹钟及秒中断设备接口未实现；电源驱动已验证 RTC 秒唤醒，见 [RTC.md](../docs/rtt/RTC.md) |
 | WDT / `BSP_USING_WDT` | SET/GET_TIMEOUT 使用 RT-Thread 的秒单位，输入 1..16 秒向上选择 1/2/4/8/16 档，实际硬件约为 1.024/2.048/4.096/8.192/16.384 秒；支持停止，拒绝空参数。旧 `AB32_WDT_TIMEOUT_*` 是寄存器编码，不能作为秒值传入 |
 | TF / `BSP_USING_TFCARD` | 当前默认：复用原生 SD0，静态 DMA 中转区、串行块 I/O、显式探测和 FAT 挂载；无卡启动不探测，离线测试通过，实卡待验证，见 [TF.md](../docs/rtt/TF.md) |
 | 旧 SD / `BSP_USING_SDCARD` | 原生 SD0 一位总线；修复命令/数据事件等待、CRC/超时传递、时钟分频、缓存边界、写入长度和 host 初始化竞态；单请求上限 1024 字节（两个 512 字节块），已编译 SD＋FAT 配置 |

@@ -23,3 +23,12 @@ with tempfile.TemporaryDirectory(prefix='ab32-rtc-model-') as directory:
         subprocess.run(command, check=True)
         subprocess.run([temp/'rtc'], check=True)
         print(f'PASS: {profile}')
+    # The shell command must allow first setting without a readable old date.
+    command = ['cc', '-std=gnu11', '-O2', '-g', '-Wall', '-Wextra',
+               '-Wno-unused-parameter', '-Wno-cast-function-type', '-Werror=return-type',
+               '-Werror=incompatible-pointer-types', '-ffunction-sections', '-fdata-sections',
+               '-fsanitize=undefined', '-fno-sanitize-recover=all', '-DRT_USING_RTC=1',
+               '-I'+str(temp), *['-I'+str(ROOT/p) for p in includes],
+               str(ROOT/'tools/rtt/tests/date.c'), '-Wl,--gc-sections', '-o', str(temp/'date')]
+    subprocess.run(command, check=True)
+    subprocess.run([temp/'date'], check=True)

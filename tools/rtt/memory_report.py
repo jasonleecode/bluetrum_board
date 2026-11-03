@@ -52,6 +52,9 @@ def inspect(elf):
 
     if 'fmrx' in symbols:
         flash_functions += ['fmrx']
+    if 'app_radio_init' in symbols:
+        flash_functions += ['app_radio_init', 'app_radio_poll', 'ab32_fmrx_try_control',
+                            'board_led_set_active', 'radio']
     if 'btctl' in symbols:
         flash_functions += ['btctl']
         if 'diagnose' in symbols:

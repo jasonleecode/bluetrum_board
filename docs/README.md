@@ -7,6 +7,7 @@ RT-Thread 专题文档集中在 [docs/rtt/](rtt/)，工程说明保留在 [rtt/R
 | 文档 | 内容 |
 | --- | --- |
 | [工程说明](../rtt/README.md) | 构建、烧录、串口使用、功能进展和配置限制 |
+| [收音机应用](rtt/RADIO.md) | S2 联动呼吸灯、红外调音量和 0.1 MHz 调频 |
 | [内存预算](rtt/MEMORY.md) | SRAM 布局、堆占用及模块共存限制 |
 | [NimBLE](rtt/NIMBLE.md) | 蓝牙协议栈、BLE/GATT 测试与 iPhone 扫描 |
 | [MP3 / AUDEC](rtt/MP3.md) | 硬件解码接口、双声道及验证记录 |

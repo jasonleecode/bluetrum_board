@@ -64,8 +64,9 @@ scons -j4
 ```
 
 子模块固定到 `nimble_1_10_0_tag`，上游源码未修改。固件打包与 CH340 串口烧录步骤见
-[BSP 构建说明](rtt/README.md#linux-构建与驱动维护)。当前红灯上电熄灭，按 S2 开启呼吸、再按停止；
-FM 和蓝牙均不会自动启动；呼吸灯接线与验证见 [PWM.md](docs/rtt/PWM.md)。
+[BSP 构建说明](rtt/README.md#linux-构建与驱动维护)。上电红灯熄灭，S2 同时开启呼吸灯和 FM（97.4 MHz、音量 15%），再按同时关闭。
+遥控器上下键调节音量（每次 5 个百分点），左右键以 0.1 MHz 步进调频；见 [收音机应用](docs/rtt/RADIO.md)。
+FM 和蓝牙均不会在上电时自动启动；呼吸灯接线与验证见 [PWM.md](docs/rtt/PWM.md)。
 烧录所用串口同时提供 **115200、8N1** 的 RT-Thread shell。
 
 ### FM 调试
@@ -73,13 +74,14 @@ FM 和蓝牙均不会自动启动；呼吸灯接线与验证见 [PWM.md](docs/rt
 复位开发板，插入 CTIA 标准 3.5 mm 有线耳机并展开耳机线。在串口中执行：
 
 ```text
-fmrx tone
+radio stop
+fmrx tone 3
 ```
 
 等待约 10 秒测试音结束，再执行：
 
 ```text
-fmrx volume 20
+fmrx volume 3
 fmrx start 97400
 fmrx status
 fmrx rssi
@@ -87,8 +89,9 @@ fmrx stop
 ```
 
 `97400` 的单位为 kHz，即北京 FM 97.4 MHz。已确认测试音清晰稳定，
-但当前耳机和环境下广播仍只有沙沙声，尚未完成收音验收。
-`rssi` 为未标定原始读数，不能据此认定收到电台；更多诊断见 [FM 调试记录](rtt/README.md#fm-实机调试记录2026-11-02)。
+但 FM 广播尚未完成收音验收：此前为沙沙声，本轮仍有脉冲状刺耳声，关闭灯和红外后也存在。
+`rssi` 为未标定原始读数，不能据此认定收到电台；最新隔离测试见 [收音机应用记录](docs/rtt/RADIO.md#fm-音频隔离测试2026-11-03)，
+历史记录见 [FM 调试记录](rtt/README.md#fm-实机调试记录2026-11-02)。
 
 ### BLE 连接与 GATT
 

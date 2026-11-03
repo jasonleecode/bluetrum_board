@@ -38,7 +38,15 @@ rtcctl get
 rtcctl status
 ```
 
-首次读取若提示时间未设置，先在已校准时间的 Linux 电脑执行 `date +%s` 获取当前 UTC Unix 秒数，
+首次读取若提示时间未设置，可以直接用 `date 年 月 日 时 分 秒` 写入当前北京时间，
+例如以下仅为格式示例，使用时替换成实际时间：
+
+```text
+date 2026 11 03 12 34 56
+date
+```
+
+也可在已校准时间的 Linux 电脑执行 `date +%s` 获取当前 UTC Unix 秒数，
 把结果替换到下面的 `<秒数>`（不输入尖括号），尽快发给开发板：
 
 ```text
@@ -48,9 +56,10 @@ date
 ```
 
 `rtcctl` 使用 UTC 秒数；RT-Thread 的 `date` 按本工程时区 UTC+8 显示本地日期。
-有效校时后也可使用 `date 年 月 日 时 分 秒` 修改本地日期时间。
-上游 `date` 的设置流程先读取旧时间，因此未校时状态须先用 `rtcctl set` 或 `set_timestamp()`，
-不能仅执行 `date ...` 完成首次校时。命令报错后应先解决错误再读取，不能只看 shell 提示符判断成功。
+`date` 既可首次校时，也可修改已有时间。已修复上游命令必须成功读取旧时间才允许设置的问题：
+旧时间不可读时显示 `old: unavailable`，仍尝试写入用户提供的时间。
+无参数读取失败时明确报错，不再把失败后的零值显示为 1970 年；写入或读回失败也分别报告。
+命令报错后应先解决错误再读取，不能只看 shell 提示符判断成功。
 
 硬件计数范围为 0..4294967295 秒，未实现到顶回绕后的纪元扩展。
 **当前 RV32 工具链的 `time_t` 是有符号 32 位**，因此实际时间 API 范围为
@@ -95,6 +104,8 @@ RTC 专用模型使用真实芯片头文件和真实驱动，模拟命令/数据
 覆盖内部/外部时钟、保留位、首次上电、重复初始化、UTC 秒范围、字节序、跨秒读数、
 每个初始化/读写字节的超时、忙状态、部分写入、失败重试、中断/互斥恢复及命令参数。
 替换了旧测试中仅检查 RTCDAT 最后一次写入的做法；旧模型里的错误命令常量已删除。
+同一脚本还编译实际 `date` 命令，覆盖首次校时、已有时间修改、UTC+8 转换、
+读取/写入/读回失败及 RTC 设备不存在；首次校时不依赖旧时间有效。
 八组既有驱动和 TF/FAT/SD0 回归通过，内外时钟、综合 RTC 及不带 RTC 配置构建通过。
 这些测试不模拟真实振荡器、时钟精度或供电保持。
 
@@ -126,3 +137,23 @@ python3 tools/rtt/test_rtc_uart.py --port /dev/ttyUSB0 --seconds 60 \
 记录见 [最终固件及结果摘要](../lib-analysis/generated/recovery/rtc-rtt-hardware.json) 和
 [完整串口记录](../lib-analysis/generated/recovery/rtc-rtt-uart.json)。
 尚未验证手动 RESET、彻底断电后的保持、长期温漂、外部晶体，以及同时运行蓝牙/音频/USB 的组合。
+
+### date 首次校时修复（2026-11-03）
+
+实板原状态 `CON0=e1 valid=0`，旧固件 `date` 误显示 1970 年，
+`date 2026 11 03 12 34 56` 复现 `Get current timestamp failed. -5`。
+修复位于 RTC 框架的 `dev_rtc.c` 命令处理，不改变 RTC 硬件初始化或有效标志语义。
+
+修复版烧录及校验通过。在仍为 `valid=0` 的实板上，无参数 `date` 正确报读取失败；
+直接设置完整年月日时分秒成功，读回 `1793680496`（UTC+8 的 2026-11-03 12:34:56），
+`valid` 变为 1，后续计数继续递增。最后通过 `date` 同步电脑当前时间。
+堆占用保持 total=18600、used=9376、available=9224。
+完整命令和镜像哈希见 [date-rtt-uart.json](../lib-analysis/generated/recovery/date-rtt-uart.json)。
+
+```sh
+python3 tools/rtt/test_date_uart.py --port /dev/ttyUSB0 --require-unset \
+  --output /tmp/date-rtt-uart.json
+```
+
+`--require-unset` 要求设备事先处于未校时状态，不会强行清除有效标志；
+已校时设备可去掉该参数，验证设置、读回及连续计时。脚本会修改 RTC，结束时同步电脑当前时间。

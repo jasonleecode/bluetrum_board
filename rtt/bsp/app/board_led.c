@@ -66,15 +66,30 @@ void board_led_init(void)
     led_ready = led_error == RT_EOK;
     if (led_error) rt_kprintf("LED PWM init error %d\n", led_error);
 }
+rt_bool_t board_led_is_active(void) { return led_active; }
+rt_err_t board_led_set_active(rt_bool_t active)
+{
+    if (active && !led_ready) return led_error ? led_error : -RT_EIO;
+    if (!!active != !!led_active)
+    {
+        led_active = !!active;
+        led_start = rt_tick_get();
+        led_toggles++;
+    }
+    if (!active)
+    {
+        led_dc(PIN_HIGH);
+        led_level = 0;
+    }
+    return RT_EOK;
+}
 void board_led_poll(rt_uint8_t key_downs)
 {
     if (!led_ready) return;
     rt_tick_t now = rt_tick_get();
     if (key_downs & 1u)
     {
-        led_active = !led_active;
-        led_start = now;
-        led_toggles++;
+        board_led_set_active(!led_active);
     }
     rt_uint32_t phase = (rt_tick_t)(now - led_start) % (2 * LED_HALF_TICKS);
     if (phase > LED_HALF_TICKS) phase = 2 * LED_HALF_TICKS - phase;

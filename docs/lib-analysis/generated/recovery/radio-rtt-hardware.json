@@ -1,0 +1,1143 @@
+{
+  "date": "2026-11-03",
+  "board": "AB32VG1 CRWN V2.0",
+  "firmware": "rtt/bsp/rtthread.dcf",
+  "firmware_sha256": "93e79796e8b9a13da633a701476e229b4d7a8d3f17862c35f04737dc533abfa6",
+  "status": {
+    "application_shell_control_verified": true,
+    "all_four_physical_arrows_individually_verified_this_round": false,
+    "fm_broadcast_audio_verified": false,
+    "final_radio_led_ir_off": true
+  },
+  "user_feedback": [
+    {
+      "test": "S2 application at 97.4 MHz / 15%",
+      "answer": "按下S2后听着像是脉冲一样的刺耳声音"
+    },
+    {
+      "test": "FM only 97.4 MHz / 3%, LED and IR off",
+      "answer": "仍有同样的脉冲刺耳声"
+    },
+    {
+      "test": "DAC fixed tone / 3% / approximately 10 seconds",
+      "answer": "清晰稳定的嘟声"
+    }
+  ],
+  "interpretation": "DAC fixed tone works; FM audio remains abnormal with LED and IR off. Antenna/environment versus RF initialization/digital demodulation cause remains unresolved.",
+  "memory": {
+    "sections": {
+      ".init": {
+        "bytes": 360,
+        "vma": 268435456,
+        "lma": 268435456
+      },
+      ".ram1": {
+        "bytes": 16288,
+        "vma": 327680,
+        "lma": 268435968
+      },
+      ".ram2": {
+        "bytes": 2408,
+        "vma": 356352,
+        "lma": 268452256
+      },
+      ".flash": {
+        "bytes": 136192,
+        "vma": 268454912,
+        "lma": 268454912
+      },
+      ".comm": {
+        "bytes": 77368,
+        "vma": 79872,
+        "lma": 268591104
+      },
+      ".audec_work": {
+        "bytes": 12288,
+        "vma": 344064,
+        "lma": 344064
+      },
+      ".bram": {
+        "bytes": 6540,
+        "vma": 69632,
+        "lma": 69632
+      },
+      ".bss": {
+        "bytes": 16576,
+        "vma": 157248,
+        "lma": 157248
+      },
+      ".heap": {
+        "bytes": 18688,
+        "vma": 173824,
+        "lma": 173824
+      },
+      ".stack": {
+        "bytes": 4096,
+        "vma": 192512,
+        "lma": 192512
+      },
+      ".riscv.attributes": {
+        "bytes": 42,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_info": {
+        "bytes": 2877,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_abbrev": {
+        "bytes": 907,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_loc": {
+        "bytes": 3347,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_aranges": {
+        "bytes": 120,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_line": {
+        "bytes": 2512,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_str": {
+        "bytes": 953,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_frame": {
+        "bytes": 64,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_ranges": {
+        "bytes": 248,
+        "vma": 0,
+        "lma": 0
+      }
+    },
+    "placement_checks": {
+      "finsh_thread_entry": "0x10008248",
+      "_audio_dev_init": "0x10008a3c",
+      "pcmcheck": "0x10009990",
+      "rt_hw_sound_init": "0x10009c3e",
+      "sound_configure": "0x1000a1a2",
+      "audio_thread_entry": "0x10009950",
+      "strtol": "0x1000cb68",
+      "strtoul": "0x1000cda8",
+      "strcmp": "0x1000bfb0",
+      "strchr": "0x1000be70",
+      "strlen": "0x1000c34c",
+      "__udivdi3": "0x1000c4dc",
+      "ab32_audec_init": "0x1000ad4c",
+      "rt_hw_spi1_init": "0x1000afd0",
+      "spi1_configure": "0x1000b144",
+      "spi1_xfer": "0x1000b024",
+      "rt_spi_transfer": "0x1000bc94",
+      "ab32_spi1_attach": "0x1000b1e6",
+      "spi1check": "0x1000b304",
+      "fmrx": "0x10021d14",
+      "app_radio_init": "0x100247e6",
+      "app_radio_poll": "0x10024848",
+      "ab32_fmrx_try_control": "0x100223ea",
+      "board_led_set_active": "0x1002436a",
+      "radio": "0x100246d4",
+      "btctl": "0x100226a4",
+      "ab32_power_init": "0x100210ac",
+      "power_control": "0x100210f0",
+      "pmctl": "0x100216d4",
+      "power_snapshot": "0x10021328",
+      "power_off_locked": "0x10021484",
+      "power_capture_boot": "0x10021264",
+      "power_sleep_once": "0x100215f8",
+      "ab32_irtc_align_second_locked": "0x10020b50",
+      "ab32_irtc_transaction": "0x10020be0",
+      "ab32_irtc_read8_locked": "0x10020c20",
+      "ab32_irtc_update8_locked": "0x10020ce0",
+      "ab32_irtc_shutdown_update_locked": "0x10020d1a",
+      "ble_hs_init": "0x10012c3c",
+      "ble_gatts_init": "0x10012752",
+      "ble_gap_adv_start": "0x1000fa0a",
+      "ab32_usb_poll": "0x10017694",
+      "usbd_initialize": "0x100192ac",
+      "usb_worker": "0x10017d6e",
+      "drv_sdcard_init": "0x10019da6",
+      "tf_read": "0x10019a28",
+      "f_read": "0x1001c3f6",
+      "dfs_mount": "0x1001f1bc",
+      "strstr": "0x1001ff50",
+      "irrx": "0x1002041c",
+      "irrx_read": "0x100201fc",
+      "irrx_control": "0x1002039c",
+      "board_keys_init": "0x10023d18",
+      "board_keys_poll": "0x10023ff8",
+      "keys": "0x10023e72",
+      "keys_read": "0x10023dc0",
+      "keys_control": "0x10023bf0",
+      "main": "0x10024c72",
+      "board_led_init": "0x100242f2",
+      "board_led_poll": "0x100243e4",
+      "drv_pwm_control": "0x10024cb4",
+      "rt_pwm_set": "0x10025314",
+      "rt_pwm_enable": "0x1002524c",
+      "rt_pwm_disable": "0x100252b0",
+      "hal_pwm_mspinit": "0x10025d34",
+      "ab32_rtc_init": "0x1002092e",
+      "ab32_rtc_get_secs": "0x1002095e",
+      "ab32_rtc_set_secs": "0x10020878",
+      "rt_hw_rtc_register": "0x10023108",
+      "rtcctl": "0x100209dc",
+      "time": "0x10023890",
+      "gmtime_r": "0x1002359c",
+      "localtime_r": "0x1002367c",
+      "mktime": "0x10023a58",
+      "rt_schedule": "0x535de",
+      "rt_sem_release": "0x51428",
+      "rt_hw_context_switch": "0x16a1a",
+      "os_cache_init": "0x15954",
+      "load_cache": "0x15a14",
+      "__wrap_bthw_isr_do": "0x1f1ac",
+      "bb_run_loop": "0x148d8",
+      "hci_host_recv_packet": "0x1f26a",
+      "audio_isr": "0x13d1a",
+      "uart_isr": "0x145a2",
+      "hct_send_command": "0x19256",
+      "hct_transport_table": "0x22dcc",
+      "rt_vsnprintf": "0x163a4",
+      "rt_smem_alloc": "0x57506",
+      "rt_device_open": "0x1f854",
+      "rt_device_close": "0x1f980",
+      "configure_clock": "0x13d82",
+      "stop_engine": "0x13d4a",
+      "ab32_pin_mode": "0x16d92",
+      "hal_gpio_init": "0x22066",
+      "gpio_afinit": "0x22000",
+      "port_sfr": "0x22c3c",
+      "port_table": "0x22c30",
+      "spi1_map": "0x1449c",
+      "ab32_spi1_power_busy": "0x14594",
+      "spi1_test_pull": "0x144fc",
+      "spi1_test_restore": "0x14534",
+      "ab32_irtc_sleep_locked": "0x14378",
+      "power_bridge_policy": "0x1422e",
+      "power_cutoff": "0x14210",
+      "ab32_irtc_cutoff_locked": "0x1445a",
+      "rt_tick_set": "0x53816",
+      "rt_tick_get": "0x537fc",
+      "rtc_transfer": "0x1429e",
+      "rtc_byte": "0x1426e",
+      "rtc_wait_idle": "0x14252",
+      "rtc_counter_read": "0x14336",
+      "rt_hw_interrupt_disable": "0x169c6",
+      "rt_hw_interrupt_enable": "0x169d4",
+      "rtc_bridge_init": "0x14274",
+      "ble_npl_hw_enter_critical": "0x1f446",
+      "ble_npl_hw_exit_critical": "0x1f460",
+      "ble_npl_eventq_put": "0x1f4bc",
+      "ble_mqueue_get": "0x1e60a",
+      "ble_mqueue_put": "0x1e62e",
+      "os_memblock_get": "0x1ef7e",
+      "os_memblock_put": "0x1efd8",
+      "alloc_acl": "0x1562e",
+      "free_acl": "0x15670",
+      "irrx_isr": "0x140f0",
+      "irrx_push": "0x13e1c",
+      "irrx_release": "0x13e8e",
+      "irrx_switch": "0x13f26",
+      "irrx_pop": "0x13ed2",
+      "irrx_snapshot": "0x13eae",
+      "irrx_pin_regs": "0x141f0",
+      "ab32_irrx_poll": "0x141a4",
+      "rt_hw_irq_disable": "0x16be0",
+      "rt_hw_interrupt_install": "0x16bfc",
+      "rt_interrupt_enter": "0x53e50",
+      "rt_interrupt_leave": "0x53e7c",
+      "memcpy": "0x226a0",
+      "memset": "0x228dc",
+      "__riscv_restore_0": "0x13b5c",
+      "__riscv_restore_1": "0x13b58",
+      "__riscv_restore_10": "0x13b34",
+      "__riscv_restore_11": "0x13b30",
+      "__riscv_restore_12": "0x13b2c",
+      "__riscv_restore_2": "0x13b54",
+      "__riscv_restore_3": "0x13b50",
+      "__riscv_restore_4": "0x13b4c",
+      "__riscv_restore_5": "0x13b48",
+      "__riscv_restore_6": "0x13b44",
+      "__riscv_restore_7": "0x13b40",
+      "__riscv_restore_8": "0x13b3c",
+      "__riscv_restore_9": "0x13b38",
+      "__riscv_save_0": "0x13b26",
+      "__riscv_save_1": "0x13b1e",
+      "__riscv_save_10": "0x13a76",
+      "__riscv_save_11": "0x13a5a",
+      "__riscv_save_12": "0x13a3a",
+      "__riscv_save_2": "0x13b14",
+      "__riscv_save_3": "0x13b08",
+      "__riscv_save_4": "0x13afa",
+      "__riscv_save_5": "0x13aea",
+      "__riscv_save_6": "0x13ad8",
+      "__riscv_save_7": "0x13ac4",
+      "__riscv_save_8": "0x13aac",
+      "__riscv_save_9": "0x13a92"
+    },
+    "nimble_enabled": true,
+    "usb_enabled": true,
+    "tf_enabled": true,
+    "ir_enabled": true,
+    "keys_enabled": true,
+    "gpio_irq_enabled": false,
+    "rtc_enabled": true,
+    "led_breath_enabled": true,
+    "power_enabled": true,
+    "audec_enabled": true,
+    "heap_region_bytes": 18688,
+    "note": "Heap region includes allocator metadata; use board free for runtime availability."
+  },
+  "validation_logs": {
+    "model": "PASS: S2 on/off/defaults, exact remote codes, 100 kHz wrap, volume clamp/hold/tick wrap, busy retry\nPASS: startup rollback, RF busy, LED/IR faults, failed retune, diagnostic stop resync, shell serialization\n",
+    "drivers": "PASS: SPI timeout/wrap/CS/unsupported mode, ADC errors, timer IRQ/overflow, WDT units\nPASS: SPI timeout/wrap/CS/unsupported mode, ADC errors, timer IRQ/overflow, WDT units\nPASS: SD command/data event separation, timeout/CRC propagation, buffer bounds, multi-block writes\nPASS: UART coalesced wake, all ports, IRQ during drain retained\nPASS: PCM allocation/HAL/pipe failure rollback, retry, record-only init\nPASS: NPL FIFO/duplicate/remove/wakeup/timeout, soft callouts, tick wrap, object names\nPASS: HCI copied RX, deferred TX, ACL bounds, fragment release, queue/pool exhaustion\nPASS: FM tune/volume/sync, DAC/PCM ownership, timeout/unwind/restart, I2S gating, BT RF exclusion\nPASS: audio format/stop/PLL, Flash bounds/page splitting/returns (RTC has a dedicated bridge model)\nPASS: real RTC command IDs, clock selection/preserved bits, unset/retained time, byte order/rollover coherence, 32-bit limits, all-byte timeouts/retry, partial-write invalidation, IRQ/mutex cleanup and parser\nPASS: real RTC command IDs, clock selection/preserved bits, unset/retained time, byte order/rollover coherence, 32-bit limits, all-byte timeouts/retry, partial-write invalidation, IRQ/mutex cleanup and parser\nPASS: retained-clock sleep/wake guards, all integrated blockers, raw boot snapshot, off source/level validation, every preparation/commit byte failure, rollback and terminal reset-on-failure\nPASS: PM registration no-write, shared RTC locking, preserved clock/time/rails/pending/reset bits, wake/input/filter, all-byte faults/readback, atomic snapshot and thread context\nPASS: real RTC command IDs, clock selection/preserved bits, unset/retained time, byte order/rollover coherence, 32-bit limits, all-byte timeouts/retry, partial-write invalidation, IRQ/mutex cleanup and parser\nPASS: retained-clock sleep/wake guards, all integrated blockers, raw boot snapshot, off source/level validation, every preparation/commit byte failure, rollback and terminal reset-on-failure\nPASS: PM registration no-write, shared RTC locking, preserved clock/time/rails/pending/reset bits, wake/input/filter, all-byte faults/readback, atomic snapshot and thread context\nPASS: real RTC command IDs, clock selection/preserved bits, unset/retained time, byte order/rollover coherence, 32-bit limits, all-byte timeouts/retry, partial-write invalidation, IRQ/mutex cleanup and parser\nPASS: rtc\nPASS: rtc_external\nPASS: power\nPASS: power_external\nPASS: real PWM API, clock/mux, timer start/stop, duty polarity, invalid/overflow no-write, per-channel/shared period, packed LPWM, context errors\nPASS: S2 debounce/start/stop, hold once, untouched event queue, S3 ignored, gamma envelope, DC endpoints, tick wrap and fault shutdown\nPASS: PWM timer/pin ownership conflict guards\n",
+    "profiles": "Build workspace/logs: /tmp/ab32-rtt-build-0tdxwzzw\ndefault: PASS (/tmp/ab32-rtt-build-0tdxwzzw/default.log)\nled: PASS (/tmp/ab32-rtt-build-0tdxwzzw/led.log)\n"
+  },
+  "validation_scope": "Final app and driver model runs passed; default/standalone LED profile checks preceded diagnostic CLI changes. Final default firmware built and flashed after the help text fix.",
+  "earlier_phase_logs": {
+    "smoke": "\r\n \\ | /\r\n- RT -     Thread Operating System\r\n / | \\     5.2.2 b\r\r\nmsh />radio status\r\r\nradio: wanted=0 on=0 freq=97400 kHz volume=15% actions=0 error=0\r\nmsh />\r\r\nmsh />free\r\r\ntotal    : 18632\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 9256\r\nmsh />\r\r\nmsh />radio start\r\r\nmsh />radio: on=1 freq=97400 kHz volume=15% error=0\r\n\r\r\nmsh />radio status\r\r\nradio: wanted=1 on=1 freq=97400 kHz volume=15% actions=0 error=0\r\nmsh />\r\r\nmsh />fmrx status\r\r\nFM running, 97400 kHz, volume 15, last error 0\r\nmsh />\r\r\nmsh />led status\r\r\nLED ready=1 active=1 level=156/1000 toggles=1 error=0\r\nmsh />\r\r\nmsh />irrx status\r\r\nir0: running=1 pressed=0 raw=00000000 queued=0 dropped=0 frames=0 invalid=0 releases=0\r\nmsh />\r\r\nmsh />ps\r\r\nthread   pri  status      sp     stack size max used left tick   error  tcb addr   usage\r\n-------- ---  ------- ---------- ----------  ------  ---------- ------- ---------- -----\r\ntshell    20  running 0x00000220 0x00000800    27%   0x00000009 OK      0x0002c2b0  N/A\r\nfm_sync   21  suspend 0x000000e4 0x00000400    22%   0x0000000a EINTRPT 0x0002bbc8  N/A\r\naudio     20  suspend 0x000000e8 0x00000400    22%   0x00000001 EINTRPT 0x0002b710  N/A\r\ndrv       18  suspend 0x000000ec 0x00000200    46%   0x00000002 EINTRPT 0x0002ac00  N/A\r\ntidle0    31  ready   0x000000b8 0x00000200    35%   0x00000004 OK      0x00029ef8  N/A\r\ntimer      4  suspend 0x000000ec 0x00000400    23%   0x00000009 EINTRPT 0x0002a5d8  N/A\r\nmain      10  suspend 0x000000dc 0x00000400    37%   0x00000011 EINTRPT 0x0002a748  N/A\r\nmsh />\r\r\nmsh />radio stop\r\r\nmsh />radio: on=0 freq=97400 kHz volume=15% error=0\r\n\r\r\nmsh />radio status\r\r\nradio: wanted=0 on=0 freq=97400 kHz volume=15% actions=0 error=0\r\nmsh />\r\r\nmsh />led status\r\r\nLED ready=1 active=0 level=0/1000 toggles=2 error=0\r\nmsh />\r\r\nmsh />list device\r\r\ndevice           type         ref count\r\n-------- -------------------- ----------\r\nkeys0    Miscellaneous Device 0       \r\nfm0      Miscellaneous Device 0       \r\ntf0      Block Device         0       \r\nspi1     SPI Bus              0       \r\nrtc      RTC                  0       \r\nt5pwm    PWM Device           0       \r\npower0   Miscellaneous Device 0       \r\nir0      Miscellaneous Device 0       \r\naudec0   Miscellaneous Device 0       \r\nsound0   Sound Device         0       \r\nuart0    Character Device     2       \r\npin      Pin Device           0       \r\nmsh />\r\r\nmsh />free\r\r\ntotal    : 18632\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 9256\r\nmsh />",
+    "controls": "radio: on=1 freq=97400 kHz volume=15% error=0\r\n",
+    "noise-stop": "radio: on=1 freq=97400 kHz volume=10% error=0\r\nradio: on=1 freq=\r\r\nmsh />radio stop\r\r\nmsh />radio: on=0 freq=97400 kHz volume=15% error=0\r\n\r\r\nmsh />fmrx status\r\r\nFM off, 0 kHz, volume 15, last error 0\r\nmsh />\r\r\nmsh />led status\r\r\nLED ready=1 active=0 level=0/1000 toggles=6 error=0\r\nmsh />\r\r\nmsh />radio status\r\r\nradio: wanted=0 on=0 freq=97400 kHz volume=15% actions=5 error=0\r\nmsh />\r\r\nmsh />irrx status\r\r\nir0: running=0 pressed=0 raw=00000000 queued=0 dropped=0 frames=0 invalid=0 releases=0\r\nmsh />",
+    "fm-only": "radio: on=1 freq=97400 kHz volume=15% error=0\r\nradio: on=0 freq=\r\r\nmsh />fmrx volume 3\r\r\nmsh />\r\r\nmsh />fmrx start 97400\r\r\nmsh />\r\r\nmsh />fmrx status\r\r\nFM running, 97400 kHz, volume 3, last error 0\r\nmsh />\r\r\nmsh />fmrx diag\r\r\nFM pll_status=36373c2d pll_word=0f050a8e digital=002910cf\r\nAUDIO fifo=125..126/256 nonzero=256 hash=751c751c\r\nAUDIO dac=0000044b volume=000a03d5 analog=0017a33f/02401003 clock=ffffffff\r\nAUDIO data=f101f101 f55df55d f99ef99e fa1bfa1b\r\nAUDIO pll=00047c48 div=000973ca clkdiv=19000490 buf=00000060/0002b2c8\r\nmsh />\r\r\nmsh />fmrx stop\r\r\nmsh />",
+    "tone": "\r\n \\ | /\r\n- RT -     Thread Operating System\r\n / | \\     5.2.2 b\r\r\nmsh />fmrx tone 3\r\r\nDAC test tone: 10 seconds, volume 3%\r\nDAC test finished: 0; FM is off\r\nmsh />\r\r\nmsh />fmrx status\r\r\nFM off, 0 kHz, volume 55, last error 0\r\nmsh />",
+    "rssi": "\r\r\nmsh />fmrx volume 0\r\r\nmsh />\r\r\nmsh />fmrx start 97400\r\r\nmsh />\r\r\nmsh />fmrx rssi\r\r\nFM rssi_raw=-2942 level_raw=000000d0\r\nmsh />\r\r\nmsh />fmrx tune 87500\r\r\nmsh />\r\r\nmsh />fmrx rssi\r\r\nFM rssi_raw=-2989 level_raw=000000cd\r\nmsh />\r\r\nmsh />fmrx tune 90000\r\r\nmsh />\r\r\nmsh />fmrx rssi\r\r\nFM rssi_raw=-3003 level_raw=000000d7\r\nmsh />\r\r\nmsh />fmrx tune 94000\r\r\nmsh />\r\r\nmsh />fmrx rssi\r\r\nFM rssi_raw=-2953 level_raw=000000cd\r\nmsh />\r\r\nmsh />fmrx tune 97300\r\r\nmsh />\r\r\nmsh />fmrx rssi\r\r\nFM rssi_raw=-2927 level_raw=000000bd\r\nmsh />\r\r\nmsh />fmrx tune 97400\r\r\nmsh />\r\r\nmsh />fmrx rssi\r\r\nFM rssi_raw=-2920 level_raw=000000d2\r\nmsh />\r\r\nmsh />fmrx tune 97500\r\r\nmsh />\r\r\nmsh />fmrx rssi\r\r\nFM rssi_raw=-2936 level_raw=000000d5\r\nmsh />\r\r\nmsh />fmrx tune 100000\r\r\nmsh />\r\r\nmsh />fmrx rssi\r\r\nFM rssi_raw=-3150 level_raw=000000c9\r\nmsh />\r\r\nmsh />fmrx tune 104000\r\r\nmsh />\r\r\nmsh />fmrx rssi\r\r\nFM rssi_raw=-3178 level_raw=000000d3\r\nmsh />\r\r\nmsh />fmrx tune 108000\r\r\nmsh />\r\r\nmsh />fmrx rssi\r\r\nFM rssi_raw=-3226 level_raw=000000c0\r\nmsh />\r\r\nmsh />fmrx stop\r\r\nmsh />\r\r\nmsh />radio status\r\r\nradio: wanted=0 on=0 freq=97400 kHz volume=15% actions=0 error=0\r\nmsh />\r\r\nmsh />free\r\r\ntotal    : 18632\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 9256\r\nmsh />"
+  },
+  "earlier_phase_note": "Logs above preceded final diagnostic CLI changes. Final firmware hash applies only to final_flash/final_console; cap scan has its own firmware hash.",
+  "muted_cap_scan": {
+    "frequency_khz": 97400,
+    "volume": 0,
+    "samples": [
+      {
+        "cap": 0,
+        "rssi_raw": [
+          -2585,
+          -2556,
+          -2555
+        ]
+      },
+      {
+        "cap": 1,
+        "rssi_raw": [
+          -2565,
+          -2522,
+          -2567
+        ]
+      },
+      {
+        "cap": 2,
+        "rssi_raw": [
+          -2536,
+          -2559,
+          -2567
+        ]
+      },
+      {
+        "cap": 3,
+        "rssi_raw": [
+          -2540,
+          -2555,
+          -2557
+        ]
+      },
+      {
+        "cap": 4,
+        "rssi_raw": [
+          -2619,
+          -2534,
+          -2545
+        ]
+      },
+      {
+        "cap": 5,
+        "rssi_raw": [
+          -2550,
+          -2539,
+          -2580
+        ]
+      },
+      {
+        "cap": 6,
+        "rssi_raw": [
+          -2568,
+          -2603,
+          -2602
+        ]
+      },
+      {
+        "cap": 7,
+        "rssi_raw": [
+          -2593,
+          -2567,
+          -2571
+        ]
+      },
+      {
+        "cap": 8,
+        "rssi_raw": [
+          -2574,
+          -2544,
+          -2573
+        ]
+      },
+      {
+        "cap": 9,
+        "rssi_raw": [
+          -2574,
+          -2581,
+          -2564
+        ]
+      },
+      {
+        "cap": 10,
+        "rssi_raw": [
+          -2559,
+          -2563,
+          -2574
+        ]
+      },
+      {
+        "cap": 11,
+        "rssi_raw": [
+          -2613,
+          -2592,
+          -2582
+        ]
+      },
+      {
+        "cap": 12,
+        "rssi_raw": [
+          -2604,
+          -2630,
+          -2576
+        ]
+      },
+      {
+        "cap": 13,
+        "rssi_raw": [
+          -2529,
+          -2574,
+          -2633
+        ]
+      },
+      {
+        "cap": 14,
+        "rssi_raw": [
+          -2597,
+          -2612,
+          -2594
+        ]
+      },
+      {
+        "cap": 15,
+        "rssi_raw": [
+          -2620,
+          -2618,
+          -2595
+        ]
+      },
+      {
+        "cap": 16,
+        "rssi_raw": [
+          -2629,
+          -2633,
+          -2566
+        ]
+      },
+      {
+        "cap": 17,
+        "rssi_raw": [
+          -2634,
+          -2645,
+          -2597
+        ]
+      },
+      {
+        "cap": 18,
+        "rssi_raw": [
+          -2646,
+          -2643,
+          -2666
+        ]
+      },
+      {
+        "cap": 19,
+        "rssi_raw": [
+          -2658,
+          -2653,
+          -2630
+        ]
+      },
+      {
+        "cap": 20,
+        "rssi_raw": [
+          -2638,
+          -2624,
+          -2644
+        ]
+      },
+      {
+        "cap": 21,
+        "rssi_raw": [
+          -2645,
+          -2630,
+          -2657
+        ]
+      },
+      {
+        "cap": 22,
+        "rssi_raw": [
+          -2692,
+          -2687,
+          -2627
+        ]
+      },
+      {
+        "cap": 23,
+        "rssi_raw": [
+          -2683,
+          -2663,
+          -2672
+        ]
+      },
+      {
+        "cap": 24,
+        "rssi_raw": [
+          -2661,
+          -2637,
+          -2684
+        ]
+      },
+      {
+        "cap": 25,
+        "rssi_raw": [
+          -2658,
+          -2688,
+          -2666
+        ]
+      },
+      {
+        "cap": 26,
+        "rssi_raw": [
+          -2702,
+          -2696,
+          -2641
+        ]
+      },
+      {
+        "cap": 27,
+        "rssi_raw": [
+          -2706,
+          -2700,
+          -2666
+        ]
+      },
+      {
+        "cap": 28,
+        "rssi_raw": [
+          -2703,
+          -2706,
+          -2706
+        ]
+      },
+      {
+        "cap": 29,
+        "rssi_raw": [
+          -2664,
+          -2710,
+          -2692
+        ]
+      },
+      {
+        "cap": 30,
+        "rssi_raw": [
+          -2692,
+          -2703,
+          -2708
+        ]
+      },
+      {
+        "cap": 31,
+        "rssi_raw": [
+          -2748,
+          -2708,
+          -2671
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "radio stop",
+        "output": "radio stop\r\r\nmsh />"
+      },
+      {
+        "command": "fmrx volume 0",
+        "output": "fmrx volume 0\r\r\nmsh />"
+      },
+      {
+        "command": "fmrx start 97400",
+        "output": "fmrx start 97400\r\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 0",
+        "output": "fmrx cap 0\r\r\nFM RF cap=0 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2585 level_raw=000000e5\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2556 level_raw=000000de\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2555 level_raw=000000d5\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 1",
+        "output": "fmrx cap 1\r\r\nFM RF cap=1 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2565 level_raw=000000d6\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2522 level_raw=000000d5\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2567 level_raw=000000e1\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 2",
+        "output": "fmrx cap 2\r\r\nFM RF cap=2 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2536 level_raw=000000df\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2559 level_raw=000000d6\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2567 level_raw=000000df\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 3",
+        "output": "fmrx cap 3\r\r\nFM RF cap=3 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2540 level_raw=000000d2\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2555 level_raw=000000df\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2557 level_raw=000000e1\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 4",
+        "output": "fmrx cap 4\r\r\nFM RF cap=4 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2619 level_raw=000000de\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2534 level_raw=000000db\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2545 level_raw=000000e4\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 5",
+        "output": "fmrx cap 5\r\r\nFM RF cap=5 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2550 level_raw=000000cd\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2539 level_raw=000000c9\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2580 level_raw=000000e4\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 6",
+        "output": "fmrx cap 6\r\r\nFM RF cap=6 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2568 level_raw=000000db\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2603 level_raw=000000e4\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2602 level_raw=000000d4\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 7",
+        "output": "fmrx cap 7\r\r\nFM RF cap=7 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2593 level_raw=000000dc\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2567 level_raw=000000e0\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2571 level_raw=000000d3\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 8",
+        "output": "fmrx cap 8\r\r\nFM RF cap=8 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2574 level_raw=000000e1\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2544 level_raw=000000db\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2573 level_raw=000000d9\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 9",
+        "output": "fmrx cap 9\r\r\nFM RF cap=9 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2574 level_raw=000000e4\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2581 level_raw=000000e3\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2564 level_raw=000000d6\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 10",
+        "output": "fmrx cap 10\r\r\nFM RF cap=10 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2559 level_raw=000000e1\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2563 level_raw=000000d4\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2574 level_raw=000000d9\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 11",
+        "output": "fmrx cap 11\r\r\nFM RF cap=11 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2613 level_raw=000000d8\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2592 level_raw=000000d3\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2582 level_raw=000000df\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 12",
+        "output": "fmrx cap 12\r\r\nFM RF cap=12 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2604 level_raw=000000c8\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2630 level_raw=000000e1\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2576 level_raw=000000d8\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 13",
+        "output": "fmrx cap 13\r\r\nFM RF cap=13 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2529 level_raw=000000d8\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2574 level_raw=000000d6\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2633 level_raw=000000d6\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 14",
+        "output": "fmrx cap 14\r\r\nFM RF cap=14 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2597 level_raw=000000d9\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2612 level_raw=000000e5\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2594 level_raw=000000d2\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 15",
+        "output": "fmrx cap 15\r\r\nFM RF cap=15 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2620 level_raw=000000e4\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2618 level_raw=000000cf\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2595 level_raw=000000e1\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 16",
+        "output": "fmrx cap 16\r\r\nFM RF cap=16 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2629 level_raw=000000d8\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2633 level_raw=000000e3\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2566 level_raw=000000df\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 17",
+        "output": "fmrx cap 17\r\r\nFM RF cap=17 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2634 level_raw=000000d4\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2645 level_raw=000000e3\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2597 level_raw=000000e0\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 18",
+        "output": "fmrx cap 18\r\r\nFM RF cap=18 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2646 level_raw=000000d3\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2643 level_raw=000000dd\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2666 level_raw=000000cd\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 19",
+        "output": "fmrx cap 19\r\r\nFM RF cap=19 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2658 level_raw=000000d6\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2653 level_raw=000000d0\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2630 level_raw=000000e2\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 20",
+        "output": "fmrx cap 20\r\r\nFM RF cap=20 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2638 level_raw=000000d5\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2624 level_raw=000000e4\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2644 level_raw=000000d9\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 21",
+        "output": "fmrx cap 21\r\r\nFM RF cap=21 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2645 level_raw=000000d7\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2630 level_raw=000000e2\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2657 level_raw=000000d3\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 22",
+        "output": "fmrx cap 22\r\r\nFM RF cap=22 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2692 level_raw=000000d1\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2687 level_raw=000000d0\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2627 level_raw=000000d6\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 23",
+        "output": "fmrx cap 23\r\r\nFM RF cap=23 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2683 level_raw=000000e0\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2663 level_raw=000000e0\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2672 level_raw=000000dc\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 24",
+        "output": "fmrx cap 24\r\r\nFM RF cap=24 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2661 level_raw=000000de\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2637 level_raw=000000d6\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2684 level_raw=000000d0\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 25",
+        "output": "fmrx cap 25\r\r\nFM RF cap=25 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2658 level_raw=000000da\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2688 level_raw=000000cd\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2666 level_raw=000000d6\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 26",
+        "output": "fmrx cap 26\r\r\nFM RF cap=26 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2702 level_raw=000000df\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2696 level_raw=000000ca\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2641 level_raw=000000d0\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 27",
+        "output": "fmrx cap 27\r\r\nFM RF cap=27 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2706 level_raw=000000d8\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2700 level_raw=000000e2\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2666 level_raw=000000d9\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 28",
+        "output": "fmrx cap 28\r\r\nFM RF cap=28 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2703 level_raw=000000d3\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2706 level_raw=000000ca\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2706 level_raw=000000d0\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 29",
+        "output": "fmrx cap 29\r\r\nFM RF cap=29 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2664 level_raw=000000d5\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2710 level_raw=000000d2\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2692 level_raw=000000d9\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 30",
+        "output": "fmrx cap 30\r\r\nFM RF cap=30 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2692 level_raw=000000d7\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2703 level_raw=000000d8\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2708 level_raw=000000d2\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 31",
+        "output": "fmrx cap 31\r\r\nFM RF cap=31 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2748 level_raw=000000d8\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2708 level_raw=000000d8\r\nmsh />"
+      },
+      {
+        "command": "fmrx rssi",
+        "output": "fmrx rssi\r\r\nFM rssi_raw=-2671 level_raw=000000dc\r\nmsh />"
+      },
+      {
+        "command": "fmrx cap 0",
+        "output": "fmrx cap 0\r\r\nFM RF cap=0 result=0 (reset to 0 on power-on)\r\nmsh />"
+      },
+      {
+        "command": "fmrx stop",
+        "output": "fmrx stop\r\r\nmsh />"
+      },
+      {
+        "command": "radio status",
+        "output": "radio status\r\r\nradio: wanted=0 on=0 freq=97400 kHz volume=15% actions=0 error=0\r\nmsh />"
+      },
+      {
+        "command": "fmrx status",
+        "output": "fmrx status\r\r\nFM off, 0 kHz, volume 0, last error 0\r\nmsh />"
+      },
+      {
+        "command": "led status",
+        "output": "led status\r\r\nLED ready=1 active=0 level=0/1000 toggles=0 error=0\r\nmsh />"
+      },
+      {
+        "command": "irrx status",
+        "output": "irrx status\r\r\nir0: running=0 pressed=0 raw=00000000 queued=0 dropped=0 frames=0 invalid=0 releases=0\r\nmsh />"
+      },
+      {
+        "command": "free",
+        "output": "free\r\r\ntotal    : 18600\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 9224\r\nmsh />"
+      },
+      {
+        "command": "ps",
+        "output": "ps\r\r\nthread   pri  status      sp     stack size max used left tick   error  tcb addr   usage\r\n-------- ---  ------- ---------- ----------  ------  ---------- ------- ---------- -----\r\ntshell    20  running 0x00000220 0x00000800    27%   0x00000004 OK      0x0002c2d0  N/A\r\nfm_sync   21  suspend 0x000000e4 0x00000400    22%   0x00000009 EINTRPT 0x0002bbe8  N/A\r\naudio     20  suspend 0x000000e8 0x00000400    22%   0x00000001 EINTRPT 0x0002b730  N/A\r\ndrv       18  suspend 0x000000ec 0x00000200    53%   0x00000005 EINTRPT 0x0002ac20  N/A\r\ntidle0    31  ready   0x000000b8 0x00000200    35%   0x00000009 OK      0x00029f18  N/A\r\ntimer      4  suspend 0x000000ec 0x00000400    23%   0x00000009 EINTRPT 0x0002a5f8  N/A\r\nmain      10  suspend 0x000000dc 0x00000400    32%   0x00000005 EINTRPT 0x0002a768  N/A\r\nmsh />"
+      }
+    ],
+    "firmware_dcf_sha256": "efae8bfcd8fb511c916a7a063c500af7174f05acf74d6aba4193a2e9551f7a18",
+    "method": "Muted 97.4 MHz, cap 0..31 in ascending order, three raw RSSI samples per cap. No calibrated signal-strength units. Cap restored to 0 and FM stopped.",
+    "limitation": "One sequential sweep; time/environment variation not separated from cap effect; no broadcast reception established."
+  },
+  "final_flash": "Connecting to /dev/ttyUSB0; reset the board to enter its bootloader.\nConnected: CRWN; uploading RAM loader.\nFlash: 1048576 bytes; image body: 242688 bytes.\nerase: 65536/245760\nerase: 131072/245760\nerase: 196608/245760\nerase: 221184/245760\nerase: 245760/245760\nwrite: 1024/242688\nwrite: 24576/242688\nwrite: 48640/242688\nwrite: 73216/242688\nwrite: 97280/242688\nwrite: 121344/242688\nwrite: 145920/242688\nwrite: 169984/242688\nwrite: 194560/242688\nwrite: 218624/242688\nwrite: 242688/242688\nverify: 9216/242688\nverify: 74752/242688\nverify: 140288/242688\nverify: 205824/242688\nverify: 242688/242688\nverify: 9216/242688\ncommit: 242688/242688\nVerified and committed rtt/bsp/rtthread.dcf to /dev/ttyUSB0.\n",
+  "final_console": "\r\n \\ | /\r\n- RT -     Thread Operating System\r\n / | \\     5.2.2 b\r\r\nmsh />radio status\r\r\nradio: wanted=0 on=0 freq=97400 kHz volume=15% actions=0 error=0\r\nmsh />\r\r\nmsh />fmrx tone 21\r\r\nfmrx: command failed -22.\r\nmsh />\r\r\nmsh />fmrx cap 32\r\r\nfmrx: command failed -22.\r\nmsh />\r\r\nmsh />fmrx cap 0\r\r\nFM RF cap=0 result=-5 (reset to 0 on power-on)\r\nfmrx: command failed -5.\r\nmsh />\r\r\nmsh />fmrx\r\r\nfmrx start|tune <76000..108000 kHz, step 10>\r\nfmrx volume <0..100> | stop | status | diag | rssi\r\nfmrx tone [0..20] | cap <0..31>\r\nfmrx: command failed -22.\r\nmsh />\r\r\nmsh />fmrx status\r\r\nFM off, 0 kHz, volume 55, last error 0\r\nmsh />\r\r\nmsh />led status\r\r\nLED ready=1 active=0 level=0/1000 toggles=0 error=0\r\nmsh />\r\r\nmsh />irrx status\r\r\nir0: running=0 pressed=0 raw=00000000 queued=0 dropped=0 frames=0 invalid=0 releases=0\r\nmsh />\r\r\nmsh />free\r\r\ntotal    : 18600\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 9224\r\nmsh />"
+}

@@ -32,6 +32,15 @@ menu "Onboard Peripheral Drivers"
             Off at boot. S2 DOWN toggles a three-second brightness cycle.
             Timer5 PWM0 at 4 kHz, P1 pins 3-4 connected; no new thread.
 
+    config BSP_USING_RADIO_APP
+        bool "S2 / infrared radio application"
+        depends on BSP_USING_KEYS && BSP_USING_LED_BREATH && BSP_USING_IRRX && BSP_USING_FMRX
+        default n
+        help
+            S2 toggles FM and breathing together (97.4 MHz, 15% at start).
+            NEC remote up/down changes volume 5%, left/right tunes 100 kHz.
+            Runs in main, with no additional thread or audio buffer.
+
     menuconfig BSP_USING_AUDIO
         bool "Enable Audio Device"
         select RT_USING_AUDIO

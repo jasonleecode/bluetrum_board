@@ -2,6 +2,7 @@
 #ifndef AB32_DRV_FMRX_H
 #define AB32_DRV_FMRX_H
 #include <rtthread.h>
+#include <errno.h>
 
 /* rt_device_control(rt_device_find("fm0"), command, argument).
  * START/TUNE: rt_uint32_t kHz, VOLUME: rt_uint32_t 0..100,
@@ -19,11 +20,15 @@ struct ab32_fmrx_status {
     rt_err_t last_error;
 };
 
+/* Thread-only application path: EAGAIN if a shell/sync operation holds the
+ * mutex. Once acquired, hardware calibration may still take up to 100 ms. */
+rt_err_t ab32_fmrx_try_control(int command, void *arg);
+
 /* Private sound0 ownership interface. FM must stop RF/DMA before release. */
 rt_err_t ab32_sound_fm_acquire(rt_uint32_t *buffer_words);
 void ab32_sound_fm_release(void);
 void ab32_sound_fm_volume(rt_uint8_t volume);
 void ab32_sound_fm_diagnose(void);
-rt_err_t ab32_sound_fm_test_tone(void);
+rt_err_t ab32_sound_fm_test_tone(rt_uint8_t volume);
 rt_err_t ab32_fmrx_bt_claim(void);
 #endif

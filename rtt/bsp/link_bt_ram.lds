@@ -104,7 +104,7 @@ SECTIONS
         *drv_rtc.o (.text* .rodata* .srodata*)
         *drv_power.o (.text* .rodata* .srodata*)
         /* FM shell is thread-only; masked radio helpers remain in SRAM. */
-        *drv_fmrx.o (.text.fmrx .text.fm_control .text.fm_shutdown
+        *drv_fmrx.o (.text.fmrx .text.fm_control .text.fm_shutdown .text.ab32_fmrx_try_control
                       .text.fm_sync* .text.rt_hw_fmrx_init .text.ab32_fmrx_bt_claim
                       .rodata* .srodata*)
         /* Shell diagnostics and worker entry/control run with IRQs enabled.
@@ -118,6 +118,7 @@ SECTIONS
         *board_keys.o (.text* .rodata* .srodata*)
         /* PWM/envelope operations take a mutex and only run in threads. */
         *board_led.o (.text* .rodata* .srodata*)
+        *app_radio.o (.text* .rodata* .srodata*)
         *app*main.o (.text* .rodata* .srodata*)
         *drv_pwm.o (.text* .rodata* .srodata*)
         /* PWM pin setup runs once in device-init thread, with IRQs enabled. */

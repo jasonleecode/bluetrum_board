@@ -634,7 +634,7 @@ void ab32_sound_fm_volume(rt_uint8_t volume)
  * after RF/DMA has stopped. A bounded FIFO wait keeps a clock fault from
  * trapping the shell. Peak amplitude and gain are intentionally limited.
  */
-rt_err_t ab32_sound_fm_test_tone(void)
+rt_err_t ab32_sound_fm_test_tone(rt_uint8_t volume)
 {
     static const rt_int16_t sine[32] = {
         0, 1598, 3135, 4551, 5793, 6811, 7568, 8035,
@@ -643,9 +643,10 @@ rt_err_t ab32_sound_fm_test_tone(void)
         -8192, -8035, -7568, -6811, -5793, -4551, -3135, -1598
     };
     rt_uint32_t words;
+    if (volume > 20) return -RT_EINVAL;
     rt_err_t ret = ab32_sound_fm_acquire(&words);
     if (ret != RT_EOK) return ret;
-    ab32_sound_fm_volume(20);
+    ab32_sound_fm_volume(volume);
     rt_tick_t start = rt_tick_get();
     unsigned sample = 0;
     while ((rt_tick_t)(rt_tick_get() - start) < rt_tick_from_millisecond(10000))

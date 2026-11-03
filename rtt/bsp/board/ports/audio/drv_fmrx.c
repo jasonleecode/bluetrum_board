@@ -142,6 +142,15 @@ static rt_err_t fm_control(rt_device_t dev, int cmd, void *arg)
     return ret;
 }
 
+rt_err_t ab32_fmrx_try_control(int command, void *arg)
+{
+    if (rt_mutex_take(&fm_lock, 0) != RT_EOK) return -EAGAIN;
+    /* RTT mutexes are recursive: reuse exactly the normal control path. */
+    rt_err_t rc = fm_control(&fm_device, command, arg);
+    rt_mutex_release(&fm_lock);
+    return rc;
+}
+
 static void fm_sync_once(void)
 {
     rt_mutex_take(&fm_lock, RT_WAITING_FOREVER);
@@ -207,12 +216,29 @@ static int fmrx(int argc, char **argv)
     unsigned long parsed;
     if (!dev)
     { rt_kprintf("fm0 unavailable\n"); return -RT_ENOSYS; }
-    if (argc == 2 && !rt_strcmp(argv[1], "tone"))
+    if (argc == 3 && !rt_strcmp(argv[1], "cap"))
     {
+        parsed = strtoul(argv[2], &end, 10);
+        if (!*argv[2] || *end || parsed > 31) return -RT_EINVAL;
+        rt_mutex_take(&fm_lock, RT_WAITING_FOREVER);
+        ret = fm_status.running ? RT_EOK : -RT_EIO;
+        if (!ret) fmrx_set_rf_cap(parsed);
+        rt_mutex_release(&fm_lock);
+        rt_kprintf("FM RF cap=%u result=%d (reset to 0 on power-on)\n", (unsigned)parsed, ret);
+        return ret;
+    }
+    if ((argc == 2 || argc == 3) && !rt_strcmp(argv[1], "tone"))
+    {
+        unsigned long volume = 20;
+        if (argc == 3)
+        {
+            volume = strtoul(argv[2], &end, 10);
+            if (!*argv[2] || *end || volume > 20) return -RT_EINVAL;
+        }
         rt_mutex_take(&fm_lock, RT_WAITING_FOREVER);
         if (fm_status.running) fm_shutdown();
-        rt_kprintf("DAC test tone: 10 seconds, volume 20%%\n");
-        ret = ab32_sound_fm_test_tone();
+        rt_kprintf("DAC test tone: 10 seconds, volume %u%%\n", (unsigned)volume);
+        ret = ab32_sound_fm_test_tone(volume);
         rt_mutex_release(&fm_lock);
         rt_kprintf("DAC test finished: %d; FM is off\n", (int)ret);
         return ret;
@@ -298,7 +324,8 @@ static int fmrx(int argc, char **argv)
     return ret;
 usage:
     rt_kprintf("fmrx start|tune <76000..108000 kHz, step 10>\n"
-               "fmrx volume <0..100> | stop | status | diag | rssi | tone\n");
+               "fmrx volume <0..100> | stop | status | diag | rssi\n");
+    rt_kprintf("fmrx tone [0..20] | cap <0..31>\n");
     return -RT_EINVAL;
 }
 MSH_CMD_EXPORT(fmrx, FM receiver manual tuning and DAC playback);

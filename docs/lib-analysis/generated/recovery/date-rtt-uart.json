@@ -1,0 +1,77 @@
+{
+  "port": "/dev/ttyUSB0",
+  "commands": [
+    {
+      "command": "rtcctl status",
+      "output": "rtcctl status\r\r\nRTC CON0=e1 CON2=ca count=17062 valid=0 time_t_bits=32\r\nmsh />"
+    },
+    {
+      "command": "date",
+      "output": "date\r\r\nRead RTC failed; time may be unset or the device unavailable.\r\nmsh />"
+    },
+    {
+      "command": "date 2026 11 03 12 34 56",
+      "output": "date 2026 11 03 12 34 56\r\r\nold: unavailable (-5)\r\nnow: Tue Nov  3 12:34:56 2026\r\nmsh />"
+    },
+    {
+      "command": "rtcctl get",
+      "output": "rtcctl get\r\r\nRTC UTC seconds=1793680496\r\nmsh />"
+    },
+    {
+      "command": "rtcctl status",
+      "output": "rtcctl status\r\r\nRTC CON0=61 CON2=ca count=1793680496 valid=1 time_t_bits=32\r\nmsh />"
+    },
+    {
+      "command": "date",
+      "output": "date\r\r\nlocal time: Tue Nov  3 12:34:57 2026\r\ntimestamps: 1793680497\r\ntimezone: UTC+08:00:00\r\nmsh />"
+    },
+    {
+      "command": "rtcctl get",
+      "output": "rtcctl get\r\r\nRTC UTC seconds=1793680497\r\nmsh />"
+    },
+    {
+      "command": "rtcctl get",
+      "output": "rtcctl get\r\r\nRTC UTC seconds=1793680500\r\nmsh />"
+    },
+    {
+      "command": "date 2026 11 03 14 27 26",
+      "output": "date 2026 11 03 14 27 26\r\r\nold: Tue Nov  3 12:35:00 2026\r\nnow: Tue Nov  3 14:27:26 2026\r\nmsh />"
+    },
+    {
+      "command": "rtcctl get",
+      "output": "rtcctl get\r\r\nRTC UTC seconds=1793687246\r\nmsh />"
+    },
+    {
+      "command": "date",
+      "output": "date\r\r\nlocal time: Tue Nov  3 14:27:26 2026\r\ntimestamps: 1793687246\r\ntimezone: UTC+08:00:00\r\nmsh />"
+    },
+    {
+      "command": "rtcctl status",
+      "output": "rtcctl status\r\r\nRTC CON0=61 CON2=ca count=1793687247 valid=1 time_t_bits=32\r\nmsh />"
+    },
+    {
+      "command": "free",
+      "output": "free\r\r\ntotal    : 18600\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 9224\r\nmsh />"
+    }
+  ],
+  "passed": true,
+  "firmware_sha256": "228464d6cb97b454aa24c805a108cedbbf3a40729a0424ac632c040704abe1ad",
+  "initially_unset": true,
+  "running_seconds_delta": 3,
+  "final_date": "date\r\r\nlocal time: Tue Nov  3 14:27:26 2026\r\ntimestamps: 1793687246\r\ntimezone: UTC+08:00:00\r\nmsh />",
+  "final_rtc_status": "rtcctl status\r\r\nRTC CON0=61 CON2=ca count=1793687247 valid=1 time_t_bits=32\r\nmsh />",
+  "free": "free\r\r\ntotal    : 18600\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 9224\r\nmsh />",
+  "pre_fix_logs": {
+    "before": "\r\r\nmsh />date\r\r\nlocal time: Thu Jan  1 08:00:00 1970\r\ntimestamps: 0\r\ntimezone: UTC+08:00:00\r\nmsh />\r\r\nmsh />rtcctl status\r\r\nRTC CON0=e1 CON2=ca count=16745 valid=0 time_t_bits=32\r\nmsh />",
+    "reproduce": "\r\r\nmsh />date 2026 11 03 12 34 56\r\r\nGet current timestamp failed. -5\r\nmsh />"
+  },
+  "flash_log": "Connecting to /dev/ttyUSB0; reset the board to enter its bootloader.\nConnected: CRWN; uploading RAM loader.\nFlash: 1048576 bytes; image body: 242688 bytes.\nerase: 65536/245760\nerase: 131072/245760\nerase: 196608/245760\nerase: 221184/245760\nerase: 245760/245760\nwrite: 1024/242688\nwrite: 24576/242688\nwrite: 48640/242688\nwrite: 73216/242688\nwrite: 97280/242688\nwrite: 121344/242688\nwrite: 145920/242688\nwrite: 169984/242688\nwrite: 194560/242688\nwrite: 218624/242688\nwrite: 242688/242688\nverify: 9216/242688\nverify: 74752/242688\nverify: 140288/242688\nverify: 205824/242688\nverify: 242688/242688\nverify: 9216/242688\ncommit: 242688/242688\nVerified and committed rtt/bsp/rtthread.dcf to /dev/ttyUSB0.\n",
+  "memory_sections": {
+    ".ram1": 16288,
+    ".ram2": 2408,
+    ".flash": 136192,
+    ".comm": 77368,
+    ".bss": 16576,
+    ".heap": 18688
+  }
+}

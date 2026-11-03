@@ -361,8 +361,7 @@ RTC_RAM void ab32_irtc_cutoff_locked(rt_uint8_t con3)
 #endif
 
 #ifdef RT_USING_FINSH
-/* The stock date command reads old time before setting it, so an unset RTC
- * needs this direct setter (or set_timestamp()) for its first valid UTC time. */
+/* UTC seconds interface alongside the local-calendar date command. */
 static int rtcctl(int argc, char **argv)
 {
     rt_err_t rc;

@@ -291,7 +291,11 @@ static void date(int argc, char **argv)
         tz_offset_sec = rt_tz_get();
 #endif /* RT_LIBC_USING_LIGHT_TZ_DST */
 
-        gettimeofday(&tv, RT_NULL);
+        if (gettimeofday(&tv, RT_NULL) != 0)
+        {
+            rt_kprintf("Read RTC failed; time may be unset or the device unavailable.\n");
+            return;
+        }
         now = tv.tv_sec;
 
         abs_tz_offset_sec = tz_offset_sec > 0 ? tz_offset_sec : -tz_offset_sec;
@@ -307,6 +311,7 @@ static void date(int argc, char **argv)
         struct tm tm_new = {0};
         time_t old = (time_t)0;
         rt_err_t err;
+        rt_err_t old_err;
 
         tm_new.tm_year = atoi(argv[1]) - 1900;
         tm_new.tm_mon = atoi(argv[2]) - 1; /* .tm_min's range is [0-11] */
@@ -344,13 +349,8 @@ static void date(int argc, char **argv)
             rt_kprintf("second is out of range [0-60]\n");
             return;
         }
-        /* save old timestamp */
-        err = get_timestamp(&old);
-        if (err != RT_EOK)
-        {
-            rt_kprintf("Get current timestamp failed. %d\n", err);
-            return;
-        }
+        /* Old time is only for display. An unset RTC must still be writable. */
+        old_err = get_timestamp(&old);
         /* converts the local time into the calendar time. */
         now = mktime(&tm_new);
         err = set_timestamp(now);
@@ -359,8 +359,16 @@ static void date(int argc, char **argv)
             rt_kprintf("set date failed. %d\n", err);
             return;
         }
-        get_timestamp(&now); /* get new timestamp */
-        rt_kprintf("old: %.*s", 25, ctime(&old));
+        err = get_timestamp(&now); /* verify that the new time is readable */
+        if (err != RT_EOK)
+        {
+            rt_kprintf("date written, but readback failed. %d\n", err);
+            return;
+        }
+        if (old_err == RT_EOK)
+            rt_kprintf("old: %.*s", 25, ctime(&old));
+        else
+            rt_kprintf("old: unavailable (%d)\n", old_err);
         rt_kprintf("now: %.*s", 25, ctime(&now));
     }
     else

@@ -465,4 +465,7 @@
 #define BSP_SPI1_MAPPING 6
 #define BSP_SPI1_TIMEOUT_MS 100
 
+/* S2 toggles FM + breathing, NEC arrows control volume/frequency. */
+#define BSP_USING_RADIO_APP
+
 #endif

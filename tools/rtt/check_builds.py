@@ -71,6 +71,7 @@ PROFILES['audec_integrated'] = dict(PROFILES['power_integrated'], BSP_USING_AUDE
 PROFILES['audec_fm'] = dict(PROFILES['audec'], **PROFILES['audio'], BSP_USING_FMRX=1)
 PROFILES['spi_integrated'] = dict(PROFILES['audec_integrated'], RT_USING_SPI=1,
     BSP_USING_SPI1=1, BSP_SPI1_MAPPING=6, BSP_SPI1_TIMEOUT_MS=100)
+PROFILES['radio'] = dict(PROFILES['spi_integrated'], BSP_USING_RADIO_APP=1)
 
 def base_config(config):
     """Keep optional profiles independent of enabled workspace peripherals."""

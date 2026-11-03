@@ -8,6 +8,7 @@ volatile uint32_t extra_regs[32];
 static rt_tick_t tick;
 static int locks, clock_on, power_on_calls, power_off_calls, sync_calls;
 static int route, force_timeout, reset_calls, pcm_calls;
+static int try_busy;
 static uint32_t tuned;
 static int i2s_on, i2s_calls, dac_clock_on;
 int ab32_fmrx_wait_pll(volatile uint32_t *status);
@@ -18,7 +19,7 @@ rt_tick_t rt_tick_get(void) { return tick++; }
 rt_err_t rt_thread_mdelay(rt_int32_t ms) { tick += ms; return RT_EOK; }
 void hal_mdelay(uint32_t ms) { tick += ms; }
 rt_err_t rt_mutex_take(rt_mutex_t m, rt_int32_t t)
-{ (void)m; (void)t; locks++; return RT_EOK; }
+{ (void)m; if (!t && try_busy) return -RT_ETIMEOUT; locks++; return RT_EOK; }
 rt_err_t rt_mutex_release(rt_mutex_t m)
 { (void)m; assert(locks > 0); locks--; return RT_EOK; }
 rt_err_t rt_sem_release(rt_sem_t s) { (void)s; return RT_EOK; }
@@ -52,6 +53,11 @@ static rt_err_t pcm_control_stub(rt_device_t d, int c, void *a)
 int main(void) {
     uint32_t fifo[256], v = 101100, words;
     struct ab32_fmrx_status state;
+    try_busy=1;
+    assert(ab32_fmrx_try_control(AB32_FMRX_STATUS, &state)==-EAGAIN && !locks);
+    try_busy=0;
+    assert(ab32_fmrx_try_control(AB32_FMRX_STATUS, &state)==RT_EOK && !locks);
+    assert(ab32_sound_fm_test_tone(21)==-RT_EINVAL && !locks);
     snd_dev.rx_fifo = (uint8_t *)fifo;
     snd_dev.audio.parent.user_data = &snd_dev;
     snd_dev.replay_config.samplerate = 44100;
@@ -116,10 +122,10 @@ int main(void) {
     assert(sound_stop(&snd_dev.audio, AUDIO_STREAM_REPLAY) == RT_EOK && !i2s_on);
     assert(!locks && i2s_calls == 1);
     AUBUFCON = 0;
-    assert(ab32_sound_fm_test_tone() == RT_EOK);
+    assert(ab32_sound_fm_test_tone(3) == RT_EOK);
     assert(!snd_dev.running && !snd_dev.dma_to_aubuf && !locks);
     AUBUFCON = BIT(8); /* Stuck FIFO must time out and release DAC ownership. */
-    assert(ab32_sound_fm_test_tone() == -RT_ETIMEOUT);
+    assert(ab32_sound_fm_test_tone(3) == -RT_ETIMEOUT);
     assert(!snd_dev.running && !snd_dev.dma_to_aubuf && !locks);
     AUBUFCON = 0;
     assert(ab32_fmrx_bt_claim() == RT_EOK);
