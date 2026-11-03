@@ -22,6 +22,6 @@ with tempfile.TemporaryDirectory(prefix='ab32-audec-model-') as directory:
     invalid_layout=[x.replace(',--section-start=.audec.work=0x54000','') for x in cmd]
     subprocess.run(invalid_layout+['-DBAD_AUDEC_LAYOUT'],check=True)
     subprocess.run([p/'test'],check=True)
-    result=subprocess.run(cmd+['-DBSP_USING_BTCTRL'],capture_output=True,text=True)
-    assert result.returncode and 'AUDEC work RAM overlaps' in result.stderr
-    print('PASS: AUDEC/BT compile-time memory conflict guard')
+    subprocess.run(cmd+['-DBSP_USING_BTCTRL'],check=True)
+    subprocess.run([p/'test'],check=True)
+    print('PASS: AUDEC control flow with Bluetooth layout')

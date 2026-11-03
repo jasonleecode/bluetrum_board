@@ -1,0 +1,799 @@
+{
+  "recorded_at": "2026-11-03T03:07:42.924814+00:00",
+  "checkpoint": "ed2f575",
+  "result": "pass",
+  "scope": "Sequential AUDEC, retained-clock sleep, BLE/GATT in one integrated probe; then normal integrated firmware FM/PCM and clean reboot. No concurrent MP3/BLE or file player claim.",
+  "final_firmware": {
+    "dcf_sha256": "1ee47dec26c8c6cb90e3d71d901cbfddef59a661f6926d41d9b202d9ba1d6228",
+    "elf_sha256": "ac2f09c31bb5ea0ad2c9c4338f0d588857b697fbdd370ef6786a79f91fed733e",
+    "dcf_bytes": 235608,
+    "flash_crc_verified": true,
+    "registered_device": "audec0",
+    "heap_after_clean_boot": {
+      "total": 19176,
+      "used": 9376,
+      "available": 9800
+    },
+    "heap_after_pcm": {
+      "total": 19176,
+      "used": 17872,
+      "available": 1304
+    },
+    "final_state": "Rebooted after PCM test; buffers released; LED/FM off; NimBLE not started; UART released"
+  },
+  "default_memory": {
+    "sections": {
+      ".init": {
+        "bytes": 360,
+        "vma": 268435456,
+        "lma": 268435456
+      },
+      ".ram1": {
+        "bytes": 16288,
+        "vma": 327680,
+        "lma": 268435968
+      },
+      ".ram2": {
+        "bytes": 2408,
+        "vma": 356352,
+        "lma": 268452256
+      },
+      ".flash": {
+        "bytes": 129536,
+        "vma": 268454912,
+        "lma": 268454912
+      },
+      ".comm": {
+        "bytes": 77024,
+        "vma": 79872,
+        "lma": 268584448
+      },
+      ".audec_work": {
+        "bytes": 12288,
+        "vma": 344064,
+        "lma": 344064
+      },
+      ".bram": {
+        "bytes": 6540,
+        "vma": 69632,
+        "lma": 69632
+      },
+      ".bss": {
+        "bytes": 16352,
+        "vma": 156896,
+        "lma": 156896
+      },
+      ".heap": {
+        "bytes": 19264,
+        "vma": 173248,
+        "lma": 173248
+      },
+      ".stack": {
+        "bytes": 4096,
+        "vma": 192512,
+        "lma": 192512
+      },
+      ".riscv.attributes": {
+        "bytes": 42,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_info": {
+        "bytes": 2877,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_abbrev": {
+        "bytes": 907,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_loc": {
+        "bytes": 3347,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_aranges": {
+        "bytes": 120,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_line": {
+        "bytes": 2512,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_str": {
+        "bytes": 953,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_frame": {
+        "bytes": 64,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_ranges": {
+        "bytes": 248,
+        "vma": 0,
+        "lma": 0
+      }
+    },
+    "placement_checks": {
+      "finsh_thread_entry": "0x10008248",
+      "_audio_dev_init": "0x10008a3c",
+      "pcmcheck": "0x10009990",
+      "rt_hw_sound_init": "0x10009c3e",
+      "sound_configure": "0x1000a1a2",
+      "audio_thread_entry": "0x10009950",
+      "strtol": "0x1000ba70",
+      "strtoul": "0x1000bcb0",
+      "strcmp": "0x1000aeb8",
+      "strchr": "0x1000ad78",
+      "strlen": "0x1000b254",
+      "__udivdi3": "0x1000b3e4",
+      "ab32_audec_init": "0x1000aca8",
+      "fmrx": "0x10020bbc",
+      "btctl": "0x10021424",
+      "ab32_power_init": "0x1001ffa8",
+      "power_control": "0x1001ffec",
+      "pmctl": "0x100205c2",
+      "power_snapshot": "0x10020216",
+      "power_off_locked": "0x10020372",
+      "power_capture_boot": "0x10020160",
+      "power_sleep_once": "0x100204e6",
+      "ab32_irtc_align_second_locked": "0x1001fa54",
+      "ab32_irtc_transaction": "0x1001fae4",
+      "ab32_irtc_read8_locked": "0x1001fb24",
+      "ab32_irtc_update8_locked": "0x1001fbe4",
+      "ab32_irtc_shutdown_update_locked": "0x1001fc1e",
+      "ble_hs_init": "0x10011b40",
+      "ble_gatts_init": "0x10011656",
+      "ble_gap_adv_start": "0x1000e90e",
+      "ab32_usb_poll": "0x10016594",
+      "usbd_initialize": "0x100181ac",
+      "usb_worker": "0x10016c6e",
+      "drv_sdcard_init": "0x10018ca6",
+      "tf_read": "0x10018928",
+      "f_read": "0x1001b2f6",
+      "dfs_mount": "0x1001e0bc",
+      "strstr": "0x1001ee50",
+      "irrx": "0x1001f320",
+      "irrx_read": "0x1001f0fc",
+      "irrx_control": "0x1001f2a0",
+      "board_keys_init": "0x10022aa0",
+      "board_keys_poll": "0x10022d80",
+      "keys": "0x10022bfa",
+      "keys_read": "0x10022b48",
+      "keys_control": "0x10022970",
+      "main": "0x1002327a",
+      "board_led_init": "0x1002307a",
+      "board_led_poll": "0x100230e8",
+      "drv_pwm_control": "0x100232b2",
+      "rt_pwm_set": "0x10023914",
+      "rt_pwm_enable": "0x1002384c",
+      "rt_pwm_disable": "0x100238b0",
+      "hal_pwm_mspinit": "0x10024334",
+      "ab32_rtc_init": "0x1001f832",
+      "ab32_rtc_get_secs": "0x1001f862",
+      "ab32_rtc_set_secs": "0x1001f77c",
+      "rt_hw_rtc_register": "0x10021e88",
+      "rtcctl": "0x1001f8e0",
+      "time": "0x10022610",
+      "gmtime_r": "0x1002231c",
+      "localtime_r": "0x100223fc",
+      "mktime": "0x100227d8",
+      "rt_schedule": "0x535de",
+      "rt_sem_release": "0x51428",
+      "rt_hw_context_switch": "0x168f2",
+      "os_cache_init": "0x15852",
+      "load_cache": "0x15912",
+      "__wrap_bthw_isr_do": "0x1f072",
+      "bb_run_loop": "0x147d0",
+      "hci_host_recv_packet": "0x1f130",
+      "audio_isr": "0x13d1a",
+      "uart_isr": "0x1449c",
+      "hct_send_command": "0x1912e",
+      "hct_transport_table": "0x22c90",
+      "rt_vsnprintf": "0x1627c",
+      "rt_smem_alloc": "0x57506",
+      "rt_device_open": "0x1f71a",
+      "rt_device_close": "0x1f846",
+      "configure_clock": "0x13d82",
+      "stop_engine": "0x13d4a",
+      "ab32_pin_mode": "0x16c6a",
+      "hal_gpio_init": "0x21f2c",
+      "gpio_afinit": "0x21ec6",
+      "port_sfr": "0x22b00",
+      "port_table": "0x22af4",
+      "ab32_irtc_sleep_locked": "0x14378",
+      "power_bridge_policy": "0x1422e",
+      "power_cutoff": "0x14210",
+      "ab32_irtc_cutoff_locked": "0x1445a",
+      "rt_tick_set": "0x53816",
+      "rt_tick_get": "0x537fc",
+      "rtc_transfer": "0x1429e",
+      "rtc_byte": "0x1426e",
+      "rtc_wait_idle": "0x14252",
+      "rtc_counter_read": "0x14336",
+      "rt_hw_interrupt_disable": "0x1689e",
+      "rt_hw_interrupt_enable": "0x168ac",
+      "rtc_bridge_init": "0x14274",
+      "ble_npl_hw_enter_critical": "0x1f30c",
+      "ble_npl_hw_exit_critical": "0x1f326",
+      "ble_npl_eventq_put": "0x1f382",
+      "ble_mqueue_get": "0x1e4d0",
+      "ble_mqueue_put": "0x1e4f4",
+      "os_memblock_get": "0x1ee44",
+      "os_memblock_put": "0x1ee9e",
+      "alloc_acl": "0x1552c",
+      "free_acl": "0x1556e",
+      "irrx_isr": "0x140f0",
+      "irrx_push": "0x13e1c",
+      "irrx_release": "0x13e8e",
+      "irrx_switch": "0x13f26",
+      "irrx_pop": "0x13ed2",
+      "irrx_snapshot": "0x13eae",
+      "irrx_pin_regs": "0x141f0",
+      "ab32_irrx_poll": "0x141a4",
+      "rt_hw_irq_disable": "0x16ab8",
+      "rt_hw_interrupt_install": "0x16ad4",
+      "rt_interrupt_enter": "0x53e50",
+      "rt_interrupt_leave": "0x53e7c",
+      "memcpy": "0x22564",
+      "memset": "0x227a0",
+      "__riscv_restore_0": "0x13b5c",
+      "__riscv_restore_1": "0x13b58",
+      "__riscv_restore_10": "0x13b34",
+      "__riscv_restore_11": "0x13b30",
+      "__riscv_restore_12": "0x13b2c",
+      "__riscv_restore_2": "0x13b54",
+      "__riscv_restore_3": "0x13b50",
+      "__riscv_restore_4": "0x13b4c",
+      "__riscv_restore_5": "0x13b48",
+      "__riscv_restore_6": "0x13b44",
+      "__riscv_restore_7": "0x13b40",
+      "__riscv_restore_8": "0x13b3c",
+      "__riscv_restore_9": "0x13b38",
+      "__riscv_save_0": "0x13b26",
+      "__riscv_save_1": "0x13b1e",
+      "__riscv_save_10": "0x13a76",
+      "__riscv_save_11": "0x13a5a",
+      "__riscv_save_12": "0x13a3a",
+      "__riscv_save_2": "0x13b14",
+      "__riscv_save_3": "0x13b08",
+      "__riscv_save_4": "0x13afa",
+      "__riscv_save_5": "0x13aea",
+      "__riscv_save_6": "0x13ad8",
+      "__riscv_save_7": "0x13ac4",
+      "__riscv_save_8": "0x13aac",
+      "__riscv_save_9": "0x13a92"
+    },
+    "nimble_enabled": true,
+    "usb_enabled": true,
+    "tf_enabled": true,
+    "ir_enabled": true,
+    "keys_enabled": true,
+    "gpio_irq_enabled": false,
+    "rtc_enabled": true,
+    "led_breath_enabled": true,
+    "power_enabled": true,
+    "audec_enabled": true,
+    "heap_region_bytes": 19264,
+    "note": "Heap region includes allocator metadata; use board free for runtime availability."
+  },
+  "probe_memory": {
+    "sections": {
+      ".init": {
+        "bytes": 360,
+        "vma": 268435456,
+        "lma": 268435456
+      },
+      ".ram1": {
+        "bytes": 16288,
+        "vma": 327680,
+        "lma": 268435968
+      },
+      ".ram2": {
+        "bytes": 2408,
+        "vma": 356352,
+        "lma": 268452256
+      },
+      ".flash": {
+        "bytes": 153600,
+        "vma": 268454912,
+        "lma": 268454912
+      },
+      ".comm": {
+        "bytes": 77040,
+        "vma": 79872,
+        "lma": 268608512
+      },
+      ".audec_work": {
+        "bytes": 12288,
+        "vma": 344064,
+        "lma": 344064
+      },
+      ".bram": {
+        "bytes": 6540,
+        "vma": 69632,
+        "lma": 69632
+      },
+      ".bss": {
+        "bytes": 16352,
+        "vma": 156928,
+        "lma": 156928
+      },
+      ".heap": {
+        "bytes": 19232,
+        "vma": 173280,
+        "lma": 173280
+      },
+      ".stack": {
+        "bytes": 4096,
+        "vma": 192512,
+        "lma": 192512
+      },
+      ".riscv.attributes": {
+        "bytes": 42,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_info": {
+        "bytes": 2877,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_abbrev": {
+        "bytes": 907,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_loc": {
+        "bytes": 3347,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_aranges": {
+        "bytes": 120,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_line": {
+        "bytes": 2512,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_str": {
+        "bytes": 953,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_frame": {
+        "bytes": 64,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_ranges": {
+        "bytes": 248,
+        "vma": 0,
+        "lma": 0
+      }
+    },
+    "placement_checks": {
+      "finsh_thread_entry": "0x1000e1d8",
+      "_audio_dev_init": "0x1000e9cc",
+      "pcmcheck": "0x1000f920",
+      "rt_hw_sound_init": "0x1000fbce",
+      "sound_configure": "0x10010132",
+      "audio_thread_entry": "0x1000f8e0",
+      "strtol": "0x100119f4",
+      "strtoul": "0x10011c34",
+      "strcmp": "0x10010e3c",
+      "strchr": "0x10010cfc",
+      "strlen": "0x100111d8",
+      "__udivdi3": "0x10011368",
+      "ab32_audec_init": "0x10010c2e",
+      "fmrx": "0x10026b44",
+      "btctl": "0x100273ac",
+      "ab32_power_init": "0x10025f30",
+      "power_control": "0x10025f74",
+      "pmctl": "0x1002654a",
+      "power_snapshot": "0x1002619e",
+      "power_off_locked": "0x100262fa",
+      "power_capture_boot": "0x100260e8",
+      "power_sleep_once": "0x1002646e",
+      "ab32_irtc_align_second_locked": "0x100259dc",
+      "ab32_irtc_transaction": "0x10025a6c",
+      "ab32_irtc_read8_locked": "0x10025aac",
+      "ab32_irtc_update8_locked": "0x10025b6c",
+      "ab32_irtc_shutdown_update_locked": "0x10025ba6",
+      "ble_hs_init": "0x10017ac4",
+      "ble_gatts_init": "0x100175da",
+      "ble_gap_adv_start": "0x10014892",
+      "ab32_usb_poll": "0x1001c51c",
+      "usbd_initialize": "0x1001e134",
+      "usb_worker": "0x1001cbf6",
+      "drv_sdcard_init": "0x1001ec2e",
+      "tf_read": "0x1001e8b0",
+      "f_read": "0x1002127e",
+      "dfs_mount": "0x10024044",
+      "strstr": "0x10024dd8",
+      "irrx": "0x100252a8",
+      "irrx_read": "0x10025084",
+      "irrx_control": "0x10025228",
+      "board_keys_init": "0x10028a28",
+      "board_keys_poll": "0x10028d08",
+      "keys": "0x10028b82",
+      "keys_read": "0x10028ad0",
+      "keys_control": "0x100288f8",
+      "main": "0x10029202",
+      "board_led_init": "0x10029002",
+      "board_led_poll": "0x10029070",
+      "drv_pwm_control": "0x1002923a",
+      "rt_pwm_set": "0x1002989c",
+      "rt_pwm_enable": "0x100297d4",
+      "rt_pwm_disable": "0x10029838",
+      "hal_pwm_mspinit": "0x1002a2bc",
+      "ab32_rtc_init": "0x100257ba",
+      "ab32_rtc_get_secs": "0x100257ea",
+      "ab32_rtc_set_secs": "0x10025704",
+      "rt_hw_rtc_register": "0x10027e10",
+      "rtcctl": "0x10025868",
+      "time": "0x10028598",
+      "gmtime_r": "0x100282a4",
+      "localtime_r": "0x10028384",
+      "mktime": "0x10028760",
+      "rt_schedule": "0x535de",
+      "rt_sem_release": "0x51428",
+      "rt_hw_context_switch": "0x16902",
+      "os_cache_init": "0x15852",
+      "load_cache": "0x15912",
+      "__wrap_bthw_isr_do": "0x1f082",
+      "bb_run_loop": "0x147d0",
+      "hci_host_recv_packet": "0x1f140",
+      "audio_isr": "0x13d1a",
+      "uart_isr": "0x1449c",
+      "hct_send_command": "0x1913e",
+      "hct_transport_table": "0x22ca0",
+      "rt_vsnprintf": "0x1628c",
+      "rt_smem_alloc": "0x57506",
+      "rt_device_open": "0x1f72a",
+      "rt_device_close": "0x1f856",
+      "configure_clock": "0x13d82",
+      "stop_engine": "0x13d4a",
+      "ab32_pin_mode": "0x16c7a",
+      "hal_gpio_init": "0x21f3c",
+      "gpio_afinit": "0x21ed6",
+      "port_sfr": "0x22b10",
+      "port_table": "0x22b04",
+      "ab32_irtc_sleep_locked": "0x14378",
+      "power_bridge_policy": "0x1422e",
+      "power_cutoff": "0x14210",
+      "ab32_irtc_cutoff_locked": "0x1445a",
+      "rt_tick_set": "0x53816",
+      "rt_tick_get": "0x537fc",
+      "rtc_transfer": "0x1429e",
+      "rtc_byte": "0x1426e",
+      "rtc_wait_idle": "0x14252",
+      "rtc_counter_read": "0x14336",
+      "rt_hw_interrupt_disable": "0x168ae",
+      "rt_hw_interrupt_enable": "0x168bc",
+      "rtc_bridge_init": "0x14274",
+      "ble_npl_hw_enter_critical": "0x1f31c",
+      "ble_npl_hw_exit_critical": "0x1f336",
+      "ble_npl_eventq_put": "0x1f392",
+      "ble_mqueue_get": "0x1e4e0",
+      "ble_mqueue_put": "0x1e504",
+      "os_memblock_get": "0x1ee54",
+      "os_memblock_put": "0x1eeae",
+      "alloc_acl": "0x1552c",
+      "free_acl": "0x1556e",
+      "irrx_isr": "0x140f0",
+      "irrx_push": "0x13e1c",
+      "irrx_release": "0x13e8e",
+      "irrx_switch": "0x13f26",
+      "irrx_pop": "0x13ed2",
+      "irrx_snapshot": "0x13eae",
+      "irrx_pin_regs": "0x141f0",
+      "ab32_irrx_poll": "0x141a4",
+      "rt_hw_irq_disable": "0x16ac8",
+      "rt_hw_interrupt_install": "0x16ae4",
+      "rt_interrupt_enter": "0x53e50",
+      "rt_interrupt_leave": "0x53e7c",
+      "memcpy": "0x22574",
+      "memset": "0x227b0",
+      "__riscv_restore_0": "0x13b5c",
+      "__riscv_restore_1": "0x13b58",
+      "__riscv_restore_10": "0x13b34",
+      "__riscv_restore_11": "0x13b30",
+      "__riscv_restore_12": "0x13b2c",
+      "__riscv_restore_2": "0x13b54",
+      "__riscv_restore_3": "0x13b50",
+      "__riscv_restore_4": "0x13b4c",
+      "__riscv_restore_5": "0x13b48",
+      "__riscv_restore_6": "0x13b44",
+      "__riscv_restore_7": "0x13b40",
+      "__riscv_restore_8": "0x13b3c",
+      "__riscv_restore_9": "0x13b38",
+      "__riscv_save_0": "0x13b26",
+      "__riscv_save_1": "0x13b1e",
+      "__riscv_save_10": "0x13a76",
+      "__riscv_save_11": "0x13a5a",
+      "__riscv_save_12": "0x13a3a",
+      "__riscv_save_2": "0x13b14",
+      "__riscv_save_3": "0x13b08",
+      "__riscv_save_4": "0x13afa",
+      "__riscv_save_5": "0x13aea",
+      "__riscv_save_6": "0x13ad8",
+      "__riscv_save_7": "0x13ac4",
+      "__riscv_save_8": "0x13aac",
+      "__riscv_save_9": "0x13a92"
+    },
+    "nimble_enabled": true,
+    "usb_enabled": true,
+    "tf_enabled": true,
+    "ir_enabled": true,
+    "keys_enabled": true,
+    "gpio_irq_enabled": false,
+    "rtc_enabled": true,
+    "led_breath_enabled": true,
+    "power_enabled": true,
+    "audec_enabled": true,
+    "heap_region_bytes": 19232,
+    "note": "Heap region includes allocator metadata; use board free for runtime availability."
+  },
+  "mp3": {
+    "result": "pass",
+    "sample_rate": 44100,
+    "mp3_frames": 8,
+    "granules": 16,
+    "samples_per_channel": 9216,
+    "output_channels": 2,
+    "pcm_peak_error": 1,
+    "pcm_rms_error": 0.11552642194176475,
+    "correlation": 0.9999999988482215,
+    "all_guards_intact": true,
+    "wait_ticks": [
+      7,
+      7,
+      7,
+      6,
+      7,
+      6,
+      7,
+      6,
+      7,
+      7,
+      7,
+      6,
+      6,
+      6,
+      7,
+      7
+    ],
+    "uart_log_sha256": "8f74a94b3c7128301ae35ad51bc1c18dddd0daa3c8b769d6b851ecd7b61453e7",
+    "hardware_pcm_sha256": "bdbb692dcce7e40afa632d1ca7620902822e91f6c23983cad761948607529f77",
+    "reference_pcm_sha256": "3ff83ccaa6dbbb13455a13d89425689a466a46d3aa8b210e781307181ae88ee7",
+    "probe_source_sha256": "eddee66d9c65c5a106412709c0982734f3d4ddda14619603d4a57da9c0c7f70b",
+    "driver_source_sha256": "e56615b61be2a78f380165213c5da4afca084018570694b3a664124ed6302954",
+    "vector_sha256": "530cb25e69149c59bc203ba18bca9ce151e87832e871e4998c9da1786424e8f1",
+    "scope": "On-chip MP3 datapath only; CPU front-end precomputed on host; no file player or coexistence validation",
+    "dcf_sha256": "cefa5a1bfb941fd9170ee82364d714efc7b6b64c04080ce3c7b7e3a2577bf918"
+  },
+  "gatt": {
+    "recorded_at": "2026-11-03T03:00:22.721830+00:00",
+    "address": "C2:00:AB:32:00:02",
+    "service_uuid": "ab320001-5e7f-4c9a-9b7b-75ba2a2f0001",
+    "characteristic_uuid": "ab320001-5e7f-4c9a-9b7b-75ba2a2f0002",
+    "cycles": [
+      {
+        "cycle": 1,
+        "initial_hex": "4142333220525454204e696d424c45",
+        "read_write_notify_sizes": [
+          1,
+          20,
+          60
+        ]
+      },
+      {
+        "cycle": 2,
+        "initial_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b",
+        "read_write_notify_sizes": [
+          1,
+          20,
+          60
+        ]
+      },
+      {
+        "cycle": 3,
+        "initial_hex": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c",
+        "read_write_notify_sizes": [
+          1,
+          20,
+          60
+        ]
+      }
+    ]
+  },
+  "power": {
+    "port": "/dev/ttyUSB0",
+    "passed": true,
+    "commands": [
+      {
+        "command": "version",
+        "output": "version\r\r\n\r\n \\ | /\r\n- RT -     Thread Operating System\r\n / | \\     5.2.2 build Nov  3 2026 10:54:05\r\n 2006 - 2024 Copyright by RT-Thread team\r\nmsh />",
+        "start_monotonic": 2254882.930320157,
+        "elapsed": 0.015753384679555893
+      },
+      {
+        "command": "pmctl status",
+        "output": "pmctl status\r\r\npower0: pwkey_level=1 vusb=0 input=1 pullup=1 filter_ms=0\r\nwake_enable=00 wake_pending=00 rails=7 first_power=1 sleep=retained-clock off=reset-on-wake\r\nblockers=00 (BT=01 audio=02 FM=04 USB=08 TF=10 AUDEC=20) boot_valid=1 boot_pending=00 boot_first=1\r\nRTC bridge=000c0006 CON0=e1 CON1=95 CON2=ca CON3=07 CON5=01 CON7=00 CON8=00 CON9=00\r\nmsh />",
+        "start_monotonic": 2254883.0075531,
+        "elapsed": 0.0365690728649497
+      },
+      {
+        "command": "free",
+        "output": "free\r\r\ntotal    : 19144\r\nused     : 9376\r\nmaximum  : 14168\r\navailable: 9768\r\nmsh />",
+        "start_monotonic": 2254883.064672973,
+        "elapsed": 0.009900213219225407
+      },
+      {
+        "command": "rtcctl status",
+        "output": "rtcctl status\r\r\nRTC CON0=e1 CON2=ca count=4579 valid=0 time_t_bits=32\r\nmsh />",
+        "start_monotonic": 2254883.141025045,
+        "elapsed": 0.0071619488298892975
+      },
+      {
+        "command": "pmctl sleep",
+        "output": "pmctl sleep\r\r\nsleep returned: 0 tick_delta=1911 entries=1 (RTC 1s wake, tick compensated)\r\nmsh />",
+        "start_monotonic": 2254883.20474659,
+        "elapsed": 1.9210570161230862
+      },
+      {
+        "command": "pmctl status",
+        "output": "pmctl status\r\r\npower0: pwkey_level=1 vusb=0 input=1 pullup=1 filter_ms=0\r\nwake_enable=00 wake_pending=00 rails=7 first_power=1 sleep=retained-clock off=reset-on-wake\r\nblockers=00 (BT=01 audio=02 FM=04 USB=08 TF=10 AUDEC=20) boot_valid=1 boot_pending=00 boot_first=1\r\nRTC bridge=000c0006 CON0=e1 CON1=95 CON2=ca CON3=07 CON5=01 CON7=00 CON8=00 CON9=00\r\nmsh />",
+        "start_monotonic": 2254885.187173738,
+        "elapsed": 0.03500161599367857
+      },
+      {
+        "command": "pmctl sleep",
+        "output": "pmctl sleep\r\r\nsleep returned: 0 tick_delta=1837 entries=1 (RTC 1s wake, tick compensated)\r\nmsh />",
+        "start_monotonic": 2254885.278818217,
+        "elapsed": 1.846814477816224
+      },
+      {
+        "command": "pmctl status",
+        "output": "pmctl status\r\r\npower0: pwkey_level=1 vusb=0 input=1 pullup=1 filter_ms=0\r\nwake_enable=00 wake_pending=00 rails=7 first_power=1 sleep=retained-clock off=reset-on-wake\r\nblockers=00 (BT=01 audio=02 FM=04 USB=08 TF=10 AUDEC=20) boot_valid=1 boot_pending=00 boot_first=1\r\nRTC bridge=000c0006 CON0=e1 CON1=95 CON2=ca CON3=07 CON5=01 CON7=00 CON8=00 CON9=00\r\nmsh />",
+        "start_monotonic": 2254887.187326181,
+        "elapsed": 0.034774411004036665
+      },
+      {
+        "command": "pmctl sleep",
+        "output": "pmctl sleep\r\r\nsleep returned: 0 tick_delta=1837 entries=1 (RTC 1s wake, tick compensated)\r\nmsh />",
+        "start_monotonic": 2254887.278560951,
+        "elapsed": 1.8471181779168546
+      },
+      {
+        "command": "pmctl status",
+        "output": "pmctl status\r\r\npower0: pwkey_level=1 vusb=0 input=1 pullup=1 filter_ms=0\r\nwake_enable=00 wake_pending=00 rails=7 first_power=1 sleep=retained-clock off=reset-on-wake\r\nblockers=00 (BT=01 audio=02 FM=04 USB=08 TF=10 AUDEC=20) boot_valid=1 boot_pending=00 boot_first=1\r\nRTC bridge=000c0006 CON0=e1 CON1=95 CON2=ca CON3=07 CON5=01 CON7=00 CON8=00 CON9=00\r\nmsh />",
+        "start_monotonic": 2254889.187203756,
+        "elapsed": 0.034825699869543314
+      },
+      {
+        "command": "rtcctl status",
+        "output": "rtcctl status\r\r\nRTC CON0=e1 CON2=ca count=4585 valid=0 time_t_bits=32\r\nmsh />",
+        "start_monotonic": 2254889.288748404,
+        "elapsed": 0.00658648693934083
+      },
+      {
+        "command": "free",
+        "output": "free\r\r\ntotal    : 19144\r\nused     : 9376\r\nmaximum  : 14168\r\navailable: 9768\r\nmsh />",
+        "start_monotonic": 2254889.31590642,
+        "elapsed": 0.010037810076028109
+      },
+      {
+        "command": "keys status",
+        "output": "keys status\r\r\nkeys0: raw=0 pressed=0 queued=0 dropped=0 read_errors=0\r\nmsh />",
+        "start_monotonic": 2254889.383384862,
+        "elapsed": 0.009000360034406185
+      },
+      {
+        "command": "led status",
+        "output": "led status\r\r\nLED ready=1 active=0 level=0/1000 toggles=0 error=0\r\nmsh />",
+        "start_monotonic": 2254889.443336688,
+        "elapsed": 0.00638317596167326
+      },
+      {
+        "command": "ps",
+        "output": "ps\r\r\nthread   pri  status      sp     stack size max used left tick   error  tcb addr   usage\r\n-------- ---  ------- ---------- ----------  ------  ---------- ------- ---------- -----\r\ntshell    20  running 0x00000230 0x00000800    30%   0x00000008 OK      0x0002c0b0  N/A\r\nfm_sync   21  suspend 0x000000e4 0x00000400    22%   0x00000006 EINTRPT 0x0002b9c8  N/A\r\naudio     20  suspend 0x000000e8 0x00000400    22%   0x00000001 EINTRPT 0x0002b510  N/A\r\ndrv       18  suspend 0x000000ec 0x00000200    53%   0x00000003 EINTRPT 0x0002aa00  N/A\r\ntidle0    31  ready   0x000000b8 0x00000200    35%   0x0000001e OK      0x00029cf8  N/A\r\ntimer      4  suspend 0x000000ec 0x00000400    23%   0x00000009 EINTRPT 0x0002a3d8  N/A\r\nmain      10  suspend 0x000000dc 0x00000400    32%   0x00000006 EINTRPT 0x0002a548  N/A\r\nmsh />",
+        "start_monotonic": 2254889.459898962,
+        "elapsed": 0.07984600774943829
+      }
+    ],
+    "sleeps": [
+      {
+        "cycle": 1,
+        "ticks": 1911,
+        "entries": 1,
+        "host_seconds": 1.9210570161230862
+      },
+      {
+        "cycle": 2,
+        "ticks": 1837,
+        "entries": 1,
+        "host_seconds": 1.846814477816224
+      },
+      {
+        "cycle": 3,
+        "ticks": 1837,
+        "entries": 1,
+        "host_seconds": 1.8471181779168546
+      }
+    ],
+    "poweroff_executed": false,
+    "initial_prompt": "\r\r\nmsh />",
+    "free_before": "free\r\r\ntotal    : 19144\r\nused     : 9376\r\nmaximum  : 14168\r\navailable: 9768\r\nmsh />",
+    "rtc_elapsed": 6,
+    "host_elapsed": 6.1471469472162426,
+    "free_after": "free\r\r\ntotal    : 19144\r\nused     : 9376\r\nmaximum  : 14168\r\navailable: 9768\r\nmsh />",
+    "keys_after": "keys status\r\r\nkeys0: raw=0 pressed=0 queued=0 dropped=0 read_errors=0\r\nmsh />",
+    "led_after": "led status\r\r\nLED ready=1 active=0 level=0/1000 toggles=0 error=0\r\nmsh />",
+    "threads_after": "ps\r\r\nthread   pri  status      sp     stack size max used left tick   error  tcb addr   usage\r\n-------- ---  ------- ---------- ----------  ------  ---------- ------- ---------- -----\r\ntshell    20  running 0x00000230 0x00000800    30%   0x00000008 OK      0x0002c0b0  N/A\r\nfm_sync   21  suspend 0x000000e4 0x00000400    22%   0x00000006 EINTRPT 0x0002b9c8  N/A\r\naudio     20  suspend 0x000000e8 0x00000400    22%   0x00000001 EINTRPT 0x0002b510  N/A\r\ndrv       18  suspend 0x000000ec 0x00000200    53%   0x00000003 EINTRPT 0x0002aa00  N/A\r\ntidle0    31  ready   0x000000b8 0x00000200    35%   0x0000001e OK      0x00029cf8  N/A\r\ntimer      4  suspend 0x000000ec 0x00000400    23%   0x00000009 EINTRPT 0x0002a3d8  N/A\r\nmain      10  suspend 0x000000dc 0x00000400    32%   0x00000006 EINTRPT 0x0002a548  N/A\r\nmsh />"
+  },
+  "probe_heap_after_gatt": {
+    "total": 19144,
+    "used": 15528,
+    "available": 3616,
+    "unchanged": true
+  },
+  "rejected_dma_placement": {
+    "address": "0x57000",
+    "status": "0x1f",
+    "return_code": -116,
+    "timeout_ms": 200,
+    "final_placement": "main SRAM; executable allocator code occupies SRAM tail"
+  },
+  "build_profiles": [
+    "default",
+    "audec_integrated",
+    "audec",
+    "audec_fm",
+    "bluetooth",
+    "nimble",
+    "keys_irq",
+    "audio"
+  ],
+  "model_tests": [
+    "test_audec.py: normal / invalid work layout / BT layout",
+    "test_rtc.py: rtc / rtc_external / power / power_external"
+  ],
+  "logs": {
+    "mp3": {
+      "file": "audec-integrated-mp3-uart.log.zlib",
+      "uncompressed_sha256": "8f74a94b3c7128301ae35ad51bc1c18dddd0daa3c8b769d6b851ecd7b61453e7",
+      "bytes": 77703
+    },
+    "ble": {
+      "file": "audec-integrated-ble-uart.log.zlib",
+      "uncompressed_sha256": "e57a6c3ecae0c73edb9c22ecb13a7c5c9e14e2d04a71007973b0093f20a58991",
+      "bytes": 2603
+    },
+    "final": {
+      "file": "audec-integrated-final-uart.log.zlib",
+      "uncompressed_sha256": "0459a85ff8f164b39f540c36b1d633cf3cd6edffbdcd1fcd66ab523b7214bcbb",
+      "bytes": 2994
+    }
+  },
+  "source_sha256": {
+    "rtt/bsp/link_bt_ram.lds": "665dad1c066438ac15e5e5dcf101ea9c50b2544fa2d04c7d9cd12dea3aa87956",
+    "rtt/bsp/link_fm_ram.lds": "e69d1ca4e7036cd09cb9cc42a260a450ff4595bae673da15e59808123ae649b6",
+    "rtt/bsp/link.lds": "acf3ff2d28b4e25ac1cdca044f384b8fb2f9ed89875b07c09d69c2a32f64831a",
+    "rtt/bsp/rtconfig.h": "d224087ef7bd1f4153986f0ca0d9f498d8e8d28d8851714fc47103fd8e5ae9a2",
+    "rtt/bsp/libraries/hal_libraries/bmsis/source/startup.S": "43df25e964b691bb5ed9fb0c9ea3b73a96713ba19550cf52d53845a0a7835841",
+    "rtt/bsp/libraries/hal_drivers/drv_audec.c": "e56615b61be2a78f380165213c5da4afca084018570694b3a664124ed6302954",
+    "rtt/bsp/board/ports/audio/drv_sound.c": "770672aca0429170e309515bd9ac0144ddf7f2e7db9facc7851d97ed137bd27f",
+    "tools/rtt/tests/mp3/probe.c": "eddee66d9c65c5a106412709c0982734f3d4ddda14619603d4a57da9c0c7f70b",
+    "tools/rtt/memory_report.py": "8fd180c24783ebd49269e5f983bcbf8bea47fd18ddf6c085e518a6378754d666"
+  }
+}

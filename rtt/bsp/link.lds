@@ -158,3 +158,8 @@ __comm_lma = LOADADDR(.comm);
 __comm_size = SIZEOF(.comm);
 __ram1_lma = LOADADDR(.ram1);
 __ram1_size = SIZEOF(.ram1);
+
+/* No executable SRAM tail in this layout. */
+__ram2_vma = 0x57000;
+__ram2_lma = 0;
+__ram2_size = 0;

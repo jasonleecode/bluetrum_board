@@ -15,12 +15,24 @@
 #define AB32_AUDEC_BANDS      39u
 #define AB32_AUDEC_PCM_BYTES (AB32_AUDEC_SAMPLES * 4u)
 
+enum ab32_audec_mode {
+    AB32_AUDEC_MONO = 0,       /* default for existing zero-initialized callers */
+    AB32_AUDEC_STEREO,         /* independent L/R, no joint-stereo processing */
+    AB32_AUDEC_MS_STEREO,      /* joint stereo with M/S, no intensity stereo */
+};
+
 /* audec0 is a synchronous, thread-only hardware back end. Supported profile:
- * MPEG-1 Layer III, 44100 Hz, mono input -> interleaved signed 16-bit L/R PCM.
+ * MPEG-1 Layer III, 44100 Hz; mono, stereo or M/S joint stereo input.
+ * Output is always interleaved signed 16-bit L/R PCM (mono duplicates L to R).
  * This is NOT an MP3 byte-stream API. spectrum/bands use the recovered AUDEC
  * quantized-spectrum/band-descriptor format, AFTER software Huffman parsing.
  * One request is one granule. block_type: 0=normal, 1=start, 2=short, 3=stop.
- * Caller supplies 576 spectrum and 39 band words, aligned to four bytes.
+ * Each input channel supplies 576 spectrum and 39 band words, four-byte aligned.
+ * Stereo also requires spectrum_right/bands_right and block_type_right=0..3.
+ * Mono requires NULL right inputs and block_type_right=0. Intensity stereo,
+ * other rates/versions and arbitrary hardware control words are not accepted.
+ * Mono/stereo channel count cannot change until RESET/END. Stereo and M/S
+ * may alternate per granule; the same L/R filter histories are preserved.
  * pcm is four-byte aligned, pcm_bytes >= 2304; bytes after 2304 are untouched.
  * Inputs/output must not overlap the hardware work area or driver DMA buffer.
  * timeout_ms: 0 selects 200 ms; otherwise 1..1000 ms. A timeout/guard error
@@ -35,6 +47,10 @@ struct ab32_audec_granule {
     rt_size_t pcm_bytes;
     rt_uint32_t timeout_ms;
     rt_uint8_t block_type;
+    rt_uint8_t mode;           /* enum ab32_audec_mode */
+    rt_uint8_t block_type_right;
+    const rt_uint32_t *spectrum_right;
+    const rt_uint32_t *bands_right;
 };
 
 struct ab32_audec_status {
@@ -42,7 +58,7 @@ struct ab32_audec_status {
     rt_uint32_t granules, timeouts, errors;
     rt_uint32_t last_status, last_control, last_ticks;
     rt_err_t last_error;
-    rt_uint8_t active, faulted;
+    rt_uint8_t active, faulted, input_channels; /* 0 until first decode after reset */
 };
 
 /* BEGIN/RESET/END take NULL. BEGIN claims the entire stream for the calling

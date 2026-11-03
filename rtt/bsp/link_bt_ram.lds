@@ -1,6 +1,6 @@
-/* Unified RTT/FM/BT: reserve controller ABI RAM; use both executable SRAM banks.
- * Shell and PCM framework run through the flash cache in thread context.
- * Kernel, cache refill, controller, HAL and interrupt paths stay in SRAM.
+/* Unified RTT/FM/BT/AUDEC: reserve controller ABI RAM; use both executable SRAM banks.
+ * Audited thread paths run through the flash cache; see rtt/MEMORY.md.
+ * Kernel, cache refill, controller and interrupt paths stay in SRAM.
  * No code or RT heap may overlap 0x11000..0x13800 or ROM 0x10000..0x11000. */
 ENTRY(_start)
 MEMORY
@@ -10,7 +10,9 @@ MEMORY
     bram (rw) : ORIGIN = 0x11000, LENGTH = 10K
     ram (rwx) : ORIGIN = 0x13800, LENGTH = 110K
     stack (rw) : ORIGIN = 0x2f000, LENGTH = 4K
-    ram1 (rwx) : ORIGIN = 0x50000, LENGTH = 0x7a00
+    ram1 (rwx) : ORIGIN = 0x50000, LENGTH = 16K
+    audec (rw) : ORIGIN = 0x54000, LENGTH = 12K
+    ram2 (rwx) : ORIGIN = 0x57000, LENGTH = 0xa00
 }
 SECTIONS
 {
@@ -21,19 +23,30 @@ SECTIONS
         *src*ipc.o (.text* .rodata*)
         *src*object.o (.text* .rodata*)
         *src*thread.o (.text* .rodata*)
-        *src*timer.o (.text* .rodata*)
         *src*scheduler*.o (.text* .rodata*)
         *src*clock.o (.text* .rodata*)
-        *src*kservice.o (.text* .rodata*)
-        *kernel*src*mem.o (.text* .rodata*)
-        *src*klibc*.o (.text* .rodata*)
         *src*device.o (.text* .rodata*)
+        *src*klibc*kerrno.o (.text* .rodata*)
+        *src*klibc*kstdio.o (.text* .rodata*)
+        *src*klibc*kstring.o (.text* .rodata*)
         *src*idle.o (.text* .rodata*)
-        *bt_hct*_recovered.o (.text* .rodata*)
+        *src*components.o (.text* .rodata* .srodata*)
+        *src*irq.o (.text* .rodata* .srodata*)
+        *src*defunct.o (.text* .rodata* .srodata*)
         . = ALIGN(4);
     } > ram1 AT > flash
     __ram1_lma = LOADADDR(.ram1);
     __ram1_size = SIZEOF(.ram1);
+    /* AUDEC output DMA uses main SRAM. Reuse this CPU-accessible tail for
+     * the small-memory allocator; startup copies it before entering C. */
+    .ram2 : ALIGN(4)
+    {
+        __ram2_vma = .;
+        *kernel*src*mem.o (.text* .rodata* .srodata*)
+        . = ALIGN(4);
+    } > ram2 AT > flash
+    __ram2_lma = LOADADDR(.ram2);
+    __ram2_size = SIZEOF(.ram2);
     .flash : ALIGN(512)
     {
         /* This BSP defers UART RX notifications to drv_thread_entry; FinSH
@@ -44,7 +57,24 @@ SECTIONS
         *components*finsh*.o (.text* .rodata* .srodata*)
         *dev_audio.o (.text* .rodata* .srodata*)
         *dev_audio_pipe.o (.text* .rodata* .srodata*)
-        *drv_sound.o (.text.pcmcheck)
+        /* PCM/FM lifecycle is thread-only. audio_isr/audio_sem_post already
+         * use .irq.audio; PM observers stay resident too. */
+        *drv_sound.o (.text* .rodata* .srodata*)
+        *drv_audec.o (.text* .rodata* .srodata*)
+        /* Linked callers are shell/DFS/Host/PWM thread paths. Keep memcpy,
+         * memset, memcmp, RT klibc and libgcc CLZ helpers resident for IRQs. */
+        *lib_a-strchr.o (.text* .rodata*)
+        *lib_a-strcmp.o (.text* .rodata*)
+        *lib_a-strncmp.o (.text* .rodata*)
+        *lib_a-strcpy.o (.text* .rodata*)
+        *lib_a-strncpy.o (.text* .rodata*)
+        *lib_a-strlen.o (.text* .rodata*)
+        *lib_a-ctype_.o (.rodata*)
+        *_udivdi3.o (.text*)
+        *lib_a-atoi.o (.text* .rodata*)
+        *lib_a-strtol.o (.text* .rodata*)
+        *lib_a-strtoul.o (.text* .rodata*)
+        *dev_pin.o (.text._pin_cmd .text.pin_parse)
         /* Host mbuf queue operations mask IRQs and stay in SRAM below. */
         EXCLUDE_FILE(*ble_hs_mqueue.o) *nimble*host*.o (.text* .rodata* .srodata*)
         *nimble*transport*.o (.text* .rodata* .srodata*)
@@ -70,9 +100,14 @@ SECTIONS
         *drv_rtc.o (.text* .rodata* .srodata*)
         *drv_power.o (.text* .rodata* .srodata*)
         /* FM shell is thread-only; masked radio helpers remain in SRAM. */
-        *drv_fmrx.o (.text.fmrx)
-        /* Controller diagnostics are only invoked by the shell thread. */
-        *drv_btctrl.o (.text.btctl .text.diagnose)
+        *drv_fmrx.o (.text.fmrx .text.fm_control .text.fm_shutdown
+                      .text.fm_sync* .text.rt_hw_fmrx_init .text.ab32_fmrx_bt_claim
+                      .rodata* .srodata*)
+        /* Shell diagnostics and worker entry/control run with IRQs enabled.
+         * pump, receive, ROM callbacks and all recovered controller code stay
+         * resident, including their shared string/descriptor tables. */
+        *drv_btctrl.o (.text.btctl .text.diagnose .text.command* .text.advertise
+                        .text.scan .text.bt_worker_entry .text.ab32_btctrl_start_host)
         *dev_rtc.o (.text* .rodata* .srodata*)
         /* Calendar conversion / libc RTC access runs in thread context only. */
         *ctime.o (.text* .rodata* .srodata*)
@@ -119,6 +154,13 @@ SECTIONS
     } > ram AT > flash
     __comm_lma = LOADADDR(.comm);
     __comm_size = SIZEOF(.comm);
+    /* Reserved even when AUDEC is disabled, so enabling it cannot silently
+     * overwrite executable kernel/controller code. No startup copy needed. */
+    .audec_work (NOLOAD) :
+    {
+        KEEP(*(.audec.work))
+        . = ORIGIN(audec) + LENGTH(audec);
+    } > audec
     .bram (NOLOAD) : ALIGN(4)
     {
         __bt_start = .;
@@ -154,7 +196,13 @@ SECTIONS
     /* Native IR adds SRAM IRQ/critical helpers and a static queue, no thread.
      * Reserve its 1 KiB feature allowance in each optional build budget.
      * Optional GPIO IRQ adds per-pin state and critical helpers (2 KiB).
-     * Its lazy worker is a separate runtime allocation from this heap. */
-    ASSERT(__heap_end - __heap_start >= (DEFINED(drv_sdcard_init) ? 23K : (DEFINED(ab32_usb_poll) ? 27K : (DEFINED(ble_hs_init) ? 28K : 39K))) - (DEFINED(ab32_irrx_init) ? 1K : 0) - (DEFINED(ab32_pin_irq_handler) ? 2K : 0), "Unified image heap below budget")
+     * Its lazy worker is a separate runtime allocation from this heap.
+     * Reserving AUDEC work RAM costs 12 KiB. Audited Flash placement offsets
+     * most of it: permit 4 KiB less heap (18 KiB in the full default profile).
+     * This budget does not promise BLE + the retained PCM playback pool. */
+    ASSERT(__heap_end - __heap_start >= (DEFINED(drv_sdcard_init) ? 23K : (DEFINED(ab32_usb_poll) ? 27K : (DEFINED(ble_hs_init) ? 28K : 39K))) - 4K - (DEFINED(ab32_irrx_init) ? 1K : 0) - (DEFINED(ab32_pin_irq_handler) ? 2K : 0), "Unified image heap below budget")
+    ASSERT(SIZEOF(.ram1) <= 16K, "Resident code overlaps AUDEC work RAM")
+    ASSERT(SIZEOF(.audec_work) == 12K, "AUDEC work reservation changed")
+    ASSERT(SIZEOF(.ram2) <= 0xa00, "Resident code exceeds SRAM tail")
     /DISCARD/ : { *(.comment .eh_frame*) }
 }

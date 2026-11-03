@@ -70,6 +70,13 @@ _start:
     beqz    a2, 4f
     call    _memcpy
 4:
+    //load optional executable tail above AUDEC work RAM
+    la      a0, __ram2_vma
+    la      a1, __ram2_lma
+    la      a2, __ram2_size
+    beqz    a2, 5f
+    call    _memcpy
+5:
 
     lui	    a5, 0x1
     sw	    zero, -1920(a5)

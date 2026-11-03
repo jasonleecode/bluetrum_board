@@ -1,0 +1,20 @@
+{
+  "profile": "stereo",
+  "sample_rate": 44100,
+  "channels": 2,
+  "frames": 8,
+  "granules": 16,
+  "source_library_sha256": "962e5a8ea3ba7cbae87c7902ad8cb5d97448f3fea9857a3f56a1e3ed1d8e818a",
+  "source_url": "https://github.com/ZhiqingLi/Sdk_Refresh/blob/aa0fc8f993bd0c2a6982bf0a95b3461ad7e7aa6d/AB53XX_SDK/app/platform/libs/libcodecs.a",
+  "format": "zlib records: LE uint32 control,kick followed by per-channel 576 spectrum + 39 band uint32 words (left then right); no bit reservoir",
+  "controls": [
+    "0x12015",
+    "0x15",
+    "0x1b015",
+    "0x9015"
+  ],
+  "sha256": {
+    "tone.mp3": "165a62503f74f73bd8f0634f421995d79745f45d08f6d9f33643fd61351c378e",
+    "vectors.zlib": "f2a57168575b7d584d262a296a4a560f0f106e1b74cfbdce6de74b7e8c76be1f"
+  }
+}

@@ -38,7 +38,7 @@ RTC 已修复并编入默认配置，支持 UTC 秒计数读写、首次校时�
 | --- | --- |
 | 硬件 SPI1 | 已恢复 C 实现，通过原库差分测试和链接检查，待上板验证；见 [SPI/I2C 分析](docs/lib-analysis/SPI_I2C_RECOVERY.md) |
 | 音频输入/输出 | 已恢复模拟输入与 SDADC 共 18 个函数，通过 3490 项原库差分测试；新增 48 kHz 双声道硬件 DAC 播放，DMA 采集 ABI 已修正，实机录放待完成，见 [音频分析](docs/lib-analysis/AUDIO_RECOVERY.md) |
-| MP3 硬件加速 | 已实测 AUDEC，44.1 kHz 单声道结果与 FFmpeg 最大误差 1 LSB；HAL 新增可选 `audec0` 驱动，支持会话独占和超时恢复。板上不链接原厂 MP3 库；软件前端和综合固件内存适配尚未接入，见 [验证记录](rtt/MP3.md) |
+| MP3 硬件加速 | 已实测 AUDEC，44.1 kHz 单声道、独立双声道及 M/S 联合立体声结果与 FFmpeg 最大误差均为 1 LSB；综合固件默认启用 `audec0`，已迁移与蓝牙布局重叠的代码并隔离工作 RAM，支持会话独占和超时恢复。板上不链接原厂 MP3 库；完整软件前端尚未接入，见 [验证记录](rtt/MP3.md) |
 | I2S 输出 | 从另一份 AB53XX SDK 恢复 SRC 主机输出，136 组差分通过；RT-Thread 接入 `sound0`，16 位双声道、44.1/48 kHz，待实测；见 [I2S 分析](docs/lib-analysis/I2S_RECOVERY.md) |
 | 硬件 I2C | 当前 SDK 中尚未找到可恢复的硬件实现，仍需寄存器资料或其他固件证据；现有 BSP 使用软件 I2C |
 | FM 收音机 | 已恢复模拟/数字通路 10 个函数，通过 332 项原库差分测试；RTT 的调谐、音量、启停和资源互斥已上板验证，DAC 测试音经听感确认清晰稳定。北京 97.4 MHz 仍只有杂音，待更换耳机/天线复测；搜台、RDS 未完成，见 [FM 分析](docs/lib-analysis/FM_RECOVERY.md) |

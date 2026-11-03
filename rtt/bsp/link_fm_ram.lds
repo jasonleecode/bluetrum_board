@@ -78,3 +78,8 @@ SECTIONS
     ASSERT(__heap_end - __heap_start >= 16K, "FM SRAM image leaves less than 16 KiB heap")
     /DISCARD/ : { *(.comment .eh_frame*) }
 }
+
+/* No executable SRAM tail in this layout. */
+__ram2_vma = 0x57000;
+__ram2_lma = 0;
+__ram2_size = 0;

@@ -8,9 +8,6 @@
 #include <string.h>
 
 #ifdef BSP_USING_AUDEC
-#ifdef BSP_USING_BTCTRL
-#error "AUDEC work RAM overlaps the current Bluetooth SRAM linker layout"
-#endif
 #ifndef RT_USING_DEVICE_OPS
 #error "AUDEC requires RT_USING_DEVICE_OPS"
 #endif
@@ -24,7 +21,7 @@
 #define AUDEC_IRQ    (1u << IRQ_AUDEC_VECTOR)
 #define CLOCK_MASK   (15u << 13)
 #define GUARD       0x5aa55aa5u
-#define AUDEC_RAM rt_section(".irq.audec")
+#define AUDEC_RAM rt_section(".irq.audec") __attribute__((noinline))
 
 #ifdef AB32_AUDEC_TEST
 rt_uint32_t audec_read(rt_uint32_t address);
@@ -89,6 +86,7 @@ static void reset_stream(void)
     memset(work, 0, sizeof(work));
     first = RT_TRUE;
     stats.faulted = 0;
+    stats.input_channels = 0;
     stats.last_error = RT_EOK;
 }
 
@@ -105,22 +103,42 @@ static rt_bool_t valid_buffer(const void *buffer, rt_size_t bytes)
 static rt_err_t decode(const struct ab32_audec_granule *g)
 {
     if (stats.faulted) return -RT_EIO;
-    if (!g || g->block_type > 3 || g->timeout_ms > 1000 ||
+    if (!g || g->block_type > 3 || g->block_type_right > 3 ||
+        g->mode > AB32_AUDEC_MS_STEREO || g->timeout_ms > 1000 ||
         g->pcm_bytes < AB32_AUDEC_PCM_BYTES ||
         !valid_buffer(g->spectrum, AB32_AUDEC_SAMPLES * 4u) ||
         !valid_buffer(g->bands, AB32_AUDEC_BANDS * 4u) ||
         !valid_buffer(g->pcm, AB32_AUDEC_PCM_BYTES)) return -RT_EINVAL;
+    rt_uint8_t channels = g->mode == AB32_AUDEC_MONO ? 1 : 2;
+    if (channels == 1)
+    {
+        if (g->spectrum_right || g->bands_right || g->block_type_right) return -RT_EINVAL;
+    }
+    else if (!valid_buffer(g->spectrum_right, AB32_AUDEC_SAMPLES * 4u) ||
+             !valid_buffer(g->bands_right, AB32_AUDEC_BANDS * 4u)) return -RT_EINVAL;
+    /* Channel-count changes describe a new stream; require a history reset. */
+    if (stats.input_channels && stats.input_channels != channels) return -RT_EINVAL;
     /* The timeout requires a live RTT tick, not just global IRQ enable. */
     if (!(PICEN & (1u << IRQ_TMR0_VECTOR)) || (TMR0CON & 0x81u) != 0x81u || !TMR0PR)
         return -RT_EBUSY;
     memcpy(work + 0x1000, g->spectrum, AB32_AUDEC_SAMPLES * 4u);
     memcpy(work + 0x2b00, g->bands, AB32_AUDEC_BANDS * 4u);
+    if (channels == 2)
+    {
+        memcpy(work + 0x1d80, g->spectrum_right, AB32_AUDEC_SAMPLES * 4u);
+        memcpy(work + 0x2b9c, g->bands_right, AB32_AUDEC_BANDS * 4u);
+    }
     dma.before = dma.after = GUARD;
     memset(dma.samples, 0, sizeof(dma.samples));
     audec_write(AUDEC_STATUS, 0x003f0000);
     audec_write(AUDEC_OUTPUT, (rt_uint32_t)(uintptr_t)dma.samples);
-    /* Fixed verified MPEG-1/44.1k/mono profile. Never accept raw control bits. */
-    rt_uint32_t control = (1u << 26) | 0x315u | ((rt_uint32_t)g->block_type << 12);
+    /* Recovered III_decode mapping: mode[9:8], extension[11:10],
+     * L block[13:12], R block[16:15]. Keep MPEG-1/44.1k and RAM PCM fixed.
+     * No raw register bits, downmix or unverified intensity-stereo mode. */
+    rt_uint32_t format = g->mode == AB32_AUDEC_MONO ? 0x315u :
+                         g->mode == AB32_AUDEC_MS_STEREO ? 0x915u : 0x15u;
+    rt_uint32_t control = (1u << 26) | format | ((rt_uint32_t)g->block_type << 12) |
+                         ((rt_uint32_t)g->block_type_right << 15);
     if (first) control |= 1u << 19;
     audec_write(AUDEC_CON, control);
     /* CRWN traps on FENCE. Buffers/MMIO are uncached; order compiler accesses. */
@@ -150,6 +168,7 @@ static rt_err_t decode(const struct ab32_audec_granule *g)
         audec_write(AUDEC_STATUS, 0x003f0000);
         memcpy(g->pcm, dma.samples, sizeof(dma.samples));
         ++stats.granules;
+        stats.input_channels = channels;
         first = RT_FALSE;
     }
     stats.last_error = rc;

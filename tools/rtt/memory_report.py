@@ -19,6 +19,8 @@ def inspect(elf):
     for name, size, vma, lma in re.findall(
             r'^\s*\d+\s+(\.\S+)\s+([0-9a-f]+)\s+([0-9a-f]+)\s+([0-9a-f]+)', output, re.M):
         sections[name] = dict(bytes=int(size, 16), vma=int(vma, 16), lma=int(lma, 16))
+    allocated = {name for name, flags in re.findall(
+        r'^\s*\d+\s+(\.\S+)[^\n]*\n\s*([^\n]*)', output, re.M) if 'ALLOC' in flags}
     output = subprocess.check_output([tool_dir / (prefix + 'nm'), '-n', elf], text=True)
     symbols = {name: int(addr, 16) for addr, name in re.findall(
         r'^([0-9a-f]+)\s+\S\s+(\S+)$', output, re.M)}
@@ -32,7 +34,17 @@ def inspect(elf):
     rtc = 'rtc_transfer' in symbols
     led = 'board_led_poll' in symbols
     power = 'ab32_power_init' in symbols
-    flash_functions = ['finsh_thread_entry', '_audio_dev_init', 'pcmcheck']
+    audec = 'ab32_audec_init' in symbols
+    flash_functions = ['finsh_thread_entry', '_audio_dev_init', 'pcmcheck',
+                       'rt_hw_sound_init', 'sound_configure', 'audio_thread_entry',
+                       'strtol', 'strtoul', 'strcmp', 'strchr', 'strlen']
+    if '__udivdi3' in symbols:
+        flash_functions += ['__udivdi3']
+    if audec:
+        flash_functions += ['ab32_audec_init']
+        assert 0x13800 <= symbols['dma'] <= 0x2f000 - 2312
+        assert symbols['dma'] % 16 == 0
+
     if 'fmrx' in symbols:
         flash_functions += ['fmrx']
     if 'btctl' in symbols:
@@ -74,7 +86,13 @@ def inspect(elf):
         checks[name] = hex(addr)
     ram_functions = ['rt_schedule', 'rt_sem_release', 'rt_hw_context_switch',
                  'os_cache_init', 'load_cache', '__wrap_bthw_isr_do',
-                 'bb_run_loop', 'hci_host_recv_packet', 'audio_isr', 'uart_isr']
+                 'bb_run_loop', 'hci_host_recv_packet', 'audio_isr', 'uart_isr',
+                 'hct_send_command', 'hct_transport_table', 'rt_vsnprintf', 'rt_smem_alloc', 'rt_device_open', 'rt_device_close']
+    if audec:
+        for prefix in ('configure_clock', 'stop_engine'):
+            names = [n for n in symbols if n == prefix or n.startswith(prefix + '.')]
+            assert names, prefix + ' missing'
+            ram_functions += names
     ram_functions += ['ab32_pin_mode', 'hal_gpio_init', 'gpio_afinit', 'port_sfr', 'port_table']
     if power:
         ram_functions += ['ab32_irtc_sleep_locked', 'power_bridge_policy', 'power_cutoff',
@@ -109,18 +127,33 @@ def inspect(elf):
             if name.startswith(('__riscv_save_', '__riscv_restore_')))
     for name in ram_functions:
         addr = symbols[name]
-        assert 0x13800 <= addr < 0x2f000 or 0x50000 <= addr < 0x57a00, f'{name} left SRAM'
+        assert 0x13800 <= addr < 0x2f000 or 0x50000 <= addr < 0x54000 or 0x57000 <= addr < 0x57a00, f'{name} left SRAM'
         checks[name] = hex(addr)
     assert symbols['bb_get_without_vehicle'] == 0x11000
     assert sections['.bram']['bytes'] <= 10 * 1024
-    assert sections['.heap']['bytes'] >= ((23 if tf else 27 if usb else 28 if nimble else 39) - ir - 2 * gpio_irq) * 1024
-    assert sections['.ram1']['bytes'] <= 0x7a00
+    assert sections['.heap']['bytes'] >= ((23 if tf else 27 if usb else 28 if nimble else 39) - 4 - ir - 2 * gpio_irq) * 1024
+    assert sections['.ram1']['bytes'] <= 0x4000
+    assert sections['.ram2']['vma'] == 0x57000
+    assert sections['.ram2']['bytes'] <= 0xa00
+    for section, prefix in (('.ram1', '__ram1'), ('.ram2', '__ram2'), ('.comm', '__comm')):
+        for field in ('vma', 'lma'):
+            assert symbols[prefix + '_' + field] == sections[section][field]
+        assert symbols[prefix + '_size'] == sections[section]['bytes']
+    assert sections['.audec_work']['vma'] == 0x54000
+    assert sections['.audec_work']['bytes'] == 0x3000
+    assert {'.comm', '.ram1', '.ram2', '.audec_work', '.bss', '.heap', '.bram'} <= allocated
+    # Check whole allocated ranges, not just a few function entry points.
+    for name, section in sections.items():
+        start, size = section['vma'], section['bytes']
+        if name in allocated and name != '.audec_work' and size:
+            assert start >= 0x57000 or start + size <= 0x54000, f'{name} overlaps AUDEC'
+
     assert symbols['__bank_size'] == sections['.flash']['bytes']
     assert sections['.flash']['vma'] % 512 == 0
     assert sections['.comm']['vma'] % 512 == 0
     return dict(sections=sections, placement_checks=checks, nimble_enabled=nimble, usb_enabled=usb, tf_enabled=tf, ir_enabled=ir,
                 keys_enabled=keys, gpio_irq_enabled=gpio_irq,
-                rtc_enabled=rtc, led_breath_enabled=led, power_enabled=power,
+                rtc_enabled=rtc, led_breath_enabled=led, power_enabled=power, audec_enabled=audec,
                 heap_region_bytes=sections['.heap']['bytes'],
                 note='Heap region includes allocator metadata; use board free for runtime availability.')
 

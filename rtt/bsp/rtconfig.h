@@ -456,4 +456,7 @@
 #define RTC_USING_INTERNAL_CLK
 #define BSP_USING_POWER
 
+/* Fixed AUDEC work RAM is reserved separately from controller/kernel code. */
+#define BSP_USING_AUDEC
+
 #endif

@@ -13,14 +13,20 @@ from elftools.elf.elffile import ELFFile
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--archive', required=True, type=Path)
 parser.add_argument('--output', required=True, type=Path)
+parser.add_argument('--profile', choices=['mono', 'stereo', 'joint_stereo'], default='mono')
 args=parser.parse_args()
 archive=args.archive.read_bytes()
 assert hashlib.sha256(archive).hexdigest() == '962e5a8ea3ba7cbae87c7902ad8cb5d97448f3fea9857a3f56a1e3ed1d8e818a', 'Unexpected SDK archive'
 P=args.output.resolve(); P.mkdir(parents=True, exist_ok=True)
 ROOT=Path(__file__).resolve().parents[2]
-subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-f','lavfi','-i',
- 'sine=frequency=1000:sample_rate=44100:duration=0.16','-ac','1','-c:a','libmp3lame',
- '-b:a','128k','-reservoir','0','-write_xing','0','-id3v2_version','0','-y',str(P/'tone.mp3')],check=True)
+channels = 1 if args.profile == 'mono' else 2
+source = ('sine=frequency=1000:sample_rate=44100:duration=0.16' if channels == 1 else
+          'aevalsrc=0.1*sin(2*PI*997*t)|0.08*sin(2*PI*1501*t):s=44100:d=0.16' if args.profile == 'stereo' else
+          'aevalsrc=0.1*sin(2*PI*997*t)|0.09*sin(2*PI*997*t)+0.01*sin(2*PI*1501*t):s=44100:d=0.16')
+subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-f','lavfi','-i',source,
+ '-ac',str(channels),'-c:a','libmp3lame', '-b:a','128k',
+ *([] if channels == 1 else ['-joint_stereo', str(int(args.profile == 'joint_stereo'))]),
+ '-reservoir','0','-write_xing','0','-id3v2_version','0','-y',str(P/'tone.mp3')],check=True)
 TC=str(ROOT/'.toolchains/riscv64-unknown-elf-gcc-10.1.0-2020.08.2-x86_64-linux-ubuntu14/bin/riscv64-unknown-elf-')
 # Read first matching archive members (the SDK has a second encoder huffman.o).
 def member(name):
@@ -80,24 +86,29 @@ mp3=(P/'tone.mp3').read_bytes();pos=0;frame=0;ctx=0x60000
 while pos<len(mp3):
  h=int.from_bytes(mp3[pos:pos+4],'big'); assert h>>21==0x7ff
  assert ((h>>19)&3)==3 and ((h>>17)&3)==1 and ((h>>16)&1)==1
- assert ((h>>10)&3)==0 and ((h>>6)&3)==3 and ((h>>12)&15)==9
+ assert ((h>>10)&3)==0 and ((h>>12)&15)==9
+ mode=(h>>6)&3; mode_ext=(h>>4)&3 if mode==1 else 0
+ assert (mode==3)==(channels==1)
+ side_bytes=17 if channels==1 else 32
  length=144*128000//44100+((h>>9)&1); data=mp3[pos:pos+length]; assert len(data)==length
- w32(ctx+64,3);w32(ctx+68,0);w32(ctx+72,0);w32(ctx+88,44100);w32(ctx+92,0)
- bits(ctx+24,0x61000,data[4:21])
+ w32(ctx+64,3);w32(ctx+68,3-mode);w32(ctx+72,mode_ext);w32(ctx+88,44100);w32(ctx+92,0)
+ bits(ctx+24,0x61000,data[4:4+side_bytes])
  r=call('III_sideinfo',ctx);assert r==0,(frame,'sideinfo',r)
  assert int.from_bytes(u.mem_read(ctx+104,4),'little')==0,'reservoir is disabled'
- bits(ctx+348,0x62000,data[21:])
+ bits(ctx+348,0x62000,data[4+side_bytes:])
  r=call('mad_layer_III',ctx);assert r==0,(frame,'layer3',r)
  print('frame',frame,'vectors',len(vectors),'con',hex(regs[0x180]))
  pos+=length;frame+=1
 (P/'vectors.bin').write_bytes(b''.join(struct.pack('<II',con,kick)+data for con,kick,data in vectors))
-(P/'vectors.json').write_text(json.dumps({'frames':frame,'granules':len(vectors),'stride':0x1c40,'sample_rate':44100,'channels':1},indent=2))
+(P/'vectors.json').write_text(json.dumps({'frames':frame,'granules':len(vectors),'stride':0x1c40,'sample_rate':44100,'channels':channels},indent=2))
 print('OK',frame,len(vectors))
 words=[]; rows=[]
 for con,kick,data in vectors:
  first=len(words)
- # Mono software front-end writes the left quantized spectrum and 39 band descriptors.
- for offset in list(range(0x1000,0x1900,4))+list(range(0x2b00,0x2b9c,4)):
+ # Capture only front-end inputs; preserve existing mono fixture format.
+ offsets=list(range(0x1000,0x1900,4))+list(range(0x2b00,0x2b9c,4))
+ if channels==2: offsets+=list(range(0x1d80,0x2680,4))+list(range(0x2b9c,0x2c38,4))
+ for offset in offsets:
   value=struct.unpack_from('<I',data,offset-0x1000)[0]
   if value:words.append((offset,value))
  rows.append((con,kick,first,len(words)-first))
@@ -109,8 +120,17 @@ head+=''.join('{0x%08x,0x%08x,%d,%d},\n'%r for r in rows)+'};\n'
 print('sparse words',len(words),'bytes',len(words)*8)
 
 assert len(vectors)==16
-packed=b''.join(struct.pack('<II',con,kick)+data[:0x900]+data[0x1b00:0x1b9c]
-                for con,kick,data in vectors)
+packed=b''.join(struct.pack('<II',con,kick)+data[:0x900]+data[0x1b00:0x1b9c]+
+               (data[0xd80:0x1680]+data[0x1b9c:0x1c38] if channels==2 else b'')
+               for con,kick,data in vectors)
 (P/'vectors.zlib').write_bytes(zlib.compress(packed,9))
 print('sample sha256',hashlib.sha256((P/'tone.mp3').read_bytes()).hexdigest())
 print('vector sha256',hashlib.sha256((P/'vectors.zlib').read_bytes()).hexdigest())
+
+manifest = dict(profile=args.profile, sample_rate=44100, channels=channels,
+    frames=frame, granules=len(vectors), source_library_sha256=hashlib.sha256(archive).hexdigest(),
+    source_url='https://github.com/ZhiqingLi/Sdk_Refresh/blob/aa0fc8f993bd0c2a6982bf0a95b3461ad7e7aa6d/AB53XX_SDK/app/platform/libs/libcodecs.a',
+    format='zlib records: LE uint32 control,kick followed by per-channel 576 spectrum + 39 band uint32 words (left then right); no bit reservoir',
+    controls=sorted({hex(con & ~((1<<27)|(1<<19))) for con,kick,data in vectors}),
+    sha256={n:hashlib.sha256((P/n).read_bytes()).hexdigest() for n in ('tone.mp3','vectors.zlib')})
+(P/'manifest.json').write_text(json.dumps(manifest, indent=2)+'\n')

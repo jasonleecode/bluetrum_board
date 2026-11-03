@@ -12,7 +12,7 @@ static unsigned polls, writes, kicks, stall, corrupt, running;
 static unsigned init_fail, take_fail;
 static rt_tick_t tick;
 static rt_uint32_t hw[4], submitted_control;
-static rt_uint32_t input[576], band[39], output[578];
+static rt_uint32_t input[576], band[39], right_input[576], right_band[39], output[578];
 static rt_err_t command(int c, void *a) { return device.ops->control(&device,c,a); }
 rt_thread_t rt_thread_self(void) { return who < 2 ? &threads[who] : RT_NULL; }
 rt_uint8_t rt_interrupt_get_nest(void) { return irq_nest; }
@@ -85,7 +85,7 @@ int main(void)
     assert(command(AB32_AUDEC_BEGIN,0)==0 && ab32_audec_power_busy());
     for(unsigned i=0;i<sizeof(work);i++)assert(work[i]==0);
     assert(command(AB32_AUDEC_BEGIN,0)==-RT_EBUSY);
-    struct ab32_audec_granule g={input,band,&output[1],2304,5,0};
+    struct ab32_audec_granule g={.spectrum=input,.bands=band,.pcm=&output[1],.pcm_bytes=2304,.timeout_ms=5};
     who=1;
     assert(command(AB32_AUDEC_DECODE,&g)==-RT_EBUSY);
     assert(command(AB32_AUDEC_RESET,0)==-RT_EBUSY);
@@ -127,5 +127,34 @@ int main(void)
     assert(CLKGAT0==(original_gate^(1u<<7)) && CLKCON2==(original_clock^(1u<<4)) && PICEN==original_irq);
     assert(command(AB32_AUDEC_GET_STATUS,&s)==0 && !s.active && s.errors==2 && s.granules==4);
     assert(command(AB32_AUDEC_BEGIN,0)==0 && command(AB32_AUDEC_END,0)==0);
+    assert(command(AB32_AUDEC_BEGIN,0)==0);
+    unsigned before_writes=writes;
+    g.mode=3;assert(command(AB32_AUDEC_DECODE,&g)==-RT_EINVAL);
+    g.mode=AB32_AUDEC_STEREO;assert(command(AB32_AUDEC_DECODE,&g)==-RT_EINVAL);
+    g.spectrum_right=right_input;assert(command(AB32_AUDEC_DECODE,&g)==-RT_EINVAL);
+    g.bands_right=(void*)0x56b9c;assert(command(AB32_AUDEC_DECODE,&g)==-RT_EINVAL);
+    g.bands_right=(void*)((char*)right_band+1);assert(command(AB32_AUDEC_DECODE,&g)==-RT_EINVAL);
+    g.bands_right=right_band;g.block_type_right=4;
+    assert(command(AB32_AUDEC_DECODE,&g)==-RT_EINVAL);
+    g.block_type_right=3;g.spectrum_right=dma.samples;
+    assert(command(AB32_AUDEC_DECODE,&g)==-RT_EINVAL);
+    g.spectrum_right=right_input;
+    g.mode=AB32_AUDEC_MONO;assert(command(AB32_AUDEC_DECODE,&g)==-RT_EINVAL);
+    assert(writes==before_writes); /* bad inputs never alter histories or MMIO */
+    g.mode=AB32_AUDEC_STEREO;g.block_type=1;
+    input[0]=0x1234;right_input[0]=0x5678;right_input[575]=0xabcd;right_band[38]=0x789a;
+    assert(command(AB32_AUDEC_DECODE,&g)==0);
+    assert(submitted_control==((1u<<26)|(1u<<19)|0x19015));
+    assert(!memcmp(work+0x1000,input,sizeof(input)) && !memcmp(work+0x2b00,band,sizeof(band)));
+    assert(!memcmp(work+0x1d80,right_input,sizeof(right_input)) && !memcmp(work+0x2b9c,right_band,sizeof(right_band)));
+    assert(stats.input_channels==2);
+    work[20]=0x5a;g.mode=AB32_AUDEC_MS_STEREO;g.block_type=2;g.block_type_right=0;
+    assert(command(AB32_AUDEC_DECODE,&g)==0 && submitted_control==((1u<<26)|0x2915) && work[20]==0x5a);
+    g.mode=AB32_AUDEC_MONO;g.spectrum_right=g.bands_right=0;
+    before_writes=writes;assert(command(AB32_AUDEC_DECODE,&g)==-RT_EINVAL && writes==before_writes);
+    assert(command(AB32_AUDEC_RESET,0)==0 && stats.input_channels==0 && work[20]==0);
+    assert(command(AB32_AUDEC_DECODE,&g)==0 && stats.input_channels==1);
+    assert(command(AB32_AUDEC_END,0)==0);
+    puts("PASS: stereo/M-S control fields, independent channels/blocks, invalid right inputs, channel history transitions");
     puts("PASS: AUDEC ownership, validation, staged DMA, wrap-safe timeout, fault recovery, PM observer and masked clock restore");
 }
