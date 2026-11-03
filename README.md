@@ -10,11 +10,11 @@
 恢复源码的蓝牙控制器已接入 NimBLE 1.10.0，BLE 连接、ACL 分片、GATT 读写和通知已实测通过。
 原生 USB CDC、TF/FAT 和板载红外遥控接收已完成软件适配、离线测试及综合编译，
 USB 待确定 Device 接口及供电适配方案，TF 等待卡片；红外已用扫地机器人遥控器实测 NEC 接收，
-四向键及长按/重复/释放通过，详见 [IR.md](rtt/IR.md)。
-三个板载功能键已接入 `keys0`，按键/msh 接入版综合固件已烧录；三个键的按下/松开及一次长按通过实板验证；见 [按键说明](rtt/KEYS.md)。
-RTC 已修复并编入默认配置，支持 UTC 秒计数读写、首次校时和超时处理；已烧录验证读写及约 60 秒连续走时，见 [RTC 说明](rtt/RTC.md)。
+四向键及长按/重复/释放通过，详见 [IR.md](docs/rtt/IR.md)。
+三个板载功能键已接入 `keys0`，按键/msh 接入版综合固件已烧录；三个键的按下/松开及一次长按通过实板验证；见 [按键说明](docs/rtt/KEYS.md)。
+RTC 已修复并编入默认配置，支持 UTC 秒计数读写、首次校时和超时处理；已烧录验证读写及约 60 秒连续走时，见 [RTC 说明](docs/rtt/RTC.md)。
 电源管理驱动已接入 power0/pmctl，提供 PWKEY/VUSB 配置、保留时钟的浅休眠和唤醒复位式软关机；
-已烧录验证连续 10 次 RTC 唤醒及 tick 补偿；软关机和功耗尚未实测，见 [POWER.md](rtt/POWER.md)。
+已烧录验证连续 10 次 RTC 唤醒及 tick 补偿；软关机和功耗尚未实测，见 [POWER.md](docs/rtt/POWER.md)。
 
 驱动开发以逆向厂家 `.a` 库、恢复可维护源码并逐步替换原对象为主线。
 原库用于行为对照和阶段性差分验证；尚未替换的对象及芯片 ROM 调用必须明确记录，
@@ -27,25 +27,25 @@ RTC 已修复并编入默认配置，支持 UTC 秒计数读写、首次校时�
 | 目录 | 内容 |
 | --- | --- |
 | [bare/](bare/README.md) | 裸机工程、外设驱动和应用示例 |
-| [rtt/](rtt/README.md) | 综合 RT-Thread 工程与 BSP；[NimBLE 使用说明](rtt/NIMBLE.md)、[USB 接入](rtt/USB.md)、[TF 接入](rtt/TF.md)、[红外接收](rtt/IR.md)、[按键接入](rtt/KEYS.md)、[内存预算](rtt/MEMORY.md) |
+| [rtt/](rtt/) | 综合 RT-Thread 工程与 BSP；[工程说明](rtt/README.md)、[NimBLE 使用说明](docs/rtt/NIMBLE.md)、[USB 接入](docs/rtt/USB.md)、[TF 接入](docs/rtt/TF.md)、[红外接收](docs/rtt/IR.md)、[按键接入](docs/rtt/KEYS.md)、[内存预算](docs/rtt/MEMORY.md) |
 | [tools/linux/](tools/linux/README.md) | Linux DCF 打包、串口下载和检查工具 |
-| [docs/](docs/README.md) | 芯片与开发板资料 |
+| [docs/](docs/README.md) | 综合 RTT 文档、芯片与开发板资料、SDK 分析记录 |
 | [docs/lib-analysis/](docs/lib-analysis/README.md) | SDK 库分析、驱动恢复和验证记录 |
 
 ## 当前进展
 
 | 项目 | 进展 |
 | --- | --- |
-| 硬件 SPI1 | 默认接入综合 RTT，新增 G6（PE4/PE3/PE2）以避开按键/UART/TF/IR；实板完成发送、DI 上下拉接收及多分频耗时对照，外设通信和波形时序待验证；见 [SPI/I2C 接入](rtt/SPI_I2C.md) |
+| 硬件 SPI1 | 默认接入综合 RTT，新增 G6（PE4/PE3/PE2）以避开按键/UART/TF/IR；实板完成发送、DI 上下拉接收及多分频耗时对照，外设通信和波形时序待验证；见 [SPI/I2C 接入](docs/rtt/SPI_I2C.md) |
 | 音频输入/输出 | 已恢复模拟输入与 SDADC 共 18 个函数，通过 3490 项原库差分测试；新增 48 kHz 双声道硬件 DAC 播放，DMA 采集 ABI 已修正，实机录放待完成，见 [音频分析](docs/lib-analysis/AUDIO_RECOVERY.md) |
-| MP3 硬件加速 | 已实测 AUDEC，44.1 kHz 单声道、独立双声道及 M/S 联合立体声结果与 FFmpeg 最大误差均为 1 LSB；综合固件默认启用 `audec0`，已迁移与蓝牙布局重叠的代码并隔离工作 RAM，支持会话独占和超时恢复。板上不链接原厂 MP3 库；完整软件前端尚未接入，见 [验证记录](rtt/MP3.md) |
+| MP3 硬件加速 | 已实测 AUDEC，44.1 kHz 单声道、独立双声道及 M/S 联合立体声结果与 FFmpeg 最大误差均为 1 LSB；综合固件默认启用 `audec0`，已迁移与蓝牙布局重叠的代码并隔离工作 RAM，支持会话独占和超时恢复。板上不链接原厂 MP3 库；完整软件前端尚未接入，见 [验证记录](docs/rtt/MP3.md) |
 | I2S 输出 | 从另一份 AB53XX SDK 恢复 SRC 主机输出，136 组差分通过；RT-Thread 接入 `sound0`，16 位双声道、44.1/48 kHz，待实测；见 [I2S 分析](docs/lib-analysis/I2S_RECOVERY.md) |
-| 硬件 I2C | PE2/SDA、PE3/SCL 是板上 IIC 接口，但厂商 BSP 明确使用软件 I2C；尚无可信的硬件控制器定义，综合固件未启用软件替代，见 [说明](rtt/SPI_I2C.md#pe2sda-pe3scl-与硬件-i2c) |
+| 硬件 I2C | PE2/SDA、PE3/SCL 是板上 IIC 接口，但厂商 BSP 明确使用软件 I2C；尚无可信的硬件控制器定义，综合固件未启用软件替代，见 [说明](docs/rtt/SPI_I2C.md#pe2sda-pe3scl-与硬件-i2c) |
 | FM 收音机 | 已恢复模拟/数字通路 10 个函数，通过 332 项原库差分测试；RTT 的调谐、音量、启停和资源互斥已上板验证，DAC 测试音经听感确认清晰稳定。北京 97.4 MHz 仍只有杂音，待更换耳机/天线复测；搜台、RDS 未完成，见 [FM 分析](docs/lib-analysis/FM_RECOVERY.md) |
-| 蓝牙 | 已恢复 `libbtctrl.a` 全部非空成员，综合 RTT 不链接该归档。NimBLE 1.10.0 以 `rtt/nimble` 子模块接入；HCI、广播/扫描及六轮 BLE 连接、GATT 读写/通知/重连已实测，60 字节数据覆盖 ACL 分片；见 [控制器恢复](docs/lib-analysis/BLUETOOTH_RECOVERY.md) 与 [NimBLE 接入](rtt/NIMBLE.md) |
-| USB | 已恢复 33 个底层函数、通过 1066 项原库差分测试；综合 RTT 新增 AB32 控制器适配和 CherryUSB CDC ACM 二进制回传，离线测试及编译通过。综合固件已烧录；V2.0 的原生 USB 接在 Host 用 USB-A，Device 实测待接口及供电适配，不能直接用普通双公线连接电脑；见 [USB 接入](rtt/USB.md) |
-| SD 卡 | 已根据寄存器手册和公开 BSP 实现原生 SD0 一位总线、SDSC/SDHC/SDXC 512 字节块读写；已接入综合 RTT 的 tf0 块设备及 FAT12/16/32，离线读写测试和编译通过；实卡验证待完成，见 [TF 接入](rtt/TF.md) |
-| 红外遥控接收 | 原生 NEC/扩展 NEC 驱动默认接入 ir0 和 irrx；已用扫地机器人遥控器实测四向键，修复长按提前释放，53 帧无校验错误/队列丢失。IRDA 丝印不代表完整 IrDA 数据协议；见 [红外接入](rtt/IR.md) |
+| 蓝牙 | 已恢复 `libbtctrl.a` 全部非空成员，综合 RTT 不链接该归档。NimBLE 1.10.0 以 `rtt/nimble` 子模块接入；HCI、广播/扫描及六轮 BLE 连接、GATT 读写/通知/重连已实测，60 字节数据覆盖 ACL 分片；见 [控制器恢复](docs/lib-analysis/BLUETOOTH_RECOVERY.md) 与 [NimBLE 接入](docs/rtt/NIMBLE.md) |
+| USB | 已恢复 33 个底层函数、通过 1066 项原库差分测试；综合 RTT 新增 AB32 控制器适配和 CherryUSB CDC ACM 二进制回传，离线测试及编译通过。综合固件已烧录；V2.0 的原生 USB 接在 Host 用 USB-A，Device 实测待接口及供电适配，不能直接用普通双公线连接电脑；见 [USB 接入](docs/rtt/USB.md) |
+| SD 卡 | 已根据寄存器手册和公开 BSP 实现原生 SD0 一位总线、SDSC/SDHC/SDXC 512 字节块读写；已接入综合 RTT 的 tf0 块设备及 FAT12/16/32，离线读写测试和编译通过；实卡验证待完成，见 [TF 接入](docs/rtt/TF.md) |
+| 红外遥控接收 | 原生 NEC/扩展 NEC 驱动默认接入 ir0 和 irrx；已用扫地机器人遥控器实测四向键，修复长按提前释放，53 帧无校验错误/队列丢失。IRDA 丝印不代表完整 IrDA 数据协议；见 [红外接入](docs/rtt/IR.md) |
 | DCF 打包 | 已实现 Linux 工具，默认打包路径通过原版机器码逐字节对照 |
 | 串口下载 | 已在 CH340/CRWN 实机完成 loader 上传、Flash 擦写、CRC 校验及首块提交；裸机串口及 RT-Thread 5.2.2 启动和 shell 通信均已验证，见 [实机记录](tools/linux/README.md#2026-11-02-实机记录) |
 
@@ -65,7 +65,7 @@ scons -j4
 
 子模块固定到 `nimble_1_10_0_tag`，上游源码未修改。固件打包与 CH340 串口烧录步骤见
 [BSP 构建说明](rtt/README.md#linux-构建与驱动维护)。当前红灯上电熄灭，按 S2 开启呼吸、再按停止；
-FM 和蓝牙均不会自动启动；呼吸灯接线与验证见 [PWM.md](rtt/PWM.md)。
+FM 和蓝牙均不会自动启动；呼吸灯接线与验证见 [PWM.md](docs/rtt/PWM.md)。
 烧录所用串口同时提供 **115200、8N1** 的 RT-Thread shell。
 
 ### FM 调试
@@ -103,7 +103,7 @@ free
 使用 BLE 调试 App 扫描 **AB32-NIMBLE** 并连接，即可测试自定义特征的 Read、Write 和 Notify。
 iPhone 请在 nRF Connect 等 App 中扫描，不要以“设置 → 蓝牙”的设备列表作为发现依据；
 详见 [iPhone 扫描说明](rtt/README.md#nimble-与-gatt-实机验证2026-11-02)。
-当前为单连接、未加密测试服务，首选 MTU 64；UUID、通知订阅及电脑端复测脚本见 [NIMBLE.md](rtt/NIMBLE.md)。
+当前为单连接、未加密测试服务，首选 MTU 64；UUID、通知订阅及电脑端复测脚本见 [NIMBLE.md](docs/rtt/NIMBLE.md)。
 
 保留 PCM 播放池和未分配 PCM 池的两种状态各完成三轮连接、读写/通知与重连，
 载荷为 1、20、60 字节，HCI 传输错误和 Host 重置均为零，测试前后堆使用量不变。
@@ -112,18 +112,18 @@ iPhone 请在 nRF Connect 等 App 中扫描，不要以“设置 → 蓝牙”�
 加入红外接收时为 **23168 字节**，按键接入时为 **22528 字节**，RTC 修复时为 **22848 字节**；
 加入 S2 呼吸灯后原始堆为 **22624 字节**；板上红外长按修复版原始堆为 **22528 字节**，实测可用 **13064 字节**。
 当前电源驱动实测版原始堆为 **23360 字节**，运行时可用 **13896 字节**，10 次休眠前后不变；多外设组合需另行实测。
-详见 [内存记录](rtt/MEMORY.md) 和 [实机报告](docs/lib-analysis/generated/recovery/nimble-rtt-hardware.json)。
+详见 [内存记录](docs/rtt/MEMORY.md) 和 [实机报告](docs/lib-analysis/generated/recovery/nimble-rtt-hardware.json)。
 
 原生 USB CDC 已完成软件适配，上电关闭，通过 `usbcdc start/status/stop` 控制；
 V2.0 的 PB3/PB4 经 P5 接板上 Host 用 USB-A，Type-C 数据线则接 CH340。
 P5 只接通数据线，不能把原生 USB 切换到 Type-C；Device 测试需另行确认接口与供电接法。
-接线、待执行的 Linux 回传测试和内存限制见 [USB.md](rtt/USB.md)。
+接线、待执行的 Linux 回传测试和内存限制见 [USB.md](docs/rtt/USB.md)。
 
 TF 已完成块设备、FAT 文件系统和命令适配：`tf probe`、`tf status`、`tf mount`、`tf umount`、`tf stop`。
-上电不自动探测或格式化；综合固件已烧录，没有 TF 卡，实卡验证待完成。见 [TF.md](rtt/TF.md)。
+上电不自动探测或格式化；综合固件已烧录，没有 TF 卡，实卡验证待完成。见 [TF.md](docs/rtt/TF.md)。
 
 板载红外接收使用 PE6（V02 的 P1 1–2 跳线），通过 `irrx start/status/read/watch/stop` 控制，
-支持 NEC/扩展 NEC 事件，不自动启动。暂无遥控器，实际接收待验证；见 [IR.md](rtt/IR.md)。
+支持 NEC/扩展 NEC 事件，不自动启动。暂无遥控器，实际接收待验证；见 [IR.md](docs/rtt/IR.md)。
 
 FM 与蓝牙目前仍互斥使用射频。`ble start` 会先停止 FM；蓝牙启动后即使执行
 `ble stop` 停止广播，也需复位后才能重新运行 FM。`ble adv` 可恢复广播。
@@ -165,7 +165,7 @@ ab32vg1-prougen 是 中科蓝讯(Bluetrum) 推出的一款基于 RISC-V 内核�
 | 板载外设/接口 | `bare` 当前状态 | RT-Thread BSP 当前状态 |
 | --- | --- | --- |
 | USB 转串口 | 裸机心跳程序已通过板载 CH340/UART0 单线双向通信验证，支持命令、文本回传和 LED 控制；见 [用法](bare/README.md) | UART0 已启用；这是外置 USB-UART 桥，不是片上 USB Device |
-| RGB LED / 用户按键 | 已新增 PE1 红灯控制和独立裸机心跳，实机确认闪烁；通用 GPIO/按键驱动尚未实现 | S2 切换 PE1 红色呼吸灯；三个键仍通过 keys0 提供 DOWN/UP/LONG，见 [PWM.md](rtt/PWM.md) |
+| RGB LED / 用户按键 | 已新增 PE1 红灯控制和独立裸机心跳，实机确认闪烁；通用 GPIO/按键驱动尚未实现 | S2 切换 PE1 红色呼吸灯；三个键仍通过 keys0 提供 DOWN/UP/LONG，见 [PWM.md](docs/rtt/PWM.md) |
 | SD 卡槽 | 已实现原生 SD0 单块读写，实卡待验证 | 默认编入 `BSP_USING_TFCARD`、tf0 和 FAT12/16/32，显式探测/挂载，离线测试通过；实卡待验证 |
 | 红外遥控接收 | 尚未移植 | 默认编入原生 NEC/扩展 NEC 驱动、ir0 和 irrx，显式启动；NEC 遥控器四向键与长按释放已实测；不支持完整 IrDA 协议 |
 | 模拟音频输出 | 已实现片内 DAC 播放，默认平台钩子拒绝启动；待板级接入与实测 | `sound0` 已启用；DAC 测试音和 `pcmcheck` 静音播放已实测，播放池按需分配 |
@@ -180,11 +180,11 @@ ab32vg1-prougen 是 中科蓝讯(Bluetrum) 推出的一款基于 RISC-V 内核�
 | 音频 SDADC | 12 个底层函数及模拟输入恢复；完整 PCM 录音待完成 | 不属于上述 SARADC 驱动的支持范围 |
 | 硬件 SPI1 | 已恢复并通过原库差分测试，待上板验证 | 已新增 `spi1` 硬件总线适配，分阶段收发/片选/超时；固定复位时序待验证，当前未启用 |
 | 硬件 I2C | 尚未找到可恢复的硬件实现；现存 `drv_i2c` 是软件模拟，不满足本项目的硬件 I2C 目标 | 只有软件 I2C 适配，当前未启用 |
-| RTC | 尚未移植 | 默认编入原生秒计数读写、首次校时、超时与跨秒一致性检查；已烧录验证读写、范围拒绝及约 60 秒走时；当前 time_t 支持至 2038 年，闹钟及秒中断设备接口未实现；电源驱动已验证 RTC 秒唤醒，见 [RTC.md](rtt/RTC.md) |
+| RTC | 尚未移植 | 默认编入原生秒计数读写、首次校时、超时与跨秒一致性检查；已烧录验证读写、范围拒绝及约 60 秒走时；当前 time_t 支持至 2038 年，闹钟及秒中断设备接口未实现；电源驱动已验证 RTC 秒唤醒，见 [RTC.md](docs/rtt/RTC.md) |
 | WDT | 尚未移植独立驱动；其他底层函数中的喂狗操作不等于完整驱动 | 已修复秒单位、超时读回和停止；当前未启用 |
 | FLASH | 有原库读写/擦除封装，尚未独立恢复，错误结果传播及实测待补 | 有片内 Flash/FAL 接入代码，当前未启用 |
 | TIMER | 未实现，`drv_timer.c/.h` 为空文件 | 已修复溢出位/共享 IRQ/单次模式，当前未启用 |
-| PWM | 尚未移植 | 默认启用 Timer5 PWM0/PE1；修复时钟、启动、复用、占空比及通道校验，S2 触发呼吸灯；其他通道波形尚未实测，见 [PWM.md](rtt/PWM.md) |
+| PWM | 尚未移植 | 默认启用 Timer5 PWM0/PE1；修复时钟、启动、复用、占空比及通道校验，S2 触发呼吸灯；其他通道波形尚未实测，见 [PWM.md](docs/rtt/PWM.md) |
 | FM | 初始化、调谐及部分 DMA 已恢复；搜台、完整收音链路待完成 | 已新增 `fm0`、`fmrx` 命令及 DAC 播放/互斥/超时处理；默认启用；控制、DAC 测试音已实测，广播接收仍只有杂音 |
 | 蓝牙 | 控制器归档已全部源码替代，仍调用芯片 ROM/HAL；裸机默认平台钩子拒绝启动 | 恢复控制器与 NimBLE Host 默认启用；`ble start` 提供单连接 GATT，读写/通知/重连实测通过；`btctl` 保留独立诊断模式，配对/加密未启用 |
 | I2S/IIS | 已恢复另一份 AB53XX SDK 的 I2S SRC 输出子集，136 组差分通过；RX/DMA 未恢复 | `BSP_USING_I2S` 将 PCM 送到硬件 I2S；16 位双声道、44.1/48 kHz；实验性、默认关闭、未实测 |

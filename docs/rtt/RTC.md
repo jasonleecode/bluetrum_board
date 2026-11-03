@@ -1,8 +1,8 @@
 # AB32VG1 原生 RTC
 
-AB32VG1 支持 RTC。[寄存器手册第 5 章](../docs/ab32vg1_doc/AB32VG1_Register.pdf)
+AB32VG1 支持 RTC。[寄存器手册第 5 章](../ab32vg1_doc/AB32VG1_Register.pdf)
 列出独立供电域的 32 位秒计数器、闹钟、秒中断及唤醒相关寄存器；
-[数据手册](../docs/ab32vg1_doc/AB32VG1_DataSheet.pdf) 也列有 IRTC 和 OSC32KI/OSC32KO 引脚。
+[数据手册](../ab32vg1_doc/AB32VG1_DataSheet.pdf) 也列有 IRTC 和 OSC32KI/OSC32KO 引脚。
 这些是芯片能力，不能等同于当前驱动全部实现。
 
 综合 RTT 默认启用 `RT_USING_RTC`、`BSP_USING_ONCHIP_RTC` 和 `RTC_USING_INTERNAL_CLK`，
@@ -19,7 +19,7 @@ AB32VG1 支持 RTC。[寄存器手册第 5 章](../docs/ab32vg1_doc/AB32VG1_Regi
   以原 BSP 配置和实板对比结果为依据，不把位名直接解释为板外晶体选择。
 - 关闭 `RTC_USING_INTERNAL_CLK` 的可选构建沿用原 BSP，清 bit6、启用 XOSC32K 和 32.768K 档，
   只适用于已确认合适外部时钟硬件的情况。
-- [V02 原理图](../docs/ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf) 中 OSC32K 相关器件标为 NC，
+- [V02 原理图](../ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf) 中 OSC32K 相关器件标为 NC，
   没有已装的 32.768 kHz 晶体；板上的 Y1 是 26 MHz，不能当成 RTC 晶体。
 - 内部 RC 尚未校准，不承诺长期走时精度。独立供电域意味着有条件保留计数，
   不代表开发板拔掉所有电源后还能计时；V2.0 的供电、RESET 行为和备电方案需实测核对。
@@ -65,7 +65,7 @@ valid 表示时间已经设置，不单独证明振荡器正在走时。支持�
 
 ## 驱动修复
 
-[drv_rtc.c](bsp/libraries/hal_drivers/drv_rtc.c) 现在采用明确返回错误的原生寄存器传输，
+[drv_rtc.c](../../rtt/bsp/libraries/hal_drivers/drv_rtc.c) 现在采用明确返回错误的原生寄存器传输，
 移除漏返回值的旧 `irtc_sfr_read()` 和无错误返回的内部封装：
 
 - 使用实际芯片头文件的命令编码：读 `0x100`、写 `0x200`，计数器命令 `0x01`。
@@ -100,7 +100,7 @@ RTC 专用模型使用真实芯片头文件和真实驱动，模拟命令/数据
 
 当前综合固件原始堆区 **22848 字节**，满足原有 22 KiB 下限，没有下调预算；
 SRAM1 仍余 32 字节，蓝牙固定区和 IRQ 栈不变。见 [MEMORY.md](MEMORY.md) 和
-[首轮软件验证记录](../docs/lib-analysis/generated/recovery/rtc-rtt-software.json)。该记录对应烧录前的
+[首轮软件验证记录](../lib-analysis/generated/recovery/rtc-rtt-software.json)。该记录对应烧录前的
 历史版本，时钟选择假设随后被实板推翻，最终版本以以下实测记录和固件哈希为准。
 
 ### V2.0 实板验证（2026-11-02）
@@ -123,6 +123,6 @@ python3 tools/rtt/test_rtc_uart.py --port /dev/ttyUSB0 --seconds 60 \
 - 期间反复调用 `date` 未重置计数；测试前后可用堆均为 13384 字节，按键读取错误为零。
 - 测试结束重新校时，`date` 显示 `2026-11-02 17:33:30 UTC+8`，串口已释放。
 
-记录见 [最终固件及结果摘要](../docs/lib-analysis/generated/recovery/rtc-rtt-hardware.json) 和
-[完整串口记录](../docs/lib-analysis/generated/recovery/rtc-rtt-uart.json)。
+记录见 [最终固件及结果摘要](../lib-analysis/generated/recovery/rtc-rtt-hardware.json) 和
+[完整串口记录](../lib-analysis/generated/recovery/rtc-rtt-uart.json)。
 尚未验证手动 RESET、彻底断电后的保持、长期温漂、外部晶体，以及同时运行蓝牙/音频/USB 的组合。

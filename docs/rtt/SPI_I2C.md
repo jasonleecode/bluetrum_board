@@ -14,8 +14,8 @@
 | DO / MOSI | PE2 | IOH 第 2 脚，丝印 SDA | 与 IIC 数据共用 |
 | CS | 应用选择空闲 GPIO | 按接线指定 | 例如 PA0；不是自动硬件 NSS |
 
-见 [芯片手册](../docs/ab32vg1_doc/AB32VG1_DataSheet.pdf) 和
-[V02 原理图](../docs/ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf)。
+见 [芯片手册](../ab32vg1_doc/AB32VG1_DataSheet.pdf) 和
+[V02 原理图](../ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf)。
 第 6 组的引脚顺序与旧库中的 1–5 组不同：PE4 输入，PE3/PE2 输出。
 它避开默认固件的 UART0、按键、TF、红外和红色呼吸灯，但不能与 PE 组 I2S 或
 使用 PE2/PE3 的 I2C 同时启用。源代码对这些冲突以及 UART0/1/2 的对应 SPI 组做编译拒绝；
@@ -75,7 +75,7 @@ SCK 电气波形、CPOL/CPHA、从设备应答、真实 CS 时序或全双工。
 耗时包含框架调用、轮询和调度开销，只验证分频设置影响传输速度，不能当作波形频率测量。
 各轮 BAUD 均读回零，故不再用读回值报告“实际速率”。`spi1check 0` 正确拒绝，
 按键 `read_errors=0`、电源 `blockers=00`，测试前后堆均为 total=18760、used=9376、available=9384。
-原始串口输出及固件 SHA-256 见 [实板报告](../docs/lib-analysis/generated/recovery/spi-rtt-hardware.json)。
+原始串口输出及固件 SHA-256 见 [实板报告](../lib-analysis/generated/recovery/spi-rtt-hardware.json)。
 
 复现（会执行一次 RTC 浅休眠，要求空排针、未启动蓝牙/FM/音频等 PM 阻止项）：
 
@@ -104,7 +104,7 @@ SDA=RT pin 15（PE2）、SCL=RT pin 16（PE3）。但接口用途不等于片上
 
 现有芯片手册、寄存器头以及已审计的 SDK `.a` 中尚未找到可确认的硬件 I2C
 寄存器、引脚复用选择或初始化/收发对象。历史检索范围和来源见
-[SPI/I2C 恢复记录](../docs/lib-analysis/SPI_I2C_RECOVERY.md)。
+[SPI/I2C 恢复记录](../lib-analysis/SPI_I2C_RECOVERY.md)。
 这不能证明硅片绝无控制器，但不足以实现可信的硬件驱动。
 因此本次没有把 GPIO 模拟实现更名为硬件 I2C，也没有擅自启用旧的软件 I2C。
 继续硬件恢复需要厂家完整寄存器说明或确实使用硬件 I2C 的 SDK/固件。

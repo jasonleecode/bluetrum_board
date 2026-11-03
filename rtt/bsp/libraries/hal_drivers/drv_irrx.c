@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2020-2021, Bluetrum Development Team
  * SPDX-License-Identifier: Apache-2.0
- * Native NEC receiver on PE6 / IR_G7. See rtt/IR.md for evidence and limits.
+ * Native NEC receiver on PE6 / IR_G7. See docs/rtt/IR.md for evidence and limits.
  * No worker, allocation, logging or application callback in the IRQ path.
  */
 #include <board.h>

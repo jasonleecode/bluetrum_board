@@ -9,7 +9,7 @@
 
 ### V2.0 接口与数据线走向
 
-依据 [V02 原理图](../docs/ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf) 的
+依据 [V02 原理图](../ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf) 的
 Power&Type-C、X-LINK 和 USB 三个区域，两个接口的数据通路如下：
 
 | 板上接口 | 原理图数据通路 | 用途与边界 |
@@ -28,7 +28,7 @@ P5 是两条数据线的连接跳线，不是 Host/Device 模式选择器：
 | 3–4 | 4 脚：PB3 / D+ | 3 脚：USB_DP |
 
 短接这两对仅将 AB32 数据线接到 USB-A，**不会将其切换到 Type-C**。
-[旧版用户手册 §2.9](../docs/ab32vg1_doc/AB32VG1_User_Manual.pdf) 中的 J15/J16
+[旧版用户手册 §2.9](../ab32vg1_doc/AB32VG1_User_Manual.pdf) 中的 J15/J16
 属于旧版标号，不应作为 V2.0 的跳线位置说明。
 
 ### 原生 Device 测试前提
@@ -56,7 +56,7 @@ cd rtt/bsp
 scons -j4
 ```
 
-生成 `rtthread.elf`、`rtthread.bin`，DCF 打包与下载见 [BSP 说明](README.md#linux-构建与驱动维护)。
+生成 `rtthread.elf`、`rtthread.bin`，DCF 打包与下载见 [BSP 说明](../../rtt/README.md#linux-构建与驱动维护)。
 当前板上已有该功能；完成上述 Device 接口及供电适配后，在原 CH340 串口 shell 中执行：
 
 ```text
@@ -132,5 +132,5 @@ USB 等线程代码加入后 `.flash` 为 **64512 字节**。带 USB 的原始�
 未启用 USB 时仍保持原先的 NimBLE 28 KiB / 仅控制器 39 KiB 检查。
 第二 SRAM 仍只余 24 字节。USB 开始运行还需分配线程栈和线程对象，
 这些链接数值不代表运行时 `free`；完整 PCM 池与 NimBLE、USB 同时启用需重新评估。
-详见 [构建/测试记录](../docs/lib-analysis/generated/recovery/usb-rtt-software.json)。
+详见 [构建/测试记录](../lib-analysis/generated/recovery/usb-rtt-software.json)。
 以上为该阶段历史数据，当前含 TF、红外和按键的综合固件预算见 [MEMORY.md](MEMORY.md)。

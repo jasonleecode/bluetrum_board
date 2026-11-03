@@ -15,7 +15,7 @@ SPI1 驱动及 RTT 同步框架的线程路径放入 Flash，注册从 board-ini
 SPI1 总线静态注册，无专用线程、DMA 池或长期测试缓冲。
 
 实板重复收发和 RTC 休眠恢复后，堆 total=18760、used=9376、available=9384，
-与测试前相同；串口记录见 [spi-rtt-hardware.json](../docs/lib-analysis/generated/recovery/spi-rtt-hardware.json)。
+与测试前相同；串口记录见 [spi-rtt-hardware.json](../lib-analysis/generated/recovery/spi-rtt-hardware.json)。
 这不是蓝牙和完整 PCM 池同时运行的验证，原有两者不能同时保留的限制仍在。
 
 
@@ -60,7 +60,7 @@ USB/TF 同时运行的动态内存也未包含在这项保证内。
 
 `memory_report.py` 检查所有分配段与工作区不重叠、SRAM 代码复制地址/长度、关键函数归属及堆下限。
 默认、AUDEC 综合、独立 AUDEC、AUDEC+FM、控制器、NimBLE、GPIO IRQ 和旧音频布局均已编译通过。
-硬件与链接记录见 [audec-integrated-hardware.json](../docs/lib-analysis/generated/recovery/audec-integrated-hardware.json)，
+硬件与链接记录见 [audec-integrated-hardware.json](../lib-analysis/generated/recovery/audec-integrated-hardware.json)，
 接口与完整播放器的剩余工作见 [MP3.md](MP3.md)。
 
 ## 双声道 AUDEC 扩展
@@ -69,7 +69,7 @@ USB/TF 同时运行的动态内存也未包含在这项保证内。
 驱动本身仍不分配动态内存；调用方增加右侧 576 个频谱字和 39 个频带字，合计 2460 字节。
 三组测试（mono/stereo/joint_stereo）运行前后测试镜像已用堆均为 9376 字节。
 这是硬件后端预算，不包括板上 MP3 软件前端或完整播放器。
-实测记录见 [audec-stereo-hardware.json](../docs/lib-analysis/generated/recovery/audec-stereo-hardware.json)。
+实测记录见 [audec-stereo-hardware.json](../lib-analysis/generated/recovery/audec-stereo-hardware.json)。
 
 ## 接入前内存优化
 
@@ -80,7 +80,7 @@ FM、恢复源码的蓝牙控制器、PCM、串口和 LED 保留在同一固件�
 
 单位为字节；`free` 的 total 已扣除 RT-Thread 堆管理结构。
 基线为 `51ec6bc`，此前硬件报告见
-[bt-rtt-hardware.json](../docs/lib-analysis/generated/recovery/bt-rtt-hardware.json)。
+[bt-rtt-hardware.json](../lib-analysis/generated/recovery/bt-rtt-hardware.json)。
 
 | 状态 | 优化前 | 优化后 |
 | --- | ---: | ---: |
@@ -155,8 +155,8 @@ Host 静态池落地后，需要根据静态占用重新设置当前 40 KiB 堆�
   BLE 扫描时控制器线程峰值 24%，未缩减线程栈来获取上述收益。
 
 结构化结果与串口记录见
-[memory-rtt-hardware.json](../docs/lib-analysis/generated/recovery/memory-rtt-hardware.json) 和
-[memory-rtt-hardware.log](../docs/lib-analysis/generated/recovery/memory-rtt-hardware.log)。
+[memory-rtt-hardware.json](../lib-analysis/generated/recovery/memory-rtt-hardware.json) 和
+[memory-rtt-hardware.log](../lib-analysis/generated/recovery/memory-rtt-hardware.log)。
 以上是接入前的验证范围。NimBLE/GATT 和 ACL 的后续验证见下一节；
 FM/蓝牙同时运行和长时间稳定性仍未验证。
 
@@ -197,7 +197,7 @@ FM/蓝牙同时运行和长时间稳定性仍未验证。
 FM 启停与 PCM 互斥回归通过；FM 开启时 `pcmcheck` 返回忙，停止 FM 后播放成功，
 蓝牙启用后 FM 启动返回忙。此次没有新增 FM 听感验收，广播接收仍待换耳机验证。
 源码、配置、命令与边界见 [NimBLE 接入说明](NIMBLE.md)，最终二进制摘要、连接报告
-和串口记录见 [nimble-rtt-hardware.json](../docs/lib-analysis/generated/recovery/nimble-rtt-hardware.json)。
+和串口记录见 [nimble-rtt-hardware.json](../lib-analysis/generated/recovery/nimble-rtt-hardware.json)。
 
 ## USB CDC 软件适配后
 
@@ -221,7 +221,7 @@ USB 代码及 CherryUSB 核心/CDC 放 Flash，由单个线程轮询，USB CPU �
 上述是链接预算，不能据此报告运行时 `free`；USB/蓝牙/PCM 各组合须上板重新测量。
 尤其先前保留完整 PCM 池的 NimBLE 状态只余 2864 字节，不能假定再启动 USB 仍有足够余量。
 原控制器固定内存与栈未缩减，第二 SRAM 仍只余 24 字节。
-见 [USB 软件适配](USB.md) 和 [离线结果](../docs/lib-analysis/generated/recovery/usb-rtt-software.json)。
+见 [USB 软件适配](USB.md) 和 [离线结果](../lib-analysis/generated/recovery/usb-rtt-software.json)。
 
 ## TF/FAT 软件适配后
 
@@ -252,7 +252,7 @@ USB 另需线程栈，PCM 的 8496 字节懒分配仍保留；不能保证这些
 
 默认、TF 综合、USB、NimBLE、旧 SDIO 配置编译通过；TF 适配/FAT 模拟卡、原 SD0 模型、
 八组驱动和 USB 离线回归通过。详见 [TF.md](TF.md) 和
-[软件验证记录](../docs/lib-analysis/generated/recovery/tf-rtt-software.json)。
+[软件验证记录](../lib-analysis/generated/recovery/tf-rtt-software.json)。
 
 ## 红外接收软件适配后
 
@@ -280,7 +280,7 @@ USB 另需线程栈，PCM 的 8496 字节懒分配仍保留；不能保证这些
 
 默认综合、ir_integrated、独立 ir、tf 和 peripherals 构建通过；IR 模型及编译冲突测试、
 八组现有驱动测试、TF/FAT 与 34 场景 SD0 回归通过。验证范围见 [IR.md](IR.md)，
-结果记录见 [ir-rtt-software.json](../docs/lib-analysis/generated/recovery/ir-rtt-software.json)。
+结果记录见 [ir-rtt-software.json](../lib-analysis/generated/recovery/ir-rtt-software.json)。
 
 ## 三个板载按键接入后
 
@@ -308,12 +308,12 @@ USB 另需线程栈，PCM 的 8496 字节懒分配仍保留；不能保证这些
 
 默认综合、keys_irq、ir_integrated、peripherals、i2s_pa 构建及放置检查通过；
 按键/GPIO 模型、IR、八组驱动和 TF/FAT/SD0 回归通过。见 [KEYS.md](KEYS.md) 及
-[软件验证记录](../docs/lib-analysis/generated/recovery/keys-rtt-software.json)。
+[软件验证记录](../lib-analysis/generated/recovery/keys-rtt-software.json)。
 
 该综合固件随后已烧录并完成三键/长按验证。启动和按键测试后的 `free` 均为 total 22440、
 used/maximum 9376、available 13064 字节，测试没有增加堆占用。该状态下 BLE、FM、USB、IR
 均未启动，TF 未挂载，不能作为全模块运行时的余量。见
-[实机记录](../docs/lib-analysis/generated/recovery/keys-rtt-hardware.json)。
+[实机记录](../lib-analysis/generated/recovery/keys-rtt-hardware.json)。
 
 ## RTC 修复与接入后
 
@@ -349,7 +349,7 @@ available: 13384
 
 该数字为启动后和 RTC 测试状态，不代表蓝牙、音频、USB 同时运行的余量。
 长期精度及断电保持尚未验证。见 [RTC.md](RTC.md) 和
-[实板记录](../docs/lib-analysis/generated/recovery/rtc-rtt-hardware.json)。
+[实板记录](../lib-analysis/generated/recovery/rtc-rtt-hardware.json)。
 
 ## S2 呼吸灯接入后
 
@@ -370,7 +370,7 @@ PWM 框架、驱动、呼吸灯和 main 线程正文放 Flash，GPIO 临界代�
 原始堆比 RTC 版减少 224 字节，仍通过 22 KiB 下限，未修改既有栈和蓝牙固定区。
 实板呼吸运行时 `free` 为 total=22536、used=9376、maximum=9376、available=13160。
 此数据不代表蓝牙、音频和 USB 同时运行时余量。
-功能与验证见 [PWM.md](PWM.md) 和 [实机记录](../docs/lib-analysis/generated/recovery/pwm-led-rtt-hardware.json)。
+功能与验证见 [PWM.md](PWM.md) 和 [实机记录](../lib-analysis/generated/recovery/pwm-led-rtt-hardware.json)。
 
 ## 红外遥控器实测及长按修复后（2026-11-03）
 
@@ -390,7 +390,7 @@ PWM 框架、驱动、呼吸灯和 main 线程正文放 Flash，GPIO 临界代�
 相对 S2 呼吸灯版原始堆减少 96 字节，恰好满足 22 KiB 下限，未降低预算。
 IR 测试前后及启停后 `free` 均为 total=22440、used=9376、maximum=9376、available=13064。
 这些数值不代表所有外设同时运行的余量。见 [IR.md](IR.md) 和
-[本次实板报告](../docs/lib-analysis/generated/recovery/ir-rtt-hardware.json)。
+[本次实板报告](../lib-analysis/generated/recovery/ir-rtt-hardware.json)。
 
 ## 电源管理与浅休眠/软关机接入后（软件与实板验证）
 
@@ -412,4 +412,4 @@ PM 线程回调及命令放 Flash，睡眠入口/桥策略/终端断电路径留
 相比红外长按修复版，原始堆净增加 832 字节，原有 22 KiB 下限不变。
 本版已烧录，连续 10 次 RTC 唤醒前后 total=23272、used=9376、available=13896 字节不变。
 RTC 计数读取/睡眠/补 tick 的临界路径及调用目标留 SRAM；SRAM1 剩余 8 字节。
-见 [POWER.md](POWER.md) 和 [软件记录](../docs/lib-analysis/generated/recovery/power-rtt-software.json)。
+见 [POWER.md](POWER.md) 和 [软件记录](../lib-analysis/generated/recovery/power-rtt-software.json)。

@@ -3,9 +3,9 @@
 综合 RTT 默认启用 `BSP_USING_LED_BREATH` 和 Timer5 PWM0，替代原 PE1 心跳闪烁。
 V2.0 的红色 LED 为共阳极、低电平点亮；**P1 的 3–4 脚须短接**。
 PE1 对应 Timer5 **PWM0**，旧 Kconfig 中写成 PWM2 的描述已修正。
-依据：[V02 原理图](../docs/ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf)、
-[数据手册引脚表](../docs/ab32vg1_doc/AB32VG1_DataSheet.pdf)、
-[寄存器手册第 2、4 章](../docs/ab32vg1_doc/AB32VG1_Register.pdf)。
+依据：[V02 原理图](../ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf)、
+[数据手册引脚表](../ab32vg1_doc/AB32VG1_DataSheet.pdf)、
+[寄存器手册第 2、4 章](../ab32vg1_doc/AB32VG1_Register.pdf)。
 
 ## 操作
 
@@ -21,7 +21,7 @@ PE1 对应 Timer5 **PWM0**，旧 Kconfig 中写成 PWM2 的描述已修正。
 
 ## 驱动修复与 API 边界
 
-[drv_pwm.c](bsp/libraries/hal_drivers/drv_pwm.c) 已修复以下问题：
+[drv_pwm.c](../../rtt/bsp/libraries/hal_drivers/drv_pwm.c) 已修复以下问题：
 
 - 开启 Timer3/4/5 外设时钟；初始化清除计数和 pending，关闭捕获与 IRQ；
   enable 同时启动计数器，最后一个输出 disable 后停表。
@@ -74,5 +74,5 @@ python3 tools/rtt/memory_report.py
 符合队列丢最旧事件的策略，read_errors=0。两次 `free` 均为 total=22536、used=9376、
 available=13160；RTC 仍递增。PWM shell 缺参返回 -22，正常 GET 可读取 250000 ns 配置。
 
-记录及哈希见 [实板报告](../docs/lib-analysis/generated/recovery/pwm-led-rtt-hardware.json)。
+记录及哈希见 [实板报告](../lib-analysis/generated/recovery/pwm-led-rtt-hardware.json)。
 4 kHz 为配置目标，未使用示波器测量；其他 Timer/LPWM 波形和多外设同时运行未做硬件验证。

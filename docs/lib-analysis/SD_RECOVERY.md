@@ -104,5 +104,5 @@ python3 docs/lib-analysis/test_sdcard.py --linker /path/to/ld.lld
 
 `python3 tools/rtt/test_tf.py` 重跑本文 34 场景/1217 断言，另以真实适配层和 FAT12/16/32
 内存模拟卡验证读写、同步、重挂及错误传播。软件使用细节、接线与限制见
-[TF 接入说明](../../rtt/TF.md)，内存变化见 [综合内存记录](../../rtt/MEMORY.md)。
+[TF 接入说明](../rtt/TF.md)，内存变化见 [综合内存记录](../rtt/MEMORY.md)。
 原生 SD0 驱动自身没有改变；新增板级入口仍需验证电源、引脚、DMA 和真实卡时序。

@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: Apache-2.0
- * Recovered AUDEC MP3 hardware back end; see rtt/MP3.md for provenance.
+ * Recovered AUDEC MP3 hardware back end; see docs/rtt/MP3.md for provenance.
  * No vendor codec object is linked. SRAM work area must be reserved at link time.
  */
 #include "board.h"

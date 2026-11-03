@@ -106,14 +106,14 @@ python3 tools/rtt/check_builds.py default audec_integrated audec audec_fm
 | 输出缓冲区前后保护字 | 两轮全部完好 |
 | 重复运行 | 逐字节相同 |
 
-原始寄存器验证结果见 [实机报告](../docs/lib-analysis/generated/recovery/mp3-hardware.json)，
+原始寄存器验证结果见 [实机报告](../lib-analysis/generated/recovery/mp3-hardware.json)，
 对应程序保留为 `tools/rtt/tests/mp3/register_probe.c`。
 原始串口记录以 `mp3-hardware.log.zlib` 和 `mp3-hardware-repeat.log.zlib`
 保存在同目录，可用 Python `zlib.decompress()` 解压后重新比较。
 
 HAL 驱动另外完成两轮实板验证：通过 `audec0` 提交全部 16 个 granule，
 两轮 PCM 均与原始寄存器验证逐字节相同，最大参考误差仍为 1 LSB。
-见 [驱动实机报告](../docs/lib-analysis/generated/recovery/audec-driver-hardware.json)，
+见 [驱动实机报告](../lib-analysis/generated/recovery/audec-driver-hardware.json)，
 对应完整串口记录为同目录的 `audec-driver-uart.log.zlib`。
 
 ## 如何区分硬件解码与软件播放
@@ -128,7 +128,7 @@ HAL 驱动另外完成两轮实板验证：通过 `audec0` 提交全部 16 个 g
 
 所用 SDK 固定于
 [aa0fc8f / libcodecs.a](https://github.com/ZhiqingLi/Sdk_Refresh/blob/aa0fc8f993bd0c2a6982bf0a95b3461ad7e7aa6d/AB53XX_SDK/app/platform/libs/libcodecs.a)，
-SHA-256、样本和输入数据格式见 [manifest.json](../tools/rtt/tests/mp3/manifest.json)。
+SHA-256、样本和输入数据格式见 [manifest.json](../../tools/rtt/tests/mp3/manifest.json)。
 库仅用于电脑端分析，没有加入仓库或综合固件依赖。
 
 ## 已确认的接口与限制
@@ -172,7 +172,7 @@ SHA-256、样本和输入数据格式见 [manifest.json](../tools/rtt/tests/mp3/
 尝试把内部 DMA 输出缓冲放到 `0x57000` 时，实板最终阶段停在 `0x1f` 并超时；
 最终方案把输出缓冲留在主 SRAM，将 SRAM 尾部用作内核分配器代码。
 代码、工作区和堆的地址检查与实测数据见 [内存记录](MEMORY.md) 和
-[audec-integrated-hardware.json](../docs/lib-analysis/generated/recovery/audec-integrated-hardware.json)。
+[audec-integrated-hardware.json](../lib-analysis/generated/recovery/audec-integrated-hardware.json)。
 
 上述为同一综合镜像中的顺序回归，未验证硬解码与 BLE 同时运行，也不代表完整 MP3 文件播放已接入。
 默认原始堆相对迁移前减少 4 KiB；完整 PCM 播放池和 NimBLE 不能同时保留，后续播放器需继续规划缓冲。
@@ -198,7 +198,7 @@ SHA-256、样本和输入数据格式见 [manifest.json](../tools/rtt/tests/mp3/
 双声道调用方需要额外提供右侧 2460 字节输入；测试命令按需分配并释放，三组测试前后已用堆均为 9376。
 这不消除完整播放器的软件前端、文件缓冲和 PCM 播放池预算限制。
 
-证据见 [audec-stereo-hardware.json](../docs/lib-analysis/generated/recovery/audec-stereo-hardware.json)，
+证据见 [audec-stereo-hardware.json](../lib-analysis/generated/recovery/audec-stereo-hardware.json)，
 原始日志为同目录 `audec-stereo-uart.log.zlib`。样本与向量在
 `tools/rtt/tests/mp3/stereo/` 和 `joint_stereo/`，由恢复工具在电脑生成，板上没有链接原厂库。
 本轮验证回传的数值 PCM，未进行耳机听感或连续文件播放测试。

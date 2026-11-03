@@ -1,5 +1,5 @@
 /* Unified RTT/FM/BT/AUDEC: reserve controller ABI RAM; use both executable SRAM banks.
- * Audited thread paths run through the flash cache; see rtt/MEMORY.md.
+ * Audited thread paths run through the flash cache; see docs/rtt/MEMORY.md.
  * Kernel, cache refill, controller and interrupt paths stay in SRAM.
  * No code or RT heap may overlap 0x11000..0x13800 or ROM 0x10000..0x11000. */
 ENTRY(_start)

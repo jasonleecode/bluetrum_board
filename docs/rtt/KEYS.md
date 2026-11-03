@@ -1,7 +1,7 @@
 # 三个板载按键
 
 综合 RTT 默认启用 `BSP_USING_KEYS`，通过现有 PIN 驱动接入 `keys0`。
-依据 [V02 原理图](../docs/ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf)，接线为：
+依据 [V02 原理图](../ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf)，接线为：
 
 | 事件编号 | 板上按键 | GPIO | RTT pin 编号 |
 | --- | --- | --- | ---: |
@@ -35,7 +35,7 @@ keys read
 
 ## 应用接口
 
-头文件为 [board_keys.h](bsp/app/board_keys.h)，实现为 [board_keys.c](bsp/app/board_keys.c)。
+头文件为 [board_keys.h](../../rtt/bsp/app/board_keys.h)，实现为 [board_keys.c](../../rtt/bsp/app/board_keys.c)。
 设备上电自动注册并开始扫描，应用在线程中打开和读取：
 
 ```c
@@ -65,7 +65,7 @@ KEY1/KEY2 与 SPI1 G5 冲突。Kconfig 和编译检查均拒绝这些组合。
 PF0/PF1 也可作模拟 AUX 输入，启用未来录音功能时须重新分配；当前 DAC/FM 输出不占这些键。
 应用不能在扫描期间把三个引脚改为输出或复用给其他功能。
 
-[drv_gpio.c](bsp/libraries/hal_drivers/drv_gpio.c) 同时修复了共享唤醒线路覆盖回调、
+[drv_gpio.c](../../rtt/bsp/libraries/hal_drivers/drv_gpio.c) 同时修复了共享唤醒线路覆盖回调、
 detach 清错引脚、WKUPEDG 边沿位和 pending 清除位错误，以及误用全局中断恢复 API 的问题。
 回调按 27 个有效引脚分别保存，配置改变保留其他已启用引脚；返回普通 GPIO 时清除 FEN，
 输出使用 SET/CLR，避免读改写整个端口。
@@ -87,7 +87,7 @@ detach 清错引脚、WKUPEDG 边沿位和 pending 清除位错误，以及误�
 用户实际操作后，串口记录到 KEY1/KEY2/KEY3 的 DOWN/UP，以及 KEY2 在 800 ms 的 LONG，
 随后 1590 ms 松开产生 UP。三个实体按键和一次长按已验证；通用 GPIO IRQ 仍只通过离线测试。
 启动时可用堆 13064 字节，总堆 22440 字节。验证记录见
-[按键实机结果](../docs/lib-analysis/generated/recovery/keys-rtt-hardware.json)。
+[按键实机结果](../lib-analysis/generated/recovery/keys-rtt-hardware.json)。
 
 离线复测执行：
 
@@ -105,4 +105,4 @@ python3 tools/rtt/memory_report.py
 默认综合固件原始堆区为 22528 字节（22 KiB），SRAM1 余 32 字节；按键不申请动态队列或线程。
 可选 GPIO IRQ 综合配置原始堆区为 21376 字节，启用回调时另从堆分配工作线程。
 这些是链接结果，运行时余量和多模块共存仍需测量。详见 [MEMORY.md](MEMORY.md) 和
-[软件验证记录](../docs/lib-analysis/generated/recovery/keys-rtt-software.json)。
+[软件验证记录](../lib-analysis/generated/recovery/keys-rtt-software.json)。

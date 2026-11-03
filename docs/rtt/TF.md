@@ -5,7 +5,7 @@ TF 已作为模块编入同一综合 RTT 工程，与 FM、恢复源码的蓝牙
 
 ## 接线与配置
 
-按仓库 [V02 原理图](../docs/ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf)，
+按仓库 [V02 原理图](../ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf)，
 板载卡槽使用 SD0 G2 的一位原生 SD 总线，不是 SPI 模拟：
 
 | 信号 | 引脚 | P2 跳线 |
@@ -36,7 +36,7 @@ cd ../..
 tools/linux/convert rtt/bsp/header.bin rtt/bsp/rtthread.bin rtt/bsp/rtthread.dcf
 ```
 
-待有卡后按 [下载说明](README.md#linux-构建与驱动维护) 烧录，用原 CH340 串口 shell 操作：
+待有卡后按 [下载说明](../../rtt/README.md#linux-构建与驱动维护) 烧录，用原 CH340 串口 shell 操作：
 
 ```text
 tf status
@@ -62,14 +62,14 @@ tf stop
 `stop` 停止 SD0，不切断卡供电，也不将引脚自动转交其他外设。
 没有启用检测脚，因此 `ready=1` 是缓存的初始化状态，不能用它判断拔卡。
 
-`error` 使用 [底层头文件](../bare/drivers/inc/drv_sdcard.h) 的枚举：
+`error` 使用 [底层头文件](../../bare/drivers/inc/drv_sdcard.h) 的枚举：
 例如 3=无卡、4=超时、5=命令 CRC、7=数据 CRC、9=写保护、11=不支持、12=DMA 缓冲错误。
 未接检测脚时，无卡也可能表现为响应错误/超时；不能仅凭错误码判断接线正常。
 
 ## 实现与验证范围
 
 - 直接编译已有 `bare/drivers/src/drv_sdcard.c`，新适配层在 `bsp/board/ports/tf/drv_tf.c`。
-  没有新增厂家 `.a` 依赖；底层依据本地寄存器手册实现，详细范围见 [SD 恢复记录](../docs/lib-analysis/SD_RECOVERY.md)。
+  没有新增厂家 `.a` 依赖；底层依据本地寄存器手册实现，详细范围见 [SD 恢复记录](../lib-analysis/SD_RECOVERY.md)。
 - 使用实际 `get_sysclk_nhz()`（默认 48 MHz），识别阶段不超过 400 kHz，传输目标 12 MHz。
   时钟改变后拒绝继续 I/O；120 MHz 源时钟不能用现有八位分频器满足识别频率，会被底层拒绝。
 - 独立 512 字节、32 字节对齐的静态 DMA 中转区位于主 SRAM。运行时检查地址，

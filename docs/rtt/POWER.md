@@ -31,10 +31,10 @@ RTC 日期时间读写见 [RTC.md](RTC.md)。
 
 ## 硬件与实现依据
 
-- [AB32VG1 寄存器手册第 5 章](../docs/ab32vg1_doc/AB32VG1_Register.pdf) 定义
+- [AB32VG1 寄存器手册第 5 章](../ab32vg1_doc/AB32VG1_Register.pdf) 定义
   RTC 独立电源域：CON3 高位为唤醒使能，低 3 位为 CORE/IO/BUCK；RTCCON bit 5
   为 power-down 唤醒复位使能。
-- [V02 原理图](../docs/ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf)：PWKEY 是芯片第 18 脚
+- [V02 原理图](../ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf)：PWKEY 是芯片第 18 脚
   PWRKEY，引出到 **ANALOG IN 排针第 4 脚**，没有连接 S2/S3/S4。
 - 同系列 SDK 的 [func_lowpwr.c](https://github.com/ZhiqingLi/Sdk_Refresh/blob/aa0fc8f993bd0c2a6982bf0a95b3461ad7e7aa6d/AB53XX_SDK/app/platform/functions/func_lowpwr.c)
   中 func_sleepmode 与 sfunc_pwrdown 提供 LPMCON bit 0、WK 重新使能、断电后复位的时序参考。
@@ -106,7 +106,7 @@ tick、IR 和按键继续运行；最后测试 OFF 后由 PWKEY/VUSB 重新启�
 
 ## 设备接口和错误处理
 
-包含 [drv_power.h](bsp/libraries/hal_drivers/drv_power.h)，通过 rt_device_find("power0")
+包含 [drv_power.h](../../rtt/bsp/libraries/hal_drivers/drv_power.h)，通过 rt_device_find("power0")
 和 rt_device_control() 在线程中调用：
 
 | control | 参数 |
@@ -171,5 +171,5 @@ python3 tools/rtt/memory_report.py
 python3 tools/rtt/test_power_uart.py --port /dev/ttyUSB0 --cycles 10 --output /tmp/power-uart.json
 ```
 
-详见 [MEMORY.md](MEMORY.md)、[实板记录](../docs/lib-analysis/generated/recovery/power-rtt-hardware.json) 和
-[软件验证记录](../docs/lib-analysis/generated/recovery/power-rtt-software.json)。
+详见 [MEMORY.md](MEMORY.md)、[实板记录](../lib-analysis/generated/recovery/power-rtt-hardware.json) 和
+[软件验证记录](../lib-analysis/generated/recovery/power-rtt-software.json)。

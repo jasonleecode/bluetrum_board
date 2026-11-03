@@ -94,6 +94,6 @@ python3 tools/rtt/memory_report.py
 `BLE_HS_HCI_ERR(0x13)`，不代表 Host 重置或传输失败。
 
 最终实机结果见
-[nimble-rtt-hardware.json](../docs/lib-analysis/generated/recovery/nimble-rtt-hardware.json)
-和 [串口日志](../docs/lib-analysis/generated/recovery/nimble-rtt-hardware.log)。
+[nimble-rtt-hardware.json](../lib-analysis/generated/recovery/nimble-rtt-hardware.json)
+和 [串口日志](../lib-analysis/generated/recovery/nimble-rtt-hardware.log)。
 当前内存数据见 [MEMORY.md](MEMORY.md)；长期稳定性、手机兼容性和安全配对未验证。

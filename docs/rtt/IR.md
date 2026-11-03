@@ -14,10 +14,10 @@
 - 旧版手册 §2.10：对应跳线 **J17**。
 - 电路图接收头为 3.3 V 供电、DAT 输出。这里使用板载接收头，不直接连接裸红外二极管。
 
-依据为仓库内的 [V02 原理图](../docs/ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf)、
-[用户手册](../docs/ab32vg1_doc/AB32VG1_User_Manual.pdf)、
-[数据手册 PE6 引脚复用表](../docs/ab32vg1_doc/AB32VG1_DataSheet.pdf)、
-[寄存器手册第 3 章](../docs/ab32vg1_doc/AB32VG1_Register.pdf) 和原开源 `drv_irrx.c`。
+依据为仓库内的 [V02 原理图](../ab32vg1_doc/AB32VG1_Prougen_Schematic_V02.pdf)、
+[用户手册](../ab32vg1_doc/AB32VG1_User_Manual.pdf)、
+[数据手册 PE6 引脚复用表](../ab32vg1_doc/AB32VG1_DataSheet.pdf)、
+[寄存器手册第 3 章](../ab32vg1_doc/AB32VG1_Register.pdf) 和原开源 `drv_irrx.c`。
 PE6 是 **IR_G7**；旧代码的 G6 注释与数据手册不一致。
 寄存器手册的 FUNCMCON2 表省略了 IR 映射字段说明，本版沿用开源 BSP 的 [23:20] 字段，
 采用两次独立写入“清除 0xf、选择 7”，避免读改写误触发其他映射字段。
@@ -27,7 +27,7 @@ PE6/G7 映射及当前时钟/容差已能接收本次遥控器；其他载波频
 
 ## 使用
 
-编译和下载流程见 [BSP 说明](README.md#linux-构建与驱动维护)。有遥控器并下载此版本后，
+编译和下载流程见 [BSP 说明](../../rtt/README.md#linux-构建与驱动维护)。有遥控器并下载此版本后，
 使用原 CH340 串口的 115200、8N1 shell：
 
 ```text
@@ -130,7 +130,7 @@ tick 回绕、有时限 watch，以及冲突配置的编译拒绝。新增实测
 400 ms 释放边界、没有硬件释放时保持短重复码长按状态、延迟释放跨 tick 回绕测试。
 检查器还验证 ISR、释放轮询、临界区、pin 表、
 编译器生成的 memcpy/memset/save/restore 等调用目标在 SRAM。
-结构化记录见 [ir-rtt-software.json](../docs/lib-analysis/generated/recovery/ir-rtt-software.json)。
+结构化记录见 [ir-rtt-software.json](../lib-analysis/generated/recovery/ir-rtt-software.json)。
 
 ## V2.0 实测（2026-11-03）
 
@@ -159,6 +159,6 @@ stop 后 running=0，重新 start 后 running=1 且统计清零；最后保留�
 新增 IR 释放轮询仍在 SRAM，未缩减已有栈或蓝牙保留区。
 
 完整串口日志、修复前后对照、固件哈希见
-[实板记录](../docs/lib-analysis/generated/recovery/ir-rtt-hardware.json)。
+[实板记录](../lib-analysis/generated/recovery/ir-rtt-hardware.json)。
 当前只验证这一只遥控器的标准 NEC 完整帧重复；扩展 NEC、短重复码保持、错误帧恢复等仍为模型覆盖，
 未用真实信号发生器验证。没有测量载波、接收距离或角度，也未验证 BLE/USB/TF/FM 同时运行。

@@ -4,17 +4,17 @@
 
 本目录是开发板的统一综合项目，FM、蓝牙、音频及后续外设均作为模块集成到
 同一 RT-Thread 工程和固件。共享资源由项目统一管理，并分别验证模块功能及共存行为。
-当前已接入 GPIO、UART0、DAC 音频、FM 和恢复源码的蓝牙控制器（见 [恢复记录](../docs/lib-analysis/BLUETOOTH_RECOVERY.md)）。综合 RTT 不链接 `libbtctrl.a`。NimBLE Host 已通过 `rtt/nimble` 子模块接入，BLE 连接、ACL 分片、GATT 读写和通知已在实板验证；构建、命令与使用边界见 [NimBLE 接入说明](NIMBLE.md)。
-原生 USB CDC 已完成软件适配、离线测试和编译；V2.0 的原生数据线接 Host 用 USB-A，实机枚举及收发待 Device 接口及供电适配后验证；见 [USB 接入说明](USB.md)。
-TF 的原生 SD0、块设备 tf0 和 FAT12/16/32 已完成软件集成及离线测试，实卡验证待卡到位后进行；见 [TF 接入说明](TF.md)。
-板载 IRDA 接口已接入 ir0 和 irrx 命令，扫地机器人遥控器的 NEC 四向键、长按重复及释放已实测通过；见 [红外接入说明](IR.md)。
-S2/PF1、S3/PF0、S4/PA2 三个功能键默认接入 keys0，支持消抖和长按，见 [按键说明](KEYS.md)。
-原生 RTC 秒计数读写已修复并默认注册 rtc，使用内部 RC 时钟；已烧录验证读写及约 60 秒连续走时，见 [RTC 说明](RTC.md)。
+当前已接入 GPIO、UART0、DAC 音频、FM 和恢复源码的蓝牙控制器（见 [恢复记录](../docs/lib-analysis/BLUETOOTH_RECOVERY.md)）。综合 RTT 不链接 `libbtctrl.a`。NimBLE Host 已通过 `rtt/nimble` 子模块接入，BLE 连接、ACL 分片、GATT 读写和通知已在实板验证；构建、命令与使用边界见 [NimBLE 接入说明](../docs/rtt/NIMBLE.md)。
+原生 USB CDC 已完成软件适配、离线测试和编译；V2.0 的原生数据线接 Host 用 USB-A，实机枚举及收发待 Device 接口及供电适配后验证；见 [USB 接入说明](../docs/rtt/USB.md)。
+TF 的原生 SD0、块设备 tf0 和 FAT12/16/32 已完成软件集成及离线测试，实卡验证待卡到位后进行；见 [TF 接入说明](../docs/rtt/TF.md)。
+板载 IRDA 接口已接入 ir0 和 irrx 命令，扫地机器人遥控器的 NEC 四向键、长按重复及释放已实测通过；见 [红外接入说明](../docs/rtt/IR.md)。
+S2/PF1、S3/PF0、S4/PA2 三个功能键默认接入 keys0，支持消抖和长按，见 [按键说明](../docs/rtt/KEYS.md)。
+原生 RTC 秒计数读写已修复并默认注册 rtc，使用内部 RC 时钟；已烧录验证读写及约 60 秒连续走时，见 [RTC 说明](../docs/rtt/RTC.md)。
 电源管理驱动默认注册 power0，提供 pmctl 状态、PWKEY/VUSB 配置、保留时钟的浅休眠及唤醒复位式软关机；
-已烧录验证连续 10 次 RTC 唤醒、tick 补偿及唤醒后的 S2 呼吸灯；软关机/功耗待测，见 [POWER.md](POWER.md)。
+已烧录验证连续 10 次 RTC 唤醒、tick 补偿及唤醒后的 S2 呼吸灯；软关机/功耗待测，见 [POWER.md](../docs/rtt/POWER.md)。
 AUDEC 的 MP3 硬件后端默认注册 `audec0`，支持 44.1 kHz 单声道、独立双声道及 M/S 联合立体声，提供独占会话、同步 PCM 输出和超时恢复；
 已迁移与其固定工作 RAM 重叠的内核/HCI 代码，可与蓝牙编译在同一综合固件中。
-完整 MP3 软件前端尚未接入，见 [MP3.md](MP3.md) 和 [内存预算](MEMORY.md)。
+完整 MP3 软件前端尚未接入，见 [MP3.md](../docs/rtt/MP3.md) 和 [内存预算](../docs/rtt/MEMORY.md)。
 
 主要内容如下：
 
@@ -83,7 +83,7 @@ void example_isr(void)
 
 #### 运行结果
 
-下载程序成功之后，系统会自动运行。当前默认红灯上电熄灭，按 S2 开启周期性呼吸、再按停止，见 [PWM 说明](PWM.md)。
+下载程序成功之后，系统会自动运行。当前默认红灯上电熄灭，按 S2 开启周期性呼吸、再按停止，见 [PWM 说明](../docs/rtt/PWM.md)。
 
 连接开发板对应串口到 PC , 在终端工具里打开相应的串口（115200-8-1-N），复位设备后，可以看到 RT-Thread 的输出信息:
 
@@ -185,21 +185,21 @@ TIMER3/4/5 与对应 PWM 共用计数器，TIMER3 与红外共用中断；SPI �
 | 功能 / 配置项 | 本次完善内容及边界 |
 | --- | --- |
 | GPIO / `RT_USING_PIN` | 修正非法引脚、复用恢复、SET/CLR、共享中断回调及清 pending；通用边沿回调通过 BSP_USING_PIN_IRQ 可选开启，默认关闭 |
-| 三个按键 / `BSP_USING_KEYS` | 默认 keys0，主线程 10 ms 扫描，30 ms 消抖、800 ms 长按；三个键的按下/松开及一次长按已实测，见 [KEYS.md](KEYS.md) |
-| SPI1 / `BSP_USING_SPI1` | 默认注册 `spi1`，G6 PE4/PE3/PE2，主机 8 位 MSB、分阶段收发、GPIO 片选；实板完成上下拉接收、多分频发送自检；外设和波形待验证，见 [SPI_I2C.md](SPI_I2C.md) |
+| 三个按键 / `BSP_USING_KEYS` | 默认 keys0，主线程 10 ms 扫描，30 ms 消抖、800 ms 长按；三个键的按下/松开及一次长按已实测，见 [KEYS.md](../docs/rtt/KEYS.md) |
+| SPI1 / `BSP_USING_SPI1` | 默认注册 `spi1`，G6 PE4/PE3/PE2，主机 8 位 MSB、分阶段收发、GPIO 片选；实板完成上下拉接收、多分频发送自检；外设和波形待验证，见 [SPI_I2C.md](../docs/rtt/SPI_I2C.md) |
 | SARADC / `BSP_USING_ADC0` | 适配当前 RT-Thread 回调签名，校验 0..15 通道，传递转换超时，不再返回陈旧采样值 |
 | TIMER / `BSP_USING_TIM` | 区分 TIMER1/2 bit9 与 TIMER3/4/5 bit16 的溢出/清除位；共享 IRQ 只处理真实 pending；支持单次模式，检查计数溢出，开启时钟，并将 IRQ 调用的停止操作及函数表放入 RAM |
-| RTC / `BSP_USING_ONCHIP_RTC` | 默认启用；修正时钟选择、寄存器返回、无限等待和中断恢复；保留计数，首次校时用 rtcctl set；软件验证及实板读写、范围拒绝、约 60 秒走时通过；当前 time_t 支持至 2038 年，闹钟及秒中断设备接口未实现；电源驱动已验证 RTC 秒唤醒，见 [RTC.md](RTC.md) |
+| RTC / `BSP_USING_ONCHIP_RTC` | 默认启用；修正时钟选择、寄存器返回、无限等待和中断恢复；保留计数，首次校时用 rtcctl set；软件验证及实板读写、范围拒绝、约 60 秒走时通过；当前 time_t 支持至 2038 年，闹钟及秒中断设备接口未实现；电源驱动已验证 RTC 秒唤醒，见 [RTC.md](../docs/rtt/RTC.md) |
 | WDT / `BSP_USING_WDT` | SET/GET_TIMEOUT 使用 RT-Thread 的秒单位，输入 1..16 秒向上选择 1/2/4/8/16 档，实际硬件约为 1.024/2.048/4.096/8.192/16.384 秒；支持停止，拒绝空参数。旧 `AB32_WDT_TIMEOUT_*` 是寄存器编码，不能作为秒值传入 |
-| TF / `BSP_USING_TFCARD` | 当前默认：复用原生 SD0，静态 DMA 中转区、串行块 I/O、显式探测和 FAT 挂载；无卡启动不探测，离线测试通过，实卡待验证，见 [TF.md](TF.md) |
+| TF / `BSP_USING_TFCARD` | 当前默认：复用原生 SD0，静态 DMA 中转区、串行块 I/O、显式探测和 FAT 挂载；无卡启动不探测，离线测试通过，实卡待验证，见 [TF.md](../docs/rtt/TF.md) |
 | 旧 SD / `BSP_USING_SDCARD` | 原生 SD0 一位总线；修复命令/数据事件等待、CRC/超时传递、时钟分频、缓存边界、写入长度和 host 初始化竞态；单请求上限 1024 字节（两个 512 字节块），已编译 SD＋FAT 配置 |
 | 音频播放 / `BSP_USING_AUDIO` | 修正 48 kHz PLL，接受 44.1/48 kHz、16 位、单/双声道配置；拒绝未支持格式与录音，修正错误返回、分配失败清理、空 replay 访问及停止 DAC；缓冲区等待有超时。DAC 测试音与 `pcmcheck` 静音播放已实测，完整音频播放场景及录音未验证；I2S 可选输出另见下项 |
 | FM / `BSP_USING_FMRX` | 直接编译 bare 已恢复的模拟/数字代码；`fm0` 和 `fmrx` 命令接入手动调谐、音量、DAC 播放、周期同步、停止、PLL 超时及音频互斥；控制与 DAC 测试音已实测，广播仍只有杂音，搜台/RDS 未完成 |
 | I2S / `BSP_USING_I2S` | 新增同系列硬件 SRC 输出子集，接 `sound0`；主机、标准 I2S、16 位双声道、MCLK=256fs、44.1/48 kHz；未接收/DMA，兼容性仍需上板验证 |
 | Flash / `BSP_USING_ON_CHIP_FLASH` | 自动选择 FAL；校验 1 MiB 地址范围和写擦对齐，读写分为 256 字节调用，返回实际请求字节数，避免把原库 CRC16 当成读取长度。仍依赖原库，写擦 API 没有错误返回，应用应读回校验；分区布局须与最终打包固件一致 |
-| 红外 / `BSP_USING_IRRX` | 默认编入原生 NEC/扩展 NEC 接收、8 项静态事件队列及 irrx 命令；显式启停，无新线程；NEC 遥控器四向键实测通过，释放宽限 400 ms，见 [IR.md](IR.md) |
-| PWM | 默认启用 Timer5 PWM0/PE1，由 S2 切换呼吸灯；驱动修复及边界测试见 [PWM.md](PWM.md) |
-| 电源管理 / `BSP_USING_POWER` | 默认编入 power0/pmctl，复用 RTC 锁和有界传输；状态、PWKEY 输入/滤波、WK/VUSB 唤醒配置、保留时钟浅休眠及复位式关机已做软件验证；已实测连续 10 次 RTC 秒唤醒及 tick 补偿，off/功耗待测，见 [POWER.md](POWER.md) |
+| 红外 / `BSP_USING_IRRX` | 默认编入原生 NEC/扩展 NEC 接收、8 项静态事件队列及 irrx 命令；显式启停，无新线程；NEC 遥控器四向键实测通过，释放宽限 400 ms，见 [IR.md](../docs/rtt/IR.md) |
+| PWM | 默认启用 Timer5 PWM0/PE1，由 S2 切换呼吸灯；驱动修复及边界测试见 [PWM.md](../docs/rtt/PWM.md) |
+| 电源管理 / `BSP_USING_POWER` | 默认编入 power0/pmctl，复用 RTC 锁和有界传输；状态、PWKEY 输入/滤波、WK/VUSB 唤醒配置、保留时钟浅休眠及复位式关机已做软件验证；已实测连续 10 次 RTC 秒唤醒及 tick 补偿，off/功耗待测，见 [POWER.md](../docs/rtt/POWER.md) |
 
 SPI1 的 `BSP_SPI1_MAPPING` 取值为 1..6，默认 6：MISO=PE4、SCK=PE3、MOSI=PE2；
 与板上 PE2/SDA、PE3/SCL 的 IIC 接口共享引脚，不能同时启用。
@@ -323,7 +323,7 @@ free
 广播名 **AB32-NIMBLE**，支持一个 BLE 外设连接，断开后自动重新广播。
 自定义 GATT 特征支持读、带响应写入和通知；首选 MTU 64，当前关闭配对、绑定与加密。
 `ble stop` 只停止当前广播，`ble adv` 恢复广播。与 `btctl test` 诊断模式切换需复位。
-服务 UUID、配置和完整使用方法见 [NIMBLE.md](NIMBLE.md)。
+服务 UUID、配置和完整使用方法见 [NIMBLE.md](../docs/rtt/NIMBLE.md)。
 
 **iPhone 扫描方式：**在 nRF Connect 等 BLE 调试 App 中允许蓝牙权限后扫描并连接。
 “设置 → 蓝牙”不会列出所有自定义 GATT 设备，列表中没有该设备不等于广播失败；
@@ -338,7 +338,7 @@ HCI 传输错误及 Host 重置均为零。八组离线驱动测试与 NimBLE、
 此处为接入 USB 前的实测：总堆 **29736 字节**；NimBLE 运行且尚未使用 PCM 时可用 **11360 字节**，
 保留 PCM 播放池时可用 **2864 字节**。FM 启停、PCM 播放及资源互斥回归通过，
 但 FM/蓝牙同时使用射频尚未支持，真实广播接收仍待换耳机验证。
-内存预算与测试边界见 [MEMORY.md](MEMORY.md#nimble-接入后)，
+内存预算与测试边界见 [MEMORY.md](../docs/rtt/MEMORY.md#nimble-接入后)，
 实机证据见 [验证报告](../docs/lib-analysis/generated/recovery/nimble-rtt-hardware.json)。
 
 ### 蓝牙控制器实机测试（2026-11-02）
@@ -370,7 +370,7 @@ ROM 默认经典蓝牙冲突检查把空闲时隙判为忙；RTT 板级适配在
 及第二块 SRAM `0x50000` 运行。shell 和 PCM 框架的普通线程代码放在 Flash。
 接入 NimBLE 前的内存优化版本总堆为 40872 字节；蓝牙启动且尚未打开 PCM 时可用 26416 字节，
 首次播放 PCM、保留完整播放池后可用 17920 字节。广播/扫描重复启停后未下降。
-这些历史数据不代表当前默认配置；NimBLE 接入后的实际预算见 [内存记录](MEMORY.md)。
+这些历史数据不代表当前默认配置；NimBLE 接入后的实际预算见 [内存记录](../docs/rtt/MEMORY.md)。
 蓝牙测试取得射频使用权后，FM 启动/调谐返回忙；广播或扫描停止后仍需复位才能重新运行 FM。
 这是同一综合固件内的临时互斥策略，FM/蓝牙同时工作尚未支持。
 
@@ -392,11 +392,11 @@ Type-C 的 D+/D− 经 R13/R11 接 CH340E。P5 不是模式切换器，不能把
 USB-A 的 VBUS 直接接板上 +5V，不能用普通 USB-A 双公线直接连电脑测试 Device；
 需要另行确定 PB3/PB4 的 Device 接口引出、共地与供电方案。
 **综合固件已烧录，Device 硬件适配及实机枚举、收发仍待完成。**
-软件已通过包含真实协议栈的离线测试和综合构建，接线与后续测试步骤见 [USB.md](USB.md)。
+软件已通过包含真实协议栈的离线测试和综合构建，接线与后续测试步骤见 [USB.md](../docs/rtt/USB.md)。
 USB 初次接入时原始堆区为 28320 字节；加入 TF/FAT 后为 24352 字节，加入 IR 后为 23168 字节，
 按键接入时为 22528 字节，RTC 修复时为 22848 字节，加入 S2 呼吸灯后为 22624 字节；
 板上红外长按修复版为 22528 字节，实测可用堆 13064 字节；电源驱动 RTC 唤醒实测版为 23360 字节，实测可用 13896 字节，10 轮前后不变。
-USB 启动及各模块组合的运行时余量仍需实测，见 [MEMORY.md](MEMORY.md)。
+USB 启动及各模块组合的运行时余量仍需实测，见 [MEMORY.md](../docs/rtt/MEMORY.md)。
 前面的 NimBLE 硬件内存数据属于接入 USB 前的版本。
 
 ### TF/FAT 软件适配（2026-11-02）
@@ -409,7 +409,7 @@ USB 启动及各模块组合的运行时余量仍需实测，见 [MEMORY.md](MEM
 TF/FAT 首次接入时的综合工程已编译并生成 DCF，原始堆为 24352 字节，
 SRAM1 余 32 字节。FAT 内存模拟卡读写、原生 SD0 模型和回归测试通过。
 目前没有 TF 卡，未烧录此版本，实卡及运行时内存仍待验证；
-支持范围、接线和下一步测试见 [TF.md](TF.md)，完整预算见 [MEMORY.md](MEMORY.md)。
+支持范围、接线和下一步测试见 [TF.md](../docs/rtt/TF.md)，完整预算见 [MEMORY.md](../docs/rtt/MEMORY.md)。
 
 ### 红外接收软件适配（2026-11-02）
 
@@ -424,7 +424,7 @@ V02 板短接 P1 的 1–2，将 IRDA 接收输出接至 PE6（IR_G7）；旧版
 当时物理接收和运行时内存待实测。2026-11-03 已用扫地机器人遥控器验证接收，
 并修复慢速完整帧重复导致的长按提前释放：main 每 10 ms 检查硬件释放及 400 ms 帧间宽限。
 四向键共 53 帧、4 DOWN/49 REPEAT/4 UP，校验错误及队列丢弃均为零。
-接线、键码、API、协议限制与验证记录见 [IR.md](IR.md)。
+接线、键码、API、协议限制与验证记录见 [IR.md](../docs/rtt/IR.md)。
 
 ### 三个板载按键
 
@@ -433,7 +433,7 @@ V02 板短接 P1 的 1–2，将 IRDA 接收输出接至 PE6（IR_G7）；旧版
 及溢出计数。S1 保持复位用途。每键 30 ms 消抖，稳定按住 800 ms 产生长按事件，
 没有新增线程或绑定 FM/蓝牙操作。该次按键接入版原始堆区为 22528 字节，SRAM1 余 32 字节。
 GPIO IRQ 改为可选、按需创建线程，因此早期实测的 gpioirq 线程列表不再代表当前默认配置。
-引脚冲突、设备 API、GPIO 修复及验证边界见 [KEYS.md](KEYS.md)。
+引脚冲突、设备 API、GPIO 修复及验证边界见 [KEYS.md](../docs/rtt/KEYS.md)。
 最新综合固件已经 CH340 下载并通过逐块 CRC 校验，RT-Thread 5.2.2 启动正常；
 实按三个键均收到 DOWN/UP，KEY2 在 800 ms 产生 LONG，1590 ms 松开。
 启动时总堆 22440 字节、可用 13064 字节；本轮没有验证 USB 枚举、TF 实卡或红外接收。
