@@ -26,6 +26,14 @@ static drv_sdcard_error_t last_error;
 static uint32_t source_clock;
 static rt_bool_t ready, opened;
 
+#ifdef BSP_USING_POWER
+rt_bool_t ab32_tf_power_busy(void)
+{
+    /* Also reject a card probed but not mounted, or a probe/I/O in progress. */
+    return ready || opened || tf_lock.owner;
+}
+#endif
+
 static uint32_t time_us(void *unused)
 {
     (void)unused;

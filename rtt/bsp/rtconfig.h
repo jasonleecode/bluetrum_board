@@ -454,5 +454,6 @@
 /* Native IRTC, internal RC; first power-up requires explicit time setting. */
 #define BSP_USING_ONCHIP_RTC
 #define RTC_USING_INTERNAL_CLK
+#define BSP_USING_POWER
 
 #endif

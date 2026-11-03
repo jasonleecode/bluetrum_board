@@ -64,6 +64,18 @@ static struct {
 } pcm_ops;
 #endif
 
+#ifdef BSP_USING_POWER
+rt_bool_t ab32_sound_power_busy(void)
+{
+    /* PM owns the scheduler lock; do not acquire another mutex here. */
+    return snd_dev.running || snd_dev.dma_to_aubuf || snd_dev.audio.parent.ref_count
+#ifdef BSP_USING_FMRX
+        || pcm_open || sound_lock.owner
+#endif
+        ;
+}
+#endif
+
 //apll = 采样率*ADPLL_DIV*512
 //audio pll init
 void adpll_init(uint8_t out_spr)

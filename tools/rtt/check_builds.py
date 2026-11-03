@@ -63,6 +63,9 @@ PROFILES['rtc_external'] = dict(RT_USING_RTC=1, BSP_USING_ONCHIP_RTC=1)
 PROFILES['rtc_integrated'] = dict(PROFILES['keys'], **PROFILES['rtc'])
 PROFILES['led'] = dict(PROFILES['rtc_integrated'], BSP_USING_LED_BREATH=1,
     BSP_USING_PWM=1, RT_USING_PWM=1, BSP_USING_T5_PWM=1, BSP_USING_T5_PWM0=1)
+PROFILES['power'] = dict(PROFILES['rtc'], BSP_USING_POWER=1)
+PROFILES['power_external'] = dict(PROFILES['rtc_external'], BSP_USING_POWER=1)
+PROFILES['power_integrated'] = dict(PROFILES['led'], BSP_USING_POWER=1)
 
 def base_config(config):
     """Keep optional profiles independent of enabled workspace peripherals."""
@@ -107,6 +110,9 @@ def main():
             print('\n'.join(log.read_text().splitlines()[-22:]), flush=True)
         else:
             linkmap = (work / 'rtt/bsp/rtthread.map').read_text()
+            if PROFILES[name].get('BSP_USING_POWER') or (name == 'default' and
+                    re.search(r'^#define\s+BSP_USING_POWER\b', config, re.M)):
+                assert 'ab32_power_init' in linkmap and 'ab32_irtc_transaction' in linkmap
             if PROFILES[name].get('BSP_USING_ONCHIP_RTC') or (name == 'default' and
                     re.search(r'^#define\s+BSP_USING_ONCHIP_RTC\b', config, re.M)):
                 assert '.irq.rtc' in linkmap and 'rt_hw_rtc_register' in linkmap

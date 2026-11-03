@@ -303,3 +303,45 @@ PWM 框架、驱动、呼吸灯和 main 线程正文放 Flash，GPIO 临界代�
 实板呼吸运行时 `free` 为 total=22536、used=9376、maximum=9376、available=13160。
 此数据不代表蓝牙、音频和 USB 同时运行时余量。
 功能与验证见 [PWM.md](PWM.md) 和 [实机记录](../docs/lib-analysis/generated/recovery/pwm-led-rtt-hardware.json)。
+
+## 红外遥控器实测及长按修复后（2026-11-03）
+
+新增最近完整帧 tick 和待释放状态，由现有 main 每 10 ms 执行短 SRAM 临界检查。
+没有新线程或动态缓冲；仅初始化时调用的 `hal_pwm_mspinit` 移至 Flash，以保持原有预算。
+
+| 段 | 字节 |
+| --- | ---: |
+| `.comm` | 76280 |
+| `.ram1` | 31200 / 31232 |
+| `.bss` | 13824 |
+| `.bram` | 6540 / 10240 |
+| `.heap` | 22528 |
+| `.stack` | 4096 |
+| `.flash` | 111104 |
+
+相对 S2 呼吸灯版原始堆减少 96 字节，恰好满足 22 KiB 下限，未降低预算。
+IR 测试前后及启停后 `free` 均为 total=22440、used=9376、maximum=9376、available=13064。
+这些数值不代表所有外设同时运行的余量。见 [IR.md](IR.md) 和
+[本次实板报告](../docs/lib-analysis/generated/recovery/ir-rtt-hardware.json)。
+
+## 电源管理与浅休眠/软关机接入后（软件与实板验证）
+
+新增静态 power0 设备，复用 RTC 互斥锁和 SRAM 传输桥，无新线程或动态缓冲。
+PM 线程回调及命令放 Flash，睡眠入口/桥策略/终端断电路径留 SRAM；
+仅线程使用的 FM 命令、蓝牙 btctl/diagnose 也迁至 Flash，
+底层 FM 射频临界函数仍留 SRAM。
+
+| 段 | 字节 |
+| --- | ---: |
+| `.comm` | 75376 |
+| `.ram1` | 31224 / 31232 |
+| `.bss` | 13888 |
+| `.bram` | 6540 / 10240 |
+| `.heap` | 23360 |
+| `.stack` | 4096 |
+| `.flash` | 116736 |
+
+相比红外长按修复版，原始堆净增加 832 字节，原有 22 KiB 下限不变。
+本版已烧录，连续 10 次 RTC 唤醒前后 total=23272、used=9376、available=13896 字节不变。
+RTC 计数读取/睡眠/补 tick 的临界路径及调用目标留 SRAM；SRAM1 剩余 8 字节。
+见 [POWER.md](POWER.md) 和 [软件记录](../docs/lib-analysis/generated/recovery/power-rtt-software.json)。

@@ -14,6 +14,13 @@ static rt_uint32_t fm_buffer_words;
 static rt_err_t pll_error;
 static rt_bool_t bt_claimed;
 
+#ifdef BSP_USING_POWER
+rt_bool_t ab32_fmrx_power_busy(void)
+{
+    return fm_status.running || fm_lock.owner;
+}
+#endif
+
 /* Until RF coexistence is implemented, the BT test owns RF until reboot. */
 rt_err_t ab32_fmrx_bt_claim(void)
 {

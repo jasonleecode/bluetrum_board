@@ -41,6 +41,14 @@ static volatile bool running, configured, dtr;
 static volatile int last_error;
 static uint32_t rx_bytes, tx_bytes, io_errors;
 
+#ifdef BSP_USING_POWER
+rt_bool_t ab32_usb_power_busy(void)
+{
+    /* request remains set until initialize/deinitialize has completed. */
+    return running || request;
+}
+#endif
+
 /* Bound upstream v1.5.2 SET_LINE_CODING memcpy and validate class routing. */
 static int cdc_request(uint8_t bus, struct usb_setup_packet *s, uint8_t **data, uint32_t *len)
 {

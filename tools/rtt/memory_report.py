@@ -31,7 +31,20 @@ def inspect(elf):
     gpio_irq = 'ab32_pin_irq_handler' in symbols
     rtc = 'rtc_transfer' in symbols
     led = 'board_led_poll' in symbols
+    power = 'ab32_power_init' in symbols
     flash_functions = ['finsh_thread_entry', '_audio_dev_init', 'pcmcheck']
+    if 'fmrx' in symbols:
+        flash_functions += ['fmrx']
+    if 'btctl' in symbols:
+        flash_functions += ['btctl']
+        if 'diagnose' in symbols:
+            flash_functions += ['diagnose']
+    if power:
+        flash_functions += ['ab32_power_init', 'power_control', 'pmctl', 'power_snapshot',
+                            'power_off_locked', 'power_capture_boot', 'power_sleep_once',
+                            'ab32_irtc_align_second_locked',
+                            'ab32_irtc_transaction', 'ab32_irtc_read8_locked',
+                            'ab32_irtc_update8_locked', 'ab32_irtc_shutdown_update_locked']
     if nimble:
         flash_functions += ['ble_hs_init', 'ble_gatts_init', 'ble_gap_adv_start']
     if usb:
@@ -46,7 +59,7 @@ def inspect(elf):
         flash_functions += ['board_keys_init', 'board_keys_poll', 'keys', 'keys_read', 'keys_control']
     if led:
         flash_functions += ['main', 'board_led_init', 'board_led_poll', 'drv_pwm_control',
-                            'rt_pwm_set', 'rt_pwm_enable', 'rt_pwm_disable']
+                            'rt_pwm_set', 'rt_pwm_enable', 'rt_pwm_disable', 'hal_pwm_mspinit']
     if rtc:
         flash_functions += ['ab32_rtc_init', 'ab32_rtc_get_secs', 'ab32_rtc_set_secs',
                             'rt_hw_rtc_register', 'rtcctl', 'time', 'gmtime_r', 'localtime_r', 'mktime']
@@ -63,9 +76,17 @@ def inspect(elf):
                  'os_cache_init', 'load_cache', '__wrap_bthw_isr_do',
                  'bb_run_loop', 'hci_host_recv_packet', 'audio_isr', 'uart_isr']
     ram_functions += ['ab32_pin_mode', 'hal_gpio_init', 'gpio_afinit', 'port_sfr', 'port_table']
+    if power:
+        ram_functions += ['ab32_irtc_sleep_locked', 'power_bridge_policy', 'power_cutoff',
+                          'ab32_irtc_cutoff_locked', 'rt_tick_set', 'rt_tick_get']
     if rtc:
-        ram_functions += ['rtc_transfer', 'rtc_byte', 'rtc_wait_idle', 'rtc_bridge_init',
+        ram_functions += ['rtc_transfer', 'rtc_byte', 'rtc_wait_idle', 'rtc_counter_read',
                           'rt_hw_interrupt_disable', 'rt_hw_interrupt_enable']
+        # GCC may specialize the boolean argument when PM is disabled.
+        rtc_bridge_symbols = [name for name in symbols if name == 'rtc_bridge_init' or
+                              name.startswith('rtc_bridge_init.')]
+        assert rtc_bridge_symbols, 'RTC bridge helper missing'
+        ram_functions += rtc_bridge_symbols
     if gpio_irq:
         ram_functions += ['ab32_pin_irq_handler', 'get_wakeup_circuit', 'gpio_sample',
                           'gpio_configure_irqs', 'gpio_take_pin', 'gpio_change_pin',
@@ -78,7 +99,7 @@ def inspect(elf):
                           'os_memblock_get', 'os_memblock_put', 'alloc_acl', 'free_acl']
     if ir:
         ram_functions += ['irrx_isr', 'irrx_push', 'irrx_release', 'irrx_switch',
-                          'irrx_pop', 'irrx_snapshot', 'irrx_pin_regs',
+                          'irrx_pop', 'irrx_snapshot', 'irrx_pin_regs', 'ab32_irrx_poll',
                           'rt_hw_irq_disable', 'rt_hw_interrupt_install',
                           'rt_hw_interrupt_disable', 'rt_hw_interrupt_enable',
                           'rt_interrupt_enter', 'rt_interrupt_leave', 'rt_tick_get',
@@ -99,7 +120,7 @@ def inspect(elf):
     assert sections['.comm']['vma'] % 512 == 0
     return dict(sections=sections, placement_checks=checks, nimble_enabled=nimble, usb_enabled=usb, tf_enabled=tf, ir_enabled=ir,
                 keys_enabled=keys, gpio_irq_enabled=gpio_irq,
-                rtc_enabled=rtc, led_breath_enabled=led,
+                rtc_enabled=rtc, led_breath_enabled=led, power_enabled=power,
                 heap_region_bytes=sections['.heap']['bytes'],
                 note='Heap region includes allocator metadata; use board free for runtime availability.')
 

@@ -18,6 +18,9 @@
 #include "board.h"
 #include "board_keys.h"
 #include "board_led.h"
+#ifdef BSP_USING_IRRX
+#include "drv_irrx.h"
+#endif
 
 #if !defined(BSP_USING_LED_BREATH) && !defined(BSP_USING_T5_PWM0) && \
     (!defined(BSP_USING_I2S) || (defined(BSP_I2S_MAPPING) && BSP_I2S_MAPPING == 0))
@@ -54,6 +57,11 @@ int main(void)
 #else
         board_keys_poll();
 #endif
+#endif
+#ifdef BSP_USING_IRRX
+        ab32_irrx_poll();
+#endif
+#if defined(BSP_USING_KEYS) || defined(BSP_USING_IRRX)
         rt_thread_mdelay(10);
 #else
         rt_thread_mdelay(500);

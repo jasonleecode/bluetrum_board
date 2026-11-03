@@ -73,18 +73,25 @@ void *rt_memcpy(void *d, const void *s, rt_ubase_t n)
 int rt_kprintf(const char *f, ...) { (void)f; assert(!locked && !irq_depth); printed++; return 0; }
 rt_err_t rt_thread_mdelay(rt_int32_t ms)
 { assert(!locked && !irq_depth && ms == 20); ticks += ms; return 0; }
-static void receive(uint32_t data, uint32_t flags)
+static void receive_now(uint32_t data, uint32_t flags)
 {
     IRRXDAT = data; IRRXCON |= flags;
     assert(handler);
     handler(IRQ_IRRX_VECTOR, NULL);
     assert(!irq_depth && !locked && !(IRRXCON & flags));
 }
+/* Legacy scenarios wait out the new release grace; timing cases below use
+ * receive_now explicitly to test the actual boundary and repeat ordering. */
+static void receive(uint32_t data, uint32_t flags)
+{
+    receive_now(data, flags);
+    if (flags & IR_RELEASE) { ticks += IR_RELEASE_TICKS; ab32_irrx_poll(); }
+}
 static void expect(uint8_t kind, uint32_t data)
 {
     struct ab32_ir_event e;
     assert(irrx_read(&ir_device, 0, &e, sizeof(e)) == sizeof(e));
-    assert(e.raw == data && e.kind == kind && e.tick == ticks);
+    assert(e.raw == data && e.kind == kind && (uint32_t)(ticks - e.tick) <= IR_RELEASE_TICKS);
     assert(!e.reserved[0] && !e.reserved[1] && !e.reserved[2]);
 }
 int main(void)
@@ -161,5 +168,38 @@ int main(void)
     assert(irrx_control(&ir_device, AB32_IR_GET_STATUS, &snapshot) == 0 && snapshot.running);
     assert(irrx_control(&ir_device, AB32_IR_STOP, NULL) == 0 && (CLKGAT1 & IR_GATE));
     watch[2] = "1"; assert(irrx(3, watch) == -RT_EIO);
+    /* Measured remote: first complete repeat after 314 ms, then ~157 ms. */
+    assert(irrx_control(&ir_device, AB32_IR_START, NULL) == 0);
+    ticks=1000; receive_now(a, IR_RX); expect(AB32_IR_DOWN, a);
+    ticks=1110; receive_now(0, IR_RELEASE); ab32_irrx_poll();
+    ticks=1313; ab32_irrx_poll(); assert(state.pressed && !state.queued);
+    ticks=1314; receive_now(a, IR_RX); expect(AB32_IR_REPEAT, a);
+    ticks=1424; receive_now(0, IR_RELEASE);
+    ticks=1471; receive_now(a, IR_RX); expect(AB32_IR_REPEAT, a);
+    ticks=1581; receive_now(0, IR_RELEASE);
+    ticks=1870; ab32_irrx_poll(); assert(state.pressed && !state.queued);
+    ticks=1871; ab32_irrx_poll(); expect(AB32_IR_UP, a); assert(!state.pressed);
+    /* NEC short repeats don't update last_frame; hardware postpones release. */
+    ticks=2000; receive_now(a, IR_RX); expect(AB32_IR_DOWN, a);
+    ticks=5000; ab32_irrx_poll(); assert(state.pressed && !state.queued);
+    ticks=5100; receive_now(0, IR_RELEASE); ab32_irrx_poll(); expect(AB32_IR_UP,a);
+    ticks=6000; receive_now(a, IR_RX | IR_RELEASE); expect(AB32_IR_DOWN,a);
+    ticks=6399; ab32_irrx_poll(); assert(state.pressed && !state.queued);
+    ticks=6400; ab32_irrx_poll(); expect(AB32_IR_UP,a);
+    /* Another command, invalid frame and STOP still release immediately. */
+    ticks=7000; receive_now(a, IR_RX); expect(AB32_IR_DOWN,a);
+    ticks=7110; receive_now(0, IR_RELEASE);
+    ticks=7200; receive_now(b, IR_RX); expect(AB32_IR_UP,a); expect(AB32_IR_DOWN,b);
+    receive_now(0, IR_RX); expect(AB32_IR_UP,b); assert(!release_pending);
+    receive_now(a, IR_RX); expect(AB32_IR_DOWN,a);
+    assert(irrx_control(&ir_device, AB32_IR_STOP, NULL) == 0); expect(AB32_IR_UP,a);
+    assert(irrx_control(&ir_device, AB32_IR_START, NULL) == 0);
+    ticks=UINT32_MAX-100; receive_now(a,IR_RX); expect(AB32_IR_DOWN,a);
+    ticks=9; receive_now(0,IR_RELEASE);
+    ticks=298; ab32_irrx_poll(); assert(state.pressed && !state.queued);
+    ticks=299; ab32_irrx_poll(); expect(AB32_IR_UP,a);
+    assert(!state.pressed && !locked && !irq_depth);
+    assert(irrx_control(&ir_device, AB32_IR_STOP, NULL) == 0);
+    puts("PASS: measured 314/157 ms repeats, 400 ms release boundary, short-repeat hold, simultaneous flags, command switch and tick wrap");
     puts("PASS: IR boot/start/stop, gate/pin/mapping preservation, NEC/extended commands, repeats, release, invalid frames, simultaneous flags, W1C snapshot, queue overflow, unaligned I/O, tick wrap and bounded watch");
 }

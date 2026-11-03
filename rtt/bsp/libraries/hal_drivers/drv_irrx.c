@@ -41,6 +41,9 @@ static struct rt_mutex ir_control_lock;
 static struct ab32_ir_event events[AB32_IR_QUEUE_SIZE];
 static struct ab32_ir_status state;
 static rt_uint8_t head, tail, saved_pins, saved_mapping, saved_gate;
+static rt_tick_t last_frame;
+static rt_bool_t release_pending;
+#define IR_RELEASE_TICKS ((RT_TICK_PER_SECOND * 400u + 999u) / 1000u)
 /* These addresses are read with interrupts masked: keep the table in SRAM. */
 rt_section(".irq.irrx.pins")
 static volatile rt_uint32_t *const irrx_pin_regs[] = {
@@ -68,11 +71,25 @@ IR_RAM static void irrx_push(rt_uint8_t kind)
 }
 IR_RAM static void irrx_release(void)
 {
+    release_pending = RT_FALSE;
     if (state.pressed)
     {
         state.pressed = 0;
         irrx_push(AB32_IR_UP);
     }
+}
+/* Main calls every 10 ms. Hardware's ~110 ms timeout is shorter than some
+ * NEC remotes' full-frame repeats (measured 157 ms, first gap ~314 ms).
+ * Require both hardware release and 400 ms without a complete valid frame.
+ * Short NEC repeats still defer hardware release; don't time them out solely
+ * because they don't produce full-frame interrupts. */
+IR_RAM void ab32_irrx_poll(void)
+{
+    rt_base_t level = rt_hw_interrupt_disable();
+    if (state.running && state.pressed && release_pending &&
+        (rt_tick_t)(rt_tick_get() - last_frame) >= IR_RELEASE_TICKS)
+        irrx_release();
+    rt_hw_interrupt_enable(level);
 }
 IR_RAM static void irrx_isr(int vector, void *param)
 {
@@ -100,15 +117,17 @@ IR_RAM static void irrx_isr(int vector, void *param)
                 else irrx_release();
                 state.raw = raw;
                 state.pressed = 1;
+                last_frame = rt_tick_get();
+                release_pending = RT_FALSE;
                 irrx_push(kind);
             }
         }
-        /* If both flags accumulated, report the frame then release; never
-         * leave a key latched after hardware has reported release. */
+        /* Delay the application UP; complete repeats can bridge this pending
+         * release. Polling also resolves simultaneous RX/release flags. */
         if (pending & IR_RELEASE)
         {
             state.releases++;
-            irrx_release();
+            release_pending = state.pressed;
         }
     }
     rt_interrupt_leave();
@@ -144,6 +163,7 @@ IR_RAM static void irrx_switch(rt_bool_t on)
         IR_WRITE(IRRXERR1, (1718u << 20) | (250u << 10) | 125u);
         state = (struct ab32_ir_status){0};
         head = tail = 0;
+        release_pending = RT_FALSE;
         state.running = 1;
         rt_hw_interrupt_install(IRQ_IRRX_VECTOR, irrx_isr, RT_NULL, RT_NULL);
         IR_WRITE(IRRXCON, BIT(1) | BIT(0));

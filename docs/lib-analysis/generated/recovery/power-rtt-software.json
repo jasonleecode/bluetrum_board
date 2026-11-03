@@ -1,0 +1,339 @@
+{
+  "kind": "Native power diagnostics, retained-clock sleep and reset-on-wake shutdown: software validation",
+  "date": "2026-11-03",
+  "base_commit": "d7a73a1",
+  "source_state": "working tree; preserves earlier uncommitted IR hold repair and hardware evidence",
+  "flashed": true,
+  "hardware_verified": false,
+  "device": "power0",
+  "shell": "pmctl",
+  "default_enabled": true,
+  "rt_using_pm_enabled": false,
+  "implemented": [
+    "raw PWKEY/VUSB, live wake flags and non-destructive component-init boot snapshot",
+    "masked input/pull-up/filter/wake configuration with readback",
+    "explicit PWKEY/VUSB/both reset-on-wake shutdown; wake restarts ROM and RTT, never resumes old threads",
+    "scheduler-locked active BT/audio/FM/USB/TF admission observers",
+    "shared RTC mutex and bounded SRAM transfers; no new worker or dynamic allocation",
+    "all pre-commit changes have attempted rollback with restore error reporting",
+    "final rail-write timeout takes terminal watchdog reset; no return with uncertain rail state",
+    "all terminal and IRQ-masked entry paths reside in SRAM",
+    "RTC-second alignment and stopped-RTC rejection before sleep",
+    "RTC-second hardware wake with Timer0 paused, bounded RTC read and tick compensation",
+    "restore timer, LPM request and IRQ/wake policy before returning; no timer callbacks inside PM critical region"
+  ],
+  "not_implemented": [
+    "automatic tickless/deep sleep or PLL shutdown/restart",
+    "preserving Bluetooth links through system suspend",
+    "RTC alarm wake scheduling or PWKEY key event stream",
+    "automatic RT-Thread PM backend or idle-hook sleep"
+  ],
+  "hardware_pending": [
+    "soft power-off, external PWKEY/VUSB reset-on-wake and RTC retention after rail removal",
+    "power/current and external supply backfeed measurements",
+    "deep sleep and active Bluetooth link retention"
+  ],
+  "implementation_evidence": [
+    {
+      "source": "docs/ab32vg1_doc/AB32VG1_Register.pdf",
+      "scope": "RTC-domain wake enables, core/IO/buck enables, WK level and reset-on-wake bit"
+    },
+    {
+      "source": "https://github.com/ZhiqingLi/Sdk_Refresh/blob/aa0fc8f993bd0c2a6982bf0a95b3461ad7e7aa6d/AB53XX_SDK/app/platform/functions/func_lowpwr.c",
+      "scope": "func_sleepmode LPMCON bit0 and sfunc_pwrdown final rail/reset sequence; same-series reference, not AB32 physical validation",
+      "download_sha256": "bc34efad7e2d46438ce9cdee278729440fc4e0f98cb854bf74b0b0ac0014dbd9"
+    },
+    {
+      "source": "https://github.com/ZhiqingLi/Sdk_Refresh/blob/aa0fc8f993bd0c2a6982bf0a95b3461ad7e7aa6d/AB53XX_SDK/app/platform/libs/libplatform.a",
+      "member": "power.o",
+      "function": "charge_lowpower_power_down",
+      "scope": "cross-check reset bit5, CON3 low-three rail removal, LPMCON bit0",
+      "archive_sha256": "6165f17c6c25d58f23fb4732206fedacc085861c993d0607469c0368fb649409"
+    },
+    {
+      "source": "https://github.com/apache/nuttx/blob/master/arch/risc-v/src/ab32vg1/ab32vg1_idle.c",
+      "scope": "AB32 does not support standard WFI; driver uses vendor LPMCON"
+    }
+  ],
+  "validation": {
+    "default_build": "PASS; no compiler warnings/errors",
+    "model_log": "PASS: real RTC command IDs, clock selection/preserved bits, unset/retained time, byte order/rollover coherence, 32-bit limits, all-byte timeouts/retry, partial-write invalidation, IRQ/mutex cleanup and parser\nPASS: real RTC command IDs, clock selection/preserved bits, unset/retained time, byte order/rollover coherence, 32-bit limits, all-byte timeouts/retry, partial-write invalidation, IRQ/mutex cleanup and parser\nPASS: retained-clock sleep/wake guards, all integrated blockers, raw boot snapshot, off source/level validation, every preparation/commit byte failure, rollback and terminal reset-on-failure\nPASS: PM registration no-write, shared RTC locking, preserved clock/time/rails/pending/reset bits, wake/input/filter, all-byte faults/readback, atomic snapshot and thread context\nPASS: real RTC command IDs, clock selection/preserved bits, unset/retained time, byte order/rollover coherence, 32-bit limits, all-byte timeouts/retry, partial-write invalidation, IRQ/mutex cleanup and parser\nPASS: retained-clock sleep/wake guards, all integrated blockers, raw boot snapshot, off source/level validation, every preparation/commit byte failure, rollback and terminal reset-on-failure\nPASS: PM registration no-write, shared RTC locking, preserved clock/time/rails/pending/reset bits, wake/input/filter, all-byte faults/readback, atomic snapshot and thread context\nPASS: real RTC command IDs, clock selection/preserved bits, unset/retained time, byte order/rollover coherence, 32-bit limits, all-byte timeouts/retry, partial-write invalidation, IRQ/mutex cleanup and parser\nPASS: rtc\nPASS: rtc_external\nPASS: power\nPASS: power_external\n",
+    "profile_log": "Build workspace/logs: /tmp/ab32-rtt-build-sg30fmv4\npower: PASS (/tmp/ab32-rtt-build-sg30fmv4/power.log)\npower_external: PASS (/tmp/ab32-rtt-build-sg30fmv4/power_external.log)\npower_integrated: PASS (/tmp/ab32-rtt-build-sg30fmv4/power_integrated.log)\nled: PASS (/tmp/ab32-rtt-build-sg30fmv4/led.log)\n",
+    "coverage": [
+      "existing RTC tests and all status/configuration transfer faults",
+      "tick/IRQ/context requirements for sleep",
+      "each of five active-driver blocker bits",
+      "boot snapshot stability",
+      "off source/input/rail prerequisites",
+      "8 snapshot bytes and 18 preparation bytes: persistent bridge failures",
+      "all 18 preparation bytes: transient faults and successful rollback",
+      "ignored write readback failure",
+      "PWKEY changed immediately before commit",
+      "all 3 wake-source selections",
+      "both final commit bytes failing: terminal reset, never normal return",
+      "RTC stopped: bounded alignment timeout with no sleep entry",
+      "driver becomes busy during alignment",
+      "spurious early wake retried until RTC second",
+      "RTC read failure after wake restores timer/IRQ/wake policy",
+      "tick wraparound compensation"
+    ],
+    "host_sanitizer": "UBSan in rtc/rtc_external/power/power_external",
+    "ram_placement": "PASS; checked final disassembly for four entry/terminal helpers and SRAM callees",
+    "package_bytes": 233560
+  },
+  "memory": {
+    "sections": {
+      ".init": {
+        "bytes": 326,
+        "vma": 268435456,
+        "lma": 268435456
+      },
+      ".ram1": {
+        "bytes": 31224,
+        "vma": 327680,
+        "lma": 268435968
+      },
+      ".flash": {
+        "bytes": 116736,
+        "vma": 268467200,
+        "lma": 268467200
+      },
+      ".comm": {
+        "bytes": 75376,
+        "vma": 79872,
+        "lma": 268583936
+      },
+      ".bram": {
+        "bytes": 6540,
+        "vma": 69632,
+        "lma": 69632
+      },
+      ".bss": {
+        "bytes": 13888,
+        "vma": 155264,
+        "lma": 155264
+      },
+      ".heap": {
+        "bytes": 23360,
+        "vma": 169152,
+        "lma": 169152
+      },
+      ".stack": {
+        "bytes": 4096,
+        "vma": 192512,
+        "lma": 192512
+      },
+      ".riscv.attributes": {
+        "bytes": 42,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_info": {
+        "bytes": 2877,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_abbrev": {
+        "bytes": 907,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_loc": {
+        "bytes": 3347,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_aranges": {
+        "bytes": 120,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_line": {
+        "bytes": 2512,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_str": {
+        "bytes": 953,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_frame": {
+        "bytes": 64,
+        "vma": 0,
+        "lma": 0
+      },
+      ".debug_ranges": {
+        "bytes": 248,
+        "vma": 0,
+        "lma": 0
+      }
+    },
+    "placement_checks": {
+      "finsh_thread_entry": "0x1000b2b4",
+      "_audio_dev_init": "0x1000babe",
+      "pcmcheck": "0x1000c770",
+      "fmrx": "0x1002134a",
+      "btctl": "0x100216a6",
+      "ab32_power_init": "0x1002095c",
+      "power_control": "0x100209a0",
+      "pmctl": "0x10020f74",
+      "power_snapshot": "0x10020bc0",
+      "power_off_locked": "0x10020d1c",
+      "power_capture_boot": "0x10020b14",
+      "power_sleep_once": "0x10020e90",
+      "ab32_irtc_align_second_locked": "0x1002040c",
+      "ab32_irtc_transaction": "0x1002049c",
+      "ab32_irtc_read8_locked": "0x100204dc",
+      "ab32_irtc_update8_locked": "0x1002059c",
+      "ab32_irtc_shutdown_update_locked": "0x100205d6",
+      "ble_hs_init": "0x10012440",
+      "ble_gatts_init": "0x10011f56",
+      "ble_gap_adv_start": "0x1000f20e",
+      "ab32_usb_poll": "0x10016e9c",
+      "usbd_initialize": "0x10018ab8",
+      "usb_worker": "0x10017576",
+      "drv_sdcard_init": "0x100195c6",
+      "tf_read": "0x10019248",
+      "f_read": "0x1001bc1a",
+      "dfs_mount": "0x1001ea10",
+      "strstr": "0x1001f7c8",
+      "irrx": "0x1001fcb0",
+      "irrx_read": "0x1001fa7c",
+      "irrx_control": "0x1001fc30",
+      "board_keys_init": "0x1002291c",
+      "board_keys_poll": "0x10022c0c",
+      "keys": "0x10022a76",
+      "keys_read": "0x100229c4",
+      "keys_control": "0x100227ec",
+      "main": "0x1002310a",
+      "board_led_init": "0x10022f0a",
+      "board_led_poll": "0x10022f78",
+      "drv_pwm_control": "0x10023142",
+      "rt_pwm_set": "0x100237b0",
+      "rt_pwm_enable": "0x100236e8",
+      "rt_pwm_disable": "0x1002374c",
+      "hal_pwm_mspinit": "0x1002420c",
+      "ab32_rtc_init": "0x100201de",
+      "ab32_rtc_get_secs": "0x1002020e",
+      "ab32_rtc_set_secs": "0x10020128",
+      "rt_hw_rtc_register": "0x10021cec",
+      "rtcctl": "0x1002028c",
+      "time": "0x1002248c",
+      "gmtime_r": "0x10022198",
+      "localtime_r": "0x10022278",
+      "mktime": "0x10022654",
+      "rt_schedule": "0x53e12",
+      "rt_sem_release": "0x51428",
+      "rt_hw_context_switch": "0x1720a",
+      "os_cache_init": "0x15792",
+      "load_cache": "0x15852",
+      "__wrap_bthw_isr_do": "0x1f258",
+      "bb_run_loop": "0x14704",
+      "hci_host_recv_packet": "0x1f316",
+      "audio_isr": "0x13ce8",
+      "uart_isr": "0x143d0",
+      "ab32_pin_mode": "0x17582",
+      "hal_gpio_init": "0x21acc",
+      "gpio_afinit": "0x21a66",
+      "port_sfr": "0x238a0",
+      "port_table": "0x23894",
+      "ab32_irtc_sleep_locked": "0x142ac",
+      "power_bridge_policy": "0x14162",
+      "power_cutoff": "0x14144",
+      "ab32_irtc_cutoff_locked": "0x1438e",
+      "rt_tick_set": "0x5404a",
+      "rt_tick_get": "0x54030",
+      "rtc_transfer": "0x141d2",
+      "rtc_byte": "0x141a2",
+      "rtc_wait_idle": "0x14186",
+      "rtc_counter_read": "0x1426a",
+      "rt_hw_interrupt_disable": "0x171b6",
+      "rt_hw_interrupt_enable": "0x171c4",
+      "rtc_bridge_init": "0x141a8",
+      "ble_npl_hw_enter_critical": "0x1f60a",
+      "ble_npl_hw_exit_critical": "0x1f624",
+      "ble_npl_eventq_put": "0x1f680",
+      "ble_mqueue_get": "0x1e234",
+      "ble_mqueue_put": "0x1e258",
+      "os_memblock_get": "0x1eba8",
+      "os_memblock_put": "0x1ec0a",
+      "alloc_acl": "0x1546c",
+      "free_acl": "0x154ae",
+      "irrx_isr": "0x14026",
+      "irrx_push": "0x13d54",
+      "irrx_release": "0x13dc6",
+      "irrx_switch": "0x13e5e",
+      "irrx_pop": "0x13e0a",
+      "irrx_snapshot": "0x13de6",
+      "irrx_pin_regs": "0x14124",
+      "ab32_irrx_poll": "0x140da",
+      "rt_hw_irq_disable": "0x173d0",
+      "rt_hw_interrupt_install": "0x173ec",
+      "rt_interrupt_enter": "0x21680",
+      "rt_interrupt_leave": "0x216ac",
+      "memcpy": "0x2211c",
+      "memset": "0x22358",
+      "__riscv_restore_0": "0x13b5c",
+      "__riscv_restore_1": "0x13b58",
+      "__riscv_restore_10": "0x13b34",
+      "__riscv_restore_11": "0x13b30",
+      "__riscv_restore_12": "0x13b2c",
+      "__riscv_restore_2": "0x13b54",
+      "__riscv_restore_3": "0x13b50",
+      "__riscv_restore_4": "0x13b4c",
+      "__riscv_restore_5": "0x13b48",
+      "__riscv_restore_6": "0x13b44",
+      "__riscv_restore_7": "0x13b40",
+      "__riscv_restore_8": "0x13b3c",
+      "__riscv_restore_9": "0x13b38",
+      "__riscv_save_0": "0x13b26",
+      "__riscv_save_1": "0x13b1e",
+      "__riscv_save_10": "0x13a76",
+      "__riscv_save_11": "0x13a5a",
+      "__riscv_save_12": "0x13a3a",
+      "__riscv_save_2": "0x13b14",
+      "__riscv_save_3": "0x13b08",
+      "__riscv_save_4": "0x13afa",
+      "__riscv_save_5": "0x13aea",
+      "__riscv_save_6": "0x13ad8",
+      "__riscv_save_7": "0x13ac4",
+      "__riscv_save_8": "0x13aac",
+      "__riscv_save_9": "0x13a92"
+    },
+    "nimble_enabled": true,
+    "usb_enabled": true,
+    "tf_enabled": true,
+    "ir_enabled": true,
+    "keys_enabled": true,
+    "gpio_irq_enabled": false,
+    "rtc_enabled": true,
+    "led_breath_enabled": true,
+    "power_enabled": true,
+    "heap_region_bytes": 23360,
+    "note": "Heap region includes allocator metadata; use board free for runtime availability."
+  },
+  "sha256": {
+    "rtt/bsp/libraries/hal_drivers/drv_power.c": "6a2088b7c2653eeb7e72f58e89870254ea8f3515a3c2c643d366846b8bc1944d",
+    "rtt/bsp/libraries/hal_drivers/drv_power.h": "4c88863b3ae237e05fa4a23239e67c271c8827a32fc7b2cac7e04d14d12ca46e",
+    "rtt/bsp/libraries/hal_drivers/drv_rtc.c": "7dda1e260b1a9381ee1a2b4c74d3350cedda18eabf3bc190c698976da4b0d354",
+    "rtt/bsp/libraries/hal_drivers/drv_rtc_internal.h": "22ce33c0ce7e193c95445b19429d253c9b02ac720fe44ba5bf5a130f54a90a9b",
+    "rtt/bsp/board/ports/bluetooth/drv_btctrl.c": "34abf4bd41db306fd887b8e8914471c35da5f123cc11cfe0ce78b3dd1b3c70d5",
+    "rtt/bsp/board/ports/audio/drv_sound.c": "f4f57429ab2b7ac012ff991afae76bac6dae926e704afaa9a485209fe27b31d5",
+    "rtt/bsp/board/ports/audio/drv_fmrx.c": "5ad98169260611971192c5a8a0fcc461d47946972b43ddfba3a1745b8d050859",
+    "rtt/bsp/board/ports/usb/app_usb_cdc.c": "a14ce9416b1419fcb2f683db135556896e0ba6bd5c4bca16caad18af2c3328eb",
+    "rtt/bsp/board/ports/tf/drv_tf.c": "a7d8c15d03e56718005b3befa0dfb8478369b63cc87b7a5580c54ed33add7f97",
+    "tools/rtt/tests/rtc.c": "86830fcc1e9415ef79ee89054a82542ed6da08afdd3578b01264817648921e83",
+    "rtt/bsp/rtthread.elf": "c1681ced664b6e450adb49da728e1eae00d5de3307aa14b2306942e2eba75057",
+    "rtt/bsp/rtthread.bin": "dc87c7172e07e4ccff9df3ea5485821819c9e6c02ef390eca063c43b651e2c7d",
+    "rtt/bsp/rtthread.dcf": "5209b540b8fbfc8f821e6b39a7f732b09e2ef0f0e0b8feefa651d7a9a39fca3e",
+    "tools/rtt/test_power_uart.py": "c86c1c469bac154e4cabae8f0daec74ec93fb2dddcfae1dbe15cbc9e7654f7a6",
+    "tools/rtt/tests/rtc_board/board.h": "e79f07261f8cf58fc94aa47292d1ff460c8a45a1276ceccbeb0ebfca2325c74a"
+  },
+  "hardware_scope": {
+    "rtc_second_sleep": true,
+    "soft_poweroff": false,
+    "current_consumption": false
+  },
+  "hardware_record": "power-rtt-hardware.json"
+}

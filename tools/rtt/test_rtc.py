@@ -12,7 +12,7 @@ with tempfile.TemporaryDirectory(prefix='ab32-rtc-model-') as directory:
                 'rtt/components/drivers/include',
                 'rtt/bsp/libraries/hal_libraries/bmsis/include',
                 'rtt/bsp/libraries/hal_libraries/ab32vg1_hal/include']
-    for profile in ('rtc', 'rtc_external'):
+    for profile in ('rtc', 'rtc_external', 'power', 'power_external'):
         command = ['cc', '-std=gnu11', '-O2', '-g', '-Wall', '-Wextra',
                    '-Wno-cast-function-type', '-Werror=return-type',
                    '-Werror=incompatible-pointer-types', '-ffunction-sections', '-fdata-sections',

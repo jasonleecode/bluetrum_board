@@ -12,6 +12,13 @@
 
 static struct rt_semaphore wake;
 static rt_thread_t worker;
+#ifdef BSP_USING_POWER
+rt_bool_t ab32_btctrl_power_busy(void)
+{
+    /* Controller/RF cannot currently be released without a reboot. */
+    return worker != RT_NULL;
+}
+#endif
 #ifdef BSP_USING_NIMBLE
 static drv_bt_hci_rx_cb_t host_receive;
 static struct rt_semaphore started;

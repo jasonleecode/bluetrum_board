@@ -68,6 +68,11 @@ SECTIONS
         *drv_irrx.o (.text* .rodata* .srodata*)
         /* RTC is thread-only; its IRQ-masked bridge helpers use .irq.rtc. */
         *drv_rtc.o (.text* .rodata* .srodata*)
+        *drv_power.o (.text* .rodata* .srodata*)
+        /* FM shell is thread-only; masked radio helpers remain in SRAM. */
+        *drv_fmrx.o (.text.fmrx)
+        /* Controller diagnostics are only invoked by the shell thread. */
+        *drv_btctrl.o (.text.btctl .text.diagnose)
         *dev_rtc.o (.text* .rodata* .srodata*)
         /* Calendar conversion / libc RTC access runs in thread context only. */
         *ctime.o (.text* .rodata* .srodata*)
@@ -76,6 +81,8 @@ SECTIONS
         *board_led.o (.text* .rodata* .srodata*)
         *app*main.o (.text* .rodata* .srodata*)
         *drv_pwm.o (.text* .rodata* .srodata*)
+        /* PWM pin setup runs once in device-init thread, with IRQs enabled. */
+        *ab32vg1_hal_msp.o (.text.hal_pwm_mspinit)
         *rt_drv_pwm.o (.text* .rodata* .srodata*)
         *drv_gpio.o (.text.ab32_pin_get .text.ab32_pin_attach_irq
                      .text.ab32_pin_dettach_irq .text.ab32_pin_irq_enable

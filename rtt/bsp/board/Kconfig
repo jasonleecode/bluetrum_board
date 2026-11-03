@@ -344,6 +344,21 @@ menu "On-chip Peripheral Drivers"
                     V02 schematic does not populate a 32.768 kHz crystal.
         endif
 
+    config BSP_USING_POWER
+        bool "Power control, retained-clock sleep and reset-on-wake shutdown"
+        select BSP_USING_ONCHIP_RTC
+        select RT_USING_DEVICE_OPS
+        default n
+        help
+            power0 provides raw PWKEY/VUSB state, RTC-domain wake flags,
+            PWKEY input/filter and WK/VUSB wake enable controls.
+            Shares the bounded native RTC bridge and mutex. Captures raw boot
+            wake flags without clearing them. Manual sleep retains PLL/RAM,
+            uses RTC second wake and compensates the paused tick (1..2 s).
+            Power-off wakes through normal ROM/RTT boot. Active BT/audio/FM/
+            USB/TF block entry. No PLL-off deep sleep or automatic RTT PM
+            callbacks. Off/wake and current consumption need hardware tests.
+
     menuconfig BSP_USING_ADC
         bool "Enable ADC"
         default n

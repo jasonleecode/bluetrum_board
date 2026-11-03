@@ -1,0 +1,777 @@
+{
+  "kind": "V2.0 infrared receiver hardware compatibility and long-hold repair",
+  "date": "2026-11-03",
+  "base_commit": "d7a73a1",
+  "source_state": "working tree",
+  "board": "AB32VG1 V2.0",
+  "remote": "User-provided robot vacuum remote; brand/model unknown",
+  "protocol_observed": "32-bit standard NEC-compatible, address 0x4c",
+  "wiring": "Onboard receiver DAT to PE6/IR_G7 via P1 pins 1-2; functional reception confirmed",
+  "diagnosis": {
+    "before": "Hardware release at ~102-110 ms split long holds into DOWN/UP pairs. Full frames usually ~156-157 ms apart; initial gap ~313-314 ms.",
+    "old_cumulative_stats": "frames=109 invalid=0 releases=109 dropped=68; user also pressed outside active watch periods",
+    "queue_note": "Old dropped counts are bounded queue overflow while not drained, not RF corruption.",
+    "fix": "Require hardware release plus 400 ms since last valid complete frame. Existing main polls every 10 ms; no new timer or thread.",
+    "short_repeat_rule": "No software-only timeout without hardware release; NEC short-repeat hold retained (modeled, not hardware tested).",
+    "tradeoff": "Same-key physical presses less than 400 ms apart can merge into REPEAT."
+  },
+  "flashed": true,
+  "flash_log": "Connecting to /dev/ttyUSB0; reset the board to enter its bootloader.\nConnected: CRWN; uploading RAM loader.\nFlash: 1048576 bytes; image body: 228352 bytes.\nerase: 65536/229376\nerase: 131072/229376\nerase: 196608/229376\nerase: 208896/229376\nerase: 229376/229376\nwrite: 1024/228352\nwrite: 23040/228352\nwrite: 46080/228352\nwrite: 68608/228352\nwrite: 91648/228352\nwrite: 114176/228352\nwrite: 137216/228352\nwrite: 160256/228352\nwrite: 182784/228352\nwrite: 205824/228352\nwrite: 228352/228352\nverify: 9216/228352\nverify: 74752/228352\nverify: 140288/228352\nverify: 205824/228352\nverify: 228352/228352\nverify: 9216/228352\ncommit: 228352/228352\nVerified and committed rtt/bsp/rtthread.dcf to /dev/ttyUSB0.\n",
+  "validation": {
+    "passed": true,
+    "user_confirmed_sequence": "Up, right, left, down; held each, released between; user replied completed.",
+    "keys": [
+      {
+        "key": "up",
+        "address": "0x4c",
+        "command": "0x4a",
+        "raw": "0xb54ab34c",
+        "frames": 14,
+        "repeats": 13,
+        "release_after_last_frame_ms": 403
+      },
+      {
+        "key": "right",
+        "address": "0x4c",
+        "command": "0x41",
+        "raw": "0xbe41b34c",
+        "frames": 9,
+        "repeats": 8,
+        "release_after_last_frame_ms": 406
+      },
+      {
+        "key": "left",
+        "address": "0x4c",
+        "command": "0x19",
+        "raw": "0xe619b34c",
+        "frames": 15,
+        "repeats": 14,
+        "release_after_last_frame_ms": 404
+      },
+      {
+        "key": "down",
+        "address": "0x4c",
+        "command": "0x52",
+        "raw": "0xad52b34c",
+        "frames": 15,
+        "repeats": 14,
+        "release_after_last_frame_ms": 404
+      }
+    ],
+    "frames": 53,
+    "event_counts": {
+      "DOWN": 4,
+      "REPEAT": 49,
+      "UP": 4
+    },
+    "invalid": 0,
+    "dropped": 0,
+    "final_pressed": 0,
+    "lifecycle": "STOP reports running=0, START reports running=1 with cleared statistics; left receiver on.",
+    "heap": {
+      "total": 22440,
+      "used": 9376,
+      "maximum": 9376,
+      "available": 13064,
+      "unchanged_before_after": true
+    },
+    "led_status": "ready=1 active=0 level=0/1000 toggles=0 error=0",
+    "rtc_observation": "Query returned -5 (unset/busy/transfer error text). RTC was not calibrated or validated in this IR session; no RTC time written.",
+    "events": [
+      {
+        "kind": "DOWN",
+        "address": 76,
+        "command": 74,
+        "raw": 3041571660,
+        "tick": 65042
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 74,
+        "raw": 3041571660,
+        "tick": 65355
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 74,
+        "raw": 3041571660,
+        "tick": 65512
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 74,
+        "raw": 3041571660,
+        "tick": 65669
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 74,
+        "raw": 3041571660,
+        "tick": 65825
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 74,
+        "raw": 3041571660,
+        "tick": 65982
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 74,
+        "raw": 3041571660,
+        "tick": 66139
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 74,
+        "raw": 3041571660,
+        "tick": 66296
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 74,
+        "raw": 3041571660,
+        "tick": 66453
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 74,
+        "raw": 3041571660,
+        "tick": 66610
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 74,
+        "raw": 3041571660,
+        "tick": 66766
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 74,
+        "raw": 3041571660,
+        "tick": 66923
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 74,
+        "raw": 3041571660,
+        "tick": 67080
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 74,
+        "raw": 3041571660,
+        "tick": 67237
+      },
+      {
+        "kind": "UP",
+        "address": 76,
+        "command": 74,
+        "raw": 3041571660,
+        "tick": 67640
+      },
+      {
+        "kind": "DOWN",
+        "address": 76,
+        "command": 65,
+        "raw": 3191976780,
+        "tick": 68424
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 65,
+        "raw": 3191976780,
+        "tick": 68737
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 65,
+        "raw": 3191976780,
+        "tick": 68894
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 65,
+        "raw": 3191976780,
+        "tick": 69050
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 65,
+        "raw": 3191976780,
+        "tick": 69207
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 65,
+        "raw": 3191976780,
+        "tick": 69364
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 65,
+        "raw": 3191976780,
+        "tick": 69521
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 65,
+        "raw": 3191976780,
+        "tick": 69678
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 65,
+        "raw": 3191976780,
+        "tick": 69834
+      },
+      {
+        "kind": "UP",
+        "address": 76,
+        "command": 65,
+        "raw": 3191976780,
+        "tick": 70240
+      },
+      {
+        "kind": "DOWN",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 71144
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 71457
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 71614
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 71771
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 71928
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 72085
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 72241
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 72398
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 72555
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 72712
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 72869
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 73026
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 73182
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 73339
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 73496
+      },
+      {
+        "kind": "UP",
+        "address": 76,
+        "command": 25,
+        "raw": 3860443980,
+        "tick": 73900
+      },
+      {
+        "kind": "DOWN",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 75000
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 75157
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 75314
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 75471
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 75628
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 75784
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 75941
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 76098
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 76255
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 76412
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 76568
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 76725
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 76882
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 77039
+      },
+      {
+        "kind": "REPEAT",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 77196
+      },
+      {
+        "kind": "UP",
+        "address": 76,
+        "command": 82,
+        "raw": 2907878220,
+        "tick": 77600
+      }
+    ]
+  },
+  "software_validation": {
+    "model": "PASS: measured 314/157 ms repeats, 400 ms release boundary, short-repeat hold, simultaneous flags, command switch and tick wrap\nPASS: IR boot/start/stop, gate/pin/mapping preservation, NEC/extended commands, repeats, release, invalid frames, simultaneous flags, W1C snapshot, queue overflow, unaligned I/O, tick wrap and bounded watch\nPASS: IR compile-time Timer3/PWM/SPI1-G4/legacy-software conflicts\n",
+    "profiles": "Build workspace/logs: /tmp/ab32-rtt-build-ggl521l1\nir: PASS (/tmp/ab32-rtt-build-ggl521l1/ir.log)\nled: PASS (/tmp/ab32-rtt-build-ggl521l1/led.log)\n",
+    "default_build": "PASS",
+    "memory": {
+      "sections": {
+        ".init": {
+          "bytes": 326,
+          "vma": 268435456,
+          "lma": 268435456
+        },
+        ".ram1": {
+          "bytes": 31200,
+          "vma": 327680,
+          "lma": 268435968
+        },
+        ".flash": {
+          "bytes": 111104,
+          "vma": 268467200,
+          "lma": 268467200
+        },
+        ".comm": {
+          "bytes": 76280,
+          "vma": 79872,
+          "lma": 268578304
+        },
+        ".bram": {
+          "bytes": 6540,
+          "vma": 69632,
+          "lma": 69632
+        },
+        ".bss": {
+          "bytes": 13824,
+          "vma": 156160,
+          "lma": 156160
+        },
+        ".heap": {
+          "bytes": 22528,
+          "vma": 169984,
+          "lma": 169984
+        },
+        ".stack": {
+          "bytes": 4096,
+          "vma": 192512,
+          "lma": 192512
+        },
+        ".riscv.attributes": {
+          "bytes": 42,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_info": {
+          "bytes": 2877,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_abbrev": {
+          "bytes": 907,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_loc": {
+          "bytes": 3347,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_aranges": {
+          "bytes": 120,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_line": {
+          "bytes": 2512,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_str": {
+          "bytes": 953,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_frame": {
+          "bytes": 64,
+          "vma": 0,
+          "lma": 0
+        },
+        ".debug_ranges": {
+          "bytes": 248,
+          "vma": 0,
+          "lma": 0
+        }
+      },
+      "placement_checks": {
+        "finsh_thread_entry": "0x1000b2b4",
+        "_audio_dev_init": "0x1000babe",
+        "pcmcheck": "0x1000c770",
+        "ble_hs_init": "0x10012440",
+        "ble_gatts_init": "0x10011f56",
+        "ble_gap_adv_start": "0x1000f20e",
+        "ab32_usb_poll": "0x10016e9c",
+        "usbd_initialize": "0x10018a9c",
+        "usb_worker": "0x10017576",
+        "drv_sdcard_init": "0x10019586",
+        "tf_read": "0x1001922c",
+        "f_read": "0x1001bbda",
+        "dfs_mount": "0x1001e9d0",
+        "strstr": "0x1001f788",
+        "irrx": "0x1001fc70",
+        "irrx_read": "0x1001fa3c",
+        "irrx_control": "0x1001fbf0",
+        "board_keys_init": "0x10021374",
+        "board_keys_poll": "0x10021664",
+        "keys": "0x100214ce",
+        "keys_read": "0x1002141c",
+        "keys_control": "0x10021244",
+        "main": "0x10021b62",
+        "board_led_init": "0x10021962",
+        "board_led_poll": "0x100219d0",
+        "drv_pwm_control": "0x10021b9a",
+        "rt_pwm_set": "0x10022208",
+        "rt_pwm_enable": "0x10022140",
+        "rt_pwm_disable": "0x100221a4",
+        "hal_pwm_mspinit": "0x10022c64",
+        "ab32_rtc_init": "0x100201f0",
+        "ab32_rtc_get_secs": "0x10020220",
+        "ab32_rtc_set_secs": "0x1002013a",
+        "rt_hw_rtc_register": "0x10020744",
+        "rtcctl": "0x1002029a",
+        "time": "0x10020ee4",
+        "gmtime_r": "0x10020bf0",
+        "localtime_r": "0x10020cd0",
+        "mktime": "0x100210ac",
+        "rt_schedule": "0x53e12",
+        "rt_sem_release": "0x51428",
+        "rt_hw_context_switch": "0x172ac",
+        "os_cache_init": "0x155d2",
+        "load_cache": "0x15692",
+        "__wrap_bthw_isr_do": "0x1f5e2",
+        "bb_run_loop": "0x14550",
+        "hci_host_recv_packet": "0x1f6a0",
+        "audio_isr": "0x13ce8",
+        "uart_isr": "0x1421c",
+        "ab32_pin_mode": "0x17624",
+        "hal_gpio_init": "0x21e56",
+        "gpio_afinit": "0x21df0",
+        "port_sfr": "0x23c2c",
+        "port_table": "0x23c20",
+        "rtc_transfer": "0x14184",
+        "rtc_byte": "0x14160",
+        "rtc_wait_idle": "0x14144",
+        "rtc_bridge_init": "0x14166",
+        "rt_hw_interrupt_disable": "0x17258",
+        "rt_hw_interrupt_enable": "0x17266",
+        "ble_npl_hw_enter_critical": "0x1f994",
+        "ble_npl_hw_exit_critical": "0x1f9ae",
+        "ble_npl_eventq_put": "0x1fa0a",
+        "ble_mqueue_get": "0x1e2d6",
+        "ble_mqueue_put": "0x1e2fa",
+        "os_memblock_get": "0x1ec4a",
+        "os_memblock_put": "0x1ecac",
+        "alloc_acl": "0x152ac",
+        "free_acl": "0x152ee",
+        "irrx_isr": "0x14026",
+        "irrx_push": "0x13d54",
+        "irrx_release": "0x13dc6",
+        "irrx_switch": "0x13e5e",
+        "irrx_pop": "0x13e0a",
+        "irrx_snapshot": "0x13de6",
+        "irrx_pin_regs": "0x14124",
+        "ab32_irrx_poll": "0x140da",
+        "rt_hw_irq_disable": "0x17472",
+        "rt_hw_interrupt_install": "0x1748e",
+        "rt_interrupt_enter": "0x21a0a",
+        "rt_interrupt_leave": "0x21a36",
+        "rt_tick_get": "0x54030",
+        "memcpy": "0x224a8",
+        "memset": "0x226e4",
+        "__riscv_restore_0": "0x13b5c",
+        "__riscv_restore_1": "0x13b58",
+        "__riscv_restore_10": "0x13b34",
+        "__riscv_restore_11": "0x13b30",
+        "__riscv_restore_12": "0x13b2c",
+        "__riscv_restore_2": "0x13b54",
+        "__riscv_restore_3": "0x13b50",
+        "__riscv_restore_4": "0x13b4c",
+        "__riscv_restore_5": "0x13b48",
+        "__riscv_restore_6": "0x13b44",
+        "__riscv_restore_7": "0x13b40",
+        "__riscv_restore_8": "0x13b3c",
+        "__riscv_restore_9": "0x13b38",
+        "__riscv_save_0": "0x13b26",
+        "__riscv_save_1": "0x13b1e",
+        "__riscv_save_10": "0x13a76",
+        "__riscv_save_11": "0x13a5a",
+        "__riscv_save_12": "0x13a3a",
+        "__riscv_save_2": "0x13b14",
+        "__riscv_save_3": "0x13b08",
+        "__riscv_save_4": "0x13afa",
+        "__riscv_save_5": "0x13aea",
+        "__riscv_save_6": "0x13ad8",
+        "__riscv_save_7": "0x13ac4",
+        "__riscv_save_8": "0x13aac",
+        "__riscv_save_9": "0x13a92"
+      },
+      "nimble_enabled": true,
+      "usb_enabled": true,
+      "tf_enabled": true,
+      "ir_enabled": true,
+      "keys_enabled": true,
+      "gpio_irq_enabled": false,
+      "rtc_enabled": true,
+      "led_breath_enabled": true,
+      "heap_region_bytes": 22528,
+      "note": "Heap region includes allocator metadata; use board free for runtime availability."
+    }
+  },
+  "uart": {
+    "initial_baseline": {
+      "text": "\r\r\nmsh />version\r\r\n\r\n \\ | /\r\n- RT -     Thread Operating System\r\n / | \\     5.2.2 build Nov  2 2026 17:49:44\r\n 2006 - 2024 Copyright by RT-Thread team\r\nmsh />\r\r\nmsh />irrx status\r\r\nir0: running=0 pressed=0 raw=00000000 queued=0 dropped=0 frames=0 invalid=0 releases=0\r\nmsh />\r\r\nmsh />irrx start\r\r\nmsh />\r\r\nmsh />irrx status\r\r\nir0: running=1 pressed=0 raw=00000000 queued=0 dropped=0 frames=0 invalid=0 releases=0\r\nmsh />\r\r\nmsh />free\r\r\ntotal    : 22536\r\nused     : 9376\r\nmaximum  : 9432\r\navailable: 13160\r\nmsh />",
+      "raw_hex": "0d0d0a6d7368202f3e1b37761b37651b37721b37731b37691b376f1b376e1b370d0d0a0d0a205c207c202f0d0a2d205254202d2020202020546872656164204f7065726174696e672053797374656d0d0a202f207c205c2020202020352e322e32206275696c64204e6f7620203220323032362031373a34393a34340d0a2032303036202d203230323420436f707972696768742062792052542d546872656164207465616d0d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37731b37741b37611b37741b37751b37731b370d0d0a6972303a2072756e6e696e673d3020707265737365643d30207261773d3030303030303030207175657565643d302064726f707065643d30206672616d65733d3020696e76616c69643d302072656c65617365733d300d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37731b37741b37611b37721b37741b370d0d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37731b37741b37611b37741b37751b37731b370d0d0a6972303a2072756e6e696e673d3120707265737365643d30207261773d3030303030303030207175657565643d302064726f707065643d30206672616d65733d3020696e76616c69643d302072656c65617365733d300d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37661b37721b37651b37651b370d0d0a746f74616c202020203a2032323533360d0a7573656420202020203a20393337360d0a6d6178696d756d20203a20393433320d0a617661696c61626c653a2031333136300d0a6d7368202f3e1b37"
+    },
+    "before_fix_watch": {
+      "text": "\r\r\nmsh />irrx watch 30\r\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=320522\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=320602\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=320712\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=326484\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=326594\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=326831\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=326941\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=329377\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=329487\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=329662\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=329772\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=330481\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=330591\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=330766\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=330876\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=331299\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=331409\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=331869\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=331979\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=337099\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=337209\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=337707\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=337817\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=338376\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=338486\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=338959\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=339069\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=339805\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=339915\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=340437\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=340547\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=341032\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=341142\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=341937\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=342047\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=342557\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=342667\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=343859\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=343969\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=345705\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=345815\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=346324\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=346434\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=347234\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=347344\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=347916\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=348026\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=348573\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=348683\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=350935\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=351045\r\nIR DOWN NEC addr=004c cmd=4e raw=b14eb34c tick=356480\r\nIR UP NEC addr=004c cmd=4e raw=b14eb34c tick=356590\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=357529\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=357639\r\nIR DOWN NEC addr=004c cmd=19 raw=e619b34c tick=358517\r\nIR UP NEC addr=004c cmd=19 raw=e619b34c tick=358627\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=359319\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=359429\r\nmsh />",
+      "raw_hex": "0d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37771b37611b37741b37631b37681b37201b37331b37301b370d0d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3332303532320d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3332303630320d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3332303731320d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3332363438340d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3332363539340d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3332363833310d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3332363934310d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3332393337370d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3332393438370d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3332393636320d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3332393737320d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333303438310d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333303539310d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333303736360d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333303837360d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333313239390d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333313430390d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333313836390d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333313937390d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333373039390d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333373230390d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333373730370d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333373831370d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333383337360d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333383438360d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333383935390d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333393036390d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333393830350d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3333393931350d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334303433370d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334303534370d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334313033320d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334313134320d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334313933370d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334323034370d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334323535370d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334323636370d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334333835390d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334333936390d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334353730350d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334353831350d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334363332340d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334363433340d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334373233340d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334373334340d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334373931360d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334383032360d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334383537330d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3334383638330d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3335303933350d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3335313034350d0a495220444f574e204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3335363438300d0a4952205550204e454320616464723d3030346320636d643d3465207261773d6231346562333463207469636b3d3335363539300d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3335373532390d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3335373633390d0a495220444f574e204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d3335383531370d0a4952205550204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d3335383632370d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3335393331390d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3335393432390d0a6d7368202f3e1b37"
+    },
+    "before_fix_stats": {
+      "text": "\r\r\nmsh />irrx read\r\r\nIR DOWN NEC addr=004c cmd=52 raw=ad52b34c tick=361463\r\nIR UP NEC addr=004c cmd=52 raw=ad52b34c tick=361573\r\nIR DOWN NEC addr=004c cmd=52 raw=ad52b34c tick=362570\r\nIR UP NEC addr=004c cmd=52 raw=ad52b34c tick=362680\r\nIR DOWN NEC addr=004c cmd=52 raw=ad52b34c tick=363057\r\nIR UP NEC addr=004c cmd=52 raw=ad52b34c tick=363167\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=364757\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=364867\r\nmsh />\r\r\nmsh />irrx status\r\r\nir0: running=1 pressed=0 raw=be41b34c queued=0 dropped=13 frames=40 invalid=0 releases=40\r\nmsh />",
+      "raw_hex": "0d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37721b37651b37611b37641b370d0d0a495220444f574e204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d3336313436330d0a4952205550204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d3336313537330d0a495220444f574e204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d3336323537300d0a4952205550204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d3336323638300d0a495220444f574e204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d3336333035370d0a4952205550204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d3336333136370d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3336343735370d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3336343836370d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37731b37741b37611b37741b37751b37731b370d0d0a6972303a2072756e6e696e673d3120707265737365643d30207261773d6265343162333463207175657565643d302064726f707065643d3133206672616d65733d343020696e76616c69643d302072656c65617365733d34300d0a6d7368202f3e1b37"
+    },
+    "before_fix_hold": {
+      "text": "\r\r\nmsh />irrx watch 30\r\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=401573\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=401683\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=401887\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=401989\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=402044\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=402146\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=402201\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=402303\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=402358\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=402460\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=402514\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=402616\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=402671\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=402773\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=402828\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=402930\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=402985\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=403087\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=403142\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=403244\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=403298\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=403401\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=403455\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=403557\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=403612\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=403715\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=403769\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=403871\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=403926\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=404028\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=404083\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=404193\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=409319\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=409422\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=409476\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=409579\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=409633\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=409735\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=409790\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=409892\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=409947\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=410049\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=410103\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=410206\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=410260\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=410362\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=410417\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=410519\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=410573\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=410676\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=410731\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=410833\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=410887\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=410990\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=411044\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=411146\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=411201\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=411303\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=411357\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=411460\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=411514\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=411624\r\nIR DOWN NEC addr=004c cmd=19 raw=e619b34c tick=413788\r\nIR UP NEC addr=004c cmd=19 raw=e619b34c tick=413898\r\nIR DOWN NEC addr=004c cmd=19 raw=e619b34c tick=414101\r\nIR UP NEC addr=004c cmd=19 raw=e619b34c tick=414203\r\nIR DOWN NEC addr=004c cmd=19 raw=e619b34c tick=414258\r\nIR UP NEC addr=004c cmd=19 raw=e619b34c tick=414360\r\nIR DOWN NEC addr=004c cmd=19 raw=e619b34c tick=414415\r\nIR UP NEC addr=004c cmd=19 raw=e619b34c tick=414517\r\nIR DOWN NEC addr=004c cmd=19 raw=e619b34c tick=414572\r\nIR UP NEC addr=004c cmd=19 raw=e619b34c tick=414674\r\nIR DOWN NEC addr=004c cmd=19 raw=e619b34c tick=414729\r\nIR UP NEC addr=004c cmd=19 raw=e619b34c tick=414831\r\nIR DOWN NEC addr=004c cmd=19 raw=e619b34c tick=414885\r\nmsh />",
+      "raw_hex": "0d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37771b37611b37741b37631b37681b37201b37331b37301b370d0d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430313537330d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430313638330d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430313838370d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430313938390d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430323034340d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430323134360d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430323230310d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430323330330d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430323335380d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430323436300d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430323531340d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430323631360d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430323637310d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430323737330d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430323832380d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430323933300d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430323938350d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430333038370d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430333134320d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430333234340d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430333239380d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430333430310d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430333435350d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430333535370d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430333631320d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430333731350d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430333736390d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430333837310d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430333932360d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430343032380d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430343038330d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3430343139330d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3430393331390d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3430393432320d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3430393437360d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3430393537390d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3430393633330d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3430393733350d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3430393739300d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3430393839320d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3430393934370d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431303034390d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431303130330d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431303230360d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431303236300d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431303336320d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431303431370d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431303531390d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431303537330d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431303637360d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431303733310d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431303833330d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431303838370d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431303939300d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431313034340d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431313134360d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431313230310d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431313330330d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431313335370d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431313436300d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431313531340d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d3431313632340d0a495220444f574e204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d3431333738380d0a4952205550204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d3431333839380d0a495220444f574e204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d3431343130310d0a4952205550204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d3431343230330d0a495220444f574e204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d3431343235380d0a4952205550204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d3431343336300d0a495220444f574e204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d3431343431350d0a4952205550204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d3431343531370d0a495220444f574e204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d3431343537320d0a4952205550204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d3431343637340d0a495220444f574e204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d3431343732390d0a4952205550204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d3431343833310d0a495220444f574e204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d3431343838350d0a6d7368202f3e1b37"
+    },
+    "before_fix_hold_stats": {
+      "text": "\r\r\nmsh />irrx read\r\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=449226\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=449329\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=449383\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=449485\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=449540\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=449650\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=451926\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=452036\r\nmsh />\r\r\nmsh />irrx status\r\r\nir0: running=1 pressed=0 raw=b54ab34c queued=0 dropped=68 frames=109 invalid=0 releases=109\r\nmsh />",
+      "raw_hex": "0d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37721b37651b37611b37641b370d0d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3434393232360d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3434393332390d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3434393338330d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3434393438350d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3434393534300d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3434393635300d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3435313932360d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d3435323033360d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37731b37741b37611b37741b37751b37731b370d0d0a6972303a2072756e6e696e673d3120707265737365643d30207261773d6235346162333463207175657565643d302064726f707065643d3638206672616d65733d31303920696e76616c69643d302072656c65617365733d3130390d0a6d7368202f3e1b37"
+    },
+    "fixed_baseline": {
+      "text": "\r\n \\ | /\r\n- RT -     Thread Operating System\r\n / | \\     5.2.2 b\r\r\nmsh />irrx start\r\r\nmsh />\r\r\nmsh />irrx status\r\r\nir0: running=1 pressed=0 raw=00000000 queued=0 dropped=0 frames=0 invalid=0 releases=0\r\nmsh />\r\r\nmsh />free\r\r\ntotal    : 22440\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 13064\r\nmsh />",
+      "raw_hex": "0d0a205c207c202f0d0a2d205254202d2020202020546872656164204f7065726174696e672053797374656d0d0a202f207c205c2020202020352e322e3220620d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37731b37741b37611b37721b37741b370d0d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37731b37741b37611b37741b37751b37731b370d0d0a6972303a2072756e6e696e673d3120707265737365643d30207261773d3030303030303030207175657565643d302064726f707065643d30206672616d65733d3020696e76616c69643d302072656c65617365733d300d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37661b37721b37651b37651b370d0d0a746f74616c202020203a2032323434300d0a7573656420202020203a20393337360d0a6d6178696d756d20203a20393337360d0a617661696c61626c653a2031333036340d0a6d7368202f3e1b37"
+    },
+    "fixed_watch": {
+      "text": "\r\r\nmsh />irrx watch 30\r\r\nIR DOWN NEC addr=004c cmd=4a raw=b54ab34c tick=65042\r\nIR REPEAT NEC addr=004c cmd=4a raw=b54ab34c tick=65355\r\nIR REPEAT NEC addr=004c cmd=4a raw=b54ab34c tick=65512\r\nIR REPEAT NEC addr=004c cmd=4a raw=b54ab34c tick=65669\r\nIR REPEAT NEC addr=004c cmd=4a raw=b54ab34c tick=65825\r\nIR REPEAT NEC addr=004c cmd=4a raw=b54ab34c tick=65982\r\nIR REPEAT NEC addr=004c cmd=4a raw=b54ab34c tick=66139\r\nIR REPEAT NEC addr=004c cmd=4a raw=b54ab34c tick=66296\r\nIR REPEAT NEC addr=004c cmd=4a raw=b54ab34c tick=66453\r\nIR REPEAT NEC addr=004c cmd=4a raw=b54ab34c tick=66610\r\nIR REPEAT NEC addr=004c cmd=4a raw=b54ab34c tick=66766\r\nIR REPEAT NEC addr=004c cmd=4a raw=b54ab34c tick=66923\r\nIR REPEAT NEC addr=004c cmd=4a raw=b54ab34c tick=67080\r\nIR REPEAT NEC addr=004c cmd=4a raw=b54ab34c tick=67237\r\nIR UP NEC addr=004c cmd=4a raw=b54ab34c tick=67640\r\nIR DOWN NEC addr=004c cmd=41 raw=be41b34c tick=68424\r\nIR REPEAT NEC addr=004c cmd=41 raw=be41b34c tick=68737\r\nIR REPEAT NEC addr=004c cmd=41 raw=be41b34c tick=68894\r\nIR REPEAT NEC addr=004c cmd=41 raw=be41b34c tick=69050\r\nIR REPEAT NEC addr=004c cmd=41 raw=be41b34c tick=69207\r\nIR REPEAT NEC addr=004c cmd=41 raw=be41b34c tick=69364\r\nIR REPEAT NEC addr=004c cmd=41 raw=be41b34c tick=69521\r\nIR REPEAT NEC addr=004c cmd=41 raw=be41b34c tick=69678\r\nIR REPEAT NEC addr=004c cmd=41 raw=be41b34c tick=69834\r\nIR UP NEC addr=004c cmd=41 raw=be41b34c tick=70240\r\nIR DOWN NEC addr=004c cmd=19 raw=e619b34c tick=71144\r\nIR REPEAT NEC addr=004c cmd=19 raw=e619b34c tick=71457\r\nIR REPEAT NEC addr=004c cmd=19 raw=e619b34c tick=71614\r\nIR REPEAT NEC addr=004c cmd=19 raw=e619b34c tick=71771\r\nIR REPEAT NEC addr=004c cmd=19 raw=e619b34c tick=71928\r\nIR REPEAT NEC addr=004c cmd=19 raw=e619b34c tick=72085\r\nIR REPEAT NEC addr=004c cmd=19 raw=e619b34c tick=72241\r\nIR REPEAT NEC addr=004c cmd=19 raw=e619b34c tick=72398\r\nIR REPEAT NEC addr=004c cmd=19 raw=e619b34c tick=72555\r\nIR REPEAT NEC addr=004c cmd=19 raw=e619b34c tick=72712\r\nIR REPEAT NEC addr=004c cmd=19 raw=e619b34c tick=72869\r\nIR REPEAT NEC addr=004c cmd=19 raw=e619b34c tick=73026\r\nIR REPEAT NEC addr=004c cmd=19 raw=e619b34c tick=73182\r\nIR REPEAT NEC addr=004c cmd=19 raw=e619b34c tick=73339\r\nIR REPEAT NEC addr=004c cmd=19 raw=e619b34c tick=73496\r\nIR UP NEC addr=004c cmd=19 raw=e619b34c tick=73900\r\nIR DOWN NEC addr=004c cmd=52 raw=ad52b34c tick=75000\r\nIR REPEAT NEC addr=004c cmd=52 raw=ad52b34c tick=75157\r\nIR REPEAT NEC addr=004c cmd=52 raw=ad52b34c tick=75314\r\nIR REPEAT NEC addr=004c cmd=52 raw=ad52b34c tick=75471\r\nIR REPEAT NEC addr=004c cmd=52 raw=ad52b34c tick=75628\r\nIR REPEAT NEC addr=004c cmd=52 raw=ad52b34c tick=75784\r\nIR REPEAT NEC addr=004c cmd=52 raw=ad52b34c tick=75941\r\nIR REPEAT NEC addr=004c cmd=52 raw=ad52b34c tick=76098\r\nIR REPEAT NEC addr=004c cmd=52 raw=ad52b34c tick=76255\r\nIR REPEAT NEC addr=004c cmd=52 raw=ad52b34c tick=76412\r\nIR REPEAT NEC addr=004c cmd=52 raw=ad52b34c tick=76568\r\nIR REPEAT NEC addr=004c cmd=52 raw=ad52b34c tick=76725\r\nIR REPEAT NEC addr=004c cmd=52 raw=ad52b34c tick=76882\r\nIR REPEAT NEC addr=004c cmd=52 raw=ad52b34c tick=77039\r\nIR REPEAT NEC addr=004c cmd=52 raw=ad52b34c tick=77196\r\nIR UP NEC addr=004c cmd=52 raw=ad52b34c tick=77600\r\nmsh />",
+      "raw_hex": "0d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37771b37611b37741b37631b37681b37201b37331b37301b370d0d0a495220444f574e204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d36353034320d0a495220524550454154204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d36353335350d0a495220524550454154204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d36353531320d0a495220524550454154204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d36353636390d0a495220524550454154204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d36353832350d0a495220524550454154204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d36353938320d0a495220524550454154204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d36363133390d0a495220524550454154204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d36363239360d0a495220524550454154204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d36363435330d0a495220524550454154204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d36363631300d0a495220524550454154204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d36363736360d0a495220524550454154204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d36363932330d0a495220524550454154204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d36373038300d0a495220524550454154204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d36373233370d0a4952205550204e454320616464723d3030346320636d643d3461207261773d6235346162333463207469636b3d36373634300d0a495220444f574e204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d36383432340d0a495220524550454154204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d36383733370d0a495220524550454154204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d36383839340d0a495220524550454154204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d36393035300d0a495220524550454154204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d36393230370d0a495220524550454154204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d36393336340d0a495220524550454154204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d36393532310d0a495220524550454154204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d36393637380d0a495220524550454154204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d36393833340d0a4952205550204e454320616464723d3030346320636d643d3431207261773d6265343162333463207469636b3d37303234300d0a495220444f574e204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37313134340d0a495220524550454154204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37313435370d0a495220524550454154204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37313631340d0a495220524550454154204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37313737310d0a495220524550454154204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37313932380d0a495220524550454154204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37323038350d0a495220524550454154204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37323234310d0a495220524550454154204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37323339380d0a495220524550454154204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37323535350d0a495220524550454154204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37323731320d0a495220524550454154204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37323836390d0a495220524550454154204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37333032360d0a495220524550454154204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37333138320d0a495220524550454154204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37333333390d0a495220524550454154204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37333439360d0a4952205550204e454320616464723d3030346320636d643d3139207261773d6536313962333463207469636b3d37333930300d0a495220444f574e204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37353030300d0a495220524550454154204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37353135370d0a495220524550454154204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37353331340d0a495220524550454154204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37353437310d0a495220524550454154204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37353632380d0a495220524550454154204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37353738340d0a495220524550454154204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37353934310d0a495220524550454154204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37363039380d0a495220524550454154204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37363235350d0a495220524550454154204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37363431320d0a495220524550454154204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37363536380d0a495220524550454154204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37363732350d0a495220524550454154204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37363838320d0a495220524550454154204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37373033390d0a495220524550454154204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37373139360d0a4952205550204e454320616464723d3030346320636d643d3532207261773d6164353262333463207469636b3d37373630300d0a6d7368202f3e1b37"
+    },
+    "fixed_final_status": {
+      "text": "\r\r\nmsh />irrx status\r\r\nir0: running=1 pressed=0 raw=ad52b34c queued=0 dropped=0 frames=53 invalid=0 releases=53\r\nmsh />\r\r\nmsh />free\r\r\ntotal    : 22440\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 13064\r\nmsh />\r\r\nmsh />rtcctl get\r\r\nRTC error -5 (unset time, busy context or transfer failure)\r\nrtcctl: command failed -5.\r\nmsh />\r\r\nmsh />led status\r\r\nLED ready=1 active=0 level=0/1000 toggles=0 error=0\r\nmsh />\r\r\nmsh />irrx stop\r\r\nmsh />\r\r\nmsh />irrx status\r\r\nir0: running=0 pressed=0 raw=ad52b34c queued=0 dropped=0 frames=53 invalid=0 releases=53\r\nmsh />\r\r\nmsh />irrx start\r\r\nmsh />\r\r\nmsh />irrx status\r\r\nir0: running=1 pressed=0 raw=00000000 queued=0 dropped=0 frames=0 invalid=0 releases=0\r\nmsh />\r\r\nmsh />free\r\r\ntotal    : 22440\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 13064\r\nmsh />",
+      "raw_hex": "0d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37731b37741b37611b37741b37751b37731b370d0d0a6972303a2072756e6e696e673d3120707265737365643d30207261773d6164353262333463207175657565643d302064726f707065643d30206672616d65733d353320696e76616c69643d302072656c65617365733d35330d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37661b37721b37651b37651b370d0d0a746f74616c202020203a2032323434300d0a7573656420202020203a20393337360d0a6d6178696d756d20203a20393337360d0a617661696c61626c653a2031333036340d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37721b37741b37631b37631b37741b376c1b37201b37671b37651b37741b370d0d0a525443206572726f72202d352028756e7365742074696d652c206275737920636f6e74657874206f72207472616e73666572206661696c757265290d0a72746363746c3a20636f6d6d616e64206661696c6564202d352e0d0a6d7368202f3e1b370d0d0a6d7368202f3e1b376c1b37651b37641b37201b37731b37741b37611b37741b37751b37731b370d0d0a4c45442072656164793d31206163746976653d30206c6576656c3d302f3130303020746f67676c65733d30206572726f723d300d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37731b37741b376f1b37701b370d0d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37731b37741b37611b37741b37751b37731b370d0d0a6972303a2072756e6e696e673d3020707265737365643d30207261773d6164353262333463207175657565643d302064726f707065643d30206672616d65733d353320696e76616c69643d302072656c65617365733d35330d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37731b37741b37611b37721b37741b370d0d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37691b37721b37721b37781b37201b37731b37741b37611b37741b37751b37731b370d0d0a6972303a2072756e6e696e673d3120707265737365643d30207261773d3030303030303030207175657565643d302064726f707065643d30206672616d65733d3020696e76616c69643d302072656c65617365733d300d0a6d7368202f3e1b370d0d0a6d7368202f3e1b37661b37721b37651b37651b370d0d0a746f74616c202020203a2032323434300d0a7573656420202020203a20393337360d0a6d6178696d756d20203a20393337360d0a617661696c61626c653a2031333036340d0a6d7368202f3e1b37"
+    }
+  },
+  "artifacts": {
+    "rtt/bsp/rtthread.elf": {
+      "bytes": 329700,
+      "sha256": "012a43c2802df90ca9e0dd1ced68ca9a489ec9a89bd94a3302e251df9e3ee67d"
+    },
+    "rtt/bsp/rtthread.bin": {
+      "bytes": 219128,
+      "sha256": "911ef9caaad3f683675d61ec6fbf3291a95dbcb2fd229f79789f22ed5d2dc600"
+    },
+    "rtt/bsp/rtthread.dcf": {
+      "bytes": 228440,
+      "sha256": "1f812433a393bc4326731bc2a2ecdee768d97dc58e16492cef0614d899d07b0e"
+    },
+    "rtt/bsp/libraries/hal_drivers/drv_irrx.c": {
+      "bytes": 10933,
+      "sha256": "f480e01f324135954b0ec9223ceac1935f4a2186a9fa7c0fe4294324bef21aee"
+    },
+    "rtt/bsp/libraries/hal_drivers/drv_irrx.h": {
+      "bytes": 1678,
+      "sha256": "fd8c0244c671267efd0776e3ad749f167b547025a00fd10b5970da62f9b316b5"
+    },
+    "rtt/bsp/app/main.c": {
+      "bytes": 1542,
+      "sha256": "055166057934a184e46007c48e82d57a4d0b9a9fbfe55bdd808be3c93d4f6368"
+    },
+    "rtt/bsp/link_bt_ram.lds": {
+      "bytes": 6476,
+      "sha256": "ade4148dcb547311555aa13bc68a68734df8d949825e9d2df834187966070a48"
+    },
+    "tools/rtt/memory_report.py": {
+      "bytes": 6002,
+      "sha256": "c81faa051902437cab14ed611bc504e0bdbfdb30c57a4ca90fa5b3dd17c0b363"
+    },
+    "tools/rtt/tests/irrx.c": {
+      "bytes": 10966,
+      "sha256": "6237382ee57b47878c014dd9bac68b8968b6c5b099868cc711b97153fcf219f4"
+    }
+  },
+  "limits": [
+    "Only this NEC remote and the four mapped keys confirmed in controlled fixed-firmware trial.",
+    "No optical carrier, range or angle measurements.",
+    "Extended NEC, short-repeat waveform and malformed-signal recovery are model coverage only.",
+    "No remote stimulus while stopped, so absence of receive IRQs during STOP was not physically measured.",
+    "No RF coexistence/stress test with BLE, USB, TF and FM together."
+  ]
+}
