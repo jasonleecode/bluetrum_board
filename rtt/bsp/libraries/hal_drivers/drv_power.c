@@ -45,6 +45,10 @@ static rt_uint32_t power_blockers(void)
     extern rt_bool_t ab32_audec_power_busy(void);
     if (ab32_audec_power_busy()) bits |= AB32_POWER_BUSY_AUDEC;
 #endif
+#ifdef BSP_USING_SPI1
+    extern rt_bool_t ab32_spi1_power_busy(void);
+    if (ab32_spi1_power_busy()) bits |= AB32_POWER_BUSY_SPI;
+#endif
     return bits;
 }
 
@@ -258,7 +262,7 @@ static int pmctl(int argc, char **argv)
             s.pwkey_level, s.vusb_online, s.pwkey_input, s.pwkey_pullup, s.filter_ms);
         rt_kprintf("wake_enable=%02x wake_pending=%02x rails=%x first_power=%u sleep=retained-clock off=reset-on-wake\n",
             s.wake_enabled, s.wake_pending, s.power_rails, !!(s.con0 & 0x80));
-        rt_kprintf("blockers=%02x (BT=01 audio=02 FM=04 USB=08 TF=10 AUDEC=20) boot_valid=%u boot_pending=%02x boot_first=%u\n",
+        rt_kprintf("blockers=%02x (BT=01 audio=02 FM=04 USB=08 TF=10 AUDEC=20 SPI=40) boot_valid=%u boot_pending=%02x boot_first=%u\n",
             (unsigned)s.blockers, s.boot_valid, s.boot_pending, s.boot_first_power);
         rt_kprintf("RTC bridge=%08x CON0=%02x CON1=%02x CON2=%02x CON3=%02x CON5=%02x CON7=%02x CON8=%02x CON9=%02x\n",
             (unsigned)s.bridge, s.con0, s.con1, s.con2, s.con3, s.con5, s.con7, s.con8, s.con9);

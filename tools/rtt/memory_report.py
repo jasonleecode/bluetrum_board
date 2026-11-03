@@ -44,6 +44,11 @@ def inspect(elf):
         flash_functions += ['ab32_audec_init']
         assert 0x13800 <= symbols['dma'] <= 0x2f000 - 2312
         assert symbols['dma'] % 16 == 0
+    if 'rt_hw_spi1_init' in symbols:
+        flash_functions += ['rt_hw_spi1_init', 'spi1_configure', 'spi1_xfer',
+                            'rt_spi_transfer', 'ab32_spi1_attach']
+        if 'spi1check' in symbols:
+            flash_functions += ['spi1check']
 
     if 'fmrx' in symbols:
         flash_functions += ['fmrx']
@@ -94,6 +99,10 @@ def inspect(elf):
             assert names, prefix + ' missing'
             ram_functions += names
     ram_functions += ['ab32_pin_mode', 'hal_gpio_init', 'gpio_afinit', 'port_sfr', 'port_table']
+    if 'rt_hw_spi1_init' in symbols:
+        ram_functions += ['spi1_map', 'ab32_spi1_power_busy']
+        if 'spi1check' in symbols:
+            ram_functions += ['spi1_test_pull', 'spi1_test_restore']
     if power:
         ram_functions += ['ab32_irtc_sleep_locked', 'power_bridge_policy', 'power_cutoff',
                           'ab32_irtc_cutoff_locked', 'rt_tick_set', 'rt_tick_get']

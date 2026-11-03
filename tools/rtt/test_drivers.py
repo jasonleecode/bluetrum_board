@@ -19,7 +19,9 @@ with tempfile.TemporaryDirectory(prefix='ab32-rtt-model-') as directory:
     includes += ['rtt/bsp/board/ports/nimble/include', 'rtt/nimble/nimble/include',
                  'rtt/nimble/nimble/host/include', 'rtt/nimble/porting/nimble/include',
                  'rtt/nimble/nimble/transport/include']
-    for name, profile in [('peripherals', PROFILES['peripherals']), ('sd', PROFILES['sd']),
+    for name, profile in [('peripherals', PROFILES['peripherals']),
+                          ('peripherals', dict(PROFILES['peripherals'], BSP_SPI1_MAPPING=6)),
+                          ('sd', PROFILES['sd']),
                           ('uart_wake', dict(BSP_USING_UART1=1, BSP_USING_UART2=1)),
                           ('audio_memory', dict(PROFILES['audio'], RT_AUDIO_USING_LAZY_INIT=1)),
                           ('nimble_npl', {}),

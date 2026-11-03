@@ -1,0 +1,31 @@
+{
+  "port": "/dev/ttyUSB0",
+  "commands": [
+    "list device",
+    "free",
+    "spi1check 200000",
+    "spi1check 1000000",
+    "spi1check 5000000",
+    "pmctl sleep",
+    "spi1check 200000",
+    "spi1check 0",
+    "free",
+    "keys status",
+    "pmctl status"
+  ],
+  "output": "\r\r\nmsh />list device\r\r\ndevice           type         ref count\r\n-------- -------------------- ----------\r\nkeys0    Miscellaneous Device 0       \r\nfm0      Miscellaneous Device 0       \r\ntf0      Block Device         0       \r\nspi1     SPI Bus              0       \r\nrtc      RTC                  0       \r\nt5pwm    PWM Device           0       \r\npower0   Miscellaneous Device 0       \r\nir0      Miscellaneous Device 0       \r\naudec0   Miscellaneous Device 0       \r\nsound0   Sound Device         0       \r\nuart0    Character Device     2       \r\npin      Pin Device           0       \r\nmsh />\r\r\nmsh />free\r\r\ntotal    : 18760\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 9384\r\nmsh />\r\r\nmsh />spi1check 200000\r\r\nSPI1 G6 DI=PE4 CLK=PE3 DO=PE2, reset timing, requested=200000 nominal=200000 Hz\r\ndivider written=239 BAUD readback=00000000\r\nTX completed=16/16\r\nRX pull-down completed=16 data=00000000000000000000000000000000\r\nRX pull-up completed=16 data=ffffffffffffffffffffffffffffffff\r\nTX benchmark bytes=4096 elapsed_ticks=198 tick_hz=1000\r\nSPI1 controller self-test: PASS (0); external timing/slave NOT verified\r\nmsh />\r\r\nmsh />spi1check 1000000\r\r\nSPI1 G6 DI=PE4 CLK=PE3 DO=PE2, reset timing, requested=1000000 nominal=1000000 Hz\r\ndivider written=47 BAUD readback=00000000\r\nTX completed=16/16\r\nRX pull-down completed=16 data=00000000000000000000000000000000\r\nRX pull-up completed=16 data=ffffffffffffffffffffffffffffffff\r\nTX benchmark bytes=4096 elapsed_ticks=56 tick_hz=1000\r\nSPI1 controller self-test: PASS (0); external timing/slave NOT verified\r\nmsh />\r\r\nmsh />spi1check 5000000\r\r\nSPI1 G6 DI=PE4 CLK=PE3 DO=PE2, reset timing, requested=5000000 nominal=4800000 Hz\r\ndivider written=9 BAUD readback=00000000\r\nTX completed=16/16\r\nRX pull-down completed=16 data=00000000000000000000000000000000\r\nRX pull-up completed=16 data=ffffffffffffffffffffffffffffffff\r\nTX benchmark bytes=4096 elapsed_ticks=29 tick_hz=1000\r\nSPI1 controller self-test: PASS (0); external timing/slave NOT verified\r\nmsh />\r\r\nmsh />pmctl sleep\r\r\nsleep returned: 0 tick_delta=1802 entries=1 (RTC 1s wake, tick compensated)\r\nmsh />\r\r\nmsh />spi1check 200000\r\r\nSPI1 G6 DI=PE4 CLK=PE3 DO=PE2, reset timing, requested=200000 nominal=200000 Hz\r\ndivider written=239 BAUD readback=00000000\r\nTX completed=16/16\r\nRX pull-down completed=16 data=00000000000000000000000000000000\r\nRX pull-up completed=16 data=ffffffffffffffffffffffffffffffff\r\nTX benchmark bytes=4096 elapsed_ticks=199 tick_hz=1000\r\nSPI1 controller self-test: PASS (0); external timing/slave NOT verified\r\nmsh />\r\r\nmsh />spi1check 0\r\r\nspi1check: command failed -22.\r\nmsh />\r\r\nmsh />free\r\r\ntotal    : 18760\r\nused     : 9376\r\nmaximum  : 9376\r\navailable: 9384\r\nmsh />\r\r\nmsh />keys status\r\r\nkeys0: raw=0 pressed=0 queued=0 dropped=0 read_errors=0\r\nmsh />\r\r\nmsh />pmctl status\r\r\npower0: pwkey_level=1 vusb=0 input=1 pullup=1 filter_ms=0\r\nwake_enable=00 wake_pending=00 rails=7 first_power=1 sleep=retained-clock off=reset-on-wake\r\nblockers=00 (BT=01 audio=02 FM=04 USB=08 TF=10 AUDEC=20 SPI=40) boot_valid=1 boot_pending=00 boot_first=1\r\nRTC bridge=000c0006 CON0=e1 CON1=95 CON2=ca CON3=07 CON5=01 CON7=00 CON8=00 CON9=00\r\nmsh />",
+  "stderr": "",
+  "passed": true,
+  "external_slave_verified": false,
+  "waveform_verified": false,
+  "local_dcf_sha256": "4e3df47faf67819cb2ea50a961a049ecc1efcc63ce70546d8e3b1dc8366e93ae",
+  "elapsed_ms": [
+    198,
+    56,
+    29,
+    199
+  ],
+  "heap_total": 18760,
+  "heap_used": 9376,
+  "heap_available": 9384
+}

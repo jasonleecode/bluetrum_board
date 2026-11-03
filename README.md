@@ -36,11 +36,11 @@ RTC 已修复并编入默认配置，支持 UTC 秒计数读写、首次校时�
 
 | 项目 | 进展 |
 | --- | --- |
-| 硬件 SPI1 | 已恢复 C 实现，通过原库差分测试和链接检查，待上板验证；见 [SPI/I2C 分析](docs/lib-analysis/SPI_I2C_RECOVERY.md) |
+| 硬件 SPI1 | 默认接入综合 RTT，新增 G6（PE4/PE3/PE2）以避开按键/UART/TF/IR；实板完成发送、DI 上下拉接收及多分频耗时对照，外设通信和波形时序待验证；见 [SPI/I2C 接入](rtt/SPI_I2C.md) |
 | 音频输入/输出 | 已恢复模拟输入与 SDADC 共 18 个函数，通过 3490 项原库差分测试；新增 48 kHz 双声道硬件 DAC 播放，DMA 采集 ABI 已修正，实机录放待完成，见 [音频分析](docs/lib-analysis/AUDIO_RECOVERY.md) |
 | MP3 硬件加速 | 已实测 AUDEC，44.1 kHz 单声道、独立双声道及 M/S 联合立体声结果与 FFmpeg 最大误差均为 1 LSB；综合固件默认启用 `audec0`，已迁移与蓝牙布局重叠的代码并隔离工作 RAM，支持会话独占和超时恢复。板上不链接原厂 MP3 库；完整软件前端尚未接入，见 [验证记录](rtt/MP3.md) |
 | I2S 输出 | 从另一份 AB53XX SDK 恢复 SRC 主机输出，136 组差分通过；RT-Thread 接入 `sound0`，16 位双声道、44.1/48 kHz，待实测；见 [I2S 分析](docs/lib-analysis/I2S_RECOVERY.md) |
-| 硬件 I2C | 当前 SDK 中尚未找到可恢复的硬件实现，仍需寄存器资料或其他固件证据；现有 BSP 使用软件 I2C |
+| 硬件 I2C | PE2/SDA、PE3/SCL 是板上 IIC 接口，但厂商 BSP 明确使用软件 I2C；尚无可信的硬件控制器定义，综合固件未启用软件替代，见 [说明](rtt/SPI_I2C.md#pe2sda-pe3scl-与硬件-i2c) |
 | FM 收音机 | 已恢复模拟/数字通路 10 个函数，通过 332 项原库差分测试；RTT 的调谐、音量、启停和资源互斥已上板验证，DAC 测试音经听感确认清晰稳定。北京 97.4 MHz 仍只有杂音，待更换耳机/天线复测；搜台、RDS 未完成，见 [FM 分析](docs/lib-analysis/FM_RECOVERY.md) |
 | 蓝牙 | 已恢复 `libbtctrl.a` 全部非空成员，综合 RTT 不链接该归档。NimBLE 1.10.0 以 `rtt/nimble` 子模块接入；HCI、广播/扫描及六轮 BLE 连接、GATT 读写/通知/重连已实测，60 字节数据覆盖 ACL 分片；见 [控制器恢复](docs/lib-analysis/BLUETOOTH_RECOVERY.md) 与 [NimBLE 接入](rtt/NIMBLE.md) |
 | USB | 已恢复 33 个底层函数、通过 1066 项原库差分测试；综合 RTT 新增 AB32 控制器适配和 CherryUSB CDC ACM 二进制回传，离线测试及编译通过。综合固件已烧录；V2.0 的原生 USB 接在 Host 用 USB-A，Device 实测待接口及供电适配，不能直接用普通双公线连接电脑；见 [USB 接入](rtt/USB.md) |

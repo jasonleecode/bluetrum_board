@@ -19,6 +19,7 @@
 #define AB32_POWER_BUSY_USB    0x08u
 #define AB32_POWER_BUSY_TF     0x10u
 #define AB32_POWER_BUSY_AUDEC  0x20u
+#define AB32_POWER_BUSY_SPI    0x40u
 
 /* All device controls are thread-only. Status is non-destructive: raw latched
  * flags are not an authoritative boot/reset reason and are never acknowledged.
@@ -49,7 +50,7 @@ struct ab32_power_input {
  * wake at the next RTC second and compensate the stopped tick (1..2 s total).
  * OFF takes struct ab32_power_off*, never returns on
  * success; wake resets through ROM and normal RTT initialization.
- * Both reject active BT/audio/FM/USB/TF/AUDEC, ISR and scheduler-locked contexts.
+ * Both reject active BT/audio/FM/USB/TF/AUDEC/SPI, ISR and scheduler-locked contexts.
  * No automatic PM/tickless scheduling or PLL-off deep sleep. RTC sleep was
  * tested on V2; OFF and current consumption still require hardware tests. */
 #endif

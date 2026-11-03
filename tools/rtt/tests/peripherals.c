@@ -2,15 +2,49 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "board.h"
 volatile uint32_t test_spi[6], test_ports[4][9], test_timers[5][8];
 volatile uint32_t test_wdt, test_clk, test_adc[16], test_func;
+volatile uint32_t extra_regs[32];
 static rt_tick_t tick;
 static int complete_spi, last_cs, adc_result, adc_calls;
+static int critical, in_irq;
+static struct rt_spi_bus *registered_bus;
+static int attach_error, configure_error, detached;
+rt_size_t rt_strlen(const char *s) { return strlen(s); }
+rt_device_t rt_device_find(const char *name) {
+    return registered_bus && !strcmp(name, "spi1") ? &registered_bus->parent : NULL;
+}
+rt_err_t rt_spi_bus_attach_device_cspin(struct rt_spi_device *device,
+    const char *name, const char *bus_name, rt_base_t pin, void *user) {
+    (void)name; (void)bus_name; (void)user;
+    device->bus = registered_bus;
+    device->cs_pin = pin;
+    if (!registered_bus->owner) registered_bus->owner = device;
+    return attach_error;
+}
+rt_err_t rt_spi_configure(struct rt_spi_device *device, struct rt_spi_configuration *cfg) {
+    device->config = *cfg;
+    return configure_error;
+}
+rt_err_t rt_spi_bus_detach_device_cspin(struct rt_spi_device *device) {
+    detached++;
+    if (device->bus->owner == device) device->bus->owner = NULL;
+    device->bus = NULL;
+    return RT_EOK;
+}
+rt_thread_t rt_thread_self(void) { return (rt_thread_t)1; }
+rt_uint8_t rt_interrupt_get_nest(void) { return in_irq; }
+rt_uint16_t rt_critical_level(void) { return critical; }
+rt_base_t rt_hw_interrupt_disable(void) { return 1; }
+void rt_hw_interrupt_enable(rt_base_t level) { (void)level; }
 uint32_t get_sysclk_nhz(void) { return 48000000; }
 void hal_rcu_periph_clk_enable(uint32_t clock) { (void)clock; }
 rt_tick_t rt_tick_get(void) {
-    if (complete_spi && (tick & 1)) { SPI1CON |= BIT(16); SPI1BUF = 0xa5; }
+    /* Each new byte starts at an even tick; model the W1C pending reset. */
+    if (!(tick & 1)) SPI1CON &= ~BIT(16);
+    if (complete_spi && (tick & 1)) { SPI1CON |= BIT(16); SPI1BUF = 0xa5; complete_spi--; }
     return tick++;
 }
 rt_tick_t rt_tick_from_millisecond(rt_int32_t ms) { return ms; }
@@ -45,6 +79,7 @@ rt_err_t rt_hw_watchdog_register(rt_watchdog_t *wdt, const char *name, rt_uint32
 #include "../../../rtt/bsp/libraries/hal_drivers/drv_wdt.c"
 
 int main(void) {
+    PICCON = 1;
     struct rt_spi_bus bus = {0};
     struct rt_spi_device dev = {.bus = &bus, .cs_pin = 0};
     struct rt_spi_configuration cfg = {.data_width = 8, .mode = RT_SPI_MSB, .max_hz = 5000000};
@@ -52,9 +87,25 @@ int main(void) {
     struct rt_spi_message msg = {.send_buf = &tx, .length = 1, .cs_take = 1, .cs_release = 1};
     assert(spi1_configure(&dev, &cfg) == RT_EOK);
     assert(SPI1BAUD == 9); /* 48MHz/10 <= requested 5MHz */
-    dev.cs_pin = 19; /* PE6 is SPI1 CLK for map 4, never a usable CS. */
+    dev.cs_pin = BSP_SPI1_MAPPING == 6 ? 16 : 19;
     assert(spi1_configure(&dev, &cfg) == -RT_EINVAL);
     dev.cs_pin = 0;
+    if (BSP_SPI1_MAPPING == 6) {
+        assert((GPIOE_BASE[3] & 0x1c) == 0x10); /* DI=PE4 only input */
+        assert((GPIOE_BASE[5] & 0x1c) == 0x1c);
+    }
+    in_irq = 1;
+    assert(spi1_configure(&dev, &cfg) == -RT_EBUSY);
+    in_irq = 0; critical = 1;
+    assert(spi1_xfer(&dev, &msg) == -RT_EBUSY);
+    critical = 0;
+    PICCON = 0;
+    assert(spi1_xfer(&dev, &msg) == -RT_EBUSY);
+    PICCON = 1;
+    assert(!ab32_spi1_power_busy());
+    spi1_bus.lock.owner = (rt_thread_t)1;
+    assert(ab32_spi1_power_busy());
+    spi1_bus.lock.owner = NULL;
     cfg.mode |= RT_SPI_CPHA;
     assert(spi1_configure(&dev, &cfg) == -RT_ENOSYS);
     cfg.mode = RT_SPI_MSB; cfg.max_hz = 0;
@@ -64,12 +115,33 @@ int main(void) {
     assert(spi1_xfer(&dev, &msg) == 1 && last_cs == PIN_HIGH);
     msg.recv_buf = &rx;
     assert(spi1_xfer(&dev, &msg) == -RT_ENOSYS); /* no fake full-duplex */
-    msg.send_buf = NULL; SPI1CON = 1;
+    msg.send_buf = NULL; SPI1CON = 1; complete_spi = 1; tick = 0;
     assert(spi1_xfer(&dev, &msg) == 1 && rx == 0xa5);
+    uint8_t pair[2] = {0};
+    msg.recv_buf = pair; msg.length = 2;
+    complete_spi = 1; SPI1CON = 1; tick = 0;
+    assert(spi1_xfer(&dev, &msg) == -RT_ETIMEOUT);
+    assert(pair[0] == 0xa5 && pair[1] == 0); /* partial frame must fail */
+    msg.recv_buf = &rx; msg.length = 1;
     complete_spi = 0; SPI1CON = 1; tick = (rt_tick_t)-50;
     bus.owner = &dev;
     assert(spi1_xfer(&dev, &msg) == -RT_ETIMEOUT);
     assert(SPI1CON == 0 && last_cs == PIN_HIGH && bus.owner == NULL);
+
+    /* Attach/configure uses RTT's deferred EBUSY convention. Registration
+     * failures must clear the owner without unregistering another device. */
+    struct rt_spi_device attached = {0};
+    registered_bus = &bus; bus.parent.type = RT_Device_Class_SPIBUS;
+    configure_error = -RT_EBUSY; bus.owner = &dev;
+    assert(ab32_spi1_attach(&attached, "sensor", PIN_NONE, 1000000) == RT_EOK);
+    assert(attached.bus == &bus && bus.owner == &dev && detached == 0);
+    configure_error = -RT_EIO; bus.owner = NULL;
+    assert(ab32_spi1_attach(&attached, "sensor", PIN_NONE, 1000000) == -RT_EIO);
+    assert(!attached.bus && !bus.owner && detached == 1);
+    attach_error = -RT_ENOMEM;
+    assert(ab32_spi1_attach(&attached, "sensor", PIN_NONE, 1000000) == -RT_ENOMEM);
+    assert(!attached.bus && !bus.owner && detached == 1);
+    assert(ab32_spi1_attach(&attached, "sensor", 7, 1000000) == -RT_EINVAL);
 
     struct rt_adc_device adc = {0}; uint32_t value = 0x1234;
     adc.parent.user_data = (void *)test_adc;

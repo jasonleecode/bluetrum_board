@@ -61,6 +61,10 @@ SECTIONS
          * use .irq.audio; PM observers stay resident too. */
         *drv_sound.o (.text* .rodata* .srodata*)
         *drv_audec.o (.text* .rodata* .srodata*)
+        /* Synchronous SPI runs in threads, including device-init registration.
+         * IRQ-masked GPIO setup / PM observer use .irq.spi in resident SRAM. */
+        *drv_spi.o (.text* .rodata* .srodata*)
+        *dev_spi*.o (.text* .rodata* .srodata*)
         /* Linked callers are shell/DFS/Host/PWM thread paths. Keep memcpy,
          * memset, memcmp, RT klibc and libgcc CLZ helpers resident for IRQs. */
         *lib_a-strchr.o (.text* .rodata*)

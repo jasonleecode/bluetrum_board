@@ -186,7 +186,7 @@ TIMER3/4/5 与对应 PWM 共用计数器，TIMER3 与红外共用中断；SPI �
 | --- | --- |
 | GPIO / `RT_USING_PIN` | 修正非法引脚、复用恢复、SET/CLR、共享中断回调及清 pending；通用边沿回调通过 BSP_USING_PIN_IRQ 可选开启，默认关闭 |
 | 三个按键 / `BSP_USING_KEYS` | 默认 keys0，主线程 10 ms 扫描，30 ms 消抖、800 ms 长按；三个键的按下/松开及一次长按已实测，见 [KEYS.md](KEYS.md) |
-| SPI1 / `BSP_USING_SPI1` | 新增 `spi1` 硬件总线，支持主机 8 位 MSB、分阶段收发、GPIO 片选、向上取整分频和回绕安全的超时；不使用软件 SPI |
+| SPI1 / `BSP_USING_SPI1` | 默认注册 `spi1`，G6 PE4/PE3/PE2，主机 8 位 MSB、分阶段收发、GPIO 片选；实板完成上下拉接收、多分频发送自检；外设和波形待验证，见 [SPI_I2C.md](SPI_I2C.md) |
 | SARADC / `BSP_USING_ADC0` | 适配当前 RT-Thread 回调签名，校验 0..15 通道，传递转换超时，不再返回陈旧采样值 |
 | TIMER / `BSP_USING_TIM` | 区分 TIMER1/2 bit9 与 TIMER3/4/5 bit16 的溢出/清除位；共享 IRQ 只处理真实 pending；支持单次模式，检查计数溢出，开启时钟，并将 IRQ 调用的停止操作及函数表放入 RAM |
 | RTC / `BSP_USING_ONCHIP_RTC` | 默认启用；修正时钟选择、寄存器返回、无限等待和中断恢复；保留计数，首次校时用 rtcctl set；软件验证及实板读写、范围拒绝、约 60 秒走时通过；当前 time_t 支持至 2038 年，闹钟及秒中断设备接口未实现；电源驱动已验证 RTC 秒唤醒，见 [RTC.md](RTC.md) |
@@ -201,7 +201,8 @@ TIMER3/4/5 与对应 PWM 共用计数器，TIMER3 与红外共用中断；SPI �
 | PWM | 默认启用 Timer5 PWM0/PE1，由 S2 切换呼吸灯；驱动修复及边界测试见 [PWM.md](PWM.md) |
 | 电源管理 / `BSP_USING_POWER` | 默认编入 power0/pmctl，复用 RTC 锁和有界传输；状态、PWKEY 输入/滤波、WK/VUSB 唤醒配置、保留时钟浅休眠及复位式关机已做软件验证；已实测连续 10 次 RTC 秒唤醒及 tick 补偿，off/功耗待测，见 [POWER.md](POWER.md) |
 
-SPI1 的 `BSP_SPI1_MAPPING` 取值为 1..5，默认 4：MISO=PE5、SCK=PE6、MOSI=PE7；
+SPI1 的 `BSP_SPI1_MAPPING` 取值为 1..6，默认 6：MISO=PE4、SCK=PE3、MOSI=PE2；
+与板上 PE2/SDA、PE3/SCL 的 IIC 接口共享引脚，不能同时启用。
 片选由应用用 `ab32_spi1_attach()`（`drv_spi.h`）挂接外设时指定；该入口预置不选中电平、检查时钟及引脚冲突，并在配置失败时撤销挂接。
 使用 `rt_spi_send()`、`rt_spi_recv()` 或 `rt_spi_send_then_recv()`。
 同时提供发送与接收缓冲的全双工请求返回 `-RT_ENOSYS`，不会用两次传输冒充一次全双工。
@@ -212,8 +213,8 @@ CPOL/CPHA 波形**；其他模式、LSB、从机、3-wire 被拒绝。上板前�
 ### SPI、FM 与 I2S 接入
 
 用 `scons --menuconfig` 在 BSP 的 `Hardware Drivers Config` 中启用所需功能，
-再执行 `scons -j4`。当前默认启用音频和 FM，SPI 与 I2S 仍关闭。
-同时使用时建议 SPI mapping 4（PE5/6/7）、I2S mapping 1（PE0..4）；
+再执行 `scons -j4`。当前默认启用音频、FM 和 SPI1 G6，I2S 仍关闭。
+SPI 与 I2S 同时使用可选 SPI mapping 4（PE5/6/7）、I2S mapping 1（PE0..4），须禁用冲突的 PE6 红外；
 启用 I2S PE 组须关闭 `BSP_USING_LED_BREATH` 和 `BSP_USING_T5_PWM0`，同时停用旧 PE1 LED 闪烁。板载 LED 负载、外部 codec
 及其它 PWM/UART 占用仍需检查，不能以编译通过代替电气验证。
 

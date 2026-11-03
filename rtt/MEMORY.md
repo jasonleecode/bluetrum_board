@@ -1,7 +1,22 @@
 # 综合 RTT 内存记录（2026-11-03）
 
-当前默认综合配置包括 FM、蓝牙/NimBLE、USB CDC、TF/FAT、红外、按键、RTC、电源管理与 AUDEC。
-最新数据见“AUDEC 工作区隔离”；后续章节保留各阶段历史用量。
+当前默认综合配置包括 FM、蓝牙/NimBLE、USB CDC、TF/FAT、红外、按键、RTC、电源管理、AUDEC 与 SPI1。
+最新数据见“SPI1 接入”；后续章节保留各阶段历史用量。
+
+## SPI1 接入
+
+SPI1 驱动及 RTT 同步框架的线程路径放入 Flash，注册从 board-init 移到 device-init，
+不会在启动关中断阶段执行 Flash 代码。GPIO 复用临界区、测试引脚恢复及 PM 忙状态
+观察函数仍在 SRAM，`memory_report.py` 检查对应归属。
+
+相比双声道 AUDEC 基线，`.comm` 从 77024 到 77304，`.bss` 从 16352 到 16480，
+计入对齐后原始堆从 **19264 降为 18848 字节**，减少 416 字节，仍满足 18 KiB 下限。
+`.flash` 为 133632 字节；`.ram1`、`.ram2` 和 AUDEC 固定工作区不变。
+SPI1 总线静态注册，无专用线程、DMA 池或长期测试缓冲。
+
+实板重复收发和 RTC 休眠恢复后，堆 total=18760、used=9376、available=9384，
+与测试前相同；串口记录见 [spi-rtt-hardware.json](../docs/lib-analysis/generated/recovery/spi-rtt-hardware.json)。
+这不是蓝牙和完整 PCM 池同时运行的验证，原有两者不能同时保留的限制仍在。
 
 
 ## AUDEC 工作区隔离

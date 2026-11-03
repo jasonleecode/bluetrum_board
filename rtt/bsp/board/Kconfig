@@ -166,9 +166,13 @@ menu "On-chip Peripheral Drivers"
             duplex are rejected. No software SPI is used.
     if BSP_USING_SPI1
         config BSP_SPI1_MAPPING
-            int "SPI1 group: 1=PA2/3/4, 2=PA5/6/7, 3=PB0/1/2, 4=PE5/6/7, 5=PF0/1/2"
-            range 1 5
-            default 4
+            int "SPI1 DI/CLK/DO: 1=PA2/3/4, 2=PA5/6/7, 3=PB0/1/2, 4=PE5/6/7, 5=PF0/1/2, 6=PE4/3/2"
+            range 1 6
+            default 6
+            help
+                G6 is documented in the chip pin table and avoids the unified
+                board's keys/UART/TF/IR. It shares PE2/PE3 with the IIC header
+                and PE2/PE3/PE4 with I2S G2: these cannot run together.
         config BSP_SPI1_TIMEOUT_MS
             int "SPI byte timeout (ms)"
             range 1 1000

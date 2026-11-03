@@ -459,4 +459,10 @@
 /* Fixed AUDEC work RAM is reserved separately from controller/kernel code. */
 #define BSP_USING_AUDEC
 
+/* Hardware SPI1, lazy pin setup. PE4/PE3/PE2 also overlap the IIC header. */
+#define RT_USING_SPI
+#define BSP_USING_SPI1
+#define BSP_SPI1_MAPPING 6
+#define BSP_SPI1_TIMEOUT_MS 100
+
 #endif

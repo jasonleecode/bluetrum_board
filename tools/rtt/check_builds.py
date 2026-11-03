@@ -69,6 +69,8 @@ PROFILES['power_integrated'] = dict(PROFILES['led'], BSP_USING_POWER=1)
 PROFILES['audec'] = dict(PROFILES['power'], BSP_USING_AUDEC=1)
 PROFILES['audec_integrated'] = dict(PROFILES['power_integrated'], BSP_USING_AUDEC=1)
 PROFILES['audec_fm'] = dict(PROFILES['audec'], **PROFILES['audio'], BSP_USING_FMRX=1)
+PROFILES['spi_integrated'] = dict(PROFILES['audec_integrated'], RT_USING_SPI=1,
+    BSP_USING_SPI1=1, BSP_SPI1_MAPPING=6, BSP_SPI1_TIMEOUT_MS=100)
 
 def base_config(config):
     """Keep optional profiles independent of enabled workspace peripherals."""
