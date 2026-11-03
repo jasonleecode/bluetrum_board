@@ -14,6 +14,7 @@ volatile rt_uint32_t rtc_mmio[2];
 #define BSP_USING_FMRX 1
 #define BSP_USING_USB_CDC 1
 #define BSP_USING_TFCARD 1
+#define BSP_USING_AUDEC 1
 #include "../../../rtt/bsp/libraries/hal_drivers/drv_power.c"
 static unsigned power_register_failure, ignore_power_write;
 volatile rt_uint32_t power_mmio[5];
@@ -25,6 +26,7 @@ rt_bool_t ab32_sound_power_busy(void) { assert(critical); return !!(busy_mask & 
 rt_bool_t ab32_fmrx_power_busy(void) { assert(critical); return !!(busy_mask & 4); }
 rt_bool_t ab32_usb_power_busy(void) { assert(critical); return !!(busy_mask & 8); }
 rt_bool_t ab32_tf_power_busy(void) { assert(critical); return !!(busy_mask & 16); }
+rt_bool_t ab32_audec_power_busy(void) { assert(critical); return !!(busy_mask & 32); }
 rt_base_t rt_enter_critical(void) { return ++critical; }
 void rt_exit_critical(void) { assert(critical); --critical; }
 rt_uint16_t rt_critical_level(void) { return critical; }
@@ -402,7 +404,7 @@ static void power_transition_tests(void)
     tick_before=model_tick;
     assert(power_control(NULL,AB32_POWER_SLEEP,NULL)==0);
     assert((rt_tick_t)(model_tick-tick_before)==RT_TICK_PER_SECOND+16u);
-    for (unsigned b=1;b<=16;b<<=1) {
+    for (unsigned b=1;b<=32;b<<=1) {
         busy_mask=b;before=writes;
         assert(power_control(NULL,AB32_POWER_SLEEP,NULL)==-RT_EBUSY && writes==before);
         /* Bridge selection is non-destructive; no IRTC byte writes on busy. */

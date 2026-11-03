@@ -10,6 +10,7 @@ MEMORY
     flash (rx) : ORIGIN = 0x10000200, LENGTH = 1020K
     ram (rwx) : ORIGIN = 0x11000, LENGTH = 120K
     stack (rw) : ORIGIN = 0x2f000, LENGTH = 4K
+    audec (rw) : ORIGIN = 0x54000, LENGTH = 12K
 }
 SECTIONS
 {
@@ -70,6 +71,10 @@ SECTIONS
         __irq_stack = .;
     } > stack
     __irq_stack_size = SIZEOF(.stack);
+    .audec_work (NOLOAD) :
+    {
+        KEEP(*(.audec.work))
+    } > audec
     ASSERT(__heap_end - __heap_start >= 16K, "FM SRAM image leaves less than 16 KiB heap")
     /DISCARD/ : { *(.comment .eh_frame*) }
 }

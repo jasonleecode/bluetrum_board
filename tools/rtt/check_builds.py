@@ -66,6 +66,8 @@ PROFILES['led'] = dict(PROFILES['rtc_integrated'], BSP_USING_LED_BREATH=1,
 PROFILES['power'] = dict(PROFILES['rtc'], BSP_USING_POWER=1)
 PROFILES['power_external'] = dict(PROFILES['rtc_external'], BSP_USING_POWER=1)
 PROFILES['power_integrated'] = dict(PROFILES['led'], BSP_USING_POWER=1)
+PROFILES['audec'] = dict(PROFILES['power'], BSP_USING_AUDEC=1)
+PROFILES['audec_fm'] = dict(PROFILES['audec'], **PROFILES['audio'], BSP_USING_FMRX=1)
 
 def base_config(config):
     """Keep optional profiles independent of enabled workspace peripherals."""
@@ -110,6 +112,10 @@ def main():
             print('\n'.join(log.read_text().splitlines()[-22:]), flush=True)
         else:
             linkmap = (work / 'rtt/bsp/rtthread.map').read_text()
+            if PROFILES[name].get('BSP_USING_AUDEC'):
+                assert 'drv_audec.o' in linkmap and 'ab32_audec_init' in linkmap
+                assert re.search(r'\.audec_work\s+0x0*54000\s+0x3000', linkmap)
+                assert 'libcodecs.a' not in linkmap and 'libbtctrl.a' not in linkmap
             if PROFILES[name].get('BSP_USING_POWER') or (name == 'default' and
                     re.search(r'^#define\s+BSP_USING_POWER\b', config, re.M)):
                 assert 'ab32_power_init' in linkmap and 'ab32_irtc_transaction' in linkmap

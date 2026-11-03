@@ -1,0 +1,10 @@
+{
+  "description": "1000 Hz, 44100 Hz mono, MPEG-1 Layer III 128 kbit/s, no bit reservoir; 8 frames / 16 granules",
+  "source_library_sha256": "962e5a8ea3ba7cbae87c7902ad8cb5d97448f3fea9857a3f56a1e3ed1d8e818a",
+  "source_url": "https://github.com/ZhiqingLi/Sdk_Refresh/blob/aa0fc8f993bd0c2a6982bf0a95b3461ad7e7aa6d/AB53XX_SDK/app/platform/libs/libcodecs.a",
+  "format": "zlib of 16 records: little endian uint32 control,kick; 576 uint32 quantized spectrum words; 39 uint32 band descriptors. Input destinations: 0x55000 and 0x56b00. Not PCM.",
+  "sha256": {
+    "tone.mp3": "97531dd56b7afd2a521a73f780f6d15318208a74414edde4700423d26a312f83",
+    "vectors.zlib": "530cb25e69149c59bc203ba18bca9ce151e87832e871e4998c9da1786424e8f1"
+  }
+}

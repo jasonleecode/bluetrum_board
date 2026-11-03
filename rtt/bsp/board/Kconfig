@@ -61,6 +61,19 @@ menu "Onboard Peripheral Drivers"
             default 1
     endif
 
+    config BSP_USING_AUDEC
+        bool "AUDEC MP3 hardware back end (44.1 kHz mono)"
+        depends on !BSP_USING_BTCTRL
+        select RT_USING_MUTEX
+        select RT_USING_DEVICE_OPS
+        default n
+        help
+            Registers audec0, with exclusive stream ownership and bounded
+            synchronous PCM output. Requires software-parsed MP3 granules,
+            not compressed MP3 bytes. Reserves 0x54000..0x56fff and selects
+            the SRAM linker layout. Current Bluetooth layout conflicts with
+            this work area and cannot be enabled simultaneously. See MP3.md.
+
     config BSP_USING_FMRX
         bool "Enable recovered FM receiver with internal DAC playback"
         select BSP_USING_AUDIO

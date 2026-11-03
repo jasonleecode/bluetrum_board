@@ -38,6 +38,9 @@ if GetDepend('RT_USING_RTC'):
 if GetDepend('BSP_USING_POWER'):
     src += ['drv_power.c']
 
+if GetDepend('BSP_USING_AUDEC'):
+    src += ['drv_audec.c']
+
 if GetDepend('RT_USING_ADC'):
     src += ['drv_adc.c']
 
